@@ -223,7 +223,11 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a>
+  <ul class="collapse">
+  <li><a href="#how-to-use-this-book" id="toc-how-to-use-this-book" class="nav-link" data-scroll-target="#how-to-use-this-book">How To Use This Book</a></li>
+  <li><a href="#statement-on-use-of-ai" id="toc-statement-on-use-of-ai" class="nav-link" data-scroll-target="#statement-on-use-of-ai">Statement on use of AI</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -264,23 +268,20 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <p><a href="images/logos/logo_analysis.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="images/logos/logo_analysis.png" title="Analysis" class="quarto-cover-image img-fluid"></a></p>
 <section id="overview" class="level1 unnumbered">
 <h1 class="unnumbered">Overview</h1>
-<section id="overview-1" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="overview-1">Overview</h4>
-<p>This course covers data skills R Markdown, data wrangling, data visualisation, and data analysis. This book introduces learners to the most common statistical analyses such as t-test, correlations, regressions, and ANOVAs. The main idea of this book is being reproducible in our data analysis approach.</p>
-</section>
-<section id="how-to-use-this-book" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="how-to-use-this-book">How To Use This Book</h4>
+<p>This course covers data skills R Markdown, data wrangling, and data visualisation. This book also introduces learners to the most common statistical analyses such as t-test, correlations, regressions, and ANOVAs. The main idea of this book is being reproducible in our data analysis approach.</p>
+<section id="how-to-use-this-book" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="how-to-use-this-book">How To Use This Book</h3>
 <p>Each chapter in the book has the same structure:</p>
 <ol type="1">
 <li><strong>Individual walkthrough</strong>: Complete this section at your own pace. Take your time to complete the guided activities. Plan for time pockets in your week to work through this section.</li>
 <li><strong>Pair coding</strong>: During the lab we are reserving time for you to work through activities with a peer. If you get stuck, try to solve the issue. A GTA and your tutor will be available to help you, too.</li>
 <li><strong>Test your knowledge</strong>: The final section in each chapter is a short quiz that assesses your knowledge and skills covered in the chapter.</li>
 </ol>
-<p>To support you to work through the book chapters continuously. We have scheduled each chapter so that it aligns as well as possible with the stats lectures and the lab content. We also made sure that no chapters are scheduled during busy assessment times (such as during the run-up to the research report deadline). You will have chapters in weeks 1-5 and then again weeks 9-11.</p>
+<p>To support you to work through the book chapters continuously, we have scheduled each chapter so that it aligns as well as possible with the stats lectures and the lab content. We also made sure that no chapters are scheduled during busy assessment times (such as during the run-up to the research report deadline). You will have chapters in weeks 1-5 and then again weeks 9-11.</p>
 <p>If you get stuck, seek help during your lab, GTA or PAL support sessions, and/or by posting on the Data Skills and R channel on Teams.</p>
 </section>
-<section id="statement-on-use-of-ai" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="statement-on-use-of-ai">Statement on use of AI</h4>
+<section id="statement-on-use-of-ai" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="statement-on-use-of-ai">Statement on use of AI</h3>
 <p>A premium subscription to ChatGPT using GPT4.0 was used to assist in the writing of these materials in the following ways:</p>
 <ul>
 <li>To suggest multiple-choice questions and other types of quizzes and/or to provide the text for “Explain this answer” for such quizzes</li>
@@ -1107,7 +1108,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","selector":".lightbox","openEffect":"zoom","descPosition":"bottom","loop":false});
+<script>var lightboxQuarto = GLightbox({"openEffect":"zoom","selector":".lightbox","loop":false,"closeEffect":"zoom","descPosition":"bottom"});
 window.onload = () => {
   lightboxQuarto.on('slide_before_load', (data) => {
     const { slideIndex, slideNode, slideConfig, player, trigger } = data;

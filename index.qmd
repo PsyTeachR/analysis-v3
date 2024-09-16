@@ -1,11 +1,10 @@
 # Overview {.unnumbered}
 
-#### Overview {.unnumbered}
 
-This course covers data skills R Markdown, data wrangling, data visualisation, and data analysis. This book introduces learners to the most common statistical analyses such as t-test, correlations, regressions, and ANOVAs. The main idea of this book is being reproducible in our data analysis approach. 
+This course covers data skills R Markdown, data wrangling, and data visualisation. This book also introduces learners to the most common statistical analyses such as t-test, correlations, regressions, and ANOVAs. The main idea of this book is being reproducible in our data analysis approach. 
 
 
-#### How To Use This Book {.unnumbered}
+### How To Use This Book {.unnumbered}
 
 Each chapter in the book has the same structure: 
 
@@ -14,11 +13,11 @@ Each chapter in the book has the same structure:
 3. **Test your knowledge**: The final section in each chapter is a short quiz that assesses your knowledge and skills covered in the chapter. 
 
 
-To support you to work through the book chapters continuously. We have scheduled each chapter so that it aligns as well as possible with the stats lectures and the lab content. We also made sure that no chapters are scheduled during busy assessment times (such as during the run-up to the research report deadline). You will have chapters in weeks 1-5 and then again weeks 9-11. 
+To support you to work through the book chapters continuously, we have scheduled each chapter so that it aligns as well as possible with the stats lectures and the lab content. We also made sure that no chapters are scheduled during busy assessment times (such as during the run-up to the research report deadline). You will have chapters in weeks 1-5 and then again weeks 9-11. 
 
 If you get stuck, seek help during your lab, GTA or PAL support sessions, and/or by posting on the Data Skills and R channel on Teams. 
 
-#### Statement on use of AI {.unnumbered}
+### Statement on use of AI {.unnumbered}
 
 A premium subscription to ChatGPT using GPT4.0 was used to assist in the writing of these materials in the following ways:
 
