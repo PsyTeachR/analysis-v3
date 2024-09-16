@@ -1,0 +1,1007 @@
+# Projects and R Markdown {#sec-basics}
+
+## Intended Learning Outcomes {.unnumbered}
+
+By the end of this chapter, you should be able to:
+
+-   Re-familiarise yourself with setting up projects
+-   Re-familiarise yourself with RMarkdown documents
+-   Recap and apply data wrangling procedures to analyse data
+
+## [Individual Walkthrough]{style="color: #F39C12; text-transform: uppercase;"} {.unnumbered}
+
+## R and R Studio
+
+Remember, R is a programming language that you will write code in and RStudio is an Integrated Development Environment (IDE) which makes working with R easier as it's more user friendly. You need both components for this course.
+
+If this is not ringing any bells yet, have a quick browse through the [materials from year 1](https://psyteachr.github.io/data-skills-v2/sec-intro.html?q=RMark#sec-intro-r){target="_blank"} to refresh your memory.
+
+
+### R server
+
+Use the server only if you are unable to install R and RStudio on your computer (e.g., if you are using a Chromebook) or if you encounter issues while installing R on your own machine. Otherwise, you should install R and RStudio directly on your own computer. R and RStudio are already installed on the *R server*. 
+
+You will find the link to the server on Moodle.
+
+
+### Installing R and RStudio on your computer
+
+@sec-installing-r provides detailed instructions on how to install R and RStudio on your computer. It also includes links to walkthroughs for installing R on different types of computers and operating systems.
+
+If you had R and RStudio installed on your computer last year, we recommend updating to the latest versions. In fact, it’s a good practice to update them at the start of each academic year. Detailed guidance can be found in @sec-updating-r.
+
+Once you have installed or updated R and RStudio, return to this chapter.
+
+
+### Settings for Reproducibility
+
+By now, you should be aware that the Psychology department at the University of Glasgow places a strong emphasis on reproducibility, open science, and raising awareness about questionable research practices (QRPs) and how to avoid them. Therefore, it's important that you work in a reproducible manner so that others (and your future self) can understand and check your work. This also makes it easier for you to reuse your work in the future.
+
+Always start with a clear workspace. If your  `Global Environment` contains anything from a previous session, you can’t be certain whether your current code is working as intended or if it’s using objects created earlier.
+
+To ensure a clean and reproducible workflow, there are a few settings you should adjust immediately after installing or updating RStudio. In <if>Tools \> Global Options... General tab</if>
+
+-   Uncheck the box labelled <if>Restore .RData into workspace at startup</if> to make sure no data from a previous session is loaded into the environment
+-   set <if>Save workspace to .RData on exit</if> to **Never** to prevent your workspace from being saved when you exit RStudio.
+
+![Reproducibility settings in Global Options](images/rstudio_settings_reproducibility.png)
+
+::: {.callout-tip collapse="true"}
+
+## Tip for keeping taps on parentheses
+
+R has included **rainbow parentheses** to help with keeping count on the brackets.
+
+To enable the feature, go to <if>Tools \> Global Options... Code tab \> Display tab</if> and tick the last checkbox "Use rainbow parentheses"
+
+![Enable Rainbow parenthesis](images/rainbow.PNG)
+
+:::
+
+
+
+### RStudio panes
+
+RStudio has four main panes each in a quadrant of your screen:
+
+-   Source pane
+-   Environment pane
+-   Console pane
+-   Output pane
+
+
+::: {.callout-note icon="false"}
+
+## Your Turn
+
+Are you ready for a quick quiz to see what you remember about the RStudio panes from last year? Click on **Quiz** to see the questions.
+
+::: {.callout-note collapse="true" icon="false"}
+
+## Quiz
+
+**What is their purpose?**
+
+**The Source pane...** `r longmcq(c(answer = "allows users to view and edit various code-related files, such as .Rmd files", "contains the Files, Plots, R Packages, Help, Tutorial, Viewer, and Presentation tabs", "includes the Environment tab that displays currently saved objects, and the History tab that displays the commands that were executed in the current session along a search function", "provides an area to interactively execute code"))`
+
+**The Environment pane...** `r longmcq(c("allows users to view and edit various code-related files, such as .Rmd files", "contains the Files, Plots, R Packages, Help, Tutorial, Viewer, and Presentation tabs", answer = "includes the Environment tab that displays currently saved objects, and the History tab that displays the commands that were executed in the current session along a search function", "provides an area to interactively execute code"))`
+
+**The Console pane...** `r longmcq(c("allows users to view and edit various code-related files, such as .Rmd files", "contains the Files, Plots, R Packages, Help, Tutorial, Viewer, and Presentation tabs", "includes the Environment tab that displays currently saved objects, and the History tab that displays the commands that were executed in the current session along a search function", answer = "provides an area to interactively execute code"))`
+
+**The Output pane...** `r longmcq(c("allows users to view and edit various code-related files, such as .Rmd files", answer = "contains the Files, Plots, R Packages, Help, Tutorial, Viewer, and Presentation tabs", "includes the Environment tab that displays currently saved objects, and the History tab that displays the commands that were executed in the current session along a search function", "provides an area to interactively execute code"))`
+
+**Where are these panes located by default?**
+
+-   The Source pane is located? `r mcq(sample(c(answer = "top left", "bottom left", "top right", "bottom right")))`
+-   The Environment pane is located? `r mcq(sample(c("top left", "bottom left", answer = "top right", "bottom right")))`
+-   The Console pane is located? `r mcq(sample(c("top left", answer = "bottom left", "top right", "bottom right")))`
+-   The Output pane is located? `r mcq(sample(c("top left", "bottom left", "top right", answer = "bottom right")))`
+:::
+
+:::
+
+If you were not quite sure about one/any of the panes, check out the [materials from Level 1](https://psyteachr.github.io/data-skills-v2/sec-intro.html?q=RMark#rstudio-panes){target="_blank"}. If you want to know more about them, there is the [RStudio guide on posit](https://docs.posit.co/ide/user/ide/guide/ui/ui-panes.html){target="_blank"}
+
+
+
+## Activity 1: Creating a new project {#sec-project}
+
+It's important to create a new RStudio project whenever you start a new project. This practice makes it easier to work in multiple contexts, such as when analysing different datasets simultaneously. Each RStudio project has its own folder location, workspace, and working directories, which keeps all your data and RMarkdown documents organised in one place.
+
+Last year, you learnt how to create projects on the server, so you already know the steps. If cannot quite recall how that was done, go back to the [Level 1 materials](https://psyteachr.github.io/data-skills-v2/sec-intro.html?q=RMark#new-project){target="_blank"}.
+
+On your own computer, open RStudio, and complete the following steps in this order:
+
+-   Click on <if>File \> New Project...</if>
+-   Then, click on "New Directory"
+-   Then, click on "New Project"
+-   Name the directory something meaningful (e.g., "2A_chapter1"), and save it in a location that makes sense, for example, a dedicated folder you have for your level 2 Psychology labs - you can either select a folder you have already in place or create a new one (e.g., I named my new folder "Level 2 labs")
+-   Click "Create Project". RStudio will restart itself and open with this new project directory as the working directory. If you accidentally close it, you can open it by double-clicking on the project icon in your folder
+-   You can also check in your folder structure that everything was created as intended
+
+![Creating a new project](images/project_setup.gif)
+
+::: {.callout-tip collapse="true"}
+
+## Why is the Colour scheme in the gif different to my version?
+
+In case anyone is wondering why my colour scheme in the gif above looks different to yours, I've set mine to "Pastel On Dark" in <if>Tools \> Global Options... \> Appearances</if>. And my computer lives in "dark mode".
+
+:::
+
+::: callout-important
+
+## Don't nest projects
+
+Don't ever save a new project **inside** another project directory. This can cause some hard-to-resolve problems.
+
+:::
+
+## Activity 2: Create a new R Markdown file {#sec-rmd}
+
+-   Open a new R Markdown document: click <if>File \> New File \> R Markdown</if> or click on the little page icon with a green plus sign (top left).
+-   Give it a meaningful `Title` (e.g., Level 2 chapter 1) - you can also change the title later. Feel free to add your name or GUID in the `Author` field author name. Keep the `Default Output Format` as HTML.
+-   Once the .`Rmd` opened, you need to save the file.
+-   To save it, click <if>File \> Save As...</if> or click on the little disc icon. Name it something meaningful (e.g., "chapter_01.Rmd", "01_intro.Rmd"). Make sure there are no spaces in the name - R is not very fond of spaces... This file will automatically be saved in your project folder (i.e., your working directory) so you should now see this file appear in your file viewer pane.
+
+
+
+![Creating a new `.Rmd` file](images/Rmd_setup.gif)
+
+
+
+Remember, an R Markdown document or `.Rmd` has "white space" (i.e., the markdown for formatted text) and "grey parts" (i.e., code chunks) in the default colour scheme (see @fig-rmd). R Markdown is a powerful tool for creating dynamic documents because it allows you to integrate code and regular text seamlessly. You can then knit your `.Rmd` using the `knitr` package to create a final document as either a webpage (HTML), a PDF, or a Word document (.docx). We'll only knit to HTML documents in this course.
+
+
+![R markdown anatomy (image from [https://intro2r.com/r-markdown-anatomy.html](https://intro2r.com/r-markdown-anatomy.html){target="_blank"})](images/rm_components.png)
+
+
+
+### Markdown
+
+The markdown space in an `.Rmd` is ideal for writing notes that explain your code and document your thought process. Use this space to clarify what your code is doing, why certain decisions were made, and any insights or conclusions you have drawn along the way. These notes are invaluable when revisiting your work later, helping you (or others) understand the rationale behind key decisions, such as setting inclusion/exclusion criteria or interpreting the results of assumption tests. Effectively documenting your work in the markdown space enhances both the clarity and reproducibility of your analysis.
+
+
+The markdown space offers a variety of formatting options to help you organise and present your notes effectively. Here are a few of them that can enhance your documentation:
+
+#### Heading levels {.unnumbered}
+
+
+There is a variety of **heading levels** to make use of, using the `#` symbol. 
+
+::: {.columns}
+
+::: {.column}
+
+##### You would incorporate this into your text as: {.unnumbered}
+
+\# Heading level 1
+
+\## Heading level 2
+
+\### Heading level 3
+
+\#### Heading level 4
+
+\##### Heading level 5
+
+\###### Heading level 6
+
+:::
+
+
+::: {.column}
+
+##### And it will be displayed in your knitted html file as: {.unnumbered}
+
+![](images/heading_levels.PNG)
+
+:::
+
+:::
+
+
+::: {.callout-important collapse="true"}
+## ERROR: My heading levels don't render properly when knitting
+
+You need a space between the # and the first letter. If the space is missing, the heading will be displayed in the HTML file as ...
+
+#Heading 1
+
+::: 
+
+
+#### Unordered and ordered lists {.unnumbered}
+
+
+You can also include **unordered lists** and **ordered lists**. Click on the tabs below to see how they are incorporated
+
+:::{.panel-tabset}
+
+## unordered lists
+
+You can add **bullet points** using either `*`, `-` or `+` and they will turn into:
+
+* bullet point (created with `*`)
+- bullet point (created with `-`)
++ bullet point (created with `+`)
+
+
+or use bullet points of different levels using 1 tab key press or 2 spaces (for sub-item 1) or 2 tabs/4 spaces (for sub-sub-item 1):
+
+* bullet point item 1
+  * sub-item 1
+    * sub-sub-item 1
+    * sub-sub-item 2
+* bullet point item 2
+
+
+::: {.callout-important collapse="true"}
+## ERROR: My bullet points don't render properly when knitting
+
+You need an empty row before your bullet points start. If I delete the empty row before the bullet points, they will be displayed in the HTML as ...
+
+Text without the empty row:
+* bullet point created with `*`
+- bullet point created with `-`
++ bullet point created with `+`
+
+:::
+
+## ordered lists
+
+Start the line with **1.**, **2.**, etc. When you want to include sub-items, either use the `tab` key twice or add **4 spaces**. Same goes for the sub-sub-item: include either 2 tabs (or 4 manual spaces) from the last item or 4 tabs/ 8 spaces from the start of the line. 
+
+1. list item 1
+2. list item 2
+    i) sub-item 1 (with 4 spaces)
+        A.  sub-sub-item 1 (with an additional 4 spaces from the last indent)
+
+
+::: {.callout-important collapse="true"}
+
+## My list items don't render properly when knitting
+
+If you don't leave enough spaces, the list won't be recognised, and your output looks like this:
+
+3. list item 3
+  i) sub-item 1 (with only 2 spaces)
+    A. sub-sub-item 1 (with an additional 2 spaces from the last indent)
+
+:::
+
+## ordered lists magic
+
+The great thing though is that you don't need to know your alphabet or number sequences. R markdown will fix that for you
+
+If I type into my `.Rmd`...
+
+![](images/list_magic.PNG)
+
+...it will be rendered in the knitted HTML output as...
+
+4. list item 3
+1. list item 1
+    a) sub-item labelled "a)"
+    i) sub-item labelled "i)"
+        C) sub-item labelled "C)"
+        Z) sub-item labelled "Z)"
+7. list item 7
+
+::: {.callout-important collapse="true"}
+
+## ERROR: The labels of the sub-items are not what I thought they would be. You said they are fixing themselves...
+
+Yes, they do but you need to label your sub-item lists accordingly. The first label you list in each level is set as the baseline. If they are labelled `1)` instead of `i)` or `A.`, the output will show as follows, but the automatic-item-fixing still works:
+
+7. list item 7
+    1) list item "1)" with 4 spaces
+        1) list item "1)" with 8 spaces
+        6) this is an item labelled "6)" (magically corrected to "2.")
+
+:::
+
+:::
+
+
+#### Emphasis {.unnumbered}
+
+Include **emphasis** to draw attention to keywords in your text:
+
+|R markdown syntax  | Displayed in the knitted HTML file |
+|:----------------- |:-----------------------------------|
+| \**bold text**    | **bold text**                      |
+| \*italic text*    | *italic text*                      |
+| \*\*\*bold and italic\*\*\*    | ***bold and italic***      |                      |
+
+Other examples can be found in the [R Markdown Cheat Sheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf){target="_blank"}
+
+
+### Code chunks {#sec-chunks}
+
+Everything you write inside the **code chunks** will be interpreted as code and executed by R. Code chunks start with ` ``` ` followed by an `{r}` which specifies the coding language R, some space for code, and ends with ` ``` `. If you accidentally delete one of those backticks, your code won't run and/or your text parts will be interpreted as part of the code chunks or vice versa. This should be evident from the colour change - more white than expected typically indicates missing starting backticks, whilst too much grey/not enough white suggests missing ending backticks. But no need to fret if that happens - just add the missing backticks manually.
+
+You can **insert a new code chunk** in several ways:
+
+* Click the `Insert a new code chunk` button in the RStudio Toolbar (green icon at the top right corner of the `Source pane`).
+* Select <if>Code \> Insert Chunk</if> from the menu.
+* Using the shortcut `Ctrl + Alt + I` for Windows or `Cmd + Option + I` on MacOSX.
+* Type ` ```{r}` and ` ``` ` manually
+
+
+```{r fig-rmd, echo=FALSE, fig.cap="Default `.Rmd` with highlighting - names in pink and knitr display options in purple"}
+knitr::include_graphics("images/default_highlighted.png")
+``` 
+
+
+Within the curly brackets of a code chunk, you can **specify a name** for the code chunk (see pink highlighting in @fig-rmd). The chunk name is not necessarily required; however, it is good practice to give each chunk a unique name to support more advanced knitting approaches. It also makes it easier to reference and manage chunks.
+
+Within the curly brackets, you can also place **rules and arguments** (see purple highlighting in @fig-rmd) to control how your code is executed and what is displayed in your final HTML output. The most common **knitr display options** include:
+
+
+| Code                | Does code run | Does code show | Do results show |
+|:--------------------|:-------------:|:--------------:|:---------------:|
+| eval=FALSE          | NO            | YES            | NO              |
+| echo=TRUE (default) | YES           | YES            | YES             |
+| echo=FALSE          | YES           | NO             | YES             |
+| results='hide'      | YES           | YES            | NO              |
+| include=FALSE       | YES           | NO             | NO              |
+
+
+
+
+::: {.callout-important}
+The table above will be incredibly important for the data skills homework II. When solving error mode items you will need to pay attention to the first one `eval = FALSE`.
+:::
+
+
+One last thing: In your newly created `.Rmd` file, delete everything below line 12 (keep the set-up code chunk) and save your `.Rmd` by clicking on the disc symbol.
+
+![Delete everything below line 12](images/delete_12.gif)
+
+::: {.callout-note icon="false"} 
+
+## Your Turn
+
+That was quite a long section about what Markdown can do. I promise, we'll practice that more later. For the minute, we want you to create a new level 2 heading on line 12 and give it a meaningful heading title (something like "Loading packages and reading in data" or "Chapter 1").
+
+
+::: {.callout-caution collapse="true" icon="false"} 
+
+## Solution
+
+On line 12, you should have typed **## Loading packages and reading in data** (or whatever meaningful title you chose). This will create level 2 heading once we knit the `.Rmd`.
+
+:::
+
+:::
+
+## Activity 3: Download the data {#sec-download_data_ch1}
+
+The data for chapters 1-3. Download it here: [data_ch1.zip](data/data_ch1.zip "download"). There are 2 csv files contained in a zip folder. One is the data file we are going to use today `prp_data_reduced.csv` and the other is an Excel file `prp_codebook` that explains the variables in the data.
+
+The first step is to **unzip the zip folder** so that the files are placed within the same folder as your project.
+
+* Place the zip folder within your 2A_chapter1 folder
+* Right mouse click --> `Extract All...`
+* Check the folder location is the one to extract the files to
+* Check the extracted files are placed next to the project icon
+* Files and project should be visible in the Output pane in RStudio
+
+
+::: {.callout-note collapse="true"}
+
+## For screenshots click here
+
+::: {layout-ncol=1}
+
+![](images/pic1.PNG){fig-align="center"}
+
+![](images/pic23.PNG){fig-align="center"}
+
+![](images/pic45.PNG){fig-align="center"}
+
+Unzipping a zip folder
+
+:::
+
+:::
+
+
+The paper by Pownall et al. was a **registered report** published in 2023, and the original data can be found on OSF ([https://osf.io/5qshg/](https://osf.io/5qshg/){target="_blank"}).
+
+**Citation**
+
+> Pownall, M., Pennington, C. R., Norris, E., Juanchich, M., Smailes, D., Russell, S., Gooch, D., Evans, T. R., Persson, S., Mak, M. H. C., Tzavella, L., Monk, R., Gough, T., Benwell, C. S. Y., Elsherif, M., Farran, E., Gallagher-Mitchell, T., Kendrick, L. T., Bahnmueller, J., . . . Clark, K. (2023). Evaluating the Pedagogical Effectiveness of Study Preregistration in the Undergraduate Dissertation. *Advances in Methods and Practices in Psychological Science, 6*(4). [https://doi.org/10.1177/25152459231202724](https://doi.org/10.1177/25152459231202724){target="_blank"}
+
+**Abstract**
+
+> Research shows that questionable research practices (QRPs) are present in undergraduate final-year dissertation projects. One entry-level Open Science practice proposed to mitigate QRPs is “study preregistration,” through which researchers outline their research questions, design, method, and analysis plans before data collection and/or analysis. In this study, we aimed to empirically test the effectiveness of preregistration as a pedagogic tool in undergraduate dissertations using a quasi-experimental design. A total of 89 UK psychology students were recruited, including students who preregistered their empirical quantitative dissertation (*n* = 52; experimental group) and students who did not (*n* = 37; control group). Attitudes toward statistics, acceptance of QRPs, and perceived understanding of Open Science were measured both before and after dissertation completion. Exploratory measures included capability, opportunity, and motivation to engage with preregistration, measured at Time 1 only. This study was conducted as a Registered Report; Stage 1 protocol: https://osf.io/9hjbw (date of in-principle acceptance: September 21, 2021). Study preregistration did not significantly affect attitudes toward statistics or acceptance of QRPs. However, students who preregistered reported greater perceived understanding of Open Science concepts from Time 1 to Time 2 compared with students who did not preregister. Exploratory analyses indicated that students who preregistered reported significantly greater capability, opportunity, and motivation to preregister. Qualitative responses revealed that preregistration was perceived to improve clarity and organization of the dissertation, prevent QRPs, and promote rigor. Disadvantages and barriers included time, perceived rigidity, and need for training. These results contribute to discussions surrounding embedding Open Science principles into research training.
+
+
+**Changes made to the dataset**
+
+We made some changes to the dataset for the purpose of increasing difficulty for data wrangling (@sec-wrangling and @sec-wrangling2) and data visualisation (@sec-dataviz and @sec-dataviz2). This will ensure some "teachable moments". The changes are as follows:
+
+* We removed some of the variables to make the data more manageable for teaching purposes.
+* We recoded some values from numeric responses to labels (e.g., `understanding`).
+* We added the word "years" to one of the `Age` entries.
+* We tidied a messy column `Ethnicity` but introduced a similar but easier-to-solve "messiness pattern" when recoding the `understanding` data.
+* The scores in the original file were already corrected from reverse-coded responses. We reversed that process to present raw data here.
+
+
+
+## Activity 4: Loading packages and reading in data
+
+The first step is to load in the packages we need and read in the data. Today, we'll only be using `tidyverse`, and `read_csv()` will help us store the data from `prp_data_reduced.csv` in an object called data_prp.
+
+Copy the code into a code chunk in your `.Rmd` file and run it. You can either click the `green error` to run the entire code chunk, or use the shortcut `Ctrl + Enter` (Windows) or `Cmd + Enter` (Mac) to run a line of code/ pipe from the Rmd.
+
+
+```{r eval=FALSE}
+library(tidyverse)
+data_prp <- read_csv("prp_data_reduced.csv")
+```
+
+```{r echo=FALSE}
+## I basically have to have 2 code chunks since I tell them to put the data files next to the project, and mine are in a separate folder called data - unless I'll turn this into a fixed path
+library(tidyverse)
+data_prp <- read_csv("data/prp_data_reduced.csv")
+```
+
+
+
+## Activity 5: Familiarise yourself with the data {#sec-familiarise}
+
+* Look at the **Codebook** to get a feel of the variables in the dataset and how they have been measured. Note that some of the columns were deleted in the dataset you have been given.
+* You'll notice that some questionnaire data was collected at 2 different time points (i.e., SATS28, QRPs, Understanding_OS)
+* some of the data was only collected at one time point (i.e., supervisor judgements, OS_behav items, and Included_prereg variables are t2-only variables)
+
+
+### First glimpse at the data
+
+Before you start wrangling your data, it is important to understand what kind of data you're working with and what the format of your dataframe looks like.
+
+As you may have noticed, `read_csv()` provides a **message** listing the data types in your dataset and how many columns are of each type. Plus, it shows a few examples columns for each data type.
+
+To obtain more detailed information about your data, you have several options. Click on the individual tabs to see the different options available. Test them out in your own `.Rmd` file and use whichever method you prefer (but do it). 
+
+::: {.callout-warning}
+
+Some of the output is a bit long because we do have quite a few variables in the data file.
+
+:::
+
+::: panel-tabset
+
+## visual inspection 1
+
+In the `Global Environment`, click the blue arrow icon next to the object name `data_prp`. This action will expand the object, revealing details about its columns. The `$` symbol is commonly used in Base R to access a specific column within your dataframe.
+
+![Visual inspection of the data](images/data_prp.PNG)
+
+Con: When you have quite a few variables, not all of them are shown.
+
+## glimpse()
+
+Use `glimpse()` if you want a more detailed overview you can see on your screen. The output will display rows and column numbers, and some examples of the first couple of observations for each variable. 
+
+```{r}
+glimpse(data_prp)
+```
+
+
+## spec()
+
+You can also use `spec()` as suggested in the message above and then it shows you a list of the data type in every single column. But it doesn't show you the number of rows and columns.
+
+```{r}
+spec(data_prp)
+```
+
+
+## visual inspection 2
+
+In the `Global Environment`, click on the object name `data_prp`. This action will open the data in a new tab. Hovering over the column headings with your mouse will also reveal their data type. However, it seems to be a fairly tedious process when you have loads of columns.
+
+
+
+::: {.callout-important collapse="true"} 
+
+## Hang on, where is the rest of my data? Why do I only see 50 columns?
+
+One common source of confusion is not seeing all your columns when you open up a data object as a tab. This is because RStudio shows you a maximum of 50 columns at a time. If you have more than 50 columns, navigate with the arrows to see the remaining columns. 
+
+![Showing 50 columns at a time](images/50_col.PNG)
+
+:::
+
+:::
+
+
+::: {.callout-note icon="false"} 
+
+## Your Turn
+
+Now that you have tested out all the options in your own `.Rmd` file, you can probably answer the following questions:
+
+* How many observations? `r fitb("89")`
+* How many variables? `r fitb("91")`
+* How many columns are `col_character` or `chr` data type? `r fitb("17")`
+* How many columns are `col_double` or `dbl` data type? `r fitb("74")`
+
+
+::: {.callout-caution collapse="true" icon="false"} 
+
+## Explain the solution
+
+The visual inspections shows you the **number of observations and variables**. `glimpse()` also gives you that information but calls them **rows and columns** respectively.
+
+The **data type information** actually comes from the output when using the `read_csv()` function. Did you notice the information on **Column specification** (see screenshot below)?
+
+![message from `read_csv()` when reading in the data](images/col_spec.PNG)
+
+
+Whilst `spec()` is quite useful for data type information per individual column, it doesn't give you the total count of each data type. So it doesn't really help with answering the questions here - unless you want to count manually from its extremely long output.
+
+:::
+
+
+In your `.Rmd`, include a **new heading level 2** called "Information about the data" (or something equally meaningful) and jot down some notes about `data_prp`. You could include the citation and/or the abstract, and whatever information you think you should note about this dataset (e.g., any observations from looking at the codebook?). You could also include some notes on the functions used so far and what they do. Try to incorporate some **bold**, *italic* or ***bold and italic*** emphasis and perhaps a bullet point or two.
+
+
+::: {.callout-caution collapse="true" icon="false"} 
+
+## Possible solution
+
+\#\# Information about the data
+
+The data is from Pownall et al. (2023), and I can find the paper here: https://doi.org/10.1177/25152459231202724. 
+
+I've noticed in the prp codebook that the SATS-28 questionnaire has quite a few \*reverse-coded items\*, and the supervisor support questionnaire also has a reverse-coded item.
+
+So far, I think I prefer \*\*glimpse()\*\* to show me some more detail about the data. Specs() is too text-heavy for me which makes it hard to read.
+
+Things to keep in mind:
+
+\* \*\*don't forget to load in tidyverse first!!!\*\*
+
+\* always read in the data with \*\*read_csv\*\*, \*\*\*never ever use read.csv\*\*\*!!!
+
+
+![The output rendered in a knitted html file](images/knitted_markdown.PNG)
+
+:::
+
+:::
+
+
+### Data types {#sec-datatypes}
+
+Each variable has a **data type**, such as numeric (numbers), character (text), and logical (TRUE/FALSE values), or a special class of factor. As you have just seen, our `data_prp` only has character and numeric columns (so far).
+
+**Numeric data** can be double (`dbl`) or integer (`int`). Doubles can have decimal places (e.g., 1.1). Integers are the whole numbers (e.g., 1, 2, -1) and are displayed with the suffix L (e.g., 1L). This is not overly important but might leave you less puzzled the next time you see an L after a number.
+
+**Characters** (also called “strings”) is anything written between quotation marks. This is usually text, but in special circumstances, a number can be a character if it placed within quotation marks. This can happen when you are recoding variables. It might not be too obvious at the time, but you won't be able to calculate anything if the number is a character
+
+::: panel-tabset
+## Example data types
+
+```{r}
+typeof(1)
+typeof(1L)
+typeof("1")
+typeof("text")
+```
+
+## numeric computation
+
+No problems here...
+
+```{r}
+1+1
+```
+
+## character computation
+
+When the data type is incorrect, you won't be able to compute anything, despite your numbers being shown as numeric values in the dataframe. The error message tells you exactly what's wrong with it, i.e., that you have `non-numeric arguments`.
+
+```{r, error = TRUE}
+"1"+"1" # ERROR
+```
+:::
+
+**Logical** data (also sometimes called “Boolean” values) are one of two values: TRUE or FALSE (written in uppercase). They become really important when we use `filter()` or `mutate()` with conditional statements such as `case_when()`. More about those in @sec-wrangling2.
+
+Some commonly used logical operators:
+
+| operator | description                                    |
+|:---------|:-----------------------------------------------|
+| \>       | greater than                                   |
+| \>=      | greater than or equal to                       |
+| \<       | less than                                      |
+| \<=      | less than or equal to                          |
+| ==       | equal to                                       |
+| !=       | not equal to                                   |
+| %in%     | TRUE if any element is in the following vector |
+
+A **factor** is a specific type of integer or character that lets you assign the order of the categories. This becomes useful when you want to display certain categories in "the correct order" either in a dataframe (see *arrange*) or when plotting (see @sec-dataviz/ @sec-dataviz2).
+
+
+### Variable types
+
+You've already encountered them in [Level 1](https://psyteachr.github.io/data-skills-v2/intro-to-probability.html){target="_blank"} but let's refresh. Variables can be classified as **continuous** (numbers) or **categorical** (labels).
+
+**Categorical** variables are properties you can count. They can be **nominal**, where the categories don't have an order (e.g., gender) or **ordinal** (e.g., Likert scales either with numeric values 1-7 or with character labels such as "agree", "neither agree nor disagree", "disagree"). Categorical data may also be **factors** rather than characters.
+
+**Continuous variables** are properties you can measure and calculate sums/ means/ etc. They may be rounded to the nearest whole number, but it should make sense to have a value between them. Continuous variables always have a **numeric** data type (i.e. `integer` or `double`).
+
+::: {.callout-tip}
+
+## Why is this important you may ask?
+
+Knowing your variable and data types will help later on when deciding on an appropriate plot (see @sec-dataviz and @sec-dataviz2) or which inferential test to run (@sec-nhstI to @sec-factorial).
+
+:::
+
+
+
+::: {.callout-note icon="false"} 
+
+## Your Turn
+
+As we've seen earlier, `data_prp` only had character and numeric variables which hardly tests your understanding to see if you can identify a variety of data types and variable types. So, for this little quiz, we've spiced it up a bit. We've selected a few columns, shortened some of the column names, and modified some of the data types. Here you can see the first few rows of the new object `data_quiz`. *You can find the code with explanations at the end of this section.*
+
+```{r echo=FALSE}
+data_quiz <- data_prp %>% 
+  select(Code, Age, Gender, Ethnicity, Secondyeargrade, QRP_item = QRPs_3_Time1, QRPs_mean = QRPs_Acceptance_Time2_mean, Understanding_item = Understanding_OS_1_Time1) %>% 
+  mutate(Gender = factor(Gender),
+         Secondyeargrade = factor(Secondyeargrade,
+                                  levels = c(1, 2, 3, 4, 5),
+                                  labels = c("≥ 70% (1st class grade)", "60-69% (2:1 grade)", "50-59% (2:2 grade)", "40-49% (3rd class)", "< 40%")),
+         `QRP_item > 4` = case_when(
+           QRP_item > 4 ~ TRUE, 
+           .default = FALSE))
+```
+
+```{r echo=FALSE}
+# the `head()` function shows the first n number of rows of a dataset (here 5)
+head(data_quiz, n = 5)
+```
+
+```{r}
+glimpse(data_quiz)
+```
+
+Select from the dropdown menu the variable type and their data types for each of the columns.
+
+```{r, include = FALSE}
+# variable type
+con <- c(answer = "continuous", x = "nominal", x = "ordinal")
+nom <- c(x = "continuous", answer = "nominal", x = "ordinal")
+ord <- c(x = "continuous", x = "nominal", answer = "ordinal")
+
+# data type
+num <- c(answer = "numeric", x = "character", x = "logical", x = "factor")
+chr <- c(x = "numeric", answer = "character", x = "logical", x = "factor")
+log <- c(x = "numeric", x = "character", answer = "logical", x = "factor")
+fctr <- c(x = "numeric", x = "character", x = "logical", answer = "factor")
+
+```
+
+| Column                | Variable type | Data type     |
+|:----------------------|:--------------|:--------------|
+| `Age`                 | `r mcq(con)`  | `r mcq(chr)`  |
+| `Gender`              | `r mcq(nom)`  | `r mcq(fctr)` |
+| `Ethinicity`          | `r mcq(nom)`  | `r mcq(chr)`  |
+| `Secondyeargrade`     | `r mcq(ord)`  | `r mcq(fctr)` |
+| `QRP_item`            | `r mcq(ord)`  | `r mcq(num)`  |
+| `QRPs_mean`           | `r mcq(con)`  | `r mcq(num)`  |
+| `Understanding_item`  | `r mcq(ord)`  | `r mcq(chr)`  |
+| `QRP_item > 4`        | `r mcq(nom)`  | `r mcq(log)`  |
+
+
+:::
+
+
+::: {.callout-caution collapse="true" icon="false"} 
+
+## Revealing the mystery code that created `data_quiz`
+
+The code might look a bit complex for the minute despite the line-by-line explanations below. Come back to it after completing chapter 2.
+
+```{r eval=FALSE}
+data_quiz <- data_prp %>% 
+  select(Code, Age, Gender, Ethnicity, Secondyeargrade, QRP_item = QRPs_3_Time1, QRPs_mean = QRPs_Acceptance_Time2_mean, Understanding_item = Understanding_OS_1_Time1) %>% 
+  mutate(Gender = factor(Gender),
+         Secondyeargrade = factor(Secondyeargrade,
+                                  levels = c(1, 2, 3, 4, 5),
+                                  labels = c("≥ 70% (1st class grade)", "60-69% (2:1 grade)", "50-59% (2:2 grade)", "40-49% (3rd class)", "< 40%")),
+         `QRP_item > 4` = case_when(
+           QRP_item > 4 ~ TRUE, 
+           .default = FALSE))
+```
+
+
+Lets go through this line by line:
+
+* **line 1**: creates a new object called `data_quiz` and it is based on the already existing data object `data_prp`
+* **line 2**: we are selecting a few variables of interest, such as Code, Age etc. Some of those variables were renamed in the process according to the structure `new_name = old_name`, for example QRP item 3 at time point 1 got renamed as `QRP_item`.  
+* **line 3**: The function `mutate()` is used to create a new column called `Gender` that turns the existing column `Gender` from a numeric value into a factor. R simply overwrites the existing column of the same name. If we had named the new column `Gender_factor`, we would have been able to retain the original `Gender` column and `Gender_factor` would have been added as the last column.
+* **line 4-6**: See how the line starts with an indent which indicates we are still within the `mutate()` function. You can also see this by counting brackets - in line 3 there are 2 opening brackets but only 1 closes.
+  * Similar to `Gender`, we are replacing the "old" `Secondyeargrade` with the new `Secondyeargrade` column that is now a factor.
+  * Turning our variable `Secondyeargrade` into a factor, spot the difference between this attempt and the one we used for `Gender`? Here we are using a lot more arguments in that factor function, namely levels and labels. **Levels** describes the unique values we have for that column, and in **labels** we want to define how these levels will be shown in the data object. If you don't add the levels and labels argument, the labels will be the labels (as you can see in the `Gender` column in which we kept the numbers).
+* **line 7**: Doesn't start with a function name and has an indent, which means we are *still* within the `mutate()` function - count the opening and closing brackets to confirm. 
+  * Here, we are creating a new column called `QRP_item > 4`. Notice the two backticks we have to use to make this weird column name work? This is because it has spaces (and we did mention that R doesn't like spaces). So the backticks help R to group it as a unit/ a single name.
+  * Next we have a `case_when()` function which helps executing conditional statements. We are using it to check whether a statement is TRUE or FALSE. Here, we ask whether the QRP item (column `QRP_item`) is larger than 4 (midpoint of the scale) using the Boolean operator `>`. If the statement is `TRUE`, the label `TRUE` should appear in column `QRP_item > 4`. Otherwise, if the value is equal to 4 or smaller, the label should read `FALSE`. We will come back to conditional statements in @sec-wrangling. But long story short, this Boolean expression created the only logical data type in `data_quiz`.
+
+:::
+
+
+
+
+
+And with this, we are done with the individual walkthrough. Well done :)
+
+
+
+## [Pair-coding]{style="color: #F39C12; text-transform: uppercase;"} {.unnumbered}
+
+
+The data we will be using in the lab activities comes from Canada. The original study is Binfet et al. (2021).
+
+**Citation**
+
+> Binfet, J. T., Green, F. L. L., & Draper, Z. A. (2021). The Importance of Client–Canine Contact in Canine-Assisted Interventions: A Randomized Controlled Trial. *Anthrozoös, 35*(1), 1–22. [https://doi.org/10.1080/08927936.2021.1944558](https://doi.org/10.1080/08927936.2021.1944558){target="_blank"}
+
+**Abstract**
+
+> Researchers have claimed that canine-assisted interventions (CAIs) contribute significantly to bolstering participants' wellbeing, yet the mechanisms within interactions have received little empirical attention. The aim of this study was to assess the impact of client–canine contact on wellbeing outcomes in a sample of 284 undergraduate college students (77% female; 21% male, 2% non-binary). Participants self-selected to participate and were randomly assigned to one of two canine interaction treatment conditions (touch or no touch) or to a handler-only condition with no therapy dog present. To assess self-reports of wellbeing, measures of flourishing, positive and negative affect, social connectedness, happiness, integration into the campus community, stress, homesickness, and loneliness were administered. Exploratory analyses were conducted to assess whether these wellbeing measures could be considered as measuring a unidimensional construct. This included both reliability analysis and exploratory factor analysis. Based on the results of these analyses we created a composite measure using participant scores on a latent factor. We then conducted the tests of the four hypotheses using these factor scores. Results indicate that participants across all conditions experienced enhanced wellbeing on several measures; however, only those in the direct contact condition reported significant improvements on all measures of wellbeing. Additionally, direct interactions with therapy dogs through touch elicited greater wellbeing benefits than did no touch/indirect interactions or interactions with only a dog handler. Similarly, analyses using scores on the wellbeing factor indicated significant improvement in wellbeing across all conditions (handler-only, *d* = 0.18, *p* = 0.041; indirect, *d* = 0.38, *p* < 0.001; direct, *d* = 0.78, *p* < 0.001), with more benefit when a dog was present (*d* = 0.20, *p* < 0.001), and the most benefit coming from physical contact with the dog (*d* = 0.13, *p* = 0.002). The findings hold implications for post-secondary wellbeing programs as well as the organization and delivery of CAIs.
+
+
+However, we accessed the data via Ciaran Evans' github ([https://github.com/ciaran-evans/dog-data-analysis](https://github.com/ciaran-evans/dog-data-analysis){target="_blank"}). Evans et al. (2023) published a paper that reused the Binfet data for teaching statistics and research methods. If anyone is interested, the accompanying paper is:
+
+> Evans, C., Cipolli, W., Draper, Z. A., & Binfet, J. T. (2023). Repurposing a Peer-Reviewed Publication to Engage Students in Statistics: An Illustration of Study Design, Data Collection, and Analysis. *Journal of Statistics and Data Science Education, 31*(3), 236–247. [https://doi.org/10.1080/26939169.2023.2238018](https://doi.org/10.1080/26939169.2023.2238018){target="_blank"} 
+
+
+
+**There are a few changes that Evans and we made to the data:**
+
+* Evans removed the demographics ethnicity and gender to make the study data available while protecting participant privacy. Which means we'll have limited demographic variables available, but we will make do with what we've got.
+* We modified some of the responses in the raw data csv - for example, we took out impossible response values and replaced them with `NA`.
+* We replaced some of the numbers with labels to increase the difficulty in the dataset for @sec-wrangling and @sec-wrangling2.
+
+
+### Task 1: Create a project folder for the lab activities {.unnumbered}
+
+Since we will be working with the same data throughout semester 1, create a separate project for the lab data. Name it something useful, like `lab_data` or `dogs_in_the_lab`. Make sure you are not placing it within the project you have already created today. If you need guidance, see @sec-project above.
+
+
+### Task 2: Create a new `.Rmd` file {.unnumbered}
+
+... and name it something useful. If you need help, have a look at @sec-rmd.
+
+
+### Task 3: Download the data {.unnumbered}
+
+Download the data here: [data_pair_ch1](data/data_pair_ch1.zip "download"). The zip folder contains the raw data file with responses to individual questions, a cleaned version of the same data in long format and wide format, and the codebook describing the variables in the raw data file and the long format.
+
+**Unzip the folder and place the data files in the same folder as your project.**
+
+### Task 4: Familiarise yourself with the data {.unnumbered}
+
+Open the data files, look at the codebook, perhaps skim over the original Binfet study (methods in particular) to see what kind of measures they used. 
+
+Read in the raw data file as `dog_data_raw` and the cleaned-up data (long format) as `dog_data_long`. See if you can answer the following questions.
+
+```{r eval=FALSE}
+library(tidyverse)
+
+dog_data_raw <- read_csv("dog_data_raw.csv")
+dog_data_long <- read_csv("dog_data_clean_long.csv")
+```
+
+
+```{r echo=FALSE}
+library(tidyverse)
+
+dog_data_raw <- read_csv("data/dog_data_raw.csv")
+dog_data_long <- read_csv("data/dog_data_clean_long.csv")
+```
+
+* How many participants took part in the study? `r fitb("284")`
+
+::: {.callout-caution collapse="true" icon="false"} 
+
+## Explain this answer
+
+You can see this from `dog_data_raw`. Each participant ID is on a single row meaning the number of observations is the number of participants.
+
+If you look at `dog_data_long`, there are 568 observations. Each participant answered the questionnaires pre and post intervention, resulting in 2 rows per participant ID. This means you'd have to divide the number of observations by 2 to get to the number of participants.
+
+:::
+
+* How many different questionnaires did the participants answer? `r fitb(c("9", "8"))`
+
+::: {.callout-caution collapse="true" icon="false"} 
+
+## Explain this answer
+
+The Binfet paper (e.g., Methods section and/or abstract) and the codebook show it's 9 questionnaires - Flourishing scale (variable `Flourishing`), the UCLS Loneliness scale Version 3 (`Loneliness`), Positive and Negative affect scale (`PANAS_PA` and `PANAS_NA`), the Subjective Happiness scale (`SHS`), the Social connectedness scale (`SCS`), and 3 scales with 1 question each, i.e., perception of stress levels (`Stress`), self-reported level of homesickness (`Homesick`), and integration into the campus community (`Engagement`).
+
+However, if you thought `PANAS_PA` and `PANAS_NA` are a single questionnaire, 8 was also acceptable as an answer here.
+:::
+
+
+
+
+
+## [Test your knowledge]{style="color: #F39C12; text-transform: uppercase;"} {.unnumbered}
+
+
+Are you ready for some knowledge check questions to test your understanding of the chapter? We also have some faulty codes. See if you can spot what's wrong with them.
+
+
+### Knowledge check {.unnumbered}
+
+#### Question 1 {.unnumbered}
+
+One of the key first steps when we open RStudio is to: `r longmcq(c(x = "put on some music as we will be here a while", answer = "open an existing project or create a new one", x = "make a coffee", x = "check out the news"))`
+
+::: {.callout-caution collapse="true" icon="false"} 
+
+## Explain this answer
+
+Opening an existing project (e.g., when coming back to the same dataset) or creating a new project (e.g., for a new task or new dataset) ensures that subsequent `.Rmd` files, any output, figures, etc are saved within the same folder on your computer (i.e., the working directory). If the`.Rmd` files or data is not in the same folder as "the project icon", things can get messy and code might not run.
+
+:::
+  
+#### Question 2 {.unnumbered}
+
+When using the default environment colour settings for RStudio, what colour would the background of a code chunk be in R Markdown? `r mcq(c(x = "red", x = "white", x = "green", answer = "grey"))`
+
+When using the default environment colour settings for RStudio, what colour would the background of normal text be in R Markdown? `r mcq(c(x = "red", answer = "white", x = "green", x = "grey"))`
+
+::: {.callout-caution collapse="true" icon="false"} 
+
+## Explain this answer
+
+Assuming you have not changed any of the settings in RStudio, code chunks will tend to have a grey background and normal text will tend to have a white background. This is a good way to check that you have closed and opened code chunks correctly.
+
+:::
+
+#### Question 3 {.unnumbered}
+
+Code chunks start and end with: `r longmcq(c(x = "three single quotes", answer = "three backticks", x = "three double quotes", x = "three single asterisks"))`
+
+::: {.callout-caution collapse="true" icon="false"} 
+
+## Explain this answer
+
+Code chunks always take the same general format of three backticks followed by curly parentheses and a lower case r inside the parentheses (`{r}`). People often mistake these backticks for single quotes but that will not work. If you have set your code chunk correctly using backticks, the background colour should change to grey from white.
+
+:::
+
+
+#### Question 4 {.unnumbered}
+
+What is the correct way to include a code chunk in RMarkdown that will be executed but neither the code nor its output will be shown in the final HTML document? `r mcq(c(x = "{r, echo=FALSE}", x = "{r, eval=FALSE}", answer = "{r, include=FALSE}", x = "{r, results='hide'}"))`
+
+
+::: {.callout-caution collapse="true" icon="false"} 
+
+## Explain this answer
+
+Check the table of knitr display options in @sec-chunks. 
+
+* {r, echo=FALSE} also executes the code and does not show the code, but it *does* display the result in the knitted html file. (matches 2/3 criteria)
+* {r, eval=FALSE} does not show the results but does *not* execute the code and it *does* show it in the knitted file. (matches 1/3 criteria)
+* {r, results=“hide”} executes the code and does not show results, however, it *does* include the code in the knitted html document. (matches 2/3 criteria)
+
+:::
+
+
+
+
+### Error mode {.unnumbered}
+
+Some of these codes have mistakes in them, other code chunks are not quite producing what was aimed for. Your task is to spot anything faulty, explain why the things happened, and perhaps try to fix them. 
+
+
+#### Question 5 {.unnumbered}
+
+You want to read in data with the `read_csv()` function. You have just stated R, created a new `.Rmd` file, and typed the following code into your code chunk.
+
+```{r eval=FALSE}
+data <- read_csv("data.csv")
+```
+
+However, R gives you an error message: `could not find function "read_csv"`. What could be the reason?
+
+::: {.callout-caution collapse="true" icon="false"} 
+
+## Explain the solution
+
+"Could not find function" is an indication that you have forgotten to load in tidyverse. Because `read_csv()` is a function in the tidyverse collection, R cannot find it.
+
+FIX: Add `library(tidyverse)` prior to reading in the data and run the code chunk again.
+
+:::
+
+
+#### Question 6 {.unnumbered}
+
+You want to read in data with the `read_csv()` function. This time, you are certain you have loaded in tidyverse first. The code is as follows:
+
+```{r eval=FALSE}
+library(tidyverse)
+data <- read_csv("data.csv")
+```
+
+The error message shows `'data.csv' does not exist in current working directory`. You check your folder and it looks like this:
+
+![](images/error_ch1_01.PNG)
+
+Why is there an error message?
+
+::: {.callout-caution collapse="true" icon="false"} 
+
+## Explain the solution
+
+R is looking for a csv file that is called data which is currently not in the working directory. We may assume it's in the data folder. Perhaps that happened when unzipping the zip file. So instead of placing the csv file on the same level as the project icon, it was unzipped into a folder named data.
+
+FIX - option 1: Take the `data.csv` out of the data folder and place it next to the project icon and the `.Rmd` file.
+
+FIX - option 2: Modify your R code to tell R that the data is in a separate folder called data, e.g., ...
+
+```{r eval=FALSE}
+library(tidyverse)
+data <- read_csv("data/data.csv")
+```
+
+
+:::
+
+
+#### Question 7 {.unnumbered}
+
+You want to load `tidyverse` into the library. The code is as follows:
+
+```{r eval=FALSE}
+library(tidyverse)
+```
+
+The error message says: `Error in library(tidyverse) : there is no package called ‘tidyverse’`
+
+Why is there an error message and how can we fix this?
+
+::: {.callout-caution collapse="true" icon="false"} 
+
+## Explain the solution
+
+If R says there is no package called `tidyverse`, means you haven't installed the package yet. This could be an error message you receive either after switching computers or a fresh install of R and RStudio. 
+
+FIX: Type `install.packages("tidyverse")` into your **Console**.
+
+:::
+
+
+#### Question 8 {.unnumbered}
+
+You knitted your `.Rmd` into a html but the output is not as expected. You see the following:
+
+![](images/error_knitted.PNG)
+
+Why did the file not knit properly?
+
+::: {.callout-caution collapse="true" icon="false"} 
+
+## Explain the solution
+
+There is a backtick missing in the code chunk. If you check your `.Rmd` file, you can see that the code chunk does not show up in grey which means it's one of the 3 backticks at the beginning of the chunk.
+
+![](images/error_ch1_08.PNG)
+
+FIX: Add a single backtick manually where it's missing.
+
+:::

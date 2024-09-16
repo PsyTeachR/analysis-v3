@@ -1,0 +1,75 @@
+{
+    "sources": [
+        {
+            "URL": "https://adv-r.hadley.nz",
+            "author": [
+                {
+                    "family": "Wickham",
+                    "given": "Hadley"
+                }
+            ],
+            "id": "advanced-r",
+            "issued": {
+                "date-parts": [
+                    [
+                        2019
+                    ]
+                ]
+            },
+            "publisher": "Chapman; Hall",
+            "title": "Advanced R",
+            "type": "book"
+        },
+        {
+            "URL": "https://happygitwithr.com/",
+            "author": [
+                {
+                    "family": "Bryan",
+                    "given": "Jenny"
+                },
+                {
+                    "literal": "STAT 545 TAs"
+                },
+                {
+                    "family": "Hester",
+                    "given": "Jim"
+                }
+            ],
+            "id": "happy-git",
+            "title": "Happy Git and GitHub for the useR",
+            "type": "book"
+        },
+        {
+            "URL": "https://CRAN.R-project.org/package=usethis",
+            "author": [
+                {
+                    "family": "Wickham",
+                    "given": "Hadley"
+                },
+                {
+                    "family": "Bryan",
+                    "given": "Jennifer"
+                },
+                {
+                    "family": "Barrett",
+                    "given": "Malcolm"
+                }
+            ],
+            "id": "usethis",
+            "issued": {
+                "date-parts": [
+                    [
+                        2022
+                    ]
+                ]
+            },
+            "note": "R package version 2.1.6",
+            "title": "Usethis: Automate package and project setup",
+            "title-short": "Usethis",
+            "type": "book"
+        }
+    ],
+    "project_biblios": [
+        "include/references.bib"
+    ]
+}

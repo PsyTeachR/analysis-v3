@@ -1,0 +1,212 @@
+# Simple regression {#sec-reg}
+
+## Intended Learning Outcomes {.unnumbered}
+
+By the end of this chapter you should be able to:
+
+
+## [Individual Walkthrough]{style="color: #F39C12; text-transform: uppercase;"} {.unnumbered}
+
+## Activity 1: Setup
+
+* create a new project
+* create a new Rmd file and save it to your project folder
+* delete everything after the setup code chunk 
+
+
+
+## Activity 2: Download the data
+
+* Download the data: link
+* Talk about the files
+* insert citation and abstract of the data
+* Look at the codebook and the variables
+
+
+## Activity 3: Load in the library, read in the data and familiarise yourself with the data
+
+
+leave pretty much as is but change the data to one of the STARS datasets and keep that for today and next week
+
+
+
+## Activity 1: Setup & download the data
+
+* create a new project and name it something meaningful (e.g., "2A_chapter5", or "05_chi_square_one_sample_t"). See @sec-project if you need some guidance.
+* create a new Rmd file and save it to your project folder. See @sec-rmd if you get stuck. 
+* delete everything after the setup code chunk (e.g., line 12 and below)
+* download the data here: [data_ch5.zip](data/data_ch5.zip "download").
+* Extract the data files from the zip folder and place them in your project folder. If you need help, see @sec-download_data_ch1.
+
+
+**Citation**
+
+> Alter, U., Dang, C., Kunicki, Z. J., & Counsell, A. (2024). The VSSL scale: A brief instructor tool for assessing students' perceived value of software to learning statistics. *Teaching Statistics, 46*(3), 152-163. [https://doi.org/10.1111/test.12374](https://doi.org/10.1111/test.12374){target="_blank"}
+
+
+
+**Abstract**
+
+> The biggest difference in statistical training from previous decades is the increased use of software. However, little research examines how software impacts learning statistics. Assessing the value of software to statistical learning demands appropriate, valid, and reliable measures. The present study expands the arsenal of tools by reporting on the psychometric properties of the Value of Software to Statistical Learning (VSSL) scale in an undergraduate student sample. We propose a brief measure with strong psychometric support to assess students' perceived value of software in an educational setting. We provide data from a course using SPSS, given its wide use and popularity in the social sciences. However, the VSSL is adaptable to any statistical software, and we provide instructions for customizing it to suit alternative packages. Recommendations for administering, scoring, and interpreting the VSSL are provided to aid statistics instructors and education researchers understand how software influences students' statistical learning.
+
+The data is available on OSF: [https://osf.io/bk7vw/](https://osf.io/bk7vw/){target="_blank"}
+
+
+
+**Changes made to the dataset**
+
+* We turned the excel file into a csv 
+* We aggregated the main scales by reverse-scoring reverse-coded items (as listed in the codebook) and averaging.
+* However, the responses to the individual items of the questionnaires are the raw data, not the reverse-coded scores! If you want to practice your data wrangling skills, feel free to do so.
+* We have tidied up the columns RaceEthE, GradesE, and MajorE, but we've left Gender and Student Status for you to tidy.
+
+
+## Activity 2: Load in the library, read in the data, and familiarise yourself with the data
+
+Today, we'll need the following packages `tidyverse`, `lsr` *ETC* as well as the data `Alter_2024_data.csv`.
+
+
+```{r eval=FALSE}
+???
+
+data_alter <- ???
+
+```
+
+
+```{r include=FALSE, message=TRUE}
+## I basically have to have 2 code chunks since I tell them to put the data files next to the project, and mine are in a separate folder called data - unless I'll turn this into a fixed path
+library(tidyverse)
+library(lsr)
+data_alter <- read_csv("data/Alter_2024_data.csv")
+```
+
+
+::: {.callout-caution collapse="true" icon="false"} 
+
+## Solution 
+
+```{r eval=FALSE}
+library(tidyverse)
+library(lsr)
+data_alter <- read_csv("Alter_2024_data.csv") 
+```
+
+:::
+
+
+
+
+## Activity 3: Data Wrangling
+
+To have more informative categories within the demographic data, we would recommend relabeling the remaining two columns Gender and Student status according to the information in the codebook. Add `Gender_tidy` and `StuSta_tidy` to the `data_alter` object.
+
+
+::: {.callout-note collapse="true" icon="false"} 
+
+## Hints
+
+* Gender would be a case of recoding one value as another (we did that for the `Understanding_OS questionnaire` in @sec-wrangling)
+* Student Status would be slightly more intricate having multiple entries that would be recoded as the same category (we did that for the `SATs` questionnaire in @sec-wrangling)
+
+
+::: {.callout-caution collapse="true" icon="false"} 
+
+## Solution
+
+```{r}
+data_alter <- data_alter %>% 
+  mutate(Gender_tidy = case_match(GenderE,
+                                  1 ~ "Female",
+                                  2 ~ "Male",
+                                  3 ~ "Non-Binary",
+                                  .default = NA),
+         StuSta_tidy = case_when(
+           StuStaE %in% c("1", "Freshman") ~ "Freshman",
+           StuStaE %in% c("2", "Sophomore") ~ "Sophomore",
+           StuStaE %in% c("3", "Junior") ~ "Junior",
+           StuStaE %in% c("4", "senior", "Senior", "post-bac") ~ "Senior or Higher",
+           .default = StuStaE))
+```
+
+:::
+
+:::
+
+
+```{r eval=FALSE}
+ggplot(data_alter, aes(sample = Mean_MA)) +
+  stat_qq() +
+  stat_qq_line()
+```
+
+
+```{r eval=FALSE}
+ggplot(data_alter, aes(sample = Mean_QANX)) +
+  stat_qq() +
+  stat_qq_line()
+```
+
+
+```{r eval=FALSE}
+ggplot(data_alter, aes(sample = Mean_QINFL)) +
+  stat_qq() +
+  stat_qq_line()
+```
+
+
+```{r eval=FALSE}
+ggplot(data_alter, aes(sample = Mean_QSF)) +
+  stat_qq() +
+  stat_qq_line()
+
+
+ggplot(data_alter, aes(x = Mean_QSF)) +
+  geom_histogram()
+```
+
+
+```{r eval=FALSE}
+ggplot(data_alter, aes(sample = Mean_QHIND)) +
+  stat_qq() +
+  stat_qq_line()
+
+ggplot(data_alter, aes(x = Mean_QHIND)) +
+  geom_histogram(binwidth = 0.1)
+```
+
+
+```{r eval=FALSE}
+ggplot(data_alter, aes(sample = Mean_QSC)) +
+  stat_qq() +
+  stat_qq_line()
+```
+
+
+```{r eval=FALSE}
+ggplot(data_alter, aes(sample = Mean_QSE)) +
+  stat_qq() +
+  stat_qq_line()
+
+
+ggplot(data_alter, aes(x = Mean_QSE)) +
+  geom_histogram(binwidth = 0.1)
+```
+
+
+```{r eval=FALSE}
+ggplot(data_alter, aes(sample = Mean_SPSS)) +
+  stat_qq() +
+  stat_qq_line()
+```
+
+
+## [Pair-coding]{style="color: #F39C12; text-transform: uppercase;"} {.unnumbered}
+
+
+
+
+## [Test your knowledge]{style="color: #F39C12; text-transform: uppercase;"} {.unnumbered}
+
+
+

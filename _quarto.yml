@@ -1,0 +1,90 @@
+lang: en
+project:
+  type: book
+  output-dir: docs
+  resources: resources
+execute:
+  freeze: auto
+lightbox: true
+book:
+  title: Analysis
+  subtitle: ''
+  author:
+    - orcid: 0000-0002-2135-6888
+      name:
+        family: Mahrholz
+        given: Gaby
+    - orcid: 0000-0003-0830-7915
+      name:
+        family: Kuepper-Tetzel
+        given: Carolina E.
+  doi: ''
+  license: CC-BY
+  description: Data skills book for Level 2 Psychology students at the School of Psychology and Neuroscience at the University of Glasgow
+  cover-image: images/logos/logo_analysis.png
+  image: images/logos/logo_analysis.png
+  favicon: images/logos/logo_analysis.png
+  cookie-consent: false
+  google-analytics: ''
+  page-navigation: true
+  search: true
+  sharing:
+  - twitter
+  - facebook
+  - linkedin
+  sidebar:
+    title: ''
+    logo: ''
+    search: true
+    contents: ''
+    style: floating
+    background: light
+    foreground: dark
+    border: true
+    alignment: left
+    collapse-level: 3
+    pinned: true
+    header: ''
+    footer: ''
+  margin-header: ''
+  page-footer: CC-BY (2024) Gaby Mahrholz
+  chapters:
+  - index.qmd
+  - 01-basics.qmd
+  appendices:
+  - appendix-a-installing-r.qmd
+  - appendix-b-updating-packages.qmd
+  - appendix-d-symbols.qmd
+  - appendix-x-How-to-cite-R.qmd
+  - appendix-y-license.qmd
+  - references.qmd
+bibliography: include/references.bib
+csl: include/apa.csl
+format:
+  html:
+    theme:
+      light:
+      - flatly
+      - include/light.scss
+      dark:
+      - darkly
+      - include/dark.scss
+    css:
+    - https://use.fontawesome.com/releases/v5.13.0/css/all.css
+    - include/booktem.css
+    - include/webex.css
+    - include/glossary.css
+    - include/style.css
+    - include/custom.scss
+    df-print: kable
+    code-link: true
+    code-fold: false
+    code-line-numbers: true
+    code-overflow: wrap
+    code-copy: hover
+    highlight-style: a11y
+    mainfont: ''
+    monofont: ''
+    include-after-body:
+    - include/webex.js
+    - include/script.js

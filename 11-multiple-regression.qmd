@@ -1,0 +1,41 @@
+# Multiple regression {#sec-reg_mult}
+
+Note to self: leave beta as b
+
+
+## Intended Learning Outcomes {.unnumbered}
+
+By the end of this chapter you should be able to:
+
+
+## [Individual Walkthrough]{style="color: #F39C12; text-transform: uppercase;"} {.unnumbered}
+
+## Activity 1: Setup
+
+* create a new project
+* create a new Rmd file and save it to your project folder
+* delete everything after the setup code chunk 
+
+
+
+## Activity 2: Download the data
+
+* Download the data: link
+* Talk about the files
+* insert citation and abstract of the data
+* Look at the codebook and the variables
+
+
+## Activity 3: Load in the library, read in the data and familiarise yourself with the data
+
+
+
+
+## [Pair-coding]{style="color: #F39C12; text-transform: uppercase;"} {.unnumbered}
+
+
+
+
+## [Test your knowledge]{style="color: #F39C12; text-transform: uppercase;"} {.unnumbered}
+
+

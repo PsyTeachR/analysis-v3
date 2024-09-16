@@ -1,0 +1,116 @@
+{
+  "index.qmd": {
+    "index.html": "e3ca897e"
+  },
+  "instructions.qmd": {
+    "instructions.html": "92c88738"
+  },
+  "webexercises.qmd": {
+    "webexercises.html": "f3a9c44e"
+  },
+  "references.qmd": {
+    "references.html": "d17f8dd3"
+  },
+  "01-basics.qmd": {
+    "01-basics.html": "5c23a141"
+  },
+  "appendix-a-installing-r.qmd": {
+    "appendix-a-installing-r.html": "a1f9708d"
+  },
+  "appendix-b-updating-packages.qmd": {
+    "appendix-b-updating-packages.html": "88fa28e0"
+  },
+  "appendix-c-exporting-server.qmd": {
+    "appendix-c-exporting-server.html": "cdd002c8"
+  },
+  "appendix-d-symbols.qmd": {
+    "appendix-d-symbols.html": "a7dd9ff4"
+  },
+  "appendix-x-How-to-cite-R.qmd": {
+    "appendix-x-How-to-cite-R.html": "36db76a0"
+  },
+  "appendix-y-license.qmd": {
+    "appendix-y-license.html": "7d37d4a0"
+  },
+  "02-wrangling.qmd": {
+    "02-wrangling.html": "7a0d69cd"
+  },
+  "03-dataviz.qmd": {
+    "03-dataviz.html": "a3eb4d89"
+  },
+  "04-prob-binom-one-sample.qmd": {
+    "04-prob-binom-one-sample.html": "0dd33691"
+  },
+  "05-independent.qmd": {
+    "05-independent.html": "08fee3aa"
+  },
+  "06-paired.qmd": {
+    "06-paired.html": "bdeee4e3"
+  },
+  "07-apes.qmd": {
+    "07-apes.html": "dbd0f981"
+  },
+  "08-correlation.qmd": {
+    "08-correlation.html": "6cb01e15"
+  },
+  "09-simple-regression.qmd": {
+    "09-simple-regression.html": "3e8b99ac"
+  },
+  "10-multiple-regression.qmd": {
+    "10-multiple-regression.html": "cba2d627"
+  },
+  "11-one-way-anova.qmd": {
+    "11-one-way-anova.html": "664eee26"
+  },
+  "12-factorial-anova.qmd": {
+    "12-factorial-anova.html": "7b307df4"
+  },
+  "04-chi-square-one-sample.qmd": {
+    "04-chi-square-one-sample.html": "38212035"
+  },
+  "04-dataviz2.qmd": {
+    "04-dataviz2.html": "aedec25f"
+  },
+  "05-chi-square-one-sample.qmd": {
+    "05-chi-square-one-sample.html": "20893567"
+  },
+  "06-independent.qmd": {
+    "06-independent.html": "47200daf"
+  },
+  "07-paired.qmd": {
+    "07-paired.html": "88e6abb1"
+  },
+  "03-wrangling2.qmd": {
+    "03-wrangling2.html": "5f34e12a"
+  },
+  "04-dataviz.qmd": {
+    "04-dataviz.html": "526e244b"
+  },
+  "05-dataviz2.qmd": {
+    "05-dataviz2.html": "b49efd57"
+  },
+  "06-chi-square-one-sample.qmd": {
+    "06-chi-square-one-sample.html": "d27f4e91"
+  },
+  "07-independent.qmd": {
+    "07-independent.html": "8be9a8e9"
+  },
+  "08-paired.qmd": {
+    "08-paired.html": "f702a079"
+  },
+  "09-correlation.qmd": {
+    "09-correlation.html": "a252dfd5"
+  },
+  "10-regression.qmd": {
+    "10-regression.html": "8e6eb36d"
+  },
+  "11-multiple-regression.qmd": {
+    "11-multiple-regression.html": "1c1a3d9f"
+  },
+  "12-one-way-anova.qmd": {
+    "12-one-way-anova.html": "52944096"
+  },
+  "13-factorial-anova.qmd": {
+    "13-factorial-anova.html": "15cb37e8"
+  }
+}

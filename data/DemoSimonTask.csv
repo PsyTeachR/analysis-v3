@@ -1,0 +1,161 @@
+twosubjectnumber,gender_response,age_response,education_response
+T1,Female,50,High school
+T111,Female,34,High school
+T112,Female,37,"Graduate degree (Master's, Doctorate, etc.)"
+T147,Female,39,Associate's degree
+T161,Female,66,Bachelor's degree
+T162,Other,22,Bachelor's degree
+T199,Male,53,Bachelor's degree
+T2,Female,52,High school
+T204,Male,25,Bachelor's degree
+T205,Male,28,"Graduate degree (Master's, Doctorate, etc.)"
+T206,Male,43,High school
+T240,Female,45,"Graduate degree (Master's, Doctorate, etc.)"
+T241,Male,54,"College, no degree"
+T267,Male,35,"College, no degree"
+T268,Female,55,"College, no degree"
+T3,Male,54,"College, no degree"
+T4,Male,29,"College, no degree"
+T52,Female,38,Bachelor's degree
+T53,Male,44,"College, no degree"
+T73,Female,40,Bachelor's degree
+T113,Female,62,Associate's degree
+T158,Male,27,Associate's degree
+T163,Male,45,"Graduate degree (Master's, Doctorate, etc.)"
+T164,Female,28,"College, no degree"
+T165,Female,27,Associate's degree
+T166,Female,49,Bachelor's degree
+T167,Male,42,Bachelor's degree
+T207,Female,27,"College, no degree"
+T242,Female,36,Bachelor's degree
+T243,Male,27,Associate's degree
+T244,Female,61,Bachelor's degree
+T306,Male,26,Bachelor's degree
+T5,Male,26,Bachelor's degree
+T54,Female,35,Bachelor's degree
+T6,Female,60,"College, no degree"
+T7,Female,58,Bachelor's degree
+T74,Female,32,Associate's degree
+T78,Male,42,"College, no degree"
+T8,Male,56,"College, no degree"
+T85,Female,38,Bachelor's degree
+T10,Male,45,Associate's degree
+T11,Female,71,High school
+T114,Female,43,High school
+T115,Female,61,"College, no degree"
+T12,Male,69,"Graduate degree (Master's, Doctorate, etc.)"
+T13,Female,63,"Graduate degree (Master's, Doctorate, etc.)"
+T168,Male,45,Bachelor's degree
+T169,Male,25,"College, no degree"
+T170,Male,35,"Graduate degree (Master's, Doctorate, etc.)"
+T171,Male,25,Bachelor's degree
+T208,Female,37,Associate's degree
+T209,Male,36,Bachelor's degree
+T233,Female,25,Bachelor's degree
+T269,Female,21,"College, no degree"
+T270,Female,21,Bachelor's degree
+T271,Female,29,"Graduate degree (Master's, Doctorate, etc.)"
+T55,Female,33,Bachelor's degree
+T56,Male,33,"College, no degree"
+T87,Female,47,"College, no degree"
+T9,Male,34,Bachelor's degree
+T116,Male,31,"Graduate degree (Master's, Doctorate, etc.)"
+T14,Female,30,Bachelor's degree
+T148,Male,60,"College, no degree"
+T149,Male,51,Associate's degree
+T15,Female,28,Bachelor's degree
+T172,Male,49,Bachelor's degree
+T173,Female,34,"Graduate degree (Master's, Doctorate, etc.)"
+T174,Female,29,"College, no degree"
+T210,Female,58,Associate's degree
+T211,Male,46,High school
+T234,Male,33,Bachelor's degree
+T245,Male,33,Bachelor's degree
+T246,Male,36,High school
+T272,Male,52,"College, no degree"
+T305,Female,24,"Graduate degree (Master's, Doctorate, etc.)"
+T49,Female,37,Associate's degree
+T57,Male,34,Associate's degree
+T86,Male,35,"College, no degree"
+T88,Female,27,"Graduate degree (Master's, Doctorate, etc.)"
+T89,Female,56,"College, no degree"
+T109,Male,33,Bachelor's degree
+T117,Female,28,High school
+T118,Male,28,Bachelor's degree
+T119,Female,40,Associate's degree
+T120,Male,54,"Graduate degree (Master's, Doctorate, etc.)"
+T150,Male,41,"College, no degree"
+T151,Female,41,"College, no degree"
+T16,Female,70,"College, no degree"
+T175,Female,33,Bachelor's degree
+T176,Female,37,Bachelor's degree
+T177,Female,58,"College, no degree"
+T212,Male,40,Bachelor's degree
+T213,Female,37,Associate's degree
+T259,Female,30,"College, no degree"
+T273,Female,25,Bachelor's degree
+T274,Male,53,Bachelor's degree
+T275,Male,21,"College, no degree"
+T315,Female,51,Associate's degree
+T50,Female,52,Bachelor's degree
+T79,Male,32,Bachelor's degree
+T121,Female,36,"College, no degree"
+T122,Male,32,Bachelor's degree
+T152,Female,31,Bachelor's degree
+T17,Female,45,High school
+T200,Female,27,"College, no degree"
+T214,Male,33,"College, no degree"
+T215,Male,26,High school
+T216,Female,44,Associate's degree
+T235,Female,26,"Graduate degree (Master's, Doctorate, etc.)"
+T247,Female,45,Bachelor's degree
+T276,Female,59,Bachelor's degree
+T277,Female,46,Associate's degree
+T278,Female,71,Bachelor's degree
+T279,Female,33,"Graduate degree (Master's, Doctorate, etc.)"
+T58,Female,45,"Graduate degree (Master's, Doctorate, etc.)"
+T59,Female,34,"Graduate degree (Master's, Doctorate, etc.)"
+T60,Female,51,High school
+T61,Male,31,"Graduate degree (Master's, Doctorate, etc.)"
+T90,Male,52,"College, no degree"
+T91,Male,26,"College, no degree"
+T123,Male,19,"College, no degree"
+T124,Male,37,"Graduate degree (Master's, Doctorate, etc.)"
+T125,Female,45,High school
+T178,Male,33,"Graduate degree (Master's, Doctorate, etc.)"
+T179,Male,55,"College, no degree"
+T18,Female,36,Bachelor's degree
+T180,Male,45,Bachelor's degree
+T19,Female,38,Bachelor's degree
+T201,Female,42,Bachelor's degree
+T236,Female,33,Bachelor's degree
+T248,Male,38,Bachelor's degree
+T260,Male,19,High school
+T264,Female,29,High school
+T307,Male,63,Bachelor's degree
+T308,Female,26,Bachelor's degree
+T62,Female,40,Bachelor's degree
+T75,Female,26,"College, no degree"
+T80,Female,35,Bachelor's degree
+T92,Male,45,"College, no degree"
+T93,Male,31,"College, no degree"
+T126,Female,38,"College, no degree"
+T127,Male,20,"College, no degree"
+T181,Female,35,Bachelor's degree
+T182,Female,38,Bachelor's degree
+T183,Male,45,Bachelor's degree
+T20,Female,59,"College, no degree"
+T202,Female,27,Bachelor's degree
+T21,Male,32,High school
+T217,Female,37,"College, no degree"
+T22,Female,62,High school
+T23,Female,24,High school
+T24,Female,53,High school
+T249,Female,51,"Graduate degree (Master's, Doctorate, etc.)"
+T280,Male,44,"Graduate degree (Master's, Doctorate, etc.)"
+T281,Male,36,"College, no degree"
+T282,Female,55,Bachelor's degree
+T283,Female,33,"Graduate degree (Master's, Doctorate, etc.)"
+T63,Female,19,"College, no degree"
+T94,Male,65,Bachelor's degree
+T95,Male,45,"Graduate degree (Master's, Doctorate, etc.)"

@@ -1,0 +1,5 @@
+[1,"==> quarto preview 01-basics.qmd --to html --no-watch-inputs --no-browse\n\n"]
+[1,"Warning message:\r\npackage 'knitr' was built under R version 4.3.3 \r\nWarning message:\r\npackage 'glossary' was built under R version 4.3.3 \r\n"]
+[1,"\r\n\r\nprocessing file: 01-basics.qmd\r\n\r  |                                                         \r  |                                                   |   0%\r  |                                                         \r  |.                                                  |   3%                   "]
+[1,"Error in `longmcq()`:\r\n! could not find function \"longmcq\"\r\n\r\n\n\nQuitting from lines 2-1 (01-basics.qmd)\r\n\r                                                                                                             \r\nExecution halted\r\n"]
+[1,"Warning message:\r\npackage 'knitr' was built under R version 4.3.3 \r\nWarning message:\r\npackage 'glossary' was built under R version 4.3.3 \r\n"]
