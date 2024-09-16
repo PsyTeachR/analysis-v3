@@ -124,7 +124,7 @@
     "href": "appendix-a-installing-r.html",
     "title": "Appendix A — Installing R",
     "section": "",
-    "text": "The RSetGo book provides detailed instructions on how to install R and RStudio on your computer. It also includes links to walkthroughs for installing R on different types of computers and operating systems.",
+    "text": "How to install R and RStudio\nThe RSetGo book provides detailed instructions on how to install R and RStudio on your computer. It also includes links to walkthroughs for installing R on different types of computers and operating systems.",
     "crumbs": [
       "Appendices",
       "<span class='chapter-number'>A</span>  <span class='chapter-title'>Installing R</span>"
