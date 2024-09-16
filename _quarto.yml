@@ -57,7 +57,6 @@ book:
   - appendix-d-symbols.qmd
   - appendix-x-How-to-cite-R.qmd
   - appendix-y-license.qmd
-  - references.qmd
 bibliography: include/references.bib
 csl: include/apa.csl
 format:
