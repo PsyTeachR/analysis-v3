@@ -1,13 +1,10 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.555">
-
+<meta name="generator" content="quarto-1.3.450">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
 <meta name="description" content="Data skills book for Level 2 Psychology students at the School of Psychology and Neuroscience at the University of Glasgow">
-
 <title>Analysis - 1&nbsp; Projects and R Markdown</title>
 <style>
 code{white-space: pre-wrap;}
@@ -23,7 +20,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -57,7 +54,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 </style>
 
-
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
 <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -77,23 +73,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<script src="site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
-<link href="site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
-<link href="site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
-<script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 50,
-  "keyboard-shortcut": [
-    "f",
-    "/",
-    "s"
-  ],
-  "show-item-context": false,
+  "limit": 20,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -102,80 +88,66 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
-    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script>
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-6NP3MF25W3"></script>
-
-<script type="text/javascript">
+}</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-6NP3MF25W3"></script><script type="text/javascript">
 
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
-</script>
-
-
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
+</script><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
 <link rel="stylesheet" href="include/booktem.css">
 <link rel="stylesheet" href="include/webex.css">
 <link rel="stylesheet" href="include/glossary.css">
 <link rel="stylesheet" href="include/style.css">
 <link rel="stylesheet" href="include/custom.scss">
 </head>
-
 <body class="nav-sidebar floating">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01-basics.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Projects and R Markdown</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-        </a>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01-basics.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Projects and R Markdown</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
-  </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Analysis</a> 
         <div class="sidebar-tools-main">
     <div class="dropdown">
       <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
-          <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
+<li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
               <i class="bi bi-bi-twitter pe-1"></i>
             Twitter
             </a>
           </li>
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
               <i class="bi bi-bi-facebook pe-1"></i>
             Facebook
             </a>
           </li>
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=|url|">
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
               <i class="bi bi-bi-linkedin pe-1"></i>
             LinkedIn
             </a>
           </li>
       </ul>
-    </div>
+</div>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
@@ -187,7 +159,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
         </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Overview</span></a>
@@ -207,8 +179,8 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./appendix-a-installing-r.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Installing R</span></span></a>
@@ -239,60 +211,64 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
   </div>
 </li>
       </ul>
-  </li>
+</li>
     </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+</div>
+</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#intended-learning-outcomes" id="toc-intended-learning-outcomes" class="nav-link active" data-scroll-target="#intended-learning-outcomes">Intended Learning Outcomes</a></li>
+<li><a href="#intended-learning-outcomes" id="toc-intended-learning-outcomes" class="nav-link active" data-scroll-target="#intended-learning-outcomes">Intended Learning Outcomes</a></li>
   <li><a href="#individual-walkthrough" id="toc-individual-walkthrough" class="nav-link" data-scroll-target="#individual-walkthrough"><span style="color: #F39C12; text-transform: uppercase;">Individual Walkthrough</span></a></li>
-  <li><a href="#r-and-r-studio" id="toc-r-and-r-studio" class="nav-link" data-scroll-target="#r-and-r-studio"><span class="header-section-number">1.1</span> R and R Studio</a>
+  <li>
+<a href="#r-and-r-studio" id="toc-r-and-r-studio" class="nav-link" data-scroll-target="#r-and-r-studio"><span class="header-section-number">1.1</span> R and R Studio</a>
   <ul class="collapse">
-  <li><a href="#r-server" id="toc-r-server" class="nav-link" data-scroll-target="#r-server"><span class="header-section-number">1.1.1</span> R server</a></li>
+<li><a href="#r-server" id="toc-r-server" class="nav-link" data-scroll-target="#r-server"><span class="header-section-number">1.1.1</span> R server</a></li>
   <li><a href="#installing-r-and-rstudio-on-your-computer" id="toc-installing-r-and-rstudio-on-your-computer" class="nav-link" data-scroll-target="#installing-r-and-rstudio-on-your-computer"><span class="header-section-number">1.1.2</span> Installing R and RStudio on your computer</a></li>
   <li><a href="#settings-for-reproducibility" id="toc-settings-for-reproducibility" class="nav-link" data-scroll-target="#settings-for-reproducibility"><span class="header-section-number">1.1.3</span> Settings for Reproducibility</a></li>
   <li><a href="#rstudio-panes" id="toc-rstudio-panes" class="nav-link" data-scroll-target="#rstudio-panes"><span class="header-section-number">1.1.4</span> RStudio panes</a></li>
-  </ul></li>
+  </ul>
+</li>
   <li><a href="#sec-project" id="toc-sec-project" class="nav-link" data-scroll-target="#sec-project"><span class="header-section-number">1.2</span> Activity 1: Creating a new project</a></li>
-  <li><a href="#sec-rmd" id="toc-sec-rmd" class="nav-link" data-scroll-target="#sec-rmd"><span class="header-section-number">1.3</span> Activity 2: Create a new R Markdown file</a>
+  <li>
+<a href="#sec-rmd" id="toc-sec-rmd" class="nav-link" data-scroll-target="#sec-rmd"><span class="header-section-number">1.3</span> Activity 2: Create a new R Markdown file</a>
   <ul class="collapse">
-  <li><a href="#markdown" id="toc-markdown" class="nav-link" data-scroll-target="#markdown"><span class="header-section-number">1.3.1</span> Markdown</a></li>
+<li><a href="#markdown" id="toc-markdown" class="nav-link" data-scroll-target="#markdown"><span class="header-section-number">1.3.1</span> Markdown</a></li>
   <li><a href="#sec-chunks" id="toc-sec-chunks" class="nav-link" data-scroll-target="#sec-chunks"><span class="header-section-number">1.3.2</span> Code chunks</a></li>
-  </ul></li>
+  </ul>
+</li>
   <li><a href="#sec-download_data_ch1" id="toc-sec-download_data_ch1" class="nav-link" data-scroll-target="#sec-download_data_ch1"><span class="header-section-number">1.4</span> Activity 3: Download the data</a></li>
   <li><a href="#activity-4-loading-packages-and-reading-in-data" id="toc-activity-4-loading-packages-and-reading-in-data" class="nav-link" data-scroll-target="#activity-4-loading-packages-and-reading-in-data"><span class="header-section-number">1.5</span> Activity 4: Loading packages and reading in data</a></li>
-  <li><a href="#sec-familiarise" id="toc-sec-familiarise" class="nav-link" data-scroll-target="#sec-familiarise"><span class="header-section-number">1.6</span> Activity 5: Familiarise yourself with the data</a>
+  <li>
+<a href="#sec-familiarise" id="toc-sec-familiarise" class="nav-link" data-scroll-target="#sec-familiarise"><span class="header-section-number">1.6</span> Activity 5: Familiarise yourself with the data</a>
   <ul class="collapse">
-  <li><a href="#first-glimpse-at-the-data" id="toc-first-glimpse-at-the-data" class="nav-link" data-scroll-target="#first-glimpse-at-the-data"><span class="header-section-number">1.6.1</span> First glimpse at the data</a></li>
+<li><a href="#first-glimpse-at-the-data" id="toc-first-glimpse-at-the-data" class="nav-link" data-scroll-target="#first-glimpse-at-the-data"><span class="header-section-number">1.6.1</span> First glimpse at the data</a></li>
   <li><a href="#sec-datatypes" id="toc-sec-datatypes" class="nav-link" data-scroll-target="#sec-datatypes"><span class="header-section-number">1.6.2</span> Data types</a></li>
   <li><a href="#variable-types" id="toc-variable-types" class="nav-link" data-scroll-target="#variable-types"><span class="header-section-number">1.6.3</span> Variable types</a></li>
-  </ul></li>
-  <li><a href="#pair-coding" id="toc-pair-coding" class="nav-link" data-scroll-target="#pair-coding"><span style="color: #F39C12; text-transform: uppercase;">Pair-coding</span></a>
+  </ul>
+</li>
+  <li>
+<a href="#pair-coding" id="toc-pair-coding" class="nav-link" data-scroll-target="#pair-coding"><span style="color: #F39C12; text-transform: uppercase;">Pair-coding</span></a>
   <ul class="collapse">
-  <li><a href="#task-1-create-a-project-folder-for-the-lab-activities" id="toc-task-1-create-a-project-folder-for-the-lab-activities" class="nav-link" data-scroll-target="#task-1-create-a-project-folder-for-the-lab-activities">Task 1: Create a project folder for the lab activities</a></li>
+<li><a href="#task-1-create-a-project-folder-for-the-lab-activities" id="toc-task-1-create-a-project-folder-for-the-lab-activities" class="nav-link" data-scroll-target="#task-1-create-a-project-folder-for-the-lab-activities">Task 1: Create a project folder for the lab activities</a></li>
   <li><a href="#task-2-create-a-new-.rmd-file" id="toc-task-2-create-a-new-.rmd-file" class="nav-link" data-scroll-target="#task-2-create-a-new-.rmd-file">Task 2: Create a new <code>.Rmd</code> file</a></li>
   <li><a href="#task-3-download-the-data" id="toc-task-3-download-the-data" class="nav-link" data-scroll-target="#task-3-download-the-data">Task 3: Download the data</a></li>
   <li><a href="#task-4-familiarise-yourself-with-the-data" id="toc-task-4-familiarise-yourself-with-the-data" class="nav-link" data-scroll-target="#task-4-familiarise-yourself-with-the-data">Task 4: Familiarise yourself with the data</a></li>
-  </ul></li>
-  <li><a href="#test-your-knowledge" id="toc-test-your-knowledge" class="nav-link" data-scroll-target="#test-your-knowledge"><span style="color: #F39C12; text-transform: uppercase;">Test your knowledge</span></a>
-  <ul class="collapse">
-  <li><a href="#knowledge-check" id="toc-knowledge-check" class="nav-link" data-scroll-target="#knowledge-check">Knowledge check</a></li>
-  <li><a href="#error-mode" id="toc-error-mode" class="nav-link" data-scroll-target="#error-mode">Error mode</a></li>
-  </ul></li>
   </ul>
-</nav>
+</li>
+  <li>
+<a href="#test-your-knowledge" id="toc-test-your-knowledge" class="nav-link" data-scroll-target="#test-your-knowledge"><span style="color: #F39C12; text-transform: uppercase;">Test your knowledge</span></a>
+  <ul class="collapse">
+<li><a href="#knowledge-check" id="toc-knowledge-check" class="nav-link" data-scroll-target="#knowledge-check">Knowledge check</a></li>
+  <li><a href="#error-mode" id="toc-error-mode" class="nav-link" data-scroll-target="#error-mode">Error mode</a></li>
+  </ul>
+</li>
+  </ul></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
 <h1 class="title"><span id="sec-basics" class="quarto-section-identifier"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Projects and R Markdown</span></span></h1>
 </div>
 
@@ -306,39 +282,28 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
   </div>
   
 
-
-</header>
-
-
-<section id="intended-learning-outcomes" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="intended-learning-outcomes">Intended Learning Outcomes</h2>
+</header><section id="intended-learning-outcomes" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="intended-learning-outcomes">Intended Learning Outcomes</h2>
 <p>By the end of this chapter, you should be able to:</p>
 <ul>
 <li>Re-familiarise yourself with setting up projects</li>
 <li>Re-familiarise yourself with RMarkdown documents</li>
 <li>Recap and apply data wrangling procedures to analyse data</li>
-</ul>
-</section>
-<section id="individual-walkthrough" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="individual-walkthrough"><span style="color: #F39C12; text-transform: uppercase;">Individual Walkthrough</span></h2>
-</section>
-<section id="r-and-r-studio" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="r-and-r-studio"><span class="header-section-number">1.1</span> R and R Studio</h2>
+</ul></section><section id="individual-walkthrough" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="individual-walkthrough"><span style="color: #F39C12; text-transform: uppercase;">Individual Walkthrough</span></h2>
+</section><section id="r-and-r-studio" class="level2" data-number="1.1"><h2 data-number="1.1" class="anchored" data-anchor-id="r-and-r-studio">
+<span class="header-section-number">1.1</span> R and R Studio</h2>
 <p>Remember, R is a programming language that you will write code in and RStudio is an Integrated Development Environment (IDE) which makes working with R easier as it’s more user friendly. You need both components for this course.</p>
 <p>If this is not ringing any bells yet, have a quick browse through the <a href="https://psyteachr.github.io/data-skills-v2/sec-intro.html?q=RMark#sec-intro-r" target="_blank">materials from year 1</a> to refresh your memory.</p>
-<section id="r-server" class="level3" data-number="1.1.1">
-<h3 data-number="1.1.1" class="anchored" data-anchor-id="r-server"><span class="header-section-number">1.1.1</span> R server</h3>
+<section id="r-server" class="level3" data-number="1.1.1"><h3 data-number="1.1.1" class="anchored" data-anchor-id="r-server">
+<span class="header-section-number">1.1.1</span> R server</h3>
 <p>Use the server <em>only</em> if you are unable to install R and RStudio on your computer (e.g., if you are using a Chromebook) or if you encounter issues while installing R on your own machine. Otherwise, you should install R and RStudio directly on your own computer. R and RStudio are already installed on the <em>R server</em>.</p>
 <p>You will find the link to the server on Moodle.</p>
-</section>
-<section id="installing-r-and-rstudio-on-your-computer" class="level3" data-number="1.1.2">
-<h3 data-number="1.1.2" class="anchored" data-anchor-id="installing-r-and-rstudio-on-your-computer"><span class="header-section-number">1.1.2</span> Installing R and RStudio on your computer</h3>
+</section><section id="installing-r-and-rstudio-on-your-computer" class="level3" data-number="1.1.2"><h3 data-number="1.1.2" class="anchored" data-anchor-id="installing-r-and-rstudio-on-your-computer">
+<span class="header-section-number">1.1.2</span> Installing R and RStudio on your computer</h3>
 <p>The <a href="https://psyteachr.github.io/RSetGo/" target="_blank">RSetGo book</a> provides detailed instructions on how to install R and RStudio on your computer. It also includes links to walkthroughs for installing R on different types of computers and operating systems.</p>
-<p>If you had R and RStudio installed on your computer last year, we recommend updating to the latest versions. In fact, it’s a good practice to update them at the start of each academic year. Detailed guidance can be found in <a href="appendix-b-updating-packages.html" class="quarto-xref"><span>Appendix B</span></a>.</p>
+<p>If you had R and RStudio installed on your computer last year, we recommend updating to the latest versions. In fact, it’s a good practice to update them at the start of each academic year. Detailed guidance can be found in <a href="appendix-b-updating-packages.html"><span>Appendix&nbsp;B</span></a>.</p>
 <p>Once you have installed or updated R and RStudio, return to this chapter.</p>
-</section>
-<section id="settings-for-reproducibility" class="level3" data-number="1.1.3">
-<h3 data-number="1.1.3" class="anchored" data-anchor-id="settings-for-reproducibility"><span class="header-section-number">1.1.3</span> Settings for Reproducibility</h3>
+</section><section id="settings-for-reproducibility" class="level3" data-number="1.1.3"><h3 data-number="1.1.3" class="anchored" data-anchor-id="settings-for-reproducibility">
+<span class="header-section-number">1.1.3</span> Settings for Reproducibility</h3>
 <p>By now, you should be aware that the Psychology department at the University of Glasgow places a strong emphasis on reproducibility, open science, and raising awareness about questionable research practices (QRPs) and how to avoid them. Therefore, it’s important that you work in a reproducible manner so that others (and your future self) can understand and check your work. This also makes it easier for you to reuse your work in the future.</p>
 <p>Always start with a clear workspace. If your <code>Global Environment</code> contains anything from a previous session, you can’t be certain whether your current code is working as intended or if it’s using objects created earlier.</p>
 <p>To ensure a clean and reproducible workflow, there are a few settings you should adjust immediately after installing or updating RStudio. In <if>Tools &gt; Global Options… General tab</if></p>
@@ -347,10 +312,8 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <li>set <if>Save workspace to .RData on exit</if> to <strong>Never</strong> to prevent your workspace from being saved when you exit RStudio.</li>
 </ul>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="images/rstudio_settings_reproducibility.png" class="lightbox" data-glightbox="description: .lightbox-desc-1" data-gallery="quarto-lightbox-gallery-1" title="Reproducibility settings in Global Options"><img src="images/rstudio_settings_reproducibility.png" class="img-fluid figure-img" alt="Reproducibility settings in Global Options"></a></p>
-<figcaption>Reproducibility settings in Global Options</figcaption>
-</figure>
+<figure class="figure"><p><img src="images/rstudio_settings_reproducibility.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Reproducibility settings in Global Options</figcaption></figure>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
@@ -367,17 +330,14 @@ Tip for keeping taps on parentheses
 <p>R has included <strong>rainbow parentheses</strong> to help with keeping count on the brackets.</p>
 <p>To enable the feature, go to <if>Tools &gt; Global Options… Code tab &gt; Display tab</if> and tick the last checkbox “Use rainbow parentheses”</p>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="images/rainbow.PNG" class="lightbox" data-glightbox="description: .lightbox-desc-2" data-gallery="quarto-lightbox-gallery-2" title="Enable Rainbow parenthesis"><img src="images/rainbow.PNG" class="img-fluid figure-img" alt="Enable Rainbow parenthesis"></a></p>
-<figcaption>Enable Rainbow parenthesis</figcaption>
-</figure>
+<figure class="figure"><p><img src="images/rainbow.PNG" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Enable Rainbow parenthesis</figcaption></figure>
 </div>
 </div>
 </div>
 </div>
-</section>
-<section id="rstudio-panes" class="level3" data-number="1.1.4">
-<h3 data-number="1.1.4" class="anchored" data-anchor-id="rstudio-panes"><span class="header-section-number">1.1.4</span> RStudio panes</h3>
+</section><section id="rstudio-panes" class="level3" data-number="1.1.4"><h3 data-number="1.1.4" class="anchored" data-anchor-id="rstudio-panes">
+<span class="header-section-number">1.1.4</span> RStudio panes</h3>
 <p>RStudio has four main panes each in a quadrant of your screen:</p>
 <ul>
 <li>Source pane</li>
@@ -410,27 +370,47 @@ Quiz
 <div class="callout-body-container callout-body">
 <p><strong>What is their purpose?</strong></p>
 <strong>The Source pane…</strong>
-<div id="radio_YXCBULJYNG" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_YXCBULJYNG" value="answer"> <span>allows users to view and edit various code-related files, such as .Rmd files</span></label><label><input type="radio" autocomplete="off" name="radio_YXCBULJYNG" value=""> <span>contains the Files, Plots, R Packages, Help, Tutorial, Viewer, and Presentation tabs</span></label><label><input type="radio" autocomplete="off" name="radio_YXCBULJYNG" value=""> <span>includes the Environment tab that displays currently saved objects, and the History tab that displays the commands that were executed in the current session along a search function</span></label><label><input type="radio" autocomplete="off" name="radio_YXCBULJYNG" value=""> <span>provides an area to interactively execute code</span></label>
+<div id="radio_OFSCXZDARC" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_OFSCXZDARC" value="answer"><span>allows users to view and edit various code-related files, such as .Rmd files</span></label><label><input type="radio" autocomplete="off" name="radio_OFSCXZDARC" value=""><span>contains the Files, Plots, R Packages, Help, Tutorial, Viewer, and Presentation tabs</span></label><label><input type="radio" autocomplete="off" name="radio_OFSCXZDARC" value=""><span>includes the Environment tab that displays currently saved objects, and the History tab that displays the commands that were executed in the current session along a search function</span></label><label><input type="radio" autocomplete="off" name="radio_OFSCXZDARC" value=""><span>provides an area to interactively execute code</span></label>
 </div>
 <strong>The Environment pane…</strong>
-<div id="radio_FFEXSPIDKY" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_FFEXSPIDKY" value=""> <span>allows users to view and edit various code-related files, such as .Rmd files</span></label><label><input type="radio" autocomplete="off" name="radio_FFEXSPIDKY" value=""> <span>contains the Files, Plots, R Packages, Help, Tutorial, Viewer, and Presentation tabs</span></label><label><input type="radio" autocomplete="off" name="radio_FFEXSPIDKY" value="answer"> <span>includes the Environment tab that displays currently saved objects, and the History tab that displays the commands that were executed in the current session along a search function</span></label><label><input type="radio" autocomplete="off" name="radio_FFEXSPIDKY" value=""> <span>provides an area to interactively execute code</span></label>
+<div id="radio_LVSAENATSV" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_LVSAENATSV" value=""><span>allows users to view and edit various code-related files, such as .Rmd files</span></label><label><input type="radio" autocomplete="off" name="radio_LVSAENATSV" value=""><span>contains the Files, Plots, R Packages, Help, Tutorial, Viewer, and Presentation tabs</span></label><label><input type="radio" autocomplete="off" name="radio_LVSAENATSV" value="answer"><span>includes the Environment tab that displays currently saved objects, and the History tab that displays the commands that were executed in the current session along a search function</span></label><label><input type="radio" autocomplete="off" name="radio_LVSAENATSV" value=""><span>provides an area to interactively execute code</span></label>
 </div>
 <strong>The Console pane…</strong>
-<div id="radio_EXYNEONKZY" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_EXYNEONKZY" value=""> <span>allows users to view and edit various code-related files, such as .Rmd files</span></label><label><input type="radio" autocomplete="off" name="radio_EXYNEONKZY" value=""> <span>contains the Files, Plots, R Packages, Help, Tutorial, Viewer, and Presentation tabs</span></label><label><input type="radio" autocomplete="off" name="radio_EXYNEONKZY" value=""> <span>includes the Environment tab that displays currently saved objects, and the History tab that displays the commands that were executed in the current session along a search function</span></label><label><input type="radio" autocomplete="off" name="radio_EXYNEONKZY" value="answer"> <span>provides an area to interactively execute code</span></label>
+<div id="radio_KIHWGGUWRS" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_KIHWGGUWRS" value=""><span>allows users to view and edit various code-related files, such as .Rmd files</span></label><label><input type="radio" autocomplete="off" name="radio_KIHWGGUWRS" value=""><span>contains the Files, Plots, R Packages, Help, Tutorial, Viewer, and Presentation tabs</span></label><label><input type="radio" autocomplete="off" name="radio_KIHWGGUWRS" value=""><span>includes the Environment tab that displays currently saved objects, and the History tab that displays the commands that were executed in the current session along a search function</span></label><label><input type="radio" autocomplete="off" name="radio_KIHWGGUWRS" value="answer"><span>provides an area to interactively execute code</span></label>
 </div>
 <strong>The Output pane…</strong>
-<div id="radio_HPLVCQJOZG" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_HPLVCQJOZG" value=""> <span>allows users to view and edit various code-related files, such as .Rmd files</span></label><label><input type="radio" autocomplete="off" name="radio_HPLVCQJOZG" value="answer"> <span>contains the Files, Plots, R Packages, Help, Tutorial, Viewer, and Presentation tabs</span></label><label><input type="radio" autocomplete="off" name="radio_HPLVCQJOZG" value=""> <span>includes the Environment tab that displays currently saved objects, and the History tab that displays the commands that were executed in the current session along a search function</span></label><label><input type="radio" autocomplete="off" name="radio_HPLVCQJOZG" value=""> <span>provides an area to interactively execute code</span></label>
+<div id="radio_YGLAWUIEXJ" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_YGLAWUIEXJ" value=""><span>allows users to view and edit various code-related files, such as .Rmd files</span></label><label><input type="radio" autocomplete="off" name="radio_YGLAWUIEXJ" value="answer"><span>contains the Files, Plots, R Packages, Help, Tutorial, Viewer, and Presentation tabs</span></label><label><input type="radio" autocomplete="off" name="radio_YGLAWUIEXJ" value=""><span>includes the Environment tab that displays currently saved objects, and the History tab that displays the commands that were executed in the current session along a search function</span></label><label><input type="radio" autocomplete="off" name="radio_YGLAWUIEXJ" value=""><span>provides an area to interactively execute code</span></label>
 </div>
 <p><strong>Where are these panes located by default?</strong></p>
 <ul>
-<li>The Source pane is located? <select class="webex-select"><option value="blank"></option><option value="">top right</option><option value="">bottom left</option><option value="answer">top left</option><option value="">bottom right</option></select></li>
-<li>The Environment pane is located? <select class="webex-select"><option value="blank"></option><option value="">top left</option><option value="answer">top right</option><option value="">bottom left</option><option value="">bottom right</option></select></li>
-<li>The Console pane is located? <select class="webex-select"><option value="blank"></option><option value="">top left</option><option value="">bottom right</option><option value="">top right</option><option value="answer">bottom left</option></select></li>
-<li>The Output pane is located? <select class="webex-select"><option value="blank"></option><option value="">top left</option><option value="">top right</option><option value="answer">bottom right</option><option value="">bottom left</option></select></li>
+<li>The Source pane is located? <select class="webex-select"><option value="blank"></option>
+<option value="">top right</option>
+<option value="answer">top left</option>
+<option value="">bottom left</option>
+<option value="">bottom right</option></select>
+</li>
+<li>The Environment pane is located? <select class="webex-select"><option value="blank"></option>
+<option value="">bottom left</option>
+<option value="">top left</option>
+<option value="">bottom right</option>
+<option value="answer">top right</option></select>
+</li>
+<li>The Console pane is located? <select class="webex-select"><option value="blank"></option>
+<option value="">top left</option>
+<option value="">top right</option>
+<option value="answer">bottom left</option>
+<option value="">bottom right</option></select>
+</li>
+<li>The Output pane is located? <select class="webex-select"><option value="blank"></option>
+<option value="">top right</option>
+<option value="">bottom left</option>
+<option value="answer">bottom right</option>
+<option value="">top left</option></select>
+</li>
 </ul>
 </div>
 </div>
@@ -438,15 +418,14 @@ Quiz
 </div>
 </div>
 <p>If you were not quite sure about one/any of the panes, check out the <a href="https://psyteachr.github.io/data-skills-v2/sec-intro.html?q=RMark#rstudio-panes" target="_blank">materials from Level 1</a>. If you want to know more about them, there is the <a href="https://docs.posit.co/ide/user/ide/guide/ui/ui-panes.html" target="_blank">RStudio guide on posit</a></p>
-</section>
-</section>
-<section id="sec-project" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="sec-project"><span class="header-section-number">1.2</span> Activity 1: Creating a new project</h2>
+</section></section><section id="sec-project" class="level2" data-number="1.2"><h2 data-number="1.2" class="anchored" data-anchor-id="sec-project">
+<span class="header-section-number">1.2</span> Activity 1: Creating a new project</h2>
 <p>It’s important to create a new RStudio project whenever you start a new project. This practice makes it easier to work in multiple contexts, such as when analysing different datasets simultaneously. Each RStudio project has its own folder location, workspace, and working directories, which keeps all your data and RMarkdown documents organised in one place.</p>
 <p>Last year, you learnt how to create projects on the server, so you already know the steps. If cannot quite recall how that was done, go back to the <a href="https://psyteachr.github.io/data-skills-v2/sec-intro.html?q=RMark#new-project" target="_blank">Level 1 materials</a>.</p>
 <p>On your own computer, open RStudio, and complete the following steps in this order:</p>
 <ul>
-<li>Click on <if>File &gt; New Project…</if></li>
+<li>Click on <if>File &gt; New Project…</if>
+</li>
 <li>Then, click on “New Directory”</li>
 <li>Then, click on “New Project”</li>
 <li>Name the directory something meaningful (e.g., “2A_chapter1”), and save it in a location that makes sense, for example, a dedicated folder you have for your level 2 Psychology labs - you can either select a folder you have already in place or create a new one (e.g., I named my new folder “Level 2 labs”)</li>
@@ -454,10 +433,8 @@ Quiz
 <li>You can also check in your folder structure that everything was created as intended</li>
 </ul>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="images/project_setup.gif" class="lightbox" data-glightbox="description: .lightbox-desc-3" data-gallery="quarto-lightbox-gallery-3" title="Creating a new project"><img src="images/project_setup.gif" class="img-fluid figure-img" alt="Creating a new project"></a></p>
-<figcaption>Creating a new project</figcaption>
-</figure>
+<figure class="figure"><p><img src="images/project_setup.gif" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Creating a new project</figcaption></figure>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
@@ -488,9 +465,8 @@ Don’t nest projects
 <p>Don’t ever save a new project <strong>inside</strong> another project directory. This can cause some hard-to-resolve problems.</p>
 </div>
 </div>
-</section>
-<section id="sec-rmd" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="sec-rmd"><span class="header-section-number">1.3</span> Activity 2: Create a new R Markdown file</h2>
+</section><section id="sec-rmd" class="level2" data-number="1.3"><h2 data-number="1.3" class="anchored" data-anchor-id="sec-rmd">
+<span class="header-section-number">1.3</span> Activity 2: Create a new R Markdown file</h2>
 <ul>
 <li>Open a new R Markdown document: click <if>File &gt; New File &gt; R Markdown</if> or click on the little page icon with a green plus sign (top left).</li>
 <li>Give it a meaningful <code>Title</code> (e.g., Level 2 chapter 1) - you can also change the title later. Feel free to add your name or GUID in the <code>Author</code> field author name. Keep the <code>Default Output Format</code> as HTML.</li>
@@ -498,29 +474,23 @@ Don’t nest projects
 <li>To save it, click <if>File &gt; Save As…</if> or click on the little disc icon. Name it something meaningful (e.g., “chapter_01.Rmd”, “01_intro.Rmd”). Make sure there are no spaces in the name - R is not very fond of spaces… This file will automatically be saved in your project folder (i.e., your working directory) so you should now see this file appear in your file viewer pane.</li>
 </ul>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="images/Rmd_setup.gif" class="lightbox" data-glightbox="description: .lightbox-desc-4" data-gallery="quarto-lightbox-gallery-4" title="Creating a new .Rmd file"><img src="images/Rmd_setup.gif" class="img-fluid figure-img" alt="Creating a new .Rmd file"></a></p>
-<figcaption>Creating a new <code>.Rmd</code> file</figcaption>
-</figure>
+<figure class="figure"><p><img src="images/Rmd_setup.gif" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Creating a new <code>.Rmd</code> file</figcaption></figure>
 </div>
-<p>Remember, an R Markdown document or <code>.Rmd</code> has “white space” (i.e., the markdown for formatted text) and “grey parts” (i.e., code chunks) in the default colour scheme (see <a href="#fig-rmd" class="quarto-xref">Figure&nbsp;<span>1.1</span></a>). R Markdown is a powerful tool for creating dynamic documents because it allows you to integrate code and regular text seamlessly. You can then knit your <code>.Rmd</code> using the <code>knitr</code> package to create a final document as either a webpage (HTML), a PDF, or a Word document (.docx). We’ll only knit to HTML documents in this course.</p>
+<p>Remember, an R Markdown document or <code>.Rmd</code> has “white space” (i.e., the markdown for formatted text) and “grey parts” (i.e., code chunks) in the default colour scheme (see <a href="#fig-rmd">Figure&nbsp;<span>1.1</span></a>). R Markdown is a powerful tool for creating dynamic documents because it allows you to integrate code and regular text seamlessly. You can then knit your <code>.Rmd</code> using the <code>knitr</code> package to create a final document as either a webpage (HTML), a PDF, or a Word document (.docx). We’ll only knit to HTML documents in this course.</p>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="images/rm_components.png" class="lightbox" data-glightbox="description: .lightbox-desc-5" data-gallery="quarto-lightbox-gallery-5" title="R markdown anatomy (image from https://intro2r.com/r-markdown-anatomy.html)"><img src="images/rm_components.png" class="img-fluid figure-img" alt="R markdown anatomy (image from https://intro2r.com/r-markdown-anatomy.html)"></a></p>
-<figcaption>R markdown anatomy (image from <a href="https://intro2r.com/r-markdown-anatomy.html" target="_blank">https://intro2r.com/r-markdown-anatomy.html</a>)</figcaption>
-</figure>
+<figure class="figure"><p><img src="images/rm_components.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">R markdown anatomy (image from <a href="https://intro2r.com/r-markdown-anatomy.html" target="_blank">https://intro2r.com/r-markdown-anatomy.html</a>)</figcaption></figure>
 </div>
-<section id="markdown" class="level3" data-number="1.3.1">
-<h3 data-number="1.3.1" class="anchored" data-anchor-id="markdown"><span class="header-section-number">1.3.1</span> Markdown</h3>
+<section id="markdown" class="level3" data-number="1.3.1"><h3 data-number="1.3.1" class="anchored" data-anchor-id="markdown">
+<span class="header-section-number">1.3.1</span> Markdown</h3>
 <p>The markdown space in an <code>.Rmd</code> is ideal for writing notes that explain your code and document your thought process. Use this space to clarify what your code is doing, why certain decisions were made, and any insights or conclusions you have drawn along the way. These notes are invaluable when revisiting your work later, helping you (or others) understand the rationale behind key decisions, such as setting inclusion/exclusion criteria or interpreting the results of assumption tests. Effectively documenting your work in the markdown space enhances both the clarity and reproducibility of your analysis.</p>
 <p>The markdown space offers a variety of formatting options to help you organise and present your notes effectively. Here are a few of them that can enhance your documentation:</p>
-<section id="heading-levels" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="heading-levels">Heading levels</h4>
+<section id="heading-levels" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="heading-levels">Heading levels</h4>
 <p>There is a variety of <strong>heading levels</strong> to make use of, using the <code>#</code> symbol.</p>
 <div class="columns">
 <div class="column">
-<section id="you-would-incorporate-this-into-your-text-as" class="level5 unnumbered">
-<h5 class="unnumbered anchored" data-anchor-id="you-would-incorporate-this-into-your-text-as">You would incorporate this into your text as:</h5>
+<section id="you-would-incorporate-this-into-your-text-as" class="level5 unnumbered"><h5 class="unnumbered anchored" data-anchor-id="you-would-incorporate-this-into-your-text-as">You would incorporate this into your text as:</h5>
 <p># Heading level 1</p>
 <p>## Heading level 2</p>
 <p>### Heading level 3</p>
@@ -529,9 +499,8 @@ Don’t nest projects
 <p>###### Heading level 6</p>
 </section>
 </div><div class="column">
-<section id="and-it-will-be-displayed-in-your-knitted-html-file-as" class="level5 unnumbered">
-<h5 class="unnumbered anchored" data-anchor-id="and-it-will-be-displayed-in-your-knitted-html-file-as">And it will be displayed in your knitted html file as:</h5>
-<p><a href="images/heading_levels.PNG" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="images/heading_levels.PNG" class="img-fluid"></a></p>
+<section id="and-it-will-be-displayed-in-your-knitted-html-file-as" class="level5 unnumbered"><h5 class="unnumbered anchored" data-anchor-id="and-it-will-be-displayed-in-your-knitted-html-file-as">And it will be displayed in your knitted html file as:</h5>
+<p><img src="images/heading_levels.PNG" class="img-fluid"></p>
 </section>
 </div>
 </div>
@@ -552,12 +521,14 @@ ERROR: My heading levels don’t render properly when knitting
 </div>
 </div>
 </div>
-</section>
-<section id="unordered-and-ordered-lists" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="unordered-and-ordered-lists">Unordered and ordered lists</h4>
+</section><section id="unordered-and-ordered-lists" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="unordered-and-ordered-lists">Unordered and ordered lists</h4>
 <p>You can also include <strong>unordered lists</strong> and <strong>ordered lists</strong>. Click on the tabs below to see how they are incorporated</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">unordered lists</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">ordered lists</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">ordered lists magic</a></li></ul>
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">unordered lists</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">ordered lists</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">ordered lists magic</a></li>
+</ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <p>You can add <strong>bullet points</strong> using either <code>*</code>, <code>-</code> or <code>+</code> and they will turn into:</p>
@@ -574,8 +545,10 @@ ERROR: My heading levels don’t render properly when knitting
 <ul>
 <li>sub-sub-item 1</li>
 <li>sub-sub-item 2</li>
-</ul></li>
-</ul></li>
+</ul>
+</li>
+</ul>
+</li>
 <li>bullet point item 2</li>
 </ul>
 <div class="callout callout-style-default callout-important callout-titled">
@@ -602,11 +575,9 @@ ERROR: My bullet points don’t render properly when knitting
 <li>list item 1</li>
 <li>list item 2
 <ol type="i">
-<li>sub-item 1 (with 4 spaces)
-<ol type="A">
-<li>sub-sub-item 1 (with an additional 4 spaces from the last indent)</li>
-</ol></li>
-</ol></li>
+<li>sub-item 1 (with 4 spaces) A. sub-sub-item 1 (with an additional 4 spaces from the last indent)</li>
+</ol>
+</li>
 </ol>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
@@ -624,7 +595,6 @@ My list items don’t render properly when knitting
 <ol start="3" type="1">
 <li>list item 3</li>
 </ol>
-<!-- -->
 <ol type="i">
 <li>sub-item 1 (with only 2 spaces) A. sub-sub-item 1 (with an additional 2 spaces from the last indent)</li>
 </ol>
@@ -635,9 +605,9 @@ My list items don’t render properly when knitting
 <div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
 <p>The great thing though is that you don’t need to know your alphabet or number sequences. R markdown will fix that for you</p>
 <p>If I type into my <code>.Rmd</code>…</p>
-<p><a href="images/list_magic.PNG" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="images/list_magic.PNG" class="img-fluid"></a></p>
+<p><img src="images/list_magic.PNG" class="img-fluid"></p>
 <p>…it will be rendered in the knitted HTML output as…</p>
-<ol start="4" type="1">
+<ol start="3" type="1">
 <li>list item 3</li>
 <li>list item 1
 <ol type="a">
@@ -646,8 +616,10 @@ My list items don’t render properly when knitting
 <ol start="3" type="A">
 <li>sub-item labelled “C)”</li>
 <li>sub-item labelled “Z)”</li>
-</ol></li>
-</ol></li>
+</ol>
+</li>
+</ol>
+</li>
 <li>list item 7</li>
 </ol>
 <div class="callout callout-style-default callout-important callout-titled">
@@ -670,8 +642,10 @@ ERROR: The labels of the sub-items are not what I thought they would be. You sai
 <ol type="1">
 <li>list item “1)” with 8 spaces</li>
 <li>this is an item labelled “6)” (magically corrected to “2.”)</li>
-</ol></li>
-</ol></li>
+</ol>
+</li>
+</ol>
+</li>
 </ol>
 </div>
 </div>
@@ -679,17 +653,13 @@ ERROR: The labels of the sub-items are not what I thought they would be. You sai
 </div>
 </div>
 </div>
-</section>
-<section id="emphasis" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="emphasis">Emphasis</h4>
+</section><section id="emphasis" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="emphasis">Emphasis</h4>
 <p>Include <strong>emphasis</strong> to draw attention to keywords in your text:</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
+<table class="table">
+<thead><tr class="header">
 <th style="text-align: left;">R markdown syntax</th>
 <th style="text-align: left;">Displayed in the knitted HTML file</th>
-</tr>
-</thead>
+</tr></thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">**bold text**</td>
@@ -706,10 +676,8 @@ ERROR: The labels of the sub-items are not what I thought they would be. You sai
 </tbody>
 </table>
 <p>Other examples can be found in the <a href="https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf" target="_blank">R Markdown Cheat Sheet</a></p>
-</section>
-</section>
-<section id="sec-chunks" class="level3" data-number="1.3.2">
-<h3 data-number="1.3.2" class="anchored" data-anchor-id="sec-chunks"><span class="header-section-number">1.3.2</span> Code chunks</h3>
+</section></section><section id="sec-chunks" class="level3" data-number="1.3.2"><h3 data-number="1.3.2" class="anchored" data-anchor-id="sec-chunks">
+<span class="header-section-number">1.3.2</span> Code chunks</h3>
 <p>Everything you write inside the <strong>code chunks</strong> will be interpreted as code and executed by R. Code chunks start with <code>```</code> followed by an <code>{r}</code> which specifies the coding language R, some space for code, and ends with <code>```</code>. If you accidentally delete one of those backticks, your code won’t run and/or your text parts will be interpreted as part of the code chunks or vice versa. This should be evident from the colour change - more white than expected typically indicates missing starting backticks, whilst too much grey/not enough white suggests missing ending backticks. But no need to fret if that happens - just add the missing backticks manually.</p>
 <p>You can <strong>insert a new code chunk</strong> in several ways:</p>
 <ul>
@@ -720,35 +688,27 @@ ERROR: The labels of the sub-items are not what I thought they would be. You sai
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-rmd" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-rmd-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="images/default_highlighted.png" class="lightbox" data-glightbox="description: .lightbox-desc-8" data-gallery="quarto-lightbox-gallery-8"><img src="images/default_highlighted.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></a>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rmd-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1.1: Default <code>.Rmd</code> with highlighting - names in pink and knitr display options in purple
-</figcaption>
-</figure>
+<div id="fig-rmd" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="images/default_highlighted.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption class="figure-caption">Figure&nbsp;1.1: Default <code>.Rmd</code> with highlighting - names in pink and knitr display options in purple</figcaption></figure>
 </div>
 </div>
 </div>
-<p>Within the curly brackets of a code chunk, you can <strong>specify a name</strong> for the code chunk (see pink highlighting in <a href="#fig-rmd" class="quarto-xref">Figure&nbsp;<span>1.1</span></a>). The chunk name is not necessarily required; however, it is good practice to give each chunk a unique name to support more advanced knitting approaches. It also makes it easier to reference and manage chunks.</p>
-<p>Within the curly brackets, you can also place <strong>rules and arguments</strong> (see purple highlighting in <a href="#fig-rmd" class="quarto-xref">Figure&nbsp;<span>1.1</span></a>) to control how your code is executed and what is displayed in your final HTML output. The most common <strong>knitr display options</strong> include:</p>
-<table class="caption-top table">
+<p>Within the curly brackets of a code chunk, you can <strong>specify a name</strong> for the code chunk (see pink highlighting in <a href="#fig-rmd">Figure&nbsp;<span>1.1</span></a>). The chunk name is not necessarily required; however, it is good practice to give each chunk a unique name to support more advanced knitting approaches. It also makes it easier to reference and manage chunks.</p>
+<p>Within the curly brackets, you can also place <strong>rules and arguments</strong> (see purple highlighting in <a href="#fig-rmd">Figure&nbsp;<span>1.1</span></a>) to control how your code is executed and what is displayed in your final HTML output. The most common <strong>knitr display options</strong> include:</p>
+<table class="table">
 <colgroup>
 <col style="width: 30%">
 <col style="width: 21%">
 <col style="width: 23%">
 <col style="width: 24%">
 </colgroup>
-<thead>
-<tr class="header">
+<thead><tr class="header">
 <th style="text-align: left;">Code</th>
 <th style="text-align: center;">Does code run</th>
 <th style="text-align: center;">Does code show</th>
 <th style="text-align: center;">Do results show</th>
-</tr>
-</thead>
+</tr></thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">eval=FALSE</td>
@@ -797,10 +757,8 @@ Important
 </div>
 <p>One last thing: In your newly created <code>.Rmd</code> file, delete everything below line 12 (keep the set-up code chunk) and save your <code>.Rmd</code> by clicking on the disc symbol.</p>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="images/delete_12.gif" class="lightbox" data-glightbox="description: .lightbox-desc-9" data-gallery="quarto-lightbox-gallery-9" title="Delete everything below line 12"><img src="images/delete_12.gif" class="img-fluid figure-img" alt="Delete everything below line 12"></a></p>
-<figcaption>Delete everything below line 12</figcaption>
-</figure>
+<figure class="figure"><p><img src="images/delete_12.gif" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Delete everything below line 12</figcaption></figure>
 </div>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -831,15 +789,14 @@ Solution
 </div>
 </div>
 </div>
-</section>
-</section>
-<section id="sec-download_data_ch1" class="level2" data-number="1.4">
-<h2 data-number="1.4" class="anchored" data-anchor-id="sec-download_data_ch1"><span class="header-section-number">1.4</span> Activity 3: Download the data</h2>
+</section></section><section id="sec-download_data_ch1" class="level2" data-number="1.4"><h2 data-number="1.4" class="anchored" data-anchor-id="sec-download_data_ch1">
+<span class="header-section-number">1.4</span> Activity 3: Download the data</h2>
 <p>The data for chapters 1-3. Download it here: <a href="data/data_ch1.zip" title="download">data_ch1.zip</a>. There are 2 csv files contained in a zip folder. One is the data file we are going to use today <code>prp_data_reduced.csv</code> and the other is an Excel file <code>prp_codebook</code> that explains the variables in the data.</p>
 <p>The first step is to <strong>unzip the zip folder</strong> so that the files are placed within the same folder as your project.</p>
 <ul>
 <li>Place the zip folder within your 2A_chapter1 folder</li>
-<li>Right mouse click –&gt; <code>Extract All...</code></li>
+<li>Right mouse click –&gt; <code>Extract All...</code>
+</li>
 <li>Check the folder location is the one to extract the files to</li>
 <li>Check the extracted files are placed next to the project icon</li>
 <li>Files and project should be visible in the Output pane in RStudio</li>
@@ -856,39 +813,33 @@ For screenshots click here
 </div>
 <div id="callout-13" class="callout-13-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div>
-
-</div>
-<div class="quarto-layout-panel" data-layout-ncol="1">
-<div class="quarto-layout-row">
+<div class="quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
 <div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="images/pic1.PNG" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="images/pic1.PNG" class="img-fluid quarto-figure quarto-figure-center figure-img"></a></p>
+<figure class="figure"><p><img src="images/pic1.PNG" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<div class="quarto-layout-row">
+<div class="quarto-layout-row quarto-layout-valign-top">
 <div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="images/pic23.PNG" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="images/pic23.PNG" class="img-fluid quarto-figure quarto-figure-center figure-img"></a></p>
+<figure class="figure"><p><img src="images/pic23.PNG" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<div class="quarto-layout-row">
+<div class="quarto-layout-row quarto-layout-valign-top">
 <div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="images/pic45.PNG" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="images/pic45.PNG" class="img-fluid quarto-figure quarto-figure-center figure-img"></a></p>
+<figure class="figure"><p><img src="images/pic45.PNG" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
 <p>Unzipping a zip folder</p>
 </div>
 </div>
@@ -913,10 +864,8 @@ For screenshots click here
 <li>We added the word “years” to one of the <code>Age</code> entries.</li>
 <li>We tidied a messy column <code>Ethnicity</code> but introduced a similar but easier-to-solve “messiness pattern” when recoding the <code>understanding</code> data.</li>
 <li>The scores in the original file were already corrected from reverse-coded responses. We reversed that process to present raw data here.</li>
-</ul>
-</section>
-<section id="activity-4-loading-packages-and-reading-in-data" class="level2" data-number="1.5">
-<h2 data-number="1.5" class="anchored" data-anchor-id="activity-4-loading-packages-and-reading-in-data"><span class="header-section-number">1.5</span> Activity 4: Loading packages and reading in data</h2>
+</ul></section><section id="activity-4-loading-packages-and-reading-in-data" class="level2" data-number="1.5"><h2 data-number="1.5" class="anchored" data-anchor-id="activity-4-loading-packages-and-reading-in-data">
+<span class="header-section-number">1.5</span> Activity 4: Loading packages and reading in data</h2>
 <p>The first step is to load in the packages we need and read in the data. Today, we’ll only be using <code>tidyverse</code>, and <code>read_csv()</code> will help us store the data from <code>prp_data_reduced.csv</code> in an object called data_prp.</p>
 <p>Copy the code into a code chunk in your <code>.Rmd</code> file and run it. You can either click the <code>green error</code> to run the entire code chunk, or use the shortcut <code>Ctrl + Enter</code> (Windows) or <code>Cmd + Enter</code> (Mac) to run a line of code/ pipe from the Rmd.</p>
 <div class="cell" data-layout-align="center">
@@ -924,21 +873,6 @@ For screenshots click here
 <span id="cb1-2"><a href="#cb1-2"></a>data_prp <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"prp_data_reduced.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-layout-align="center">
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'ggplot2' was built under R version 4.3.3</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'tidyr' was built under R version 4.3.3</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'readr' was built under R version 4.3.3</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'dplyr' was built under R version 4.3.3</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'stringr' was built under R version 4.3.3</code></pre>
-</div>
 <div class="cell-output cell-output-stderr">
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ✔ dplyr     1.1.4     ✔ readr     2.1.5
@@ -960,16 +894,15 @@ dbl (74): Gender, Secondyeargrade, Opptional_mod, Research_exp, Plan_prereg,...
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
 </div>
-</section>
-<section id="sec-familiarise" class="level2" data-number="1.6">
-<h2 data-number="1.6" class="anchored" data-anchor-id="sec-familiarise"><span class="header-section-number">1.6</span> Activity 5: Familiarise yourself with the data</h2>
+</section><section id="sec-familiarise" class="level2" data-number="1.6"><h2 data-number="1.6" class="anchored" data-anchor-id="sec-familiarise">
+<span class="header-section-number">1.6</span> Activity 5: Familiarise yourself with the data</h2>
 <ul>
 <li>Look at the <strong>Codebook</strong> to get a feel of the variables in the dataset and how they have been measured. Note that some of the columns were deleted in the dataset you have been given.</li>
 <li>You’ll notice that some questionnaire data was collected at 2 different time points (i.e., SATS28, QRPs, Understanding_OS)</li>
 <li>some of the data was only collected at one time point (i.e., supervisor judgements, OS_behav items, and Included_prereg variables are t2-only variables)</li>
 </ul>
-<section id="first-glimpse-at-the-data" class="level3" data-number="1.6.1">
-<h3 data-number="1.6.1" class="anchored" data-anchor-id="first-glimpse-at-the-data"><span class="header-section-number">1.6.1</span> First glimpse at the data</h3>
+<section id="first-glimpse-at-the-data" class="level3" data-number="1.6.1"><h3 data-number="1.6.1" class="anchored" data-anchor-id="first-glimpse-at-the-data">
+<span class="header-section-number">1.6.1</span> First glimpse at the data</h3>
 <p>Before you start wrangling your data, it is important to understand what kind of data you’re working with and what the format of your dataframe looks like.</p>
 <p>As you may have noticed, <code>read_csv()</code> provides a <strong>message</strong> listing the data types in your dataset and how many columns are of each type. Plus, it shows a few examples columns for each data type.</p>
 <p>To obtain more detailed information about your data, you have several options. Click on the individual tabs to see the different options available. Test them out in your own <code>.Rmd</code> file and use whichever method you prefer (but do it).</p>
@@ -987,22 +920,25 @@ Warning
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">visual inspection 1</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">glimpse()</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false">spec()</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-4" role="tab" aria-controls="tabset-2-4" aria-selected="false">visual inspection 2</a></li></ul>
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">visual inspection 1</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false"><code>glimpse()</code></a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false"><code>spec()</code></a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-4" role="tab" aria-controls="tabset-2-4" aria-selected="false">visual inspection 2</a></li>
+</ul>
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
 <p>In the <code>Global Environment</code>, click the blue arrow icon next to the object name <code>data_prp</code>. This action will expand the object, revealing details about its columns. The <code>$</code> symbol is commonly used in Base R to access a specific column within your dataframe.</p>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="images/data_prp.PNG" class="lightbox" data-glightbox="description: .lightbox-desc-13" data-gallery="quarto-lightbox-gallery-13" title="Visual inspection of the data"><img src="images/data_prp.PNG" class="img-fluid figure-img" alt="Visual inspection of the data"></a></p>
-<figcaption>Visual inspection of the data</figcaption>
-</figure>
+<figure class="figure"><p><img src="images/data_prp.PNG" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Visual inspection of the data</figcaption></figure>
 </div>
 <p>Con: When you have quite a few variables, not all of them are shown.</p>
 </div>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
 <p>Use <code>glimpse()</code> if you want a more detailed overview you can see on your screen. The output will display rows and column numbers, and some examples of the first couple of observations for each variable.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">glimpse</span>(data_prp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">glimpse</span>(data_prp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 89
 Columns: 91
@@ -1103,7 +1039,7 @@ $ Supervisor_15_R                       &lt;dbl&gt; 1, 1, 1, 4, 1, 7, 1, 2, 1, 2
 <div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-3-tab">
 <p>You can also use <code>spec()</code> as suggested in the message above and then it shows you a list of the data type in every single column. But it doesn’t show you the number of rows and columns.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">spec</span>(data_prp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">spec</span>(data_prp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>cols(
   Code = col_character(),
@@ -1217,10 +1153,8 @@ Hang on, where is the rest of my data? Why do I only see 50 columns?
 <div class="callout-body-container callout-body">
 <p>One common source of confusion is not seeing all your columns when you open up a data object as a tab. This is because RStudio shows you a maximum of 50 columns at a time. If you have more than 50 columns, navigate with the arrows to see the remaining columns.</p>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="images/50_col.PNG" class="lightbox" data-glightbox="description: .lightbox-desc-14" data-gallery="quarto-lightbox-gallery-14" title="Showing 50 columns at a time"><img src="images/50_col.PNG" class="img-fluid figure-img" alt="Showing 50 columns at a time"></a></p>
-<figcaption>Showing 50 columns at a time</figcaption>
-</figure>
+<figure class="figure"><p><img src="images/50_col.PNG" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Showing 50 columns at a time</figcaption></figure>
 </div>
 </div>
 </div>
@@ -1240,10 +1174,14 @@ Your Turn
 <div class="callout-body-container callout-body">
 <p>Now that you have tested out all the options in your own <code>.Rmd</code> file, you can probably answer the following questions:</p>
 <ul>
-<li>How many observations? <input class="webex-solveme nospaces" size="2" data-answer="[&quot;89&quot;]"></li>
-<li>How many variables? <input class="webex-solveme nospaces" size="2" data-answer="[&quot;91&quot;]"></li>
-<li>How many columns are <code>col_character</code> or <code>chr</code> data type? <input class="webex-solveme nospaces" size="2" data-answer="[&quot;17&quot;]"></li>
-<li>How many columns are <code>col_double</code> or <code>dbl</code> data type? <input class="webex-solveme nospaces" size="2" data-answer="[&quot;74&quot;]"></li>
+<li>How many observations? <input class="webex-solveme nospaces" size="2" data-answer="[&quot;89&quot;]">
+</li>
+<li>How many variables? <input class="webex-solveme nospaces" size="2" data-answer="[&quot;91&quot;]">
+</li>
+<li>How many columns are <code>col_character</code> or <code>chr</code> data type? <input class="webex-solveme nospaces" size="2" data-answer="[&quot;17&quot;]">
+</li>
+<li>How many columns are <code>col_double</code> or <code>dbl</code> data type? <input class="webex-solveme nospaces" size="2" data-answer="[&quot;74&quot;]">
+</li>
 </ul>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
@@ -1260,10 +1198,8 @@ Explain the solution
 <p>The visual inspections shows you the <strong>number of observations and variables</strong>. <code>glimpse()</code> also gives you that information but calls them <strong>rows and columns</strong> respectively.</p>
 <p>The <strong>data type information</strong> actually comes from the output when using the <code>read_csv()</code> function. Did you notice the information on <strong>Column specification</strong> (see screenshot below)?</p>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="images/col_spec.PNG" class="lightbox" data-glightbox="description: .lightbox-desc-15" data-gallery="quarto-lightbox-gallery-15" title="message from read_csv() when reading in the data"><img src="images/col_spec.PNG" class="img-fluid figure-img" alt="message from read_csv() when reading in the data"></a></p>
-<figcaption>message from <code>read_csv()</code> when reading in the data</figcaption>
-</figure>
+<figure class="figure"><p><img src="images/col_spec.PNG" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">message from <code>read_csv()</code> when reading in the data</figcaption></figure>
 </div>
 <p>Whilst <code>spec()</code> is quite useful for data type information per individual column, it doesn’t give you the total count of each data type. So it doesn’t really help with answering the questions here - unless you want to count manually from its extremely long output.</p>
 </div>
@@ -1287,34 +1223,37 @@ Possible solution
 <p>I’ve noticed in the prp codebook that the SATS-28 questionnaire has quite a few *reverse-coded items*, and the supervisor support questionnaire also has a reverse-coded item.</p>
 <p>So far, I think I prefer **glimpse()** to show me some more detail about the data. Specs() is too text-heavy for me which makes it hard to read.</p>
 <p>Things to keep in mind:</p>
-<p>* **don’t forget to load in tidyverse first!!!**</p>
-<p>* always read in the data with **read_csv**, ***never ever use read.csv***!!!</p>
+<ul>
+<li>**don’t forget to load in tidyverse first!!!**</li>
+<li>always read in the data with **read_csv**, ***never ever use read.csv***!!!</li>
+</ul>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="images/knitted_markdown.PNG" class="lightbox" data-glightbox="description: .lightbox-desc-16" data-gallery="quarto-lightbox-gallery-16" title="The output rendered in a knitted html file"><img src="images/knitted_markdown.PNG" class="img-fluid figure-img" alt="The output rendered in a knitted html file"></a></p>
-<figcaption>The output rendered in a knitted html file</figcaption>
-</figure>
+<figure class="figure"><p><img src="images/knitted_markdown.PNG" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">The output rendered in a knitted html file</figcaption></figure>
 </div>
 </div>
 </div>
 </div>
 </div>
 </div>
-</section>
-<section id="sec-datatypes" class="level3" data-number="1.6.2">
-<h3 data-number="1.6.2" class="anchored" data-anchor-id="sec-datatypes"><span class="header-section-number">1.6.2</span> Data types</h3>
+</section><section id="sec-datatypes" class="level3" data-number="1.6.2"><h3 data-number="1.6.2" class="anchored" data-anchor-id="sec-datatypes">
+<span class="header-section-number">1.6.2</span> Data types</h3>
 <p>Each variable has a <strong>data type</strong>, such as numeric (numbers), character (text), and logical (TRUE/FALSE values), or a special class of factor. As you have just seen, our <code>data_prp</code> only has character and numeric columns (so far).</p>
 <p><strong>Numeric data</strong> can be double (<code>dbl</code>) or integer (<code>int</code>). Doubles can have decimal places (e.g., 1.1). Integers are the whole numbers (e.g., 1, 2, -1) and are displayed with the suffix L (e.g., 1L). This is not overly important but might leave you less puzzled the next time you see an L after a number.</p>
 <p><strong>Characters</strong> (also called “strings”) is anything written between quotation marks. This is usually text, but in special circumstances, a number can be a character if it placed within quotation marks. This can happen when you are recoding variables. It might not be too obvious at the time, but you won’t be able to calculate anything if the number is a character</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">Example data types</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">numeric computation</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-3" role="tab" aria-controls="tabset-3-3" aria-selected="false">character computation</a></li></ul>
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">Example data types</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">numeric computation</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-3" role="tab" aria-controls="tabset-3-3" aria-selected="false">character computation</a></li>
+</ul>
 <div class="tab-content">
 <div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">typeof</span>(<span class="dv">1</span>)</span>
-<span id="cb12-2"><a href="#cb12-2"></a><span class="fu">typeof</span>(<span class="dv">1</span>L)</span>
-<span id="cb12-3"><a href="#cb12-3"></a><span class="fu">typeof</span>(<span class="st">"1"</span>)</span>
-<span id="cb12-4"><a href="#cb12-4"></a><span class="fu">typeof</span>(<span class="st">"text"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">typeof</span>(<span class="dv">1</span>)</span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="fu">typeof</span>(1L)</span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="fu">typeof</span>(<span class="st">"1"</span>)</span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="fu">typeof</span>(<span class="st">"text"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "double"
 [1] "integer"
@@ -1326,7 +1265,7 @@ Possible solution
 <div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
 <p>No problems here…</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="dv">1</span><span class="sc">+</span><span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="dv">1</span><span class="sc">+</span><span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2</code></pre>
 </div>
@@ -1335,7 +1274,7 @@ Possible solution
 <div id="tabset-3-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-3-tab">
 <p>When the data type is incorrect, you won’t be able to compute anything, despite your numbers being shown as numeric values in the dataframe. The error message tells you exactly what’s wrong with it, i.e., that you have <code>non-numeric arguments</code>.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="st">"1"</span><span class="sc">+</span><span class="st">"1"</span> <span class="co"># ERROR</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="st">"1"</span><span class="sc">+</span><span class="st">"1"</span> <span class="co"># ERROR</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <pre><code>Error in "1" + "1": non-numeric argument to binary operator</code></pre>
 </div>
@@ -1343,15 +1282,13 @@ Possible solution
 </div>
 </div>
 </div>
-<p><strong>Logical</strong> data (also sometimes called “Boolean” values) are one of two values: TRUE or FALSE (written in uppercase). They become really important when we use <code>filter()</code> or <code>mutate()</code> with conditional statements such as <code>case_when()</code>. More about those in <span class="quarto-unresolved-ref">?sec-wrangling2</span>.</p>
+<p><strong>Logical</strong> data (also sometimes called “Boolean” values) are one of two values: TRUE or FALSE (written in uppercase). They become really important when we use <code><a href="https://rdrr.io/r/stats/filter.html">filter()</a></code> or <code>mutate()</code> with conditional statements such as <code>case_when()</code>. More about those in <span class="quarto-unresolved-ref">?sec-wrangling2</span>.</p>
 <p>Some commonly used logical operators:</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
+<table class="table">
+<thead><tr class="header">
 <th style="text-align: left;">operator</th>
 <th style="text-align: left;">description</th>
-</tr>
-</thead>
+</tr></thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">&gt;</td>
@@ -1384,9 +1321,8 @@ Possible solution
 </tbody>
 </table>
 <p>A <strong>factor</strong> is a specific type of integer or character that lets you assign the order of the categories. This becomes useful when you want to display certain categories in “the correct order” either in a dataframe (see <em>arrange</em>) or when plotting (see <span class="quarto-unresolved-ref">?sec-dataviz</span>/ <span class="quarto-unresolved-ref">?sec-dataviz2</span>).</p>
-</section>
-<section id="variable-types" class="level3" data-number="1.6.3">
-<h3 data-number="1.6.3" class="anchored" data-anchor-id="variable-types"><span class="header-section-number">1.6.3</span> Variable types</h3>
+</section><section id="variable-types" class="level3" data-number="1.6.3"><h3 data-number="1.6.3" class="anchored" data-anchor-id="variable-types">
+<span class="header-section-number">1.6.3</span> Variable types</h3>
 <p>You’ve already encountered them in <a href="https://psyteachr.github.io/data-skills-v2/intro-to-probability.html" target="_blank">Level 1</a> but let’s refresh. Variables can be classified as <strong>continuous</strong> (numbers) or <strong>categorical</strong> (labels).</p>
 <p><strong>Categorical</strong> variables are properties you can count. They can be <strong>nominal</strong>, where the categories don’t have an order (e.g., gender) or <strong>ordinal</strong> (e.g., Likert scales either with numeric values 1-7 or with character labels such as “agree”, “neither agree nor disagree”, “disagree”). Categorical data may also be <strong>factors</strong> rather than characters.</p>
 <p><strong>Continuous variables</strong> are properties you can measure and calculate sums/ means/ etc. They may be rounded to the nearest whole number, but it should make sense to have a value between them. Continuous variables always have a <strong>numeric</strong> data type (i.e.&nbsp;<code>integer</code> or <code>double</code>).</p>
@@ -1417,7 +1353,7 @@ Your Turn
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="kable-table">
-<table class="caption-top table table-sm table-striped small">
+<table class="table table-sm table-striped small">
 <colgroup>
 <col style="width: 4%">
 <col style="width: 3%">
@@ -1429,8 +1365,7 @@ Your Turn
 <col style="width: 17%">
 <col style="width: 12%">
 </colgroup>
-<thead>
-<tr class="header">
+<thead><tr class="header">
 <th style="text-align: left;">Code</th>
 <th style="text-align: left;">Age</th>
 <th style="text-align: left;">Gender</th>
@@ -1440,8 +1375,7 @@ Your Turn
 <th style="text-align: right;">QRPs_mean</th>
 <th style="text-align: left;">Understanding_item</th>
 <th style="text-align: left;">QRP_item &gt; 4</th>
-</tr>
-</thead>
+</tr></thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">Tr10</td>
@@ -1504,7 +1438,7 @@ Your Turn
 </div>
 </div>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">glimpse</span>(data_quiz)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">glimpse</span>(data_quiz)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 89
 Columns: 9
@@ -1520,59 +1454,113 @@ $ `QRP_item &gt; 4`     &lt;lgl&gt; TRUE, FALSE, TRUE, FALSE, TRUE, FALSE, TRUE,
 </div>
 </div>
 <p>Select from the dropdown menu the variable type and their data types for each of the columns.</p>
-<table class="caption-top table">
+<table class="table">
 <colgroup>
 <col style="width: 42%">
 <col style="width: 28%">
 <col style="width: 28%">
 </colgroup>
-<thead>
-<tr class="header">
+<thead><tr class="header">
 <th style="text-align: left;">Column</th>
 <th style="text-align: left;">Variable type</th>
 <th style="text-align: left;">Data type</th>
-</tr>
-</thead>
+</tr></thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;"><code>Age</code></td>
-<td style="text-align: left;"><select class="webex-select"><option value="blank"></option><option value="answer">continuous</option><option value="x">nominal</option><option value="x">ordinal</option></select></td>
-<td style="text-align: left;"><select class="webex-select"><option value="blank"></option><option value="x">numeric</option><option value="answer">character</option><option value="x">logical</option><option value="x">factor</option></select></td>
+<td style="text-align: left;"><select class="webex-select"><option value="blank"></option>
+<option value="answer">continuous</option>
+<option value="x">nominal</option>
+<option value="x">ordinal</option></select></td>
+<td style="text-align: left;"><select class="webex-select"><option value="blank"></option>
+<option value="x">numeric</option>
+<option value="answer">character</option>
+<option value="x">logical</option>
+<option value="x">factor</option></select></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><code>Gender</code></td>
-<td style="text-align: left;"><select class="webex-select"><option value="blank"></option><option value="x">continuous</option><option value="answer">nominal</option><option value="x">ordinal</option></select></td>
-<td style="text-align: left;"><select class="webex-select"><option value="blank"></option><option value="x">numeric</option><option value="x">character</option><option value="x">logical</option><option value="answer">factor</option></select></td>
+<td style="text-align: left;"><select class="webex-select"><option value="blank"></option>
+<option value="x">continuous</option>
+<option value="answer">nominal</option>
+<option value="x">ordinal</option></select></td>
+<td style="text-align: left;"><select class="webex-select"><option value="blank"></option>
+<option value="x">numeric</option>
+<option value="x">character</option>
+<option value="x">logical</option>
+<option value="answer">factor</option></select></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><code>Ethinicity</code></td>
-<td style="text-align: left;"><select class="webex-select"><option value="blank"></option><option value="x">continuous</option><option value="answer">nominal</option><option value="x">ordinal</option></select></td>
-<td style="text-align: left;"><select class="webex-select"><option value="blank"></option><option value="x">numeric</option><option value="answer">character</option><option value="x">logical</option><option value="x">factor</option></select></td>
+<td style="text-align: left;"><select class="webex-select"><option value="blank"></option>
+<option value="x">continuous</option>
+<option value="answer">nominal</option>
+<option value="x">ordinal</option></select></td>
+<td style="text-align: left;"><select class="webex-select"><option value="blank"></option>
+<option value="x">numeric</option>
+<option value="answer">character</option>
+<option value="x">logical</option>
+<option value="x">factor</option></select></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><code>Secondyeargrade</code></td>
-<td style="text-align: left;"><select class="webex-select"><option value="blank"></option><option value="x">continuous</option><option value="x">nominal</option><option value="answer">ordinal</option></select></td>
-<td style="text-align: left;"><select class="webex-select"><option value="blank"></option><option value="x">numeric</option><option value="x">character</option><option value="x">logical</option><option value="answer">factor</option></select></td>
+<td style="text-align: left;"><select class="webex-select"><option value="blank"></option>
+<option value="x">continuous</option>
+<option value="x">nominal</option>
+<option value="answer">ordinal</option></select></td>
+<td style="text-align: left;"><select class="webex-select"><option value="blank"></option>
+<option value="x">numeric</option>
+<option value="x">character</option>
+<option value="x">logical</option>
+<option value="answer">factor</option></select></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><code>QRP_item</code></td>
-<td style="text-align: left;"><select class="webex-select"><option value="blank"></option><option value="x">continuous</option><option value="x">nominal</option><option value="answer">ordinal</option></select></td>
-<td style="text-align: left;"><select class="webex-select"><option value="blank"></option><option value="answer">numeric</option><option value="x">character</option><option value="x">logical</option><option value="x">factor</option></select></td>
+<td style="text-align: left;"><select class="webex-select"><option value="blank"></option>
+<option value="x">continuous</option>
+<option value="x">nominal</option>
+<option value="answer">ordinal</option></select></td>
+<td style="text-align: left;"><select class="webex-select"><option value="blank"></option>
+<option value="answer">numeric</option>
+<option value="x">character</option>
+<option value="x">logical</option>
+<option value="x">factor</option></select></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><code>QRPs_mean</code></td>
-<td style="text-align: left;"><select class="webex-select"><option value="blank"></option><option value="answer">continuous</option><option value="x">nominal</option><option value="x">ordinal</option></select></td>
-<td style="text-align: left;"><select class="webex-select"><option value="blank"></option><option value="answer">numeric</option><option value="x">character</option><option value="x">logical</option><option value="x">factor</option></select></td>
+<td style="text-align: left;"><select class="webex-select"><option value="blank"></option>
+<option value="answer">continuous</option>
+<option value="x">nominal</option>
+<option value="x">ordinal</option></select></td>
+<td style="text-align: left;"><select class="webex-select"><option value="blank"></option>
+<option value="answer">numeric</option>
+<option value="x">character</option>
+<option value="x">logical</option>
+<option value="x">factor</option></select></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><code>Understanding_item</code></td>
-<td style="text-align: left;"><select class="webex-select"><option value="blank"></option><option value="x">continuous</option><option value="x">nominal</option><option value="answer">ordinal</option></select></td>
-<td style="text-align: left;"><select class="webex-select"><option value="blank"></option><option value="x">numeric</option><option value="answer">character</option><option value="x">logical</option><option value="x">factor</option></select></td>
+<td style="text-align: left;"><select class="webex-select"><option value="blank"></option>
+<option value="x">continuous</option>
+<option value="x">nominal</option>
+<option value="answer">ordinal</option></select></td>
+<td style="text-align: left;"><select class="webex-select"><option value="blank"></option>
+<option value="x">numeric</option>
+<option value="answer">character</option>
+<option value="x">logical</option>
+<option value="x">factor</option></select></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><code>QRP_item &gt; 4</code></td>
-<td style="text-align: left;"><select class="webex-select"><option value="blank"></option><option value="x">continuous</option><option value="answer">nominal</option><option value="x">ordinal</option></select></td>
-<td style="text-align: left;"><select class="webex-select"><option value="blank"></option><option value="x">numeric</option><option value="x">character</option><option value="answer">logical</option><option value="x">factor</option></select></td>
+<td style="text-align: left;"><select class="webex-select"><option value="blank"></option>
+<option value="x">continuous</option>
+<option value="answer">nominal</option>
+<option value="x">ordinal</option></select></td>
+<td style="text-align: left;"><select class="webex-select"><option value="blank"></option>
+<option value="x">numeric</option>
+<option value="x">character</option>
+<option value="answer">logical</option>
+<option value="x">factor</option></select></td>
 </tr>
 </tbody>
 </table>
@@ -1592,42 +1580,47 @@ Revealing the mystery code that created <code>data_quiz</code>
 <div class="callout-body-container callout-body">
 <p>The code might look a bit complex for the minute despite the line-by-line explanations below. Come back to it after completing chapter 2.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>data_quiz <span class="ot">&lt;-</span> data_prp <span class="sc">%&gt;%</span> </span>
-<span id="cb20-2"><a href="#cb20-2"></a>  <span class="fu">select</span>(Code, Age, Gender, Ethnicity, Secondyeargrade, <span class="at">QRP_item =</span> QRPs_3_Time1, <span class="at">QRPs_mean =</span> QRPs_Acceptance_Time2_mean, <span class="at">Understanding_item =</span> Understanding_OS_1_Time1) <span class="sc">%&gt;%</span> </span>
-<span id="cb20-3"><a href="#cb20-3"></a>  <span class="fu">mutate</span>(<span class="at">Gender =</span> <span class="fu">factor</span>(Gender),</span>
-<span id="cb20-4"><a href="#cb20-4"></a>         <span class="at">Secondyeargrade =</span> <span class="fu">factor</span>(Secondyeargrade,</span>
-<span id="cb20-5"><a href="#cb20-5"></a>                                  <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>),</span>
-<span id="cb20-6"><a href="#cb20-6"></a>                                  <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"≥ 70% (1st class grade)"</span>, <span class="st">"60-69% (2:1 grade)"</span>, <span class="st">"50-59% (2:2 grade)"</span>, <span class="st">"40-49% (3rd class)"</span>, <span class="st">"&lt; 40%"</span>)),</span>
-<span id="cb20-7"><a href="#cb20-7"></a>         <span class="st">`</span><span class="at">QRP_item &gt; 4</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">case_when</span>(</span>
-<span id="cb20-8"><a href="#cb20-8"></a>           QRP_item <span class="sc">&gt;</span> <span class="dv">4</span> <span class="sc">~</span> <span class="cn">TRUE</span>, </span>
-<span id="cb20-9"><a href="#cb20-9"></a>           <span class="at">.default =</span> <span class="cn">FALSE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>data_quiz <span class="ot">&lt;-</span> data_prp <span class="sc">%&gt;%</span> </span>
+<span id="cb15-2"><a href="#cb15-2"></a>  <span class="fu">select</span>(Code, Age, Gender, Ethnicity, Secondyeargrade, <span class="at">QRP_item =</span> QRPs_3_Time1, <span class="at">QRPs_mean =</span> QRPs_Acceptance_Time2_mean, <span class="at">Understanding_item =</span> Understanding_OS_1_Time1) <span class="sc">%&gt;%</span> </span>
+<span id="cb15-3"><a href="#cb15-3"></a>  <span class="fu">mutate</span>(<span class="at">Gender =</span> <span class="fu">factor</span>(Gender),</span>
+<span id="cb15-4"><a href="#cb15-4"></a>         <span class="at">Secondyeargrade =</span> <span class="fu">factor</span>(Secondyeargrade,</span>
+<span id="cb15-5"><a href="#cb15-5"></a>                                  <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>),</span>
+<span id="cb15-6"><a href="#cb15-6"></a>                                  <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"≥ 70% (1st class grade)"</span>, <span class="st">"60-69% (2:1 grade)"</span>, <span class="st">"50-59% (2:2 grade)"</span>, <span class="st">"40-49% (3rd class)"</span>, <span class="st">"&lt; 40%"</span>)),</span>
+<span id="cb15-7"><a href="#cb15-7"></a>         <span class="st">`</span><span class="at">QRP_item &gt; 4</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">case_when</span>(</span>
+<span id="cb15-8"><a href="#cb15-8"></a>           QRP_item <span class="sc">&gt;</span> <span class="dv">4</span> <span class="sc">~</span> <span class="cn">TRUE</span>, </span>
+<span id="cb15-9"><a href="#cb15-9"></a>           <span class="at">.default =</span> <span class="cn">FALSE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Lets go through this line by line:</p>
 <ul>
-<li><strong>line 1</strong>: creates a new object called <code>data_quiz</code> and it is based on the already existing data object <code>data_prp</code></li>
-<li><strong>line 2</strong>: we are selecting a few variables of interest, such as Code, Age etc. Some of those variables were renamed in the process according to the structure <code>new_name = old_name</code>, for example QRP item 3 at time point 1 got renamed as <code>QRP_item</code>.<br>
+<li>
+<strong>line 1</strong>: creates a new object called <code>data_quiz</code> and it is based on the already existing data object <code>data_prp</code>
 </li>
-<li><strong>line 3</strong>: The function <code>mutate()</code> is used to create a new column called <code>Gender</code> that turns the existing column <code>Gender</code> from a numeric value into a factor. R simply overwrites the existing column of the same name. If we had named the new column <code>Gender_factor</code>, we would have been able to retain the original <code>Gender</code> column and <code>Gender_factor</code> would have been added as the last column.</li>
-<li><strong>line 4-6</strong>: See how the line starts with an indent which indicates we are still within the <code>mutate()</code> function. You can also see this by counting brackets - in line 3 there are 2 opening brackets but only 1 closes.
+<li>
+<strong>line 2</strong>: we are selecting a few variables of interest, such as Code, Age etc. Some of those variables were renamed in the process according to the structure <code>new_name = old_name</code>, for example QRP item 3 at time point 1 got renamed as <code>QRP_item</code>.<br>
+</li>
+<li>
+<strong>line 3</strong>: The function <code>mutate()</code> is used to create a new column called <code>Gender</code> that turns the existing column <code>Gender</code> from a numeric value into a factor. R simply overwrites the existing column of the same name. If we had named the new column <code>Gender_factor</code>, we would have been able to retain the original <code>Gender</code> column and <code>Gender_factor</code> would have been added as the last column.</li>
+<li>
+<strong>line 4-6</strong>: See how the line starts with an indent which indicates we are still within the <code>mutate()</code> function. You can also see this by counting brackets - in line 3 there are 2 opening brackets but only 1 closes.
 <ul>
 <li>Similar to <code>Gender</code>, we are replacing the “old” <code>Secondyeargrade</code> with the new <code>Secondyeargrade</code> column that is now a factor.</li>
 <li>Turning our variable <code>Secondyeargrade</code> into a factor, spot the difference between this attempt and the one we used for <code>Gender</code>? Here we are using a lot more arguments in that factor function, namely levels and labels. <strong>Levels</strong> describes the unique values we have for that column, and in <strong>labels</strong> we want to define how these levels will be shown in the data object. If you don’t add the levels and labels argument, the labels will be the labels (as you can see in the <code>Gender</code> column in which we kept the numbers).</li>
-</ul></li>
-<li><strong>line 7</strong>: Doesn’t start with a function name and has an indent, which means we are <em>still</em> within the <code>mutate()</code> function - count the opening and closing brackets to confirm.
+</ul>
+</li>
+<li>
+<strong>line 7</strong>: Doesn’t start with a function name and has an indent, which means we are <em>still</em> within the <code>mutate()</code> function - count the opening and closing brackets to confirm.
 <ul>
 <li>Here, we are creating a new column called <code>QRP_item &gt; 4</code>. Notice the two backticks we have to use to make this weird column name work? This is because it has spaces (and we did mention that R doesn’t like spaces). So the backticks help R to group it as a unit/ a single name.</li>
 <li>Next we have a <code>case_when()</code> function which helps executing conditional statements. We are using it to check whether a statement is TRUE or FALSE. Here, we ask whether the QRP item (column <code>QRP_item</code>) is larger than 4 (midpoint of the scale) using the Boolean operator <code>&gt;</code>. If the statement is <code>TRUE</code>, the label <code>TRUE</code> should appear in column <code>QRP_item &gt; 4</code>. Otherwise, if the value is equal to 4 or smaller, the label should read <code>FALSE</code>. We will come back to conditional statements in <span class="quarto-unresolved-ref">?sec-wrangling</span>. But long story short, this Boolean expression created the only logical data type in <code>data_quiz</code>.</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
 </div>
 <p>And with this, we are done with the individual walkthrough. Well done :)</p>
-</section>
-</section>
-<section id="pair-coding" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="pair-coding"><span style="color: #F39C12; text-transform: uppercase;">Pair-coding</span></h2>
-<p>The data we will be using in the upcoming lab activities is by Binfet et al.&nbsp;(2021) and was conducted in Canada.</p>
+</section></section><section id="pair-coding" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="pair-coding"><span style="color: #F39C12; text-transform: uppercase;">Pair-coding</span></h2>
+<p>The data we will be using in the upcoming lab activities is a randomised controlled trials experiment by Binfet et al.&nbsp;(2021) that was conducted in Canada.</p>
 <p><strong>Citation</strong></p>
 <blockquote class="blockquote">
 <p>Binfet, J. T., Green, F. L. L., &amp; Draper, Z. A. (2021). The Importance of Client–Canine Contact in Canine-Assisted Interventions: A Randomized Controlled Trial. <em>Anthrozoös, 35</em>(1), 1–22. <a href="https://doi.org/10.1080/08927936.2021.1944558" target="_blank">https://doi.org/10.1080/08927936.2021.1944558</a></p>
@@ -1646,28 +1639,21 @@ Revealing the mystery code that created <code>data_quiz</code>
 <li>We modified some of the responses in the raw data csv - for example, we took out impossible response values and replaced them with <code>NA</code>.</li>
 <li>We replaced some of the numbers with labels to increase the difficulty in the dataset for <span class="quarto-unresolved-ref">?sec-wrangling</span> and <span class="quarto-unresolved-ref">?sec-wrangling2</span>.</li>
 </ul>
-<section id="task-1-create-a-project-folder-for-the-lab-activities" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="task-1-create-a-project-folder-for-the-lab-activities">Task 1: Create a project folder for the lab activities</h3>
-<p>Since we will be working with the same data throughout semester 1, create a separate project for the lab data. Name it something useful, like <code>lab_data</code> or <code>dogs_in_the_lab</code>. Make sure you are not placing it within the project you have already created today. If you need guidance, see <a href="#sec-project" class="quarto-xref"><span>Section 1.2</span></a> above.</p>
-</section>
-<section id="task-2-create-a-new-.rmd-file" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="task-2-create-a-new-.rmd-file">Task 2: Create a new <code>.Rmd</code> file</h3>
-<p>… and name it something useful. If you need help, have a look at <a href="#sec-rmd" class="quarto-xref"><span>Section 1.3</span></a>.</p>
-</section>
-<section id="task-3-download-the-data" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="task-3-download-the-data">Task 3: Download the data</h3>
+<section id="task-1-create-a-project-folder-for-the-lab-activities" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="task-1-create-a-project-folder-for-the-lab-activities">Task 1: Create a project folder for the lab activities</h3>
+<p>Since we will be working with the same data throughout semester 1, create a separate project for the lab data. Name it something useful, like <code>lab_data</code> or <code>dogs_in_the_lab</code>. Make sure you are not placing it within the project you have already created today. If you need guidance, see <a href="#sec-project"><span>Section&nbsp;1.2</span></a> above.</p>
+</section><section id="task-2-create-a-new-.rmd-file" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="task-2-create-a-new-.rmd-file">Task 2: Create a new <code>.Rmd</code> file</h3>
+<p>… and name it something useful. If you need help, have a look at <a href="#sec-rmd"><span>Section&nbsp;1.3</span></a>.</p>
+</section><section id="task-3-download-the-data" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="task-3-download-the-data">Task 3: Download the data</h3>
 <p>Download the data here: <a href="data/data_pair_ch1.zip" title="download">data_pair_ch1</a>. The zip folder contains the raw data file with responses to individual questions, a cleaned version of the same data in long format and wide format, and the codebook describing the variables in the raw data file and the long format.</p>
 <p><strong>Unzip the folder and place the data files in the same folder as your project.</strong></p>
-</section>
-<section id="task-4-familiarise-yourself-with-the-data" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="task-4-familiarise-yourself-with-the-data">Task 4: Familiarise yourself with the data</h3>
-<p>Open the data files, look at the codebook, and perhaps skim over the original Binfet study (methods in particular) to see what kind of measures they used.</p>
+</section><section id="task-4-familiarise-yourself-with-the-data" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="task-4-familiarise-yourself-with-the-data">Task 4: Familiarise yourself with the data</h3>
+<p>Open the data files, look at the codebook, and perhaps skim over the original Binfet article (methods in particular) to see what kind of measures they used.</p>
 <p>Read in the raw data file as <code>dog_data_raw</code> and the cleaned-up data (long format) as <code>dog_data_long</code>. See if you can answer the following questions.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb21-2"><a href="#cb21-2"></a></span>
-<span id="cb21-3"><a href="#cb21-3"></a>dog_data_raw <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"dog_data_raw.csv"</span>)</span>
-<span id="cb21-4"><a href="#cb21-4"></a>dog_data_long <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"dog_data_clean_long.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb16-2"><a href="#cb16-2"></a></span>
+<span id="cb16-3"><a href="#cb16-3"></a>dog_data_raw <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"dog_data_raw.csv"</span>)</span>
+<span id="cb16-4"><a href="#cb16-4"></a>dog_data_long <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"dog_data_clean_long.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-layout-align="center">
 <div class="cell-output cell-output-stderr">
@@ -1690,7 +1676,8 @@ dbl (12): RID, Age_Yrs, Consumer_BARK, Flourishing, PANAS_PA, PANAS_NA, SHS,...
 </div>
 </div>
 <ul>
-<li>How many participants took part in the study? <input class="webex-solveme nospaces" size="3" data-answer="[&quot;284&quot;]"></li>
+<li>How many participants took part in the study? <input class="webex-solveme nospaces" size="3" data-answer="[&quot;284&quot;]">
+</li>
 </ul>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-22-contents" aria-controls="callout-22" aria-expanded="false" aria-label="Toggle callout">
@@ -1710,7 +1697,8 @@ Explain this answer
 </div>
 </div>
 <ul>
-<li>How many different questionnaires did the participants answer? <input class="webex-solveme nospaces" size="1" data-answer="[&quot;9&quot;,&quot;8&quot;]"></li>
+<li>How many different questionnaires did the participants answer? <input class="webex-solveme nospaces" size="1" data-answer="[&quot;9&quot;,&quot;8&quot;]">
+</li>
 </ul>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-23-contents" aria-controls="callout-23" aria-expanded="false" aria-label="Toggle callout">
@@ -1729,18 +1717,13 @@ Explain this answer
 </div>
 </div>
 </div>
-</section>
-</section>
-<section id="test-your-knowledge" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="test-your-knowledge"><span style="color: #F39C12; text-transform: uppercase;">Test your knowledge</span></h2>
+</section></section><section id="test-your-knowledge" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="test-your-knowledge"><span style="color: #F39C12; text-transform: uppercase;">Test your knowledge</span></h2>
 <p>Are you ready for some knowledge check questions to test your understanding of the chapter? We also have some faulty codes. See if you can spot what’s wrong with them.</p>
-<section id="knowledge-check" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="knowledge-check">Knowledge check</h3>
-<section id="question-1" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="question-1">Question 1</h4>
+<section id="knowledge-check" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="knowledge-check">Knowledge check</h3>
+<section id="question-1" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-1">Question 1</h4>
 One of the key first steps when we open RStudio is to:
-<div id="radio_GPPURTPNYT" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_GPPURTPNYT" value="x"> <span>put on some music as we will be here a while</span></label><label><input type="radio" autocomplete="off" name="radio_GPPURTPNYT" value="answer"> <span>open an existing project or create a new one</span></label><label><input type="radio" autocomplete="off" name="radio_GPPURTPNYT" value="x"> <span>make a coffee</span></label><label><input type="radio" autocomplete="off" name="radio_GPPURTPNYT" value="x"> <span>check out the news</span></label>
+<div id="radio_RCRKJPMHES" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_RCRKJPMHES" value="x"><span>put on some music as we will be here a while</span></label><label><input type="radio" autocomplete="off" name="radio_RCRKJPMHES" value="answer"><span>open an existing project or create a new one</span></label><label><input type="radio" autocomplete="off" name="radio_RCRKJPMHES" value="x"><span>make a coffee</span></label><label><input type="radio" autocomplete="off" name="radio_RCRKJPMHES" value="x"><span>check out the news</span></label>
 </div>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-24-contents" aria-controls="callout-24" aria-expanded="false" aria-label="Toggle callout">
@@ -1758,11 +1741,17 @@ Explain this answer
 </div>
 </div>
 </div>
-</section>
-<section id="question-2" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="question-2">Question 2</h4>
-<p>When using the default environment colour settings for RStudio, what colour would the background of a code chunk be in R Markdown? <select class="webex-select"><option value="blank"></option><option value="x">red</option><option value="x">white</option><option value="x">green</option><option value="answer">grey</option></select></p>
-<p>When using the default environment colour settings for RStudio, what colour would the background of normal text be in R Markdown? <select class="webex-select"><option value="blank"></option><option value="x">red</option><option value="answer">white</option><option value="x">green</option><option value="x">grey</option></select></p>
+</section><section id="question-2" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-2">Question 2</h4>
+<p>When using the default environment colour settings for RStudio, what colour would the background of a code chunk be in R Markdown? <select class="webex-select"><option value="blank"></option>
+<option value="x">red</option>
+<option value="x">white</option>
+<option value="x">green</option>
+<option value="answer">grey</option></select></p>
+<p>When using the default environment colour settings for RStudio, what colour would the background of normal text be in R Markdown? <select class="webex-select"><option value="blank"></option>
+<option value="x">red</option>
+<option value="answer">white</option>
+<option value="x">green</option>
+<option value="x">grey</option></select></p>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-25-contents" aria-controls="callout-25" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -1779,12 +1768,10 @@ Explain this answer
 </div>
 </div>
 </div>
-</section>
-<section id="question-3" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="question-3">Question 3</h4>
+</section><section id="question-3" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-3">Question 3</h4>
 Code chunks start and end with:
-<div id="radio_MCSPEFMPRV" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_MCSPEFMPRV" value="x"> <span>three single quotes</span></label><label><input type="radio" autocomplete="off" name="radio_MCSPEFMPRV" value="answer"> <span>three backticks</span></label><label><input type="radio" autocomplete="off" name="radio_MCSPEFMPRV" value="x"> <span>three double quotes</span></label><label><input type="radio" autocomplete="off" name="radio_MCSPEFMPRV" value="x"> <span>three single asterisks</span></label>
+<div id="radio_WCJMXOPYUG" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_WCJMXOPYUG" value="x"><span>three single quotes</span></label><label><input type="radio" autocomplete="off" name="radio_WCJMXOPYUG" value="answer"><span>three backticks</span></label><label><input type="radio" autocomplete="off" name="radio_WCJMXOPYUG" value="x"><span>three double quotes</span></label><label><input type="radio" autocomplete="off" name="radio_WCJMXOPYUG" value="x"><span>three single asterisks</span></label>
 </div>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-26-contents" aria-controls="callout-26" aria-expanded="false" aria-label="Toggle callout">
@@ -1802,10 +1789,12 @@ Explain this answer
 </div>
 </div>
 </div>
-</section>
-<section id="question-4" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="question-4">Question 4</h4>
-<p>What is the correct way to include a code chunk in RMarkdown that will be executed but neither the code nor its output will be shown in the final HTML document? <select class="webex-select"><option value="blank"></option><option value="x">{r, echo=FALSE}</option><option value="x">{r, eval=FALSE}</option><option value="answer">{r, include=FALSE}</option><option value="x">{r, results=‘hide’}</option></select></p>
+</section><section id="question-4" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-4">Question 4</h4>
+<p>What is the correct way to include a code chunk in RMarkdown that will be executed but neither the code nor its output will be shown in the final HTML document? <select class="webex-select"><option value="blank"></option>
+<option value="x">{r, echo=FALSE}</option>
+<option value="x">{r, eval=FALSE}</option>
+<option value="answer">{r, include=FALSE}</option>
+<option value="x">{r, results=‘hide’}</option></select></p>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-27-contents" aria-controls="callout-27" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -1818,7 +1807,7 @@ Explain this answer
 </div>
 <div id="callout-27" class="callout-27-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Check the table of knitr display options in <a href="#sec-chunks" class="quarto-xref"><span>Section 1.3.2</span></a>.</p>
+<p>Check the table of knitr display options in <a href="#sec-chunks"><span>Section&nbsp;1.3.2</span></a>.</p>
 <ul>
 <li>{r, echo=FALSE} also executes the code and does not show the code, but it <em>does</em> display the result in the knitted html file. (matches 2/3 criteria)</li>
 <li>{r, eval=FALSE} does not show the results but does <em>not</em> execute the code and it <em>does</em> show it in the knitted file. (matches 1/3 criteria)</li>
@@ -1827,16 +1816,12 @@ Explain this answer
 </div>
 </div>
 </div>
-</section>
-</section>
-<section id="error-mode" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="error-mode">Error mode</h3>
+</section></section><section id="error-mode" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="error-mode">Error mode</h3>
 <p>Some of these codes have mistakes in them, other code chunks are not quite producing what was aimed for. Your task is to spot anything faulty, explain why the things happened, and perhaps try to fix them.</p>
-<section id="question-5" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="question-5">Question 5</h4>
+<section id="question-5" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-5">Question 5</h4>
 <p>You want to read in data with the <code>read_csv()</code> function. You have just stated R, created a new <code>.Rmd</code> file, and typed the following code into your code chunk.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>However, R gives you an error message: <code>could not find function "read_csv"</code>. What could be the reason?</p>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
@@ -1852,20 +1837,18 @@ Explain the solution
 <div id="callout-28" class="callout-28-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>“Could not find function” is an indication that you have forgotten to load in tidyverse. Because <code>read_csv()</code> is a function in the tidyverse collection, R cannot find it.</p>
-<p>FIX: Add <code>library(tidyverse)</code> prior to reading in the data and run the code chunk again.</p>
+<p>FIX: Add <code><a href="https://tidyverse.tidyverse.org">library(tidyverse)</a></code> prior to reading in the data and run the code chunk again.</p>
 </div>
 </div>
 </div>
-</section>
-<section id="question-6" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="question-6">Question 6</h4>
+</section><section id="question-6" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-6">Question 6</h4>
 <p>You want to read in data with the <code>read_csv()</code> function. This time, you are certain you have loaded in tidyverse first. The code is as follows:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb24-2"><a href="#cb24-2"></a>data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb19-2"><a href="#cb19-2"></a>data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The error message shows <code>'data.csv' does not exist in current working directory</code>. You check your folder and it looks like this:</p>
-<p><a href="images/error_ch1_01.PNG" class="lightbox" data-gallery="quarto-lightbox-gallery-17"><img src="images/error_ch1_01.PNG" class="img-fluid"></a></p>
+<p><img src="images/error_ch1_01.PNG" class="img-fluid"></p>
 <p>Why is there an error message?</p>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-29-contents" aria-controls="callout-29" aria-expanded="false" aria-label="Toggle callout">
@@ -1883,18 +1866,16 @@ Explain the solution
 <p>FIX - option 1: Take the <code>data.csv</code> out of the data folder and place it next to the project icon and the <code>.Rmd</code> file.</p>
 <p>FIX - option 2: Modify your R code to tell R that the data is in a separate folder called data, e.g., …</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb25-2"><a href="#cb25-2"></a>data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb20-2"><a href="#cb20-2"></a>data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
 </div>
-</section>
-<section id="question-7" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="question-7">Question 7</h4>
+</section><section id="question-7" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-7">Question 7</h4>
 <p>You want to load <code>tidyverse</code> into the library. The code is as follows:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The error message says: <code>Error in library(tidyverse) : there is no package called ‘tidyverse’</code></p>
 <p>Why is there an error message and how can we fix this?</p>
@@ -1915,11 +1896,9 @@ Explain the solution
 </div>
 </div>
 </div>
-</section>
-<section id="question-8" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="question-8">Question 8</h4>
+</section><section id="question-8" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-8">Question 8</h4>
 <p>You knitted your <code>.Rmd</code> into a html but the output is not as expected. You see the following:</p>
-<p><a href="images/error_knitted.PNG" class="lightbox" data-gallery="quarto-lightbox-gallery-18"><img src="images/error_knitted.PNG" class="img-fluid"></a></p>
+<p><img src="images/error_knitted.PNG" class="img-fluid"></p>
 <p>Why did the file not knit properly?</p>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-31-contents" aria-controls="callout-31" aria-expanded="false" aria-label="Toggle callout">
@@ -1934,32 +1913,14 @@ Explain the solution
 <div id="callout-31" class="callout-31-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>There is a backtick missing in the code chunk. If you check your <code>.Rmd</code> file, you can see that the code chunk does not show up in grey which means it’s one of the 3 backticks at the beginning of the chunk.</p>
-<p><a href="images/error_ch1_08.PNG" class="lightbox" data-gallery="quarto-lightbox-gallery-19"><img src="images/error_ch1_08.PNG" class="img-fluid"></a></p>
+<p><img src="images/error_ch1_08.PNG" class="img-fluid"></p>
 <p>FIX: Add a single backtick manually where it’s missing.</p>
 </div>
 </div>
 </div>
 
 
-<div class="hidden" aria-hidden="true">
-<span class="glightbox-desc lightbox-desc-1">Reproducibility settings in Global Options</span>
-<span class="glightbox-desc lightbox-desc-2">Enable Rainbow parenthesis</span>
-<span class="glightbox-desc lightbox-desc-3">Creating a new project</span>
-<span class="glightbox-desc lightbox-desc-4">Creating a new <code>.Rmd</code> file</span>
-<span class="glightbox-desc lightbox-desc-5">R markdown anatomy (image from <a href="https://intro2r.com/r-markdown-anatomy.html" target="_blank">https://intro2r.com/r-markdown-anatomy.html</a>)</span>
-<span class="glightbox-desc lightbox-desc-8">Figure&nbsp;1.1: Default <code>.Rmd</code> with highlighting - names in pink and knitr display options in purple</span>
-<span class="glightbox-desc lightbox-desc-9">Delete everything below line 12</span>
-<span class="glightbox-desc lightbox-desc-13">Visual inspection of the data</span>
-<span class="glightbox-desc lightbox-desc-14">Showing 50 columns at a time</span>
-<span class="glightbox-desc lightbox-desc-15">message from <code>read_csv()</code> when reading in the data</span>
-<span class="glightbox-desc lightbox-desc-16">The output rendered in a knitted html file</span>
-</div>
-</section>
-</section>
-</section>
-
-</main> <!-- /main -->
-<script>
+</section></section></section></main><!-- /main --><script>
 
 /* update total correct if #webex-total_correct exists */
 update_total_correct = function() {
@@ -2164,8 +2125,7 @@ window.onload = function() {
   update_total_correct();
 }
 
-</script>
-<script>
+</script><script>
 // open rdrr links externally ----
 
 var exlinks = document.querySelectorAll("a[href^='https://rdrr.io']");
@@ -2192,8 +2152,7 @@ function move_sidebar() {
 }
 move_sidebar();
 window.onresize = move_sidebar;
-</script>
-<script id="quarto-html-after-body" type="application/javascript">
+</script><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -2234,33 +2193,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       } else {
         el.classList.add('notransition');
       }
-    }
-  }
-  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
-    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
-    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
-    let newTheme = '';
-    if(darkModeDefault) {
-      newTheme = isAlternate ? baseTheme : alternateTheme;
-    } else {
-      newTheme = isAlternate ? alternateTheme : baseTheme;
-    }
-    const changeGiscusTheme = () => {
-      // From: https://github.com/giscus/giscus/issues/336
-      const sendMessage = (message) => {
-        const iframe = document.querySelector('iframe.giscus-frame');
-        if (!iframe) return;
-        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
-      }
-      sendMessage({
-        setConfig: {
-          theme: newTheme
-        }
-      });
-    }
-    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
-    if (isGiscussLoaded) {
-      changeGiscusTheme();
     }
   }
   const toggleColorMode = (alternate) => {
@@ -2329,15 +2261,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return localAlternateSentinel;
     }
   }
-  const darkModeDefault = false;
-  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  let localAlternateSentinel = 'default';
   // Dark / light mode switch
   window.quartoToggleColorScheme = () => {
     // Read the current dark / light value 
     let toAlternate = !hasAlternateSentinel();
     toggleColorMode(toAlternate);
     setStyleSentinel(toAlternate);
-    toggleGiscusIfUsed(toAlternate, darkModeDefault);
   };
   // Ensure there is a toggle, if there isn't float one in the top right
   if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
@@ -2416,27 +2346,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+  function tippyHover(el, contentFn) {
     const config = {
       allowHTML: true,
+      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -2446,17 +2359,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start',
+      placement: 'bottom-start'
     };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -2468,130 +2372,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
-    });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
-        }
-      }
-    }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
-          }
-        }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
-        }
-        return container.innerHTML
-      } else {
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(note);
-        }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      // TODO in 1.5, we should make sure this works without a callout special case
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
-      }
-    }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
-          }
-        } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
-          .then(res => res.text())
-          .then(html => {
-            const parser = new DOMParser();
-            const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
-            if (note !== null) {
-              const html = processXRef(id, note);
-              instance.setContent(html);
-            } 
-          }).finally(() => {
-            instance.enable();
-            instance.show();
-          });
-        }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
+      return note.innerHTML;
     });
   }
       let selectedAnnoteEl;
@@ -2635,7 +2416,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
-            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -2661,32 +2441,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -2745,60 +2499,28 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
-      <a href="./index.html" class="pagination-link" aria-label="Overview">
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./index.html" class="pagination-link">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Overview</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./appendix-a-installing-r.html" class="pagination-link" aria-label="Installing R">
+      <a href="./appendix-a-installing-r.html" class="pagination-link">
         <span class="nav-page-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Installing R</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
-<footer class="footer">
-  <div class="nav-footer">
+<footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
       &nbsp;
     </div>   
-    <div class="nav-footer-center">
-<p>CC-BY (2024) Gaby Mahrholz</p>
-</div>
+    <div class="nav-footer-center">CC-BY (2024) Gaby Mahrholz Carolina E. Kuepper-Tetzel</div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox","closeEffect":"zoom"});
-window.onload = () => {
-  lightboxQuarto.on('slide_before_load', (data) => {
-    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-    const href = trigger.getAttribute('href');
-    if (href !== null) {
-      const imgEl = window.document.querySelector(`a[href="${href}"] img`);
-      if (imgEl !== null) {
-        const srcAttr = imgEl.getAttribute("src");
-        if (srcAttr && srcAttr.startsWith("data:")) {
-          slideConfig.href = srcAttr;
-        }
-      }
-    } 
-  });
-
-  lightboxQuarto.on('slide_after_load', (data) => {
-    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-    if (window.Quarto?.typesetMath) {
-      window.Quarto.typesetMath(slideNode);
-    }
-  });
-
-};
-          </script>
-
-
 
 
 </body></html>

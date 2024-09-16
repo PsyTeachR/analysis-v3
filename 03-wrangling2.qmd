@@ -10,18 +10,22 @@ By the end of this chapter, you should be able to:
 
 In this chapter, we will continue from where we left off in @sec-wrangling. We will compute average scores for two of the questionnaires, address an error mode problem, and finally, join all data objects together. This will finalise our data for the upcoming data visualization sections (@sec-dataviz and @sec-dataviz2).
 
+
 ## [Individual Walkthrough]{style="color: #F39C12; text-transform: uppercase;"} {.unnumbered}
 
 ## Activity 1: Setup
 
--   Go to the project folder we have been using in the last two weeks and double-click on the project icon to **open the project** in RStudio
--   Either **Create a new `.Rmd` file** for chapter 3 and save it to your project folder or continue the one from last week. See @sec-rmd if you need some guidance.
+* Go to the project folder we have been using in the last two weeks and double-click on the project icon to **open the project** in RStudio
+* Either **Create a new `.Rmd` file** for chapter 3 and save it to your project folder or continue the one from last week. See @sec-rmd if you need some guidance.
+
+
 
 ## Activity 2: Load in the libraries and read in the data
 
 We will use `tidyverse` today, as well as the two csv files we created at the end of the last chapter: `data_prp_for_ch3.csv` and `qrp_t1.csv`. If you need to download them for whatever reason, click on the following links: [data_prp_for_ch3.csv](data/data_prp_for_ch3.csv "download") and [qrp_t1.csv](data/qrp_t1.csv "download").
 
 ::: {.callout-note collapse="true" icon="false"}
+
 ## Hint
 
 ```{r eval=FALSE}
@@ -36,9 +40,11 @@ library(tidyverse)
 data_prp <- read_csv("data/prp_data_reduced.csv")
 qrp_t1 <- read_csv("data/qrp_t1.csv")
 ```
+
 :::
 
 ::: {.callout-caution collapse="true" icon="false"}
+
 ## Solution
 
 ```{r eval=FALSE}
@@ -46,11 +52,14 @@ library(tidyverse)
 data_prp <- read_csv("prp_data_reduced.csv")
 qrp_t1 <- read_csv("qrp_t1.csv")
 ```
+
 :::
 
 If you need a quick reminder what the dataset was about, have a look at the abstract in @sec-download_data_ch1. We also addressed the changes we made to the dataset there.
 
 And remember to have a quick `glimpse()` at your data.
+
+
 
 ## Activity 3: Confidence in understanding Open Science practices
 
@@ -60,17 +69,17 @@ The mean Understanding score for time point 2 is already calculated in the (colu
 
 Looking at the Understanding data at time point 1, you determine that
 
--   individual item columns are `r mcq(c(x = "numeric", answer = "character"))`, and
--   according to the codebook, there are `r mcq(c(answer = "no", x = "some"))` reverse-coded items in this questionnaire.
+* individual item columns are `r mcq(c(x = "numeric", answer = "character"))`, and
+* according to the codebook, there are `r mcq(c(answer = "no", x = "some"))` reverse-coded items in this questionnaire.
 
 The steps are quite similar to those for QRP, but we need to add an extra step: converting the character labels into numbers.
 
 Again, let's do this step by step:
 
--   **Step 1**: select the relevant columns `Code`, and every Understanding column from time point 1 (e.g., from `Understanding_OS_1_Time1` to `Understanding_OS_12_Time1`) and store them in an object called `understanding_t1`
--   **Step 2**: pivot the data from wide format to long format using `pivot_longer()` so we can recode the labels into values (step 3) and calculate the average score (in step 4) more easily
--   **Step 3**: Recode the values "Not at all confident" as 1 and "Entirely confident" as 7. All other values are already numbers. We can use functions `mutate()` in combination with `case_match()` for that
--   **Step 4**: calculate the average QRP score (`QRPs_Acceptance_Time1_mean`) per participant using `group_by()` and `summarise()`
+* **Step 1**: select the relevant columns `Code`, and every Understanding column from time point 1 (e.g., from `Understanding_OS_1_Time1` to `Understanding_OS_12_Time1`) and store them in an object called `understanding_t1`
+* **Step 2**: pivot the data from wide format to long format using `pivot_longer()` so we can recode the labels into values (step 3) and calculate the average score (in step 4) more easily
+* **Step 3**: Recode the values "Not at all confident" as 1 and "Entirely confident" as 7. All other values are already numbers. We can use functions `mutate()` in combination with `case_match()` for that
+* **Step 4**: calculate the average QRP score (`QRPs_Acceptance_Time1_mean`) per participant using `group_by()` and `summarise()`
 
 #### Steps 1 and 2: select and pivot {.unnumbered}
 
@@ -83,6 +92,7 @@ understanding_t1 <- data_prp %>%
 ```
 
 ::: {.callout-caution collapse="true" icon="false"}
+
 ## Solution for steps 1 and 2
 
 ```{r}
@@ -92,6 +102,7 @@ understanding_t1 <- data_prp %>%
   # Step 2 - I picked different column labels this time for some variety
   pivot_longer(cols = Understanding_OS_1_Time1:Understanding_OS_12_Time1, names_to = "Understanding_Qs", values_to = "Responses") 
 ```
+
 :::
 
 #### Step 3: recoding the values {.unnumbered}
@@ -100,9 +111,9 @@ OK, we now want to recode the values in the `Responses` column (or whatever name
 
 Let's create a new column `Responses_corrected` that stores the new values with `mutate()`. Then we can combine that with the `case_match()` function.
 
--   The first argument in `case_match()` is the column name of the variable you want to recode.
--   Then you can start recoding the values in the way of `CurrentValue ~ NewValue` (\~ is a tilde). Make sure you use the `~` and not `=`.
--   The `.default` argument tells R what to do with values that are neither "Not at all confident" nor "Entirely confident". Here, we want to replace them with the original value of the `Responses` column. In other datasets, you may want to set the default to `NA` for missing values, a character string or a number, and `case_match()` is happy to oblige.
+* The first argument in `case_match()` is the column name of the variable you want to recode.
+* Then you can start recoding the values in the way of `CurrentValue ~ NewValue` (\~ is a tilde). Make sure you use the `~` and not `=`.
+* The `.default` argument tells R what to do with values that are neither "Not at all confident" nor "Entirely confident". Here, we want to replace them with the original value of the `Responses` column. In other datasets, you may want to set the default to `NA` for missing values, a character string or a number, and `case_match()` is happy to oblige.
 
 ```{r error=TRUE}
 understanding_t1 <- understanding_t1 %>% 
@@ -114,14 +125,17 @@ understanding_t1 <- understanding_t1 %>%
 ```
 
 ::: {.callout-important collapse="true"}
+
 ## Error!!! Can you explain what is happening here?
 
 Have a look at the error message. It's pretty helpful this time. It says `Can't combine ..1 (right) <double> and .default <character>.` It means that the replacement values are expected to be data type character since the original column type was type character.
+
 :::
 
 **So how do we fix this?** Actually, there are several ways this could be done. Click on the tabs below to check out 3 possible solutions.
 
 ::: {.panel-tabset group="layers"}
+
 ## Fix option 1
 
 One option is to modify the `.default` argument `Responses` so that the values are copied over from the original column but as a number rather than a character value. The function `as.numeric()` does the conversion.
@@ -139,8 +153,8 @@ understanding_t1_step3_v1 <- understanding_t1 %>%
 
 Change the numeric values on the right side of the `~` to character. Then in a second step, we would need to turn the character column into a numeric type. Again, we have several options to do so. We could either use the `parse_number()` function we encountered earlier during the demographics wrangling or the `as.numeric()` function.
 
--   V1: `Responses_corrected = parse_number(Responses_corrected)`
--   V2: `Responses_corrected = as.numeric(Responses_corrected)`
+* V1: `Responses_corrected = parse_number(Responses_corrected)`
+* V2: `Responses_corrected = as.numeric(Responses_corrected)`
 
 Just pay attention that you are still working *within* the `mutate()` function.
 
@@ -169,14 +183,17 @@ understanding_t1_step3_v2 <- understanding_t1 %>%
                                         "6" ~ 6,
                                         "Entirely confident" ~ 7))
 ```
+
 :::
 
 ::: {.callout-note icon="false"}
+
 ## Your Turn
 
 Choose the option that works best for you to modify the code above that didn't work. You should now be able to calculate the **mean Understanding Score per participant**. Store the average scores in a variable called `Time1_Understanding_OS`. If you need help, refer to the hint below or use Chapter 2 Activity 4 (@sec-ch2_act4) as guidance.
 
 ::: {.callout-caution icon="false" collapse="true"}
+
 ## One solution for Steps 3 and 4
 
 ```{r warning=FALSE}
@@ -192,12 +209,15 @@ understanding_t1 <- understanding_t1 %>%
   ungroup()
 
 ```
+
 :::
+
 :::
 
 Of course, this could have been written up as a single pipe.
 
 ::: {.callout-caution collapse="true" icon="false"}
+
 ## Single pipe of activity 3
 
 ```{r message=FALSE, warning=FALSE}
@@ -217,6 +237,7 @@ understanding_t1 <- data_prp %>%
   summarise(Time1_Understanding_OS = mean(Responses_corrected)) %>%
   ungroup()
 ```
+
 :::
 
 ## Activity 4: Survey of Attitudes Toward Statistics (SATS-28)
@@ -225,24 +246,25 @@ understanding_t1 <- data_prp %>%
 
 Looking at the SATS data at time point 1, you determine that
 
--   individual item columns are `r mcq(c(answer = "numeric", x = "character"))`, and
--   according to the codebook, there are `r mcq(c(x = "no", answer = "some"))` reverse-coded items in this questionnaire.
--   Additionally, we are looking to compute the means for the 4 different subscales of the SAT-28 which are `r fitb("Affect",ignore_case = TRUE)`, `r fitb("Cognitive Competence",ignore_case = TRUE)`, `r fitb("Value",ignore_case = TRUE)`, and `r fitb("Difficulty",ignore_case = TRUE)`.
+* individual item columns are `r mcq(c(answer = "numeric", x = "character"))`, and
+* according to the codebook, there are `r mcq(c(x = "no", answer = "some"))` reverse-coded items in this questionnaire.
+* Additionally, we are looking to compute the means for the 4 different subscales of the SAT-28 which are `r fitb("Affect",ignore_case = TRUE)`, `r fitb("Cognitive Competence",ignore_case = TRUE)`, `r fitb("Value",ignore_case = TRUE)`, and `r fitb("Difficulty",ignore_case = TRUE)`.
 
 This scenario is slightly more tricky than the previous ones due to the reverse-coding and the 4 subscales. So, let's tackle this step by step again:
 
--   **Step 1**: select the relevant columns `Code`, and every SATS28 column from time point 1 (e.g., from `SATS28_1_Affect_Time1` to `SATS28_28_Difficulty_Time1`) and store them in an object called `sats_t1`
--   **Step 2**: pivot the data from wide format to long format using `pivot_longer()` so we can recode the labels into values (step 3) and calculate the average score (in step 4) more easily
--   **Step 3**: We need to know which items belong to which subscale - fortunately, we have that information in the variable name and can use the `separate()` function to access it.
--   **Step 4**: We need to know which items are reverse-coded and then reverse-code them - unfortunately, the info is only in the codebook and we need to find a work-around. `case_when()` can help identify and re-score the reverse-coded items.
--   **Step 5**: calculate the average SATS score per participant and subscale using `group_by()` and `summarise()`
--   **Step 6**: use `pivot_wider()` to spread out the dataframe into wide format and `rename()` to tidy up the datanames
+* **Step 1**: select the relevant columns `Code`, and every SATS28 column from time point 1 (e.g., from `SATS28_1_Affect_Time1` to `SATS28_28_Difficulty_Time1`) and store them in an object called `sats_t1`
+* **Step 2**: pivot the data from wide format to long format using `pivot_longer()` so we can recode the labels into values (step 3) and calculate the average score (in step 4) more easily
+* **Step 3**: We need to know which items belong to which subscale - fortunately, we have that information in the variable name and can use the `separate()` function to access it.
+* **Step 4**: We need to know which items are reverse-coded and then reverse-code them - unfortunately, the info is only in the codebook and we need to find a work-around. `case_when()` can help identify and re-score the reverse-coded items.
+* **Step 5**: calculate the average SATS score per participant and subscale using `group_by()` and `summarise()`
+* **Step 6**: use `pivot_wider()` to spread out the dataframe into wide format and `rename()` to tidy up the datanames
 
 #### Steps 1 and 2: select and pivot {.unnumbered}
 
 The selecting and pivoting are exactly the same way as we already practised in the other 2 questionniares. Apply them here to this questionnaire.
 
 ::: {.callout-note collapse="true" icon="false"}
+
 ## Hint
 
 ```{r SATS28, eval=FALSE}
@@ -252,6 +274,7 @@ sats_t1 <- data_prp %>%
 ```
 
 ::: {.callout-caution collapse="true" icon="false"}
+
 ## Solution for steps 1 and 2
 
 ```{r}
@@ -259,7 +282,9 @@ sats_t1 <- data_prp %>%
   select(Code, SATS28_1_Affect_Time1:SATS28_28_Difficulty_Time1) %>% # Step 1
   pivot_longer(cols = -Code, names_to = "Items", values_to = "Response") # Step 2
 ```
+
 :::
+
 :::
 
 #### Step 3: separate Subscale information {.unnumbered}
@@ -268,11 +293,11 @@ If you look at the `Items` column more closely, you can see that there is inform
 
 We can separate the information into separate columns using the `separate()` function. The function's first argument is the column to separate, then define `into` which columns you want the original column to split up, and lastly, define the separator `sep` (here an underscore). For our example, we would write:
 
--   V1: `separate(Items, into = c("SATS", "Item_number", "Subscale", "Time"), sep = "_")`
+* V1: `separate(Items, into = c("SATS", "Item_number", "Subscale", "Time"), sep = "_")`
 
 However, we don't need all of those columns, so we could just drop the ones we are not interested in by replacing them with `NA`.
 
--   V2: `separate(Items, into = c(NA, "Item_number", "Subscale", NA), sep = "_")`
+* V2: `separate(Items, into = c(NA, "Item_number", "Subscale", NA), sep = "_")`
 
 We might also add an extra argument of `convert = TRUE` to have numeric columns (i.e., `Item_number`) converted to numeric as opposed to keeping them as characters. Saves us typing a few quotation marks later in Step 4.
 
@@ -293,8 +318,8 @@ Looking at the codebook, it seems that items 2, 3, 4, 6, 7, 8, 9, 12, 13, 16, 17
 
 We want to tell R now, that
 
--   **if** the `Item_number` is any of those numbers listed above, R should write "Reverse" into the new column `FW_RV` we are creating. Since we have a few possible matches for `Item_number`, we need the Boolean expression `%in%` rather than `==`.
--   **if** `Item_number` is none of those numbers, then we would like the word "Forward" in the `FW_RV` column to appear. We can achieve that by specifying a `.default` argument again, but this time we want a "word" rather than a value from another column.
+* **if** the `Item_number` is any of those numbers listed above, R should write "Reverse" into the new column `FW_RV` we are creating. Since we have a few possible matches for `Item_number`, we need the Boolean expression `%in%` rather than `==`.
+* **if** `Item_number` is none of those numbers, then we would like the word "Forward" in the `FW_RV` column to appear. We can achieve that by specifying a `.default` argument again, but this time we want a "word" rather than a value from another column.
 
 ```{r}
 sats_t1 <- sats_t1 %>% 
@@ -306,17 +331,18 @@ sats_t1 <- sats_t1 %>%
 
 Moving on to correcting the scores. Once again, we can use `case_when ()` within the `mutate()` function to create another **conditional statement**. This time, the condition is:
 
--   **if** `FW_RV` column has a value of "Reverse" then we would like to turn all 1 into 7, 2 into 6, etc.
--   **if** `FW_RV` column has a value of "Forward" then we would like to keep the score from the `Response` column
+* **if** `FW_RV` column has a value of "Reverse" then we would like to turn all 1 into 7, 2 into 6, etc.
+* **if** `FW_RV` column has a value of "Forward" then we would like to keep the score from the `Response` column
 
 There is a quick way and a not-so-quick way to achieve the actual **reverse-coding**.
 
--   Option 1 (quick): The easiest way to reverse-code scores is by taking the maximum value of the scale, adding 1 unit and then subtracting the original value. For example, on a 5-point Likert scale, it would be 6 minus the original rating; for a 7-point Likert scale, 8 minus the original rating, etc. (see tab Option 1).
--   Option 2 (not so quick): This includes the use of 2 conditional statements (see tab Option 2).
+* Option 1 (quick): The easiest way to reverse-code scores is by taking the maximum value of the scale, adding 1 unit and then subtracting the original value. For example, on a 5-point Likert scale, it would be 6 minus the original rating; for a 7-point Likert scale, 8 minus the original rating, etc. (see tab Option 1).
+* Option 2 (not so quick): This includes the use of 2 conditional statements (see tab Option 2).
 
 Use the one you find more intuitive.
 
 ::: panel-tabset
+
 ## Option 1
 
 Here we are using the Boolean expression to determine if there is a string "Reverse" in the `FW_RV` column. And if that conditional statement is `TRUE` then the value in the new column we are creating `Scores_corrected` should be calculated as 8 minus the value from the `Response` column. If it's not (i.e., the `.default` argument), then the values of the `Response` column should be kept.
@@ -350,6 +376,7 @@ sats_t1 <- sats_t1 %>%
 ```
 
 As you can see now in `sats_t1`, both columns `Scores_corrected` and `Scores_corrected_v2` are identical.
+
 :::
 
 One way of **checking whether our reverse-coding worked** is to look at the `distinct` values of the original `Response` column and `Scores_corrected`. We would also need to keep information of the `FW_RV` column.
@@ -363,11 +390,13 @@ check_coding <- sats_t1 %>%
 ```
 
 ::: {.callout-caution collapse="true" icon="false"}
+
 ## Show `check_coding` output
 
 ```{r}
 check_coding
 ```
+
 :::
 
 #### Step 5 {.unnumbered}
@@ -375,6 +404,7 @@ check_coding
 Now that we know everything worked out as intended, we can calculate the mean scores of each subscale for each participant in `sats_t1`.
 
 ::: {.callout-note collapse="true" icon="false"}
+
 ## Hint
 
 ```{r eval=FALSE}
@@ -385,6 +415,7 @@ sats_t1 <- sats_t1 %>%
 ```
 
 ::: {.callout-caution collapse="true" icon="false"}
+
 ## Solution
 
 ```{r}
@@ -393,7 +424,9 @@ sats_t1 <- sats_t1 %>%
   summarise(mean_score = mean(Scores_corrected)) %>% 
   ungroup()
 ```
+
 :::
+
 :::
 
 #### Step 6 {.unnumbered}
@@ -412,16 +445,19 @@ sats_t1 <- sats_t1 %>%
 ```
 
 ::: {.callout-caution collapse="true" icon="false"}
+
 ## Show final `sats_t1` output
 
 ```{r}
 head(sats_t1, n = 5)
 ```
+
 :::
 
 Again, this could have been written up as a single pipe.
 
 ::: {.callout-caution collapse="true" icon="false"}
+
 ## Single pipe of activity 4
 
 ```{r message=FALSE}
@@ -452,7 +488,10 @@ sats_t1 <- data_prp %>%
          SATS28_Value_Time1_mean = Value,
          SATS28_Difficulty_Time1_mean = Difficulty)
 ```
+
 :::
+
+
 
 ## Activity 5 (Error Mode): Perceptions of supervisory support
 
@@ -460,16 +499,16 @@ sats_t1 <- data_prp %>%
 
 Looking at the supervisory support data, you determine that
 
--   individual item columns are `r mcq(c(answer = "numeric", x = "character"))`, and
--   according to the codebook, there are `r mcq(c(x = "no", answer = "some"))` reverse-coded items in this questionnaire.
+* individual item columns are `r mcq(c(answer = "numeric", x = "character"))`, and
+* according to the codebook, there are `r mcq(c(x = "no", answer = "some"))` reverse-coded items in this questionnaire.
 
 I have outlined my steps as follows:
 
--   **Step 1**: reverse-code the single column first because that's less hassle than having to do that with conditional statements (`Supervisor_15_R`). `mutate()` is my friend.
--   **Step 2**: I want to filter out everyone who failed the attention check in `Supervisor_7`. I can do this with a Boolean expression within the `filter()` function. The correct response was "completely disagree" which is 1.
--   **Step 3**: select their id from time point 2 and all the columns that start with the word "super", apart from `Supervisor_7` and the original `Supervisor_15_R` column
--   **Step 4**: pivot into long format so I can calculate the averages better
--   **Step 5**: calculate the average scores per participant
+* **Step 1**: reverse-code the single column first because that's less hassle than having to do that with conditional statements (`Supervisor_15_R`). `mutate()` is my friend.
+* **Step 2**: I want to filter out everyone who failed the attention check in `Supervisor_7`. I can do this with a Boolean expression within the `filter()` function. The correct response was "completely disagree" which is 1.
+* **Step 3**: select their id from time point 2 and all the columns that start with the word "super", apart from `Supervisor_7` and the original `Supervisor_15_R` column
+* **Step 4**: pivot into long format so I can calculate the averages better
+* **Step 5**: calculate the average scores per participant
 
 I've started coding but there are some errors in my code. Help me find and fix all of them. Try to go through the code line by line and read the error messages.
 
@@ -486,12 +525,15 @@ pivot_wider(cols = -Code, names_to = "Item", values_to = "Response") %>%
 ```
 
 ::: {.callout-note collapse="true" icon="false"}
+
 ## How many mistakes am I supposed to find?
 
 There are 8 mistakes in the code.
+
 :::
 
 ::: {.callout-caution collapse="true" icon="false"}
+
 ## Reveal solution
 
 Did you spot all 8 mistakes? Let's go through them line by line.
@@ -507,8 +549,9 @@ super <- data_prp %>% # spelling mistake in data object
   ungroup()
 ```
 
--   Note that the **semantic error** in line 2 will not give you an error message.
--   Were you thrown off by the `starts_with("Super")` expression in line 4? `starts_with()` and `ends_with()` are great alternatives to selecting columns via `:` But, using `select(Code, Supervisor_1:Supervisor_6, Supervisor_8:Supervisor_14)` would have given us the same result. \[I admit, that one was a bit mean\]
+* Note that the **semantic error** in line 2 will not give you an error message.
+* Were you thrown off by the `starts_with("Super")` expression in line 4? `starts_with()` and `ends_with()` are great alternatives to selecting columns via `:` But, using `select(Code, Supervisor_1:Supervisor_6, Supervisor_8:Supervisor_14)` would have given us the same result. [I admit, that one was a bit mean]
+
 :::
 
 ## Activity 6: Join everything together with `???_join()`
@@ -516,11 +559,13 @@ super <- data_prp %>% # spelling mistake in data object
 Time to join all of the relevant data files together so we have a single dataframe ready for the next chapter on data visualisation. There are 4 options of joining data together, namely `inner_join()`, `left_join()`, `right_join()`, and `full_join()`. Each of these functions differs in terms of what information is retained from the two data objects being joined. Here is a quick overview:
 
 ::: {.callout-note icon="false"}
+
 ## Info on mutating joins
 
 You have 4 types of join functions you could make use of. Click on the panels to know more
 
 ::: panel-tabset
+
 A mutating join allows you to combine variables from two tables. It first matches observations by their keys, then copies across variables from one table to the other.
 
 ## `inner_join()`
@@ -546,14 +591,16 @@ A mutating join allows you to combine variables from two tables. It first matche
 `full_join()` returns all rows and all columns from both tables. `NA` values fill unmatched rows.
 
 ![full_join(): gif by [Garrick Aden-Buie](https://www.garrickadenbuie.com/project/tidyexplain/){target="_blank"}](images/full-join.gif)
+
 :::
+
 :::
 
 From our `data_prp`, we need to select demographics data and all summarised questionnaire data from time point 2. Next, we will join this with all other aggregated datasets from time point 1 which are currently stored in separate data objects in the `Global Environment`.
 
 You have already encountered `inner_join` last year, but for now, we want to retain all data from all the data objects, so we will use `full_join` instead. Keep in mind, you can only join two data objects at a time, so there will be quite a bit of piping and joining in the upcoming code chunk.
 
-PS: Since I (Gaby) am a bit particular, I want my columns to be arranged in a meaningful pattern. Hence I’m using `select` to sort them in a better way.
+PS: Since I (Gaby) am a bit particular, I want my columns to be arranged meaningfully. Hence I’m using `select` to sort them in a better way.
 
 ```{r eval=FALSE}
 data_prp_final <- data_prp %>% 
@@ -567,17 +614,22 @@ data_prp_final <- data_prp %>%
 
 And this is basically the dataset we need for @sec-dataviz and @sec-dataviz2.
 
+
+
 ## Activity 7: Knit and export
 
 Knit the `.Rmd` file to ensure everything runs as expected. Once it does, export the data object `data_prp_final` as a csv for use in the @sec-dataviz. Name it something meaningful, something like `data_prp_for_ch4.csv`.
 
 ::: {.callout-caution collapse="true" icon="false"}
+
 ## Solution
 
 ```{r eval=FALSE}
 write_csv(data_prp_final, "data_prp_for_ch4.csv")
 ```
+
 :::
+
 
 ## [Pair-coding]{style="color: #F39C12; text-transform: uppercase;"} {.unnumbered}
 
@@ -628,6 +680,7 @@ The data should already be in your project folder. If you want a fresh copy, you
 We are using the package `tidyverse` today, and the datafile we should read in is `dog_data_raw.csv`.
 
 ::: {.callout-note collapse="true" icon="false"}
+
 ## Hint
 
 ```{r eval=FALSE}
@@ -637,71 +690,82 @@ library(???)
 # reading in `dog_data_raw.csv`
 dog_data_raw <- read_csv("???")
 ```
+
 :::
 
 ### Task 4: Calculating the mean for `Loneliness_pre` {.unnumbered}
 
--   **Step 1**: select all relevant columns, such as participant ID and all the 20 items of the `Loneliness` questionnaire that participants completed before the intervention. Store them in an object called `data_loneliness`
+* **Step 1**: select all relevant columns, such as participant ID and all the 20 items of the `Loneliness` questionnaire that participants completed before the intervention. Store them in an object called `data_loneliness`
 
 ::: {.callout-note collapse="true" icon="false"}
+
 ## Hint
 
 Look at the codebook. Try to figure out
 
--   the variable name of the column in which the participant id is stored, and
--   which items relate to the Loneliness scale at Stage "pre"
+* the variable name of the column in which the participant id is stored, and
+* which items relate to the Loneliness scale at Stage "pre"
 
 ::: {.callout-note collapse="true" icon="false"}
+
 ## More concrete hint
 
--   the participant id column is called `RID`
--   The Loneliness items at pre-intervention stage start with `L1_`
-:::
+* the participant id column is called `RID`
+* The Loneliness items at pre-intervention stage start with `L1_`
+
 :::
 
--   **Step 2**: pivot the data from wide format to long format so we can reverse-score and calculate the average score more easily (in step 3)
+:::
+
+* **Step 2**: pivot the data from wide format to long format so we can reverse-score and calculate the average score more easily (in step 3)
 
 ::: {.callout-note collapse="true" icon="false"}
+
 ## Hint
 
 `pivot_`
 
 We also need 3 arguments in that function:
 
--   the columns we want to select (e.g., all the loneliness items),
--   the name of the column in which the current column headings will be stored (e.g., "Qs"), and
--   the name of the column that should store all the values (e.g., "Responses").
+* the columns we want to select (e.g., all the loneliness items),
+* the name of the column in which the current column headings will be stored (e.g., "Qs"), and
+* the name of the column that should store all the values (e.g., "Responses").
 
 ::: {.callout-note collapse="true" icon="false"}
+
 ## More concrete hint
 
 ```{r eval=FALSE}
   pivot_longer(cols = ???, names_to = "???", values_to = "???")
 ```
-:::
+
 :::
 
--   **Step 3**: Reverse-scoring
+:::
+
+* **Step 3**: Reverse-scoring
 
 Identify the reverse-coded items of the loneliness scale and reverse-score them.
 
 ::: {.callout-note collapse="true" icon="false"}
+
 ## Hint
 
 We need to figure out:
 
--   which are the items of the loneliness scale we need to reverse-score
--   what is the measuring scale of loneliness so we can determine the new values
--   which function to use to create a new column that has the corrected scores in it
--   which one of the `case_` functions will get us there
+* which are the items of the loneliness scale we need to reverse-score
+* what is the measuring scale of loneliness so we can determine the new values
+* which function to use to create a new column that has the corrected scores in it
+* which one of the `case_` functions will get us there
 
 ::: {.callout-note collapse="true" icon="false"}
+
 ## More concrete hint
 
--   The items to be reverse-coded items can be found in the codebook: L1_1, L1_5, L1_6, L1_9, L1_10, L1_15, L1_16, L1_19, L1_20
--   the loneliness scale ranges from 1 to 4, so we need to replace 1 with 4, 2 with 3, 3 with 2, and 4 with 1
--   the function to create a new column `mutate()`
--   it's a conditional statement rather than "just" replacing values, hence we need `case_when()`
+* The items to be reverse-coded items can be found in the codebook: L1_1, L1_5, L1_6, L1_9, L1_10, L1_15, L1_16, L1_19, L1_20
+* the loneliness scale ranges from 1 to 4, so we need to replace 1 with 4, 2 with 3, 3 with 2, and 4 with 1
+* the function to create a new column `mutate()`
+* it's a conditional statement rather than "just" replacing values, hence we need `case_when()`
 
 ```{r eval=FALSE}
   mutate(Score_corrected = case_when(
@@ -709,17 +773,21 @@ We need to figure out:
     .default = ???
     ))
 ```
-:::
+
 :::
 
--   **Step 4**: calculate the average Loneliness score per participant. To match with the table above, we want to call this column `Loneliness_pre`
+:::
+
+* **Step 4**: calculate the average Loneliness score per participant. To match with the table above, we want to call this column `Loneliness_pre`
 
 ::: {.callout-note collapse="true" icon="false"}
+
 ## Hint
 
 grouping and summarising
 
 ::: {.callout-note collapse="true" icon="false"}
+
 ## More concrete hint
 
 ```{r eval=FALSE}
@@ -727,10 +795,13 @@ grouping and summarising
   summarise(Loneliness_pre = ???(???)) %>% 
   ungroup()
 ```
+
 :::
+
 :::
 
 ::: {.callout-caution collapse="true" icon="false"}
+
 ## Solution
 
 ```{r eval=FALSE}
@@ -756,6 +827,7 @@ loneliness_tidy <- dog_data_raw %>%
   summarise(Loneliness_pre = mean(Score_corrected, na.rm = TRUE)) %>% 
   ungroup()
 ```
+
 :::
 
 ## [Test your knowledge and challenge yourself]{style="color: #F39C12; text-transform: uppercase;"} {.unnumbered}
@@ -769,24 +841,27 @@ loneliness_tidy <- dog_data_raw %>%
 If you want to **challenge yourself** and apply the skills from chapter 3 further, you could wrangle the data from `dog_data_raw` for one of the other questionnaires. There are plenty of options to choose from:
 
 ::: {.callout-tip collapse="true" icon="false"}
+
 ## Difficulty level: easy
 
--   recode column `Live_Pets` so the values read yes and no rather than 1 and 2
--   recode `Year_of_Study` so they have the labels from the codebook rather than the numbers
--   reverse-code the `Homesickness` scale for `_pre` and `_post`
--   renaming the columns of the other one-item scales as `Stress_pre`, `Stress_post`, `Engagement_pre` and `Engagement_post`
+* recode column `Live_Pets` so the values read yes and no rather than 1 and 2
+* recode `Year_of_Study` so they have the labels from the codebook rather than the numbers
+* reverse-code the `Homesickness` scale for `_pre` and `_post`
+* renaming the columns of the other one-item scales as `Stress_pre`, `Stress_post`, `Engagement_pre` and `Engagement_post`
 
 Any of these tasks should be doable in one step. No need to select or pivot anything. You could just modify `dog_data_raw`.
 
 ::: {.callout-note collapse="true" icon="false"}
+
 ## Hints
 
--   For the **recoding tasks**, you need to work out which function to use to recode one value as another - just plain replacing, no conditional statements
--   The **reverse-coding** might sound daunting to do in one step, but it is only a single value that needs to be recoded. Take some inspiration from Activity 5 (error mode).
--   For the **renaming tasks**, check how you would change column names without reducing the number of columns overall
+* For the **recoding tasks**, you need to work out which function to use to recode one value as another - just plain replacing, no conditional statements
+* The **reverse-coding** might sound daunting to do in one step, but it is only a single value that needs to be recoded. Take some inspiration from Activity 5 (error mode).
+* For the **renaming tasks**, check how you would change column names without reducing the number of columns overall
 :::
 
 ::: {.callout-caution collapse="true" icon="false"}
+
 ## Solution for **Challenge yourself - easy**
 
 ```{r eval=FALSE}
@@ -824,17 +899,20 @@ dog_data_raw <- dog_data_raw %>%
 :::
 
 ::: {.callout-warning collapse="true" icon="false"}
+
 ## Difficulty level: medium
 
--   reverse-code the Social connectedness scale (pre-intervention) and compute a mean score per participant
+* reverse-code the Social connectedness scale (pre-intervention) and compute a mean score per participant
 
 ::: {.callout-note collapse="true" icon="false"}
+
 ## Hints
 
 This task would take 4 steps to complete. These are the exact same steps we applied to `Loneliness_pre` in the lab activity. You would just need to figure out which items are related to the Social connectedness scale (pre-intervention) and which ones of those are reverse-coded. The codebook has all the answers.
 :::
 
 ::: {.callout-caution collapse="true" icon="false"}
+
 ## Solution for **Challenge yourself - medium**
 
 ```{r eval=FALSE}
@@ -855,24 +933,27 @@ scs_pre <- dog_data_raw %>%
 :::
 
 ::: {.callout-caution collapse="true" icon="false"}
+
 ## Difficulty level: hard
 
--   reverse-code the Loneliness scale (post-intervention) and compute a mean score per participant
--   reverse-code the Social connectedness scale (post-intervention) and compute a mean score per participant
+* reverse-code the Loneliness scale (post-intervention) and compute a mean score per participant
+* reverse-code the Social connectedness scale (post-intervention) and compute a mean score per participant
 
 Both activities are similar to Activity 3 from the individual walkthrough and would take about 5 steps to complete. **Start by mapping out the steps**.
 
 ::: {.callout-note collapse="true" icon="false"}
+
 ## Hints
 
--   **Step 1**: Select all relevant columns, such as participant ID and all the items that belong to the questionnaire that participants completed after the intervention
--   **Step 2**: Pivot the data from wide format to long format so we can reverse-score and calculate the average score more easily
--   **Step 3**: Recode the initial responses so that the new column has numbers instead of labels
--   **Step 4**: Reverse-score the items that are labelled as "Reverse" in the codebook and then reverse-score them
--   **Step 5**: Group by and summarise to calculate the mean Score
+* **Step 1**: Select all relevant columns, such as participant ID and all the items that belong to the questionnaire that participants completed after the intervention
+* **Step 2**: Pivot the data from wide format to long format so we can reverse-score and calculate the average score more easily
+* **Step 3**: Recode the initial responses so that the new column has numbers instead of labels
+* **Step 4**: Reverse-score the items that are labelled as "Reverse" in the codebook and then reverse-score them
+* **Step 5**: Group by and summarise to calculate the mean Score
 :::
 
 ::: {.callout-caution collapse="true" icon="false"}
+
 ## Solution for **Challenge yourself - hard**
 
 ```{r eval=FALSE}
@@ -929,9 +1010,10 @@ scs_post <- dog_data_raw %>%
 :::
 
 ::: {.callout-important collapse="true" icon="false"}
+
 ## Difficulty level: extra hard
 
--   PANAS: positive and negative affect of pre- and post-intervention in a single pipe rather than in 4 different data objects (see last week's)
+* PANAS: positive and negative affect of pre- and post-intervention in a single pipe rather than in 4 different data objects (see last week's)
 
 This task would take about 7 steps to get it from
 
@@ -972,20 +1054,22 @@ head(PANAS, n = 5)
 ```
 
 ::: {.callout-note collapse="true" icon="false"}
+
 ## Hints
 
 **Start by mapping out the steps**
 
--   **Step 1**: select all relevant columns, such as participant ID and all the items that belong to PANAs scale (pos, neg, pre, and post)
--   **Step 2**: pivot the data from wide format to long format. You want to do that for ALL columns that are not the participant id. The data object should have 3 columns and 5680 observations, i.e. each participant has 20 rows.
--   **Step 3**: All of the items will have the structure `PN1_1`. Use separate to split the information across 2 columns. First column has information about the `Stage`, second column should turn into an `Item_number` and it should convert into a numeric column in the process to save you typing quotation marks in Step 5.\
--   **Step 4**: recode the `Stage` column you just created so that everything that starts with PN1 relates to "pre" and PN2 as post.
--   **Step 5**: identify the subscales positive affect (PA) and negative affect (NA) by item number and recode them. This requires a conditional statement.
--   **Step 6**: group by and summarise to calculate the mean Score
--   **Step 7**: pivot, so that you have the 2 PANAS subscales presented in separate columns (see table above). You might need an extra step if the columns aren't labelled exactly as shown in the table above.
+* **Step 1**: select all relevant columns, such as participant ID and all the items that belong to PANAs scale (pos, neg, pre, and post)
+* **Step 2**: pivot the data from wide format to long format. You want to do that for ALL columns that are not the participant id. The data object should have 3 columns and 5680 observations, i.e. each participant has 20 rows.
+* **Step 3**: All of the items will have the structure `PN1_1`. Use separate to split the information across 2 columns. First column has information about the `Stage`, second column should turn into an `Item_number` and it should convert into a numeric column in the process to save you typing quotation marks in Step 5.\
+* **Step 4**: recode the `Stage` column you just created so that everything that starts with PN1 relates to "pre" and PN2 as post.
+* **Step 5**: identify the subscales positive affect (PA) and negative affect (NA) by item number and recode them. This requires a conditional statement.
+* **Step 6**: group by and summarise to calculate the mean Score
+* **Step 7**: pivot, so that you have the 2 PANAS subscales presented in separate columns (see table above). You might need an extra step if the columns aren't labelled exactly as shown in the table above.
 :::
 
 ::: {.callout-caution collapse="true" icon="false"}
+
 ## Solution for **Challenge yourself - extra hard**
 
 ```{r eval=FALSE}

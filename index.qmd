@@ -21,8 +21,8 @@ If you get stuck, seek help during your lab, GTA or PAL support sessions, and/or
 
 A premium subscription to ChatGPT using GPT4.0 was used to assist in the writing of these materials in the following ways:
 
-* To suggest multiple-choice questions and other types of quizzes and/or to provide the text for "Explain this answer" for such quizzes
-* To proof-read and check for typos and inconsistencies in variable names
+* To suggest multiple-choice questions in the "Test your knowledge and challenge yourself" section
+* To proof-read and check for typos
 * To suggest improvements to the text
 
 Any information provided by ChatGPT was verified, for example, where code was used, the syntax and output was checked to ensure it was correct and where theoretical or conceptual information was provided, only that which the author could verify from their pre-existing expertise was included. 

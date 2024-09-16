@@ -47,7 +47,7 @@ book:
     header: ''
     footer: ''
   margin-header: ''
-  page-footer: CC-BY (2024) Gaby Mahrholz
+  page-footer: CC-BY (2024) Gaby Mahrholz Carolina E. Kuepper-Tetzel
   chapters:
   - index.qmd
   - 01-basics.qmd

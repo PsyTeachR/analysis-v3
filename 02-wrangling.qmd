@@ -22,18 +22,22 @@ The main purpose of this chapter and @sec-wrangling2 is to wrangle your data int
 
 Before we start, we need to set up some things.
 
+
 ## Activity 1: Setup
 
--   We will be working on the **dataset by Pownall et al. (2023)** again, which means we can still use the project we created last week. The data files will already be there, so no need to download them again.
--   To **open the project** in RStudio, go to the folder in which you stored the project and the data last time, and double click on the project icon.
--   **Create a new `.Rmd` file** for chapter 2 and save it to your project folder. Name it something meaningful (e.g., “chapter_02.Rmd”, “02_data_wrangling.Rmd”). See @sec-rmd if you need some guidance.
--   In your newly created `.Rmd` file, delete everything below line 12 (after the set-up code chunk).
+* We will be working on the **dataset by Pownall et al. (2023)** again, which means we can still use the project we created last week. The data files will already be there, so no need to download them again.
+* To **open the project** in RStudio, go to the folder in which you stored the project and the data last time, and double click on the project icon.
+* **Create a new `.Rmd` file** for chapter 2 and save it to your project folder. Name it something meaningful (e.g., “chapter_02.Rmd”, “02_data_wrangling.Rmd”). See @sec-rmd if you need some guidance.
+* In your newly created `.Rmd` file, delete everything below line 12 (after the set-up code chunk).
+
+
 
 ## Activity 2: Load in the libraries and read in the data
 
 We will use `tidyverse` today, and we want to create a data object `data_prp` that stores the data from the file `prp_data_reduced.csv`.
 
 ::: {.callout-note collapse="true" icon="false"}
+
 ## Hint
 
 ```{r eval=FALSE}
@@ -46,24 +50,31 @@ data_prp <- read_csv("???")
 library(tidyverse)
 data_prp <- read_csv("data/prp_data_reduced.csv")
 ```
+
 :::
 
 ::: {.callout-caution collapse="true" icon="false"}
+
 ## Solution
 
 ```{r eval=FALSE}
 library(tidyverse)
 data_prp <- read_csv("prp_data_reduced.csv")
 ```
+
 :::
 
 If you need a quick reminder what the dataset was about, have a look at the abstract in @sec-download_data_ch1. We also addressed the changes we made to the dataset there.
 
 And remember to have a quick `glimpse()` at your data.
 
+
+
 ## Activity 3: Calculating demographics
 
 Let’s start with some simple data-wrangling steps to compute demographics for our original dataset, `data_prp`. First, we want to determine how many participants took part in the study by Pownall et al. (2023) and compute the mean age and the standard deviation of age for the sample.
+
+
 
 ### ... for the full sample using `summarise()`
 
@@ -72,6 +83,7 @@ The `summarise()` function is part of the **"Wickham 6"** alongside `group_by()`
 Within `summarise()`, we can use the `n()` function, which calculates the number of rows in the dataset. Since each row corresponds to a unique participant, this gives us the total number of participants.
 
 To calculate the mean age and the standard deviation of age, we need to use the functions `mean()` and `sd()` on the column `Age` respectively.
+
 
 ```{r, error=TRUE}
 demo_total <- data_prp %>% 
@@ -84,11 +96,16 @@ demo_total
 
 R did not give us an error message per se, but the output is not quite as expected either. There are `NA` values in the `mean_age` and `sd_age` columns. Looking at the warning message and at `Age`, can you explain what happened?
 
+
 ::: {.callout-caution collapse="true" icon="false"}
+
 ## Answer
 
 The warning message says: `argument is not numeric or logical: returning NA` If we look at the `Age` column more closely, we can see that it's a character data type.
+
 :::
+
+
 
 #### Fixing `Age` {.unnumbered}
 
@@ -102,6 +119,7 @@ age_distinct
 ```
 
 ::: {.callout-caution collapse="true" icon="false"}
+
 ## Show the unique values of `Age`.
 
 ```{r echo=FALSE}
@@ -110,17 +128,23 @@ age_distinct
 :::
 
 ::: columns
+
 ::: column
+
 One cell has the string "years" added to their number 25, which has converted the entire column into a character column.
 
 We can easily fix this by extracting only the numbers from the column and converting it into a numeric data type. The `parse_number()` function, which is part of the `tidyverse` package, handles both steps in one go (so there’s no need to load additional packages).
 
 We will combine this with the `mutate()` function to create a new column called `Age` (containing those numeric values), effectively replacing the old `Age` column (which had the character values).
+
 :::
 
 ::: column
+
 ![parse_number() illustration by Allison Horst (see [https://allisonhorst.com/r-packages-functions](https://allisonhorst.com/r-packages-functions){target="_blank"})](images/parse_number.png){width="95%"}
+
 :::
+
 :::
 
 ```{r}
@@ -129,6 +153,8 @@ data_prp <- data_prp %>%
 
 typeof(data_prp$Age) # fixed
 ```
+
+
 
 #### Computing summary stats {.unnumbered}
 
@@ -146,10 +172,14 @@ demo_total
 Even though there's no error or warning, the table still shows `NA` values for `mean_age` and `sd_age`. So, what could possibly be wrong now?
 
 ::: {.callout-caution collapse="true" icon="false"}
+
 ## Answer
 
 Did you notice that the `Age` column in `age_distinct` contains some missing values (`NA`)? To be honest, it's easier to spot this issue in the actual R output than in the printed HTML page.
+
 :::
+
+
 
 #### Computing summary stats - third attempt {.unnumbered}
 
@@ -166,6 +196,8 @@ demo_total
 
 Finally, we’ve got it! 🥳 Third time's the charm!
 
+
+
 ### ... per gender using `summarise()` and `group_by()`
 
 Now we want to compute the summary statistics for each gender. The code inside the `summarise()` function remains unchanged; we just need to use the `group_by()` function beforehand to tell R that we want to compute the summary statistics for each group separately. It’s also a good practice to use `ungroup()` afterwards, so you are not taking groupings forward unintentionally.
@@ -180,6 +212,8 @@ demo_by_gender <- data_prp %>%
 
 demo_by_gender
 ```
+
+
 
 ### Adding percentages
 
@@ -201,9 +235,11 @@ demo_by_gender
 ```
 
 ::: {.callout-tip collapse="true"}
+
 ## Tip for decimal places - use `round()`
 
 Not super important, because you could round the values by yourself when writing up your reports, but if you wanted to tidy up the decimal places in the output, you can do that using the `round()` function. You would need to "wrap" it around your computations and specify how many decimal places you want to display (for example `mean(Age)` would turn into `round(mean(Age), 1)`). It may look odd for `percentage`, just make sure the number that specifies the decimal places is placed **within** the round function. The default value is 0 (meaning no decimal spaces).
+
 
 ```{r}
 demo_by_gender <- data_prp %>% 
@@ -216,7 +252,10 @@ demo_by_gender <- data_prp %>%
 
 demo_by_gender
 ```
+
 :::
+
+
 
 ## Activity 4: Questionable Research Practices (QRPs) {#sec-ch2_act4}
 
@@ -224,8 +263,8 @@ demo_by_gender
 
 Looking at the QRP data at time point 1, you determine that
 
--   individual item columns are `r mcq(c(answer = "numeric", x = "character"))`, and
--   according to the codebook, there are `r mcq(c(answer = "no", x = "some"))` reverse-coded items in this questionnaire.
+* individual item columns are `r mcq(c(answer = "numeric", x = "character"))`, and
+* according to the codebook, there are `r mcq(c(answer = "no", x = "some"))` reverse-coded items in this questionnaire.
 
 So, we just have to **compute an average score for items 1 to 11** as items 12 to 15 are distractor items. Seems quite straightforward.
 
@@ -233,9 +272,9 @@ The downside is that individual items are each in a separate column, i.e., in **
 
 Let's tackle this problem in steps. Best would be to create a separate data object for that. If we wanted to compute this within `data_prp`, it would turn into a nightmare.
 
--   **Step 1**: Select the relevant columns `Code`, and `QRPs_1_Time1` to `QRPs_1_Time1` and store them in an object called `qrp_t1`
--   **Step 2**: Pivot the data from wide format to long format using `pivot_longer()` so we can calculate the average score more easily (in step 3)
--   **Step 3**: Calculate the average QRP score (`QRPs_Acceptance_Time1_mean`) per participant using `group_by()` and `summarise()`
+* **Step 1**: Select the relevant columns `Code`, and `QRPs_1_Time1` to `QRPs_1_Time1` and store them in an object called `qrp_t1`
+* **Step 2**: Pivot the data from wide format to long format using `pivot_longer()` so we can calculate the average score more easily (in step 3)
+* **Step 3**: Calculate the average QRP score (`QRPs_Acceptance_Time1_mean`) per participant using `group_by()` and `summarise()`
 
 ```{r qrps}
 qrp_t1 <- data_prp %>% 
@@ -250,9 +289,11 @@ qrp_t1 <- data_prp %>%
 ```
 
 ::: {.callout-caution icon="false" collapse="true"}
+
 ## Explain the individual functions
 
 ::: panel-tabset
+
 ## `select ()`
 
 The select function allows to include or exclude certain variables (columns). Here we want to focus on the participant ID column (i.e., `Code`) and the QRP items at time point 1. We can either list them all individually, i.e., Code, QRPs_1_Time1, QRPs_2_Time1, QRPs_3_Time1, and so forth (you get the gist), but that would take forever to type.
@@ -269,16 +310,16 @@ head(qrp_step1, n = 5)
 
 How many rows/observations and columns/variables do we have in `qrp_step1`?
 
--   rows/observations: `r fitb("89")`
--   columns/variables: `r fitb("12")`
+* rows/observations: `r fitb("89")`
+* columns/variables: `r fitb("12")`
 
 ## `pivot_longer()`
 
 As you can see, the table we got from Step 1 is in wide format. To get it into wide format, we need to define:
 
--   the columns that need to be reshuffled from wide into long format (`col` argument). Here we selected "everything except the `Code` column", as indicated by `-Code` \[minus `Code`\]. However, `QRPs_1_Time1:QRPs_11_Time1` would also work and give you the exact same result.
--   the `names_to` argument. R is creating a new column in which all the column names from the columns you selected in `col` will be stored in. Here we are naming this column "Items" but you could pick something equally sensible if you like.
--   the `values_to` argument. R creates this second column to store all responses the participants gave to the individual questions, i.e., all the numbers in this case. We named it "Scores" here, but you could have called it something different, like "Responses"
+* the columns that need to be reshuffled from wide into long format (`col` argument). Here we selected "everything except the `Code` column", as indicated by `-Code` \[minus `Code`\]. However, `QRPs_1_Time1:QRPs_11_Time1` would also work and give you the exact same result.
+* the `names_to` argument. R is creating a new column in which all the column names from the columns you selected in `col` will be stored in. Here we are naming this column "Items" but you could pick something equally sensible if you like.
+* the `values_to` argument. R creates this second column to store all responses the participants gave to the individual questions, i.e., all the numbers in this case. We named it "Scores" here, but you could have called it something different, like "Responses"
 
 ```{r}
 qrp_step2 <- qrp_step1 %>% 
@@ -297,10 +338,13 @@ This follows exactly the same sequence we used when calculating descriptive stat
 `summarise()` works exactly the same way: `summarise(new_column_name = function_to_calculate_something(column_name_of_numeric_values))`
 
 The `function_to_calculate_something` can be `mean()`, `sd()` or `sum()` for mean scores, standard deviations, or summed-up scores respectively. You could also use `min()` or `max()` if you wanted to determine the lowest or the highest score for each participant.
+
 :::
+
 :::
 
 ::: callout-tip
+
 You could **rename the columns whilst selecting** them. The pattern would be `select(new_name = old_name)`. For example, if we wanted to select variable `Code` and rename it as `Participant_ID`, we could do that.
 
 ```{r}
@@ -309,7 +353,10 @@ renaming_col <- data_prp %>%
 
 head(renaming_col, n = 5)
 ```
+
 :::
+
+
 
 ## Activity 5: Knitting
 
@@ -320,6 +367,8 @@ To knit the file, **click the Knit button** at the top of your RStudio window. T
 If any errors occur during knitting, RStudio will show you an error message with details to help you troubleshoot.
 
 If you want to **intentionally keep any errors** we tackled today to keep a reference on how you solved them, you could add `error=TRUE` or `eval=FALSE` to the code chunk that isn't running.
+
+
 
 ## Activity 6: Export a data object as a csv
 
@@ -340,17 +389,21 @@ write_csv(data_prp, "data_prp_for_ch3.csv")
 Here we named the file `data_prp_for_ch3.csv`, so we wouldn't override the original data csv file `prp_data_reduced.csv`. However, feel free to choose a name that makes sense to you.
 
 ::: {.callout-note icon="false"}
+
 ## Your Turn
 
 Export `qrp_t1`.
 
 ::: {.callout-caution collapse="true" icon="false"}
+
 ## Solution
 
 ```{r eval=FALSE}
 write_csv(qrp_t1, "qrp_t1.csv")
 ```
+
 :::
+
 :::
 
 Check that your csv files have appeared in your project folder, and you're all set!
@@ -365,7 +418,9 @@ library(tidyverse)
 dog_data_raw <- read_csv("data/dog_data_raw.csv")
 ```
 
+
 We will be working with the data from Binfet et al. (2021) again - the randomised controlled trial data about therapy dog intervention. Today we want to **calculate an average `Flourishing` score for each participant** measured at time point 1 (pre-intervention) from the raw data file `dog_data_raw`. Currently, it looks like this:
+
 
 ```{r echo=FALSE}
 flourishing_brief <- dog_data_raw %>% 
@@ -373,6 +428,7 @@ flourishing_brief <- dog_data_raw %>%
 
 head(flourishing_brief, n = 5)
 ```
+
 
 But we want to have the data looking like this:
 
@@ -387,13 +443,17 @@ flourishing_tidy <- dog_data_raw %>%
 head(flourishing_tidy, n = 5)
 ```
 
+
+
 ### Task 1: Open the R project you created last week {.unnumbered}
 
 If you haven't created an R project for the lab yet, please do it now. If you have already one in place, open it.
 
+
 ### Task 2: Open your `.Rmd` file from last week {.unnumbered}
 
 Since we haven't used it much, feel free to use the `.Rmd` file you created last week in Task 2.
+
 
 ### Task 3: Load in the library and read in the data {.unnumbered}
 
@@ -401,7 +461,9 @@ The data should be in your project folder. If you did not download it last week,
 
 We are using the package `tidyverse` today, and the data file we should read in is `dog_data_raw.csv`.
 
+
 ::: {.callout-note collapse="true" icon="false"}
+
 ## Hint
 
 ```{r eval=FALSE}
@@ -411,53 +473,67 @@ library(???)
 # reading in `dog_data_raw.csv`
 dog_data_raw <- read_csv("???")
 ```
+
 :::
+
 
 ### Task 4: Calculating the mean for `Flourishing_pre` {.unnumbered}
 
--   **Step 1**: Select all relevant columns, such as participant ID and all 8 items of the `Flourishing` questionnaire that participants completed before the intervention. Store them in an object called `data_flourishing`
+* **Step 1**: Select all relevant columns, such as participant ID and all 8 items of the `Flourishing` questionnaire that participants completed before the intervention. Store them in an object called `data_flourishing`
+
 
 ::: {.callout-note collapse="true" icon="false"}
+
 ## Hint
 
 Look at the codebook. Try to figure out
 
--   the variable name of the column in which the participant id is stored, and
--   which items relate to the Flourishing scale at Stage `pre`
+* the variable name of the column in which the participant id is stored, and
+* which items relate to the Flourishing scale at Stage `pre`
 
 ::: {.callout-note collapse="true" icon="false"}
+
 ## More concrete hint
 
--   the participant id column is called `RID`
--   The Flourishing items at pre-intervention stage start with `F1_`
-:::
+* the participant id column is called `RID`
+* The Flourishing items at pre-intervention stage start with `F1_`
+
 :::
 
--   **Step 2**: pivot the data from wide format to long format so we can calculate the average score more easily (in step 3)
+:::
+
+
+* **Step 2**: pivot the data from wide format to long format so we can calculate the average score more easily (in step 3)
 
 ::: {.callout-note collapse="true" icon="false"}
+
 ## Hint
 
 Which pivot function do we need? We have `pivot_wider()` and `pivot_longer()` to choose from.
 
 We also need 3 arguments in that function:
 
--   the columns we want to select (e.g., all the flourishing items),
--   the name of the column in which the current column headings will be stored (e.g., "Questionnaire"), and
--   the name of the column that should store all the values (e.g., "Responses").
+* the columns we want to select (e.g., all the flourishing items),
+* the name of the column in which the current column headings will be stored (e.g., "Questionnaire"), and
+* the name of the column that should store all the values (e.g., "Responses").
 
 ::: {.callout-note collapse="true" icon="false"}
+
 ## More concrete hint
 
 ```{r eval=FALSE}
   pivot_longer(cols = ???, names_to = "???", values_to = "???")
 ```
-:::
+
 :::
 
--   **Step 3**: calculate the average Flourishing score per participant. To match with the table above, we want to call this column `Flourishing_pre`
+:::
+
+* **Step 3**: calculate the average Flourishing score per participant. To match with the table above, we want to call this column `Flourishing_pre`
+
 
 ::: {.callout-note collapse="true" icon="false"}
+
 ## Hint
 
 Before we can summarise the mean, perhaps we need to group the data?
@@ -471,9 +547,12 @@ Before we can summarise the mean, perhaps we need to group the data?
   ungroup()
 ```
 :::
+
 :::
 
+
 ::: {.callout-caution collapse="true" icon="false"}
+
 ## Solution
 
 ```{r eval=FALSE}
@@ -494,7 +573,10 @@ data_flourishing <- dog_data_raw %>%
   summarise(Flourishing_pre = mean(Response)) %>% 
   ungroup()
 ```
+
 :::
+
+
 
 ## [Test your knowledge and challenge yourself]{style="color: #F39C12; text-transform: uppercase;"} {.unnumbered}
 
@@ -506,13 +588,14 @@ data_flourishing <- dog_data_raw %>%
 
 If you want to **challenge yourself** and apply the skills from chapter 2 further, you could wrangle the data from `dog_data_raw` for some of the other questionnaires `pre` and/or `post` intervention:
 
--   the mean score for `flourishing_post` for each participant
--   the mean scores for the `PANAS` - Positive and/or negative affect - per participant
--   the mean score for the happiness (`SHS`) per participant
+* the mean score for `flourishing_post` for each participant
+* the mean scores for the `PANAS` - Positive and/or negative affect - per participant
+* the mean score for the happiness (`SHS`) per participant
 
 The 3 steps are equivalent for those questionnaires - select, pivot, group_by and summarise; you just have to "replace" the questionnaire items involved.
 
 ::: {.callout-caution collapse="true" icon="false"}
+
 ## Solution for **Challenge yourself**
 
 Flourishing post-intervention
@@ -604,4 +687,5 @@ happiness_post <- dog_data_raw %>%
   summarise(SHS_post = mean(Score)) %>% 
   ungroup()
 ```
+
 :::
