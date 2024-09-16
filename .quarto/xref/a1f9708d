@@ -1,1 +1,1 @@
-{"options":{"chapter-id":"sec-installing-r","chapters":true,"chapters-alpha":true,"chapters-appendix":true},"entries":[{"key":"sec-installing-r","caption":"Appendix A — Installing R","order":{"section":[1,0,0,0,0,0,0],"number":1}}],"headings":["sec-installing-r"]}
+{"entries":[{"key":"sec-installing-r","order":{"number":1,"section":[1,0,0,0,0,0,0]},"caption":"Appendix A — Installing R"}],"headings":["sec-installing-r"],"options":{"chapters":true,"chapter-id":"sec-installing-r","chapters-alpha":true,"chapters-appendix":true}}
