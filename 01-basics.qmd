@@ -632,7 +632,8 @@ And with this, we are done with the individual walkthrough. Well done :)
 
 ## [Pair-coding]{style="color: #F39C12; text-transform: uppercase;"} {.unnumbered}
 
-The data we will be using in the upcoming lab activities is from a study conducted in Canada by Binfet et al. (2021).
+The data we will be using in the upcoming lab activities is by Binfet et al. (2021) and was conducted in Canada.
+
 
 **Citation**
 
