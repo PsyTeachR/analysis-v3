@@ -9,7 +9,7 @@ This course covers data skills R Markdown, data wrangling, and data visualisatio
 Each chapter in the book has the same structure: 
 
 1. **Individual walkthrough**: Complete this section at your own pace. Take your time to complete the guided activities. Plan for time pockets in your week to work through this section. 
-2. **Pair coding**: During the lab we are reserving time for you to work through activities with a peer. If you get stuck, try to solve the issue. A GTA and your tutor will be available to help you, too. 
+2. **Pair coding**: During the lab we are reserving time for you to work through activities with a peer. If you get stuck, try to solve the issue. A GTA and your tutor will be available to help you, too. Note: We have added a pair coding activity to every chapter in the book - even for chapters that are not associated with a lab. Feel free to get together with a peer to complete the tasks. 
 3. **Test your knowledge**: The final section in each chapter is a short quiz that assesses your knowledge and skills covered in the chapter. 
 
 
@@ -17,9 +17,11 @@ To support you to work through the book chapters continuously, we have scheduled
 
 If you get stuck, seek help during your lab, GTA or PAL support sessions, and/or by posting on the Data Skills and R channel on Teams. 
 
+
+
 ### Statement on use of AI {.unnumbered}
 
-A premium subscription to ChatGPT using GPT4.0 was used to assist in the writing of these materials in the following ways:
+ChatGPT 4.0 was used to assist in the writing of these materials in the following ways:
 
 * To suggest multiple-choice questions in the "Test your knowledge and challenge yourself" section
 * To proof-read and check for typos
