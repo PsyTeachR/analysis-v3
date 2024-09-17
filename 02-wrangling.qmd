@@ -78,7 +78,7 @@ Let’s start with some simple data-wrangling steps to compute demographics for 
 
 ### ... for the full sample using `summarise()`
 
-The `summarise()` function is part of the **"Wickham 6"** alongside `group_by()`, `select()`, `filter()`, `mutate()`, and `arrange()`. You used them plenty of times last year.
+The `summarise()` function is part of the **"Wickham Six"** alongside `group_by()`, `select()`, `filter()`, `mutate()`, and `arrange()`. You used them plenty of times last year.
 
 Within `summarise()`, we can use the `n()` function, which calculates the number of rows in the dataset. Since each row corresponds to a unique participant, this gives us the total number of participants.
 
@@ -419,7 +419,7 @@ dog_data_raw <- read_csv("data/dog_data_raw.csv")
 ```
 
 
-We will be working with the data from Binfet et al. (2021) again - the randomised controlled trial data about therapy dog intervention. Today we want to **calculate an average `Flourishing` score for each participant** measured at time point 1 (pre-intervention) from the raw data file `dog_data_raw`. Currently, it looks like this:
+We will continue working with the data from Binfet et al. (2021), focusing on the randomised controlled trial of therapy dog interventions. Today, our goal is to **calculate an average `Flourishing` score for each participant** at time point 1 (pre-intervention) using the raw data file `dog_data_raw`. Currently, the data looks like this:
 
 
 ```{r echo=FALSE}
@@ -430,7 +430,7 @@ head(flourishing_brief, n = 5)
 ```
 
 
-But we want to have the data looking like this:
+However, we want the data to look like this:
 
 ```{r echo=FALSE}
 flourishing_tidy <- dog_data_raw %>% 
@@ -447,19 +447,19 @@ head(flourishing_tidy, n = 5)
 
 ### Task 1: Open the R project you created last week {.unnumbered}
 
-If you haven't created an R project for the lab yet, please do it now. If you have already one in place, open it.
+If you haven’t created an R project for the lab yet, please do so now. If you already have one set up, go ahead and open it.
 
 
 ### Task 2: Open your `.Rmd` file from last week {.unnumbered}
 
-Since we haven't used it much, feel free to use the `.Rmd` file you created last week in Task 2.
+Since we haven’t used it much yet, feel free to continue using the `.Rmd` file you created last week in Task 2.
 
 
 ### Task 3: Load in the library and read in the data {.unnumbered}
 
-The data should be in your project folder. If you did not download it last week, or you want a fresh copy, you can download the data again here: [data_pair_ch1](data/data_pair_ch1.zip "download").
+The data should be in your project folder. If you didn’t download it last week, or if you’d like a fresh copy, you can download the data again here: [data_pair_ch1](data/data_pair_ch1.zip "download").
 
-We are using the package `tidyverse` today, and the data file we should read in is `dog_data_raw.csv`.
+We will be using the `tidyverse` package today, and the data file we need to read in is `dog_data_raw.csv`.
 
 
 ::: {.callout-note collapse="true" icon="false"}
@@ -479,43 +479,46 @@ dog_data_raw <- read_csv("???")
 
 ### Task 4: Calculating the mean for `Flourishing_pre` {.unnumbered}
 
-* **Step 1**: Select all relevant columns, such as participant ID and all 8 items of the `Flourishing` questionnaire that participants completed before the intervention. Store them in an object called `data_flourishing`
+* **Step 1**: Select all relevant columns, including participant ID and all 8 items from the `Flourishing` questionnaire completed before the intervention. Store this data in an object called `data_flourishing`.
 
 
 ::: {.callout-note collapse="true" icon="false"}
 
 ## Hint
 
-Look at the codebook. Try to figure out
+Look at the codebook. Try to determine:
 
-* the variable name of the column in which the participant id is stored, and
-* which items relate to the Flourishing scale at Stage `pre`
+* The variable name of the column where the participant ID is stored.
+* The items related to the Flourishing scale at the pre-intervention stage.
 
 ::: {.callout-note collapse="true" icon="false"}
 
 ## More concrete hint
 
-* the participant id column is called `RID`
-* The Flourishing items at pre-intervention stage start with `F1_`
+From the codebook, we know that:
+
+* The participant ID column is called `RID`.
+* The Flourishing items at the pre-intervention stage start with `F1_`.
 
 :::
 
 :::
 
 
-* **Step 2**: pivot the data from wide format to long format so we can calculate the average score more easily (in step 3)
+* **Step 2**: Pivot the data from wide format to long format so we can calculate the average score more easily (in step 3).
 
 ::: {.callout-note collapse="true" icon="false"}
 
 ## Hint
 
-Which pivot function do we need? We have `pivot_wider()` and `pivot_longer()` to choose from.
+Which pivot function should you use? We have `pivot_wider()` and `pivot_longer()` to choose from.
 
 We also need 3 arguments in that function:
 
-* the columns we want to select (e.g., all the flourishing items),
-* the name of the column in which the current column headings will be stored (e.g., "Questionnaire"), and
-* the name of the column that should store all the values (e.g., "Responses").
+* The columns you want to select (e.g., all the Flourishing items),
+* The name of the column where the current column headings will be stored (e.g., "Questionnaire"),
+* The name of the column that should store all the values (e.g., "Responses").
+
 
 ::: {.callout-note collapse="true" icon="false"}
 
@@ -529,16 +532,17 @@ We also need 3 arguments in that function:
 
 :::
 
-* **Step 3**: calculate the average Flourishing score per participant. To match with the table above, we want to call this column `Flourishing_pre`
+* **Step 3**: Calculate the average Flourishing score per participant and name this column `Flourishing_pre` to match the table above.
 
 
 ::: {.callout-note collapse="true" icon="false"}
 
 ## Hint
 
-Before we can summarise the mean, perhaps we need to group the data?
+Before summarising the mean, you may need to group the data.
 
 ::: {.callout-note collapse="true" icon="false"}
+
 ## More concrete hint
 
 ```{r eval=FALSE}
@@ -582,15 +586,169 @@ data_flourishing <- dog_data_raw %>%
 
 ### Knowledge check {.unnumbered}
 
-**include a few mcq items here**
+#### Question 1 {.unnumbered}
+
+Which function of the Wickham Six would you use to include or exclude certain variables (columns)? `r mcq(c(answer = "select()", x = "filter()", x = "mutate()", x = "arrange()", x = "group_by()", x = "summarise()"))`
+
+
+#### Question 2 {.unnumbered}
+
+Which function of the Wickham Six would you use to create new columns or modify existing columns in a dataframe? `r mcq(c(x = "select()", x = "filter()", answer = "mutate()", x = "arrange()", x = "group_by()", x = "summarise()"))`
+
+
+#### Question 3 {.unnumbered}
+
+
+Which function of the Wickham Six would you use to organise data into groups based on one or more columns? `r mcq(c(x = "select()", x = "filter()", x = "mutate()", x = "arrange()", answer = "group_by()", x = "summarise()"))`
+
+
+
+#### Question 4 {.unnumbered}
+
+Which function of the Wickham Six would you use to sort the rows of a dataframe based on the values in one or more columns? `r mcq(c(x = "select()", x = "filter()", x = "mutate()", answer = "arrange()", x = "group_by()", x = "summarise()"))`
+
+
+
+#### Question 5 {.unnumbered}
+
+Which function of the Wickham Six would NOT modify the original dataframe? `r mcq(c(x = "select()", x = "filter()", x = "mutate()", x = "arrange()", x = "group_by()", answer = "summarise()"))`
+
+
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Explain these answers
+
+| Function     | Description                                           |
+|:-------------|:------------------------------------------------------|
+| `select()`   | Include or exclude certain variables/columns          |
+| `filter()`   | Include or exclude certain observations/rows          |
+| `mutate()`   | Creates new columns or modifies existing ones         |
+| `arrange()`  | Changes the order of the rows                         |
+| `group_by()` | Split data into groups based on one or more variables |
+| `summarise()`| Creates a new dataframe returning one row for each combination of grouping variables |
+
+
+Technically, the first five functions operate on the existing data object, making adjustments like sorting the data (e.g., with `arrange()`), reducing the number of rows (e.g., with `filter()`), reducing the number of columns (e.g., with `select()`), or adding new columns (e.g., with `mutate()`). In contrast, `summarise()` fundamentally alters the structure of the original dataframe by generating a completely new dataframe that contains only summary statistics, rather than retaining the original rows and columns.
+
+:::
+
+
+
+### Error mode {.unnumbered}
+
+Some of the code chunks contain mistakes and result in errors, while others do not produce the expected results. Your task is to identify any issues, explain why they occurred, and, if possible, fix them.
+
+We will use a few built-in datasets, such as `billboard` and `starwars`, to help you replicate the errors in your own R environment. You can view the data either by typing the dataset name directly into your console or by storing the data as a separate object in your `Global Environment`.
+
+
+```{r eval=FALSE}
+billboard
+
+starwars_data = starwars
+```
+
+
+
+#### Question 6 {.unnumbered}
+
+Currently, the weekly song rankings for Billboard Top 100 in 2000 are in wide format, with each week in a separate column. The following code is supposed to transpose the wide-format `billboard` data into long format:
+
+```{r eval=FALSE}
+long_data <- billboard %>% 
+  pivot_longer(names_to = "weeks", values_to = "rank")
+```
+
+However, an error occurs during execution: ```` `cols` must select at least one column````. What does this error message mean and how do you fix it?
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Explain the solution
+
+The error message indicates that the `cols` argument is missing in the function. This means the function doesn’t know which columns to transpose from wide format to long format.
+
+FIX: Add `cols = wk1:wk76` to the function to select columns from wk1 to wk76. Alternatively, `cols = starts_with("wk")` would also work since all columns start with the letter combination "wk".
+
+```{r}
+long_data <- billboard %>% 
+  pivot_longer(cols = wk1:wk76, names_to = "weeks", values_to = "rank")
+# OR
+long_data <- billboard %>% 
+  pivot_longer(cols = starts_with("wk"), names_to = "weeks", values_to = "rank")
+```
+
+:::
+
+
+
+#### Question 7 {.unnumbered}
+
+The following code is intended to calculate the mean height of all the characters in the built-in `starwars` dataset, grouped by their gender. 
+
+```{r error=TRUE}
+summary_data <- starwars %>%
+  group_by(gender) %>%
+  summarise(mean_height = height)
+```
+
+The code runs, but it's giving us some weird warning and the output is also not as expected. What steps should we take to fix this?
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Explain the solution
+
+The aggregation function `mean()` is missing from within `summarise()`. Without it, the function does not perform any aggregation and returns *all* rows with only the columns for gender and height.
+
+FIX: Wrap the `mean()` function around the variable you want to aggregate, here `height`.
+
+```{r}
+summary_data <- starwars %>%
+  group_by(gender) %>%
+  summarise(mean_height = mean(height))
+```
+
+:::
+
+
+
+#### Question 8 {.unnumbered}
+
+Following up on Question 7, we now have `summary_data` that looks approximately correct - it has the expected rows and column numbers, however, the cell values are "weird".
+
+```{r}
+summary_data
+```
+
+
+Can you explain what is happening here? And how can we modify the code to fix this?
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Explain the solution
+
+Look at the original `starwars` data. You will notice that some of the characters with feminine and masculine gender entries have missing height values. However, all four characters without a specified gender have provided their height.
+
+FIX: We need to add `na.rm = TRUE` to the `mean()` function to ensure that R ignores missing values before aggregating the data.
+
+```{r}
+summary_data <- starwars %>%
+  group_by(gender) %>%
+  summarise(mean_height = mean(height, na.rm = TRUE))
+
+summary_data
+```
+
+:::
+
+
 
 ### Challenge Yourself {.unnumbered}
 
-If you want to **challenge yourself** and apply the skills from chapter 2 further, you could wrangle the data from `dog_data_raw` for some of the other questionnaires `pre` and/or `post` intervention:
+If you want to **challenge yourself** and further apply the skills from Chapter 2, you can wrangle the data from `dog_data_raw` for additional questionnaires from either the pre- and/or post-intervention stages:
 
-* the mean score for `flourishing_post` for each participant
-* the mean scores for the `PANAS` - Positive and/or negative affect - per participant
-* the mean score for the happiness (`SHS`) per participant
+* Calculate the mean score for `flourishing_post` for each participant.
+* Calculate the mean score for the `PANAS` (Positive and/or Negative Affect) per participant
+* Calculate the mean score for happiness (`SHS`) per participant
 
 The 3 steps are equivalent for those questionnaires - select, pivot, group_by and summarise; you just have to "replace" the questionnaire items involved.
 

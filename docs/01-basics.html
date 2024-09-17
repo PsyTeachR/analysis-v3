@@ -60,7 +60,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./appendix-a-installing-r.html" rel="next">
+<link href="./02-wrangling.html" rel="next">
 <link href="./index.html" rel="prev">
 <link href="./images/logos/logo_analysis.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
@@ -169,6 +169,12 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
   <div class="sidebar-item-container"> 
   <a href="./01-basics.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Projects and R Markdown</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-wrangling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data wrangling I</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -857,7 +863,7 @@ For screenshots click here
 <p>Research shows that questionable research practices (QRPs) are present in undergraduate final-year dissertation projects. One entry-level Open Science practice proposed to mitigate QRPs is “study preregistration,” through which researchers outline their research questions, design, method, and analysis plans before data collection and/or analysis. In this study, we aimed to empirically test the effectiveness of preregistration as a pedagogic tool in undergraduate dissertations using a quasi-experimental design. A total of 89 UK psychology students were recruited, including students who preregistered their empirical quantitative dissertation (<em>n</em> = 52; experimental group) and students who did not (<em>n</em> = 37; control group). Attitudes toward statistics, acceptance of QRPs, and perceived understanding of Open Science were measured both before and after dissertation completion. Exploratory measures included capability, opportunity, and motivation to engage with preregistration, measured at Time 1 only. This study was conducted as a Registered Report; Stage 1 protocol: https://osf.io/9hjbw (date of in-principle acceptance: September 21, 2021). Study preregistration did not significantly affect attitudes toward statistics or acceptance of QRPs. However, students who preregistered reported greater perceived understanding of Open Science concepts from Time 1 to Time 2 compared with students who did not preregister. Exploratory analyses indicated that students who preregistered reported significantly greater capability, opportunity, and motivation to preregister. Qualitative responses revealed that preregistration was perceived to improve clarity and organization of the dissertation, prevent QRPs, and promote rigor. Disadvantages and barriers included time, perceived rigidity, and need for training. These results contribute to discussions surrounding embedding Open Science principles into research training.</p>
 </blockquote>
 <p><strong>Changes made to the dataset</strong></p>
-<p>We made some changes to the dataset for the purpose of increasing difficulty for data wrangling (<span class="quarto-unresolved-ref">?sec-wrangling</span> and <span class="quarto-unresolved-ref">?sec-wrangling2</span>) and data visualisation (<span class="quarto-unresolved-ref">?sec-dataviz</span> and <span class="quarto-unresolved-ref">?sec-dataviz2</span>). This will ensure some “teachable moments”. The changes are as follows:</p>
+<p>We made some changes to the dataset for the purpose of increasing difficulty for data wrangling (<a href="02-wrangling.html"><span>Chapter&nbsp;2</span></a> and <span class="quarto-unresolved-ref">?sec-wrangling2</span>) and data visualisation (<span class="quarto-unresolved-ref">?sec-dataviz</span> and <span class="quarto-unresolved-ref">?sec-dataviz2</span>). This will ensure some “teachable moments”. The changes are as follows:</p>
 <ul>
 <li>We removed some of the variables to make the data more manageable for teaching purposes.</li>
 <li>We recoded some values from numeric responses to labels (e.g., <code>understanding</code>).</li>
@@ -1611,7 +1617,7 @@ Revealing the mystery code that created <code>data_quiz</code>
 <strong>line 7</strong>: Doesn’t start with a function name and has an indent, which means we are <em>still</em> within the <code>mutate()</code> function - count the opening and closing brackets to confirm.
 <ul>
 <li>Here, we are creating a new column called <code>QRP_item &gt; 4</code>. Notice the two backticks we have to use to make this weird column name work? This is because it has spaces (and we did mention that R doesn’t like spaces). So the backticks help R to group it as a unit/ a single name.</li>
-<li>Next we have a <code>case_when()</code> function which helps executing conditional statements. We are using it to check whether a statement is TRUE or FALSE. Here, we ask whether the QRP item (column <code>QRP_item</code>) is larger than 4 (midpoint of the scale) using the Boolean operator <code>&gt;</code>. If the statement is <code>TRUE</code>, the label <code>TRUE</code> should appear in column <code>QRP_item &gt; 4</code>. Otherwise, if the value is equal to 4 or smaller, the label should read <code>FALSE</code>. We will come back to conditional statements in <span class="quarto-unresolved-ref">?sec-wrangling</span>. But long story short, this Boolean expression created the only logical data type in <code>data_quiz</code>.</li>
+<li>Next we have a <code>case_when()</code> function which helps executing conditional statements. We are using it to check whether a statement is TRUE or FALSE. Here, we ask whether the QRP item (column <code>QRP_item</code>) is larger than 4 (midpoint of the scale) using the Boolean operator <code>&gt;</code>. If the statement is <code>TRUE</code>, the label <code>TRUE</code> should appear in column <code>QRP_item &gt; 4</code>. Otherwise, if the value is equal to 4 or smaller, the label should read <code>FALSE</code>. We will come back to conditional statements in <a href="02-wrangling.html"><span>Chapter&nbsp;2</span></a>. But long story short, this Boolean expression created the only logical data type in <code>data_quiz</code>.</li>
 </ul>
 </li>
 </ul>
@@ -1637,7 +1643,7 @@ Revealing the mystery code that created <code>data_quiz</code>
 <ul>
 <li>Evans removed the demographics ethnicity and gender to make the study data available while protecting participant privacy. Which means we’ll have limited demographic variables available, but we will make do with what we’ve got.</li>
 <li>We modified some of the responses in the raw data csv - for example, we took out impossible response values and replaced them with <code>NA</code>.</li>
-<li>We replaced some of the numbers with labels to increase the difficulty in the dataset for <span class="quarto-unresolved-ref">?sec-wrangling</span> and <span class="quarto-unresolved-ref">?sec-wrangling2</span>.</li>
+<li>We replaced some of the numbers with labels to increase the difficulty in the dataset for <a href="02-wrangling.html"><span>Chapter&nbsp;2</span></a> and <span class="quarto-unresolved-ref">?sec-wrangling2</span>.</li>
 </ul>
 <section id="task-1-create-a-project-folder-for-the-lab-activities" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="task-1-create-a-project-folder-for-the-lab-activities">Task 1: Create a project folder for the lab activities</h3>
 <p>Since we will be working with the same data throughout semester 1, create a separate project for the lab data. Name it something useful, like <code>lab_data</code> or <code>dogs_in_the_lab</code>. Make sure you are not placing it within the project you have already created today. If you need guidance, see <a href="#sec-project"><span>Section&nbsp;1.2</span></a> above.</p>
@@ -2505,8 +2511,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./appendix-a-installing-r.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Installing R</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./02-wrangling.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data wrangling I</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

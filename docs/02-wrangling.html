@@ -1,0 +1,2385 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="description" content="Data skills book for Level 2 Psychology students at the School of Psychology and Neuroscience at the University of Glasgow">
+<title>Analysis - 2&nbsp; Data wrangling I</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./appendix-a-installing-r.html" rel="next">
+<link href="./01-basics.html" rel="prev">
+<link href="./images/logos/logo_analysis.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-6NP3MF25W3"></script><script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
+</script><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
+<link rel="stylesheet" href="include/booktem.css">
+<link rel="stylesheet" href="include/webex.css">
+<link rel="stylesheet" href="include/glossary.css">
+<link rel="stylesheet" href="include/style.css">
+<link rel="stylesheet" href="include/custom.scss">
+</head>
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./02-wrangling.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data wrangling I</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Analysis</a> 
+        <div class="sidebar-tools-main">
+    <div class="dropdown">
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+<li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
+              <i class="bi bi-bi-twitter pe-1"></i>
+            Twitter
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
+              <i class="bi bi-bi-facebook pe-1"></i>
+            Facebook
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
+              <i class="bi bi-bi-linkedin pe-1"></i>
+            LinkedIn
+            </a>
+          </li>
+      </ul>
+</div>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Projects and R Markdown</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-wrangling.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data wrangling I</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-a-installing-r.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Installing R</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-b-updating-packages.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Updating R, RStudio, and packages</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-d-symbols.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Symbols</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-x-How-to-cite-R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Citing R and RStudio</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-y-license.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">License</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li><a href="#intended-learning-outcomes" id="toc-intended-learning-outcomes" class="nav-link active" data-scroll-target="#intended-learning-outcomes">Intended Learning Outcomes</a></li>
+  <li><a href="#individual-walkthrough" id="toc-individual-walkthrough" class="nav-link" data-scroll-target="#individual-walkthrough"><span style="color: #F39C12; text-transform: uppercase;">Individual Walkthrough</span></a></li>
+  <li><a href="#activity-1-setup" id="toc-activity-1-setup" class="nav-link" data-scroll-target="#activity-1-setup"><span class="header-section-number">2.1</span> Activity 1: Setup</a></li>
+  <li><a href="#activity-2-load-in-the-libraries-and-read-in-the-data" id="toc-activity-2-load-in-the-libraries-and-read-in-the-data" class="nav-link" data-scroll-target="#activity-2-load-in-the-libraries-and-read-in-the-data"><span class="header-section-number">2.2</span> Activity 2: Load in the libraries and read in the data</a></li>
+  <li>
+<a href="#activity-3-calculating-demographics" id="toc-activity-3-calculating-demographics" class="nav-link" data-scroll-target="#activity-3-calculating-demographics"><span class="header-section-number">2.3</span> Activity 3: Calculating demographics</a>
+  <ul class="collapse">
+<li><a href="#for-the-full-sample-using-summarise" id="toc-for-the-full-sample-using-summarise" class="nav-link" data-scroll-target="#for-the-full-sample-using-summarise"><span class="header-section-number">2.3.1</span> … for the full sample using <code>summarise()</code></a></li>
+  <li><a href="#per-gender-using-summarise-and-group_by" id="toc-per-gender-using-summarise-and-group_by" class="nav-link" data-scroll-target="#per-gender-using-summarise-and-group_by"><span class="header-section-number">2.3.2</span> … per gender using <code>summarise()</code> and <code>group_by()</code></a></li>
+  <li><a href="#adding-percentages" id="toc-adding-percentages" class="nav-link" data-scroll-target="#adding-percentages"><span class="header-section-number">2.3.3</span> Adding percentages</a></li>
+  </ul>
+</li>
+  <li><a href="#sec-ch2_act4" id="toc-sec-ch2_act4" class="nav-link" data-scroll-target="#sec-ch2_act4"><span class="header-section-number">2.4</span> Activity 4: Questionable Research Practices (QRPs)</a></li>
+  <li><a href="#activity-5-knitting" id="toc-activity-5-knitting" class="nav-link" data-scroll-target="#activity-5-knitting"><span class="header-section-number">2.5</span> Activity 5: Knitting</a></li>
+  <li><a href="#activity-6-export-a-data-object-as-a-csv" id="toc-activity-6-export-a-data-object-as-a-csv" class="nav-link" data-scroll-target="#activity-6-export-a-data-object-as-a-csv"><span class="header-section-number">2.6</span> Activity 6: Export a data object as a csv</a></li>
+  <li>
+<a href="#pair-coding" id="toc-pair-coding" class="nav-link" data-scroll-target="#pair-coding"><span style="color: #F39C12; text-transform: uppercase;">Pair-coding</span></a>
+  <ul class="collapse">
+<li><a href="#task-1-open-the-r-project-you-created-last-week" id="toc-task-1-open-the-r-project-you-created-last-week" class="nav-link" data-scroll-target="#task-1-open-the-r-project-you-created-last-week">Task 1: Open the R project you created last week</a></li>
+  <li><a href="#task-2-open-your-.rmd-file-from-last-week" id="toc-task-2-open-your-.rmd-file-from-last-week" class="nav-link" data-scroll-target="#task-2-open-your-.rmd-file-from-last-week">Task 2: Open your <code>.Rmd</code> file from last week</a></li>
+  <li><a href="#task-3-load-in-the-library-and-read-in-the-data" id="toc-task-3-load-in-the-library-and-read-in-the-data" class="nav-link" data-scroll-target="#task-3-load-in-the-library-and-read-in-the-data">Task 3: Load in the library and read in the data</a></li>
+  <li><a href="#task-4-calculating-the-mean-for-flourishing_pre" id="toc-task-4-calculating-the-mean-for-flourishing_pre" class="nav-link" data-scroll-target="#task-4-calculating-the-mean-for-flourishing_pre">Task 4: Calculating the mean for <code>Flourishing_pre</code></a></li>
+  </ul>
+</li>
+  <li>
+<a href="#test-your-knowledge-and-challenge-yourself" id="toc-test-your-knowledge-and-challenge-yourself" class="nav-link" data-scroll-target="#test-your-knowledge-and-challenge-yourself"><span style="color: #F39C12; text-transform: uppercase;">Test your knowledge and challenge yourself</span></a>
+  <ul class="collapse">
+<li><a href="#knowledge-check" id="toc-knowledge-check" class="nav-link" data-scroll-target="#knowledge-check">Knowledge check</a></li>
+  <li><a href="#error-mode" id="toc-error-mode" class="nav-link" data-scroll-target="#error-mode">Error mode</a></li>
+  <li><a href="#challenge-yourself" id="toc-challenge-yourself" class="nav-link" data-scroll-target="#challenge-yourself">Challenge Yourself</a></li>
+  </ul>
+</li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title"><span id="sec-wrangling" class="quarto-section-identifier"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data wrangling I</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header><section id="intended-learning-outcomes" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="intended-learning-outcomes">Intended Learning Outcomes</h2>
+<p>In the next two chapters, we will build on the data wrangling skills from level 1. We will revisit all the functions you have already encountered (and might have forgotten over the summer break) and introduce 2 or 3 new functions. These two chapters will provide an opportunity to revise and apply the functions to a novel dataset.</p>
+<p>By the end of this chapter, you should be able to:</p>
+<ul>
+<li>apply familiar data wrangling functions to novel datasets</li>
+<li>read and interpret error messages</li>
+<li>realise there are several ways of getting to the results</li>
+<li>export data objects as csv files</li>
+</ul>
+<p>The main purpose of this chapter and <span class="quarto-unresolved-ref">?sec-wrangling2</span> is to wrangle your data into shape for data visualisation (<span class="quarto-unresolved-ref">?sec-dataviz</span> and <span class="quarto-unresolved-ref">?sec-dataviz2</span>). For the two chapters, we will:</p>
+<ol type="1">
+<li>calculate demographics</li>
+<li>tidy 3 different questionnaires with varying degrees of complexity</li>
+<li>solve an error mode problem</li>
+<li>join all data objects together</li>
+</ol></section><section id="individual-walkthrough" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="individual-walkthrough"><span style="color: #F39C12; text-transform: uppercase;">Individual Walkthrough</span></h2>
+<p>Before we start, we need to set up some things.</p>
+</section><section id="activity-1-setup" class="level2" data-number="2.1"><h2 data-number="2.1" class="anchored" data-anchor-id="activity-1-setup">
+<span class="header-section-number">2.1</span> Activity 1: Setup</h2>
+<ul>
+<li>We will be working on the <strong>dataset by Pownall et al.&nbsp;(2023)</strong> again, which means we can still use the project we created last week. The data files will already be there, so no need to download them again.</li>
+<li>To <strong>open the project</strong> in RStudio, go to the folder in which you stored the project and the data last time, and double click on the project icon.</li>
+<li>
+<strong>Create a new <code>.Rmd</code> file</strong> for chapter 2 and save it to your project folder. Name it something meaningful (e.g., “chapter_02.Rmd”, “02_data_wrangling.Rmd”). See <a href="01-basics.html#sec-rmd"><span>Section&nbsp;1.3</span></a> if you need some guidance.</li>
+<li>In your newly created <code>.Rmd</code> file, delete everything below line 12 (after the set-up code chunk).</li>
+</ul></section><section id="activity-2-load-in-the-libraries-and-read-in-the-data" class="level2" data-number="2.2"><h2 data-number="2.2" class="anchored" data-anchor-id="activity-2-load-in-the-libraries-and-read-in-the-data">
+<span class="header-section-number">2.2</span> Activity 2: Load in the libraries and read in the data</h2>
+<p>We will use <code>tidyverse</code> today, and we want to create a data object <code>data_prp</code> that stores the data from the file <code>prp_data_reduced.csv</code>.</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(???)</span>
+<span id="cb1-2"><a href="#cb1-2"></a>data_prp <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"???"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-2"><a href="#cb2-2"></a>data_prp <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"prp_data_reduced.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<p>If you need a quick reminder what the dataset was about, have a look at the abstract in <a href="01-basics.html#sec-download_data_ch1"><span>Section&nbsp;1.4</span></a>. We also addressed the changes we made to the dataset there.</p>
+<p>And remember to have a quick <code>glimpse()</code> at your data.</p>
+</section><section id="activity-3-calculating-demographics" class="level2" data-number="2.3"><h2 data-number="2.3" class="anchored" data-anchor-id="activity-3-calculating-demographics">
+<span class="header-section-number">2.3</span> Activity 3: Calculating demographics</h2>
+<p>Let’s start with some simple data-wrangling steps to compute demographics for our original dataset, <code>data_prp</code>. First, we want to determine how many participants took part in the study by Pownall et al.&nbsp;(2023) and compute the mean age and the standard deviation of age for the sample.</p>
+<section id="for-the-full-sample-using-summarise" class="level3" data-number="2.3.1"><h3 data-number="2.3.1" class="anchored" data-anchor-id="for-the-full-sample-using-summarise">
+<span class="header-section-number">2.3.1</span> … for the full sample using <code>summarise()</code>
+</h3>
+<p>The <code>summarise()</code> function is part of the <strong>“Wickham Six”</strong> alongside <code>group_by()</code>, <code>select()</code>, <code><a href="https://rdrr.io/r/stats/filter.html">filter()</a></code>, <code>mutate()</code>, and <code>arrange()</code>. You used them plenty of times last year.</p>
+<p>Within <code>summarise()</code>, we can use the <code>n()</code> function, which calculates the number of rows in the dataset. Since each row corresponds to a unique participant, this gives us the total number of participants.</p>
+<p>To calculate the mean age and the standard deviation of age, we need to use the functions <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code> and <code><a href="https://rdrr.io/r/stats/sd.html">sd()</a></code> on the column <code>Age</code> respectively.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>demo_total <span class="ot">&lt;-</span> data_prp <span class="sc">%&gt;%</span> </span>
+<span id="cb3-2"><a href="#cb3-2"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(), <span class="co"># participant number</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a>            <span class="at">mean_age =</span> <span class="fu">mean</span>(Age), <span class="co"># mean age</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a>            <span class="at">sd_age =</span> <span class="fu">sd</span>(Age)) <span class="co"># standard deviation of age</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: There were 2 warnings in `summarise()`.
+The first warning was:
+ℹ In argument: `mean_age = mean(Age)`.
+Caused by warning in `mean.default()`:
+! argument is not numeric or logical: returning NA
+ℹ Run `dplyr::last_dplyr_warnings()` to see the 1 remaining warning.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>demo_total</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">mean_age</th>
+<th style="text-align: right;">sd_age</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td style="text-align: right;">89</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr></tbody>
+</table>
+</div>
+</div>
+</div>
+<p>R did not give us an error message per se, but the output is not quite as expected either. There are <code>NA</code> values in the <code>mean_age</code> and <code>sd_age</code> columns. Looking at the warning message and at <code>Age</code>, can you explain what happened?</p>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The warning message says: <code>argument is not numeric or logical: returning NA</code> If we look at the <code>Age</code> column more closely, we can see that it’s a character data type.</p>
+</div>
+</div>
+</div>
+<section id="fixing-age" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="fixing-age">Fixing <code>Age</code>
+</h4>
+<p>Might be wise to look at the unique answers in column <code>Age</code> to determine what is wrong. We can do that with the function <code>distinct()</code>.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>age_distinct <span class="ot">&lt;-</span> data_prp <span class="sc">%&gt;%</span> </span>
+<span id="cb6-2"><a href="#cb6-2"></a>  <span class="fu">distinct</span>(Age)</span>
+<span id="cb6-3"><a href="#cb6-3"></a></span>
+<span id="cb6-4"><a href="#cb6-4"></a>age_distinct</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Show the unique values of <code>Age</code>.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: left;">Age</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">22</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">20</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">26</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">21</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">29</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">23</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">39</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">24</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">43</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">31</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">25 years</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="columns">
+<div class="column">
+<p>One cell has the string “years” added to their number 25, which has converted the entire column into a character column.</p>
+<p>We can easily fix this by extracting only the numbers from the column and converting it into a numeric data type. The <code>parse_number()</code> function, which is part of the <code>tidyverse</code> package, handles both steps in one go (so there’s no need to load additional packages).</p>
+<p>We will combine this with the <code>mutate()</code> function to create a new column called <code>Age</code> (containing those numeric values), effectively replacing the old <code>Age</code> column (which had the character values).</p>
+</div><div class="column">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="images/parse_number.png" class="img-fluid figure-img" style="width:95.0%"></p>
+<figcaption class="figure-caption">parse_number() illustration by Allison Horst (see <a href="https://allisonhorst.com/r-packages-functions" target="_blank">https://allisonhorst.com/r-packages-functions</a>)</figcaption></figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>data_prp <span class="ot">&lt;-</span> data_prp <span class="sc">%&gt;%</span> </span>
+<span id="cb7-2"><a href="#cb7-2"></a>  <span class="fu">mutate</span>(<span class="at">Age =</span> <span class="fu">parse_number</span>(Age))</span>
+<span id="cb7-3"><a href="#cb7-3"></a></span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="fu">typeof</span>(data_prp<span class="sc">$</span>Age) <span class="co"># fixed</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "double"</code></pre>
+</div>
+</div>
+</section><section id="computing-summary-stats" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="computing-summary-stats">Computing summary stats</h4>
+<p>Excellent. Now that the numbers are in a numeric format, let’s try calculating the demographics for the total sample again.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>demo_total <span class="ot">&lt;-</span> data_prp <span class="sc">%&gt;%</span> </span>
+<span id="cb9-2"><a href="#cb9-2"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(), <span class="co"># participant number</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a>            <span class="at">mean_age =</span> <span class="fu">mean</span>(Age), <span class="co"># mean age</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a>            <span class="at">sd_age =</span> <span class="fu">sd</span>(Age)) <span class="co"># standard deviation of age</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a></span>
+<span id="cb9-6"><a href="#cb9-6"></a>demo_total</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">mean_age</th>
+<th style="text-align: right;">sd_age</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td style="text-align: right;">89</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr></tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Even though there’s no error or warning, the table still shows <code>NA</code> values for <code>mean_age</code> and <code>sd_age</code>. So, what could possibly be wrong now?</p>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Did you notice that the <code>Age</code> column in <code>age_distinct</code> contains some missing values (<code>NA</code>)? To be honest, it’s easier to spot this issue in the actual R output than in the printed HTML page.</p>
+</div>
+</div>
+</div>
+</section><section id="computing-summary-stats---third-attempt" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="computing-summary-stats---third-attempt">Computing summary stats - third attempt</h4>
+<p>To ensure R ignores missing values during calculations, we need to add the extra argument <code>na.rm = TRUE</code> to the <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code> and <code><a href="https://rdrr.io/r/stats/sd.html">sd()</a></code> functions.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>demo_total <span class="ot">&lt;-</span> data_prp <span class="sc">%&gt;%</span> </span>
+<span id="cb10-2"><a href="#cb10-2"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(), <span class="co"># participant number</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a>            <span class="at">mean_age =</span> <span class="fu">mean</span>(Age, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="co"># mean age</span></span>
+<span id="cb10-4"><a href="#cb10-4"></a>            <span class="at">sd_age =</span> <span class="fu">sd</span>(Age, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="co"># standard deviation of age</span></span>
+<span id="cb10-5"><a href="#cb10-5"></a></span>
+<span id="cb10-6"><a href="#cb10-6"></a>demo_total</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">mean_age</th>
+<th style="text-align: right;">sd_age</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td style="text-align: right;">89</td>
+<td style="text-align: right;">21.88506</td>
+<td style="text-align: right;">3.485603</td>
+</tr></tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Finally, we’ve got it! 🥳 Third time’s the charm!</p>
+</section></section><section id="per-gender-using-summarise-and-group_by" class="level3" data-number="2.3.2"><h3 data-number="2.3.2" class="anchored" data-anchor-id="per-gender-using-summarise-and-group_by">
+<span class="header-section-number">2.3.2</span> … per gender using <code>summarise()</code> and <code>group_by()</code>
+</h3>
+<p>Now we want to compute the summary statistics for each gender. The code inside the <code>summarise()</code> function remains unchanged; we just need to use the <code>group_by()</code> function beforehand to tell R that we want to compute the summary statistics for each group separately. It’s also a good practice to use <code>ungroup()</code> afterwards, so you are not taking groupings forward unintentionally.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>demo_by_gender <span class="ot">&lt;-</span> data_prp <span class="sc">%&gt;%</span> </span>
+<span id="cb11-2"><a href="#cb11-2"></a>  <span class="fu">group_by</span>(Gender) <span class="sc">%&gt;%</span> <span class="co"># split data up into groups (here Gender)</span></span>
+<span id="cb11-3"><a href="#cb11-3"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(), <span class="co"># participant number </span></span>
+<span id="cb11-4"><a href="#cb11-4"></a>            <span class="at">mean_age =</span> <span class="fu">mean</span>(Age, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="co"># mean age </span></span>
+<span id="cb11-5"><a href="#cb11-5"></a>            <span class="at">sd_age =</span> <span class="fu">sd</span>(Age, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span>  <span class="co"># standard deviation of age</span></span>
+<span id="cb11-6"><a href="#cb11-6"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb11-7"><a href="#cb11-7"></a></span>
+<span id="cb11-8"><a href="#cb11-8"></a>demo_by_gender</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: right;">Gender</th>
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">mean_age</th>
+<th style="text-align: right;">sd_age</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">23.31250</td>
+<td style="text-align: right;">5.770254</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">69</td>
+<td style="text-align: right;">21.57353</td>
+<td style="text-align: right;">2.738973</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">21.33333</td>
+<td style="text-align: right;">1.154700</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section><section id="adding-percentages" class="level3" data-number="2.3.3"><h3 data-number="2.3.3" class="anchored" data-anchor-id="adding-percentages">
+<span class="header-section-number">2.3.3</span> Adding percentages</h3>
+<p>Sometimes, it may be useful to calculate percentages, such as for the gender split. You can do this by adding a line within the <code>summarise()</code> function to perform the calculation. All we need to do is take the number of female, male, and non-binary participants (stored in the <code>n</code> column of <code>demo_by_gender</code>), divide it by the total number of participants (stored in the <code>n</code> column of <code>demo_total</code>), and multiply by 100. Let’s add <code>percentage</code> to the <code>summarise()</code> function of <code>demo_by_gender</code>. Make sure that the code for <code>percentages</code> is placed after the value for <code>n</code> has been computed.</p>
+<p>Accessing the value of <code>n</code> for the different gender categories is straightforward because we can refer back to it directly. However, since the total number of participants is stored in a different data object, we need to use a base R function to access it – specifically the <code>$</code> operator. To do this, you simply type the name of the data object (in this case, <code>demo_total</code>), followed by the <code>$</code> symbol (with no spaces), and then the name of the column you want to retrieve (in this case, <code>n</code>). The general pattern is <code>data$column</code>.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>demo_by_gender <span class="ot">&lt;-</span> data_prp <span class="sc">%&gt;%</span> </span>
+<span id="cb12-2"><a href="#cb12-2"></a>  <span class="fu">group_by</span>(Gender) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-3"><a href="#cb12-3"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(), </span>
+<span id="cb12-4"><a href="#cb12-4"></a>            <span class="co"># n from the line above divided by n from demo_total *100</span></span>
+<span id="cb12-5"><a href="#cb12-5"></a>            <span class="at">percentage =</span> n<span class="sc">/</span>demo_total<span class="sc">$</span>n <span class="sc">*</span><span class="dv">100</span>, </span>
+<span id="cb12-6"><a href="#cb12-6"></a>            <span class="at">mean_age =</span> <span class="fu">mean</span>(Age, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), </span>
+<span id="cb12-7"><a href="#cb12-7"></a>            <span class="at">sd_age =</span> <span class="fu">sd</span>(Age, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-8"><a href="#cb12-8"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb12-9"><a href="#cb12-9"></a></span>
+<span id="cb12-10"><a href="#cb12-10"></a>demo_by_gender</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: right;">Gender</th>
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">percentage</th>
+<th style="text-align: right;">mean_age</th>
+<th style="text-align: right;">sd_age</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">19.101124</td>
+<td style="text-align: right;">23.31250</td>
+<td style="text-align: right;">5.770254</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">69</td>
+<td style="text-align: right;">77.528090</td>
+<td style="text-align: right;">21.57353</td>
+<td style="text-align: right;">2.738973</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">3.370786</td>
+<td style="text-align: right;">21.33333</td>
+<td style="text-align: right;">1.154700</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip for decimal places - use <code><a href="https://rdrr.io/r/base/Round.html">round()</a></code>
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Not super important, because you could round the values by yourself when writing up your reports, but if you wanted to tidy up the decimal places in the output, you can do that using the <code><a href="https://rdrr.io/r/base/Round.html">round()</a></code> function. You would need to “wrap” it around your computations and specify how many decimal places you want to display (for example <code>mean(Age)</code> would turn into <code>round(mean(Age), 1)</code>). It may look odd for <code>percentage</code>, just make sure the number that specifies the decimal places is placed <strong>within</strong> the round function. The default value is 0 (meaning no decimal spaces).</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>demo_by_gender <span class="ot">&lt;-</span> data_prp <span class="sc">%&gt;%</span> </span>
+<span id="cb13-2"><a href="#cb13-2"></a>  <span class="fu">group_by</span>(Gender) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-3"><a href="#cb13-3"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(), </span>
+<span id="cb13-4"><a href="#cb13-4"></a>            <span class="at">percentage =</span> <span class="fu">round</span>(n<span class="sc">/</span>demo_total<span class="sc">$</span>n <span class="sc">*</span><span class="dv">100</span>, <span class="dv">2</span>), <span class="co"># percentage with 2 decimal places</span></span>
+<span id="cb13-5"><a href="#cb13-5"></a>            <span class="at">mean_age =</span> <span class="fu">round</span>(<span class="fu">mean</span>(Age, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">1</span>), <span class="co"># mean Age with 1 decimal place</span></span>
+<span id="cb13-6"><a href="#cb13-6"></a>            <span class="at">sd_age =</span> <span class="fu">round</span>(<span class="fu">sd</span>(Age, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">3</span>)) <span class="sc">%&gt;%</span> <span class="co"># sd Age with 3 decimal places</span></span>
+<span id="cb13-7"><a href="#cb13-7"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb13-8"><a href="#cb13-8"></a></span>
+<span id="cb13-9"><a href="#cb13-9"></a>demo_by_gender</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: right;">Gender</th>
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">percentage</th>
+<th style="text-align: right;">mean_age</th>
+<th style="text-align: right;">sd_age</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">19.10</td>
+<td style="text-align: right;">23.3</td>
+<td style="text-align: right;">5.770</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">69</td>
+<td style="text-align: right;">77.53</td>
+<td style="text-align: right;">21.6</td>
+<td style="text-align: right;">2.739</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">3.37</td>
+<td style="text-align: right;">21.3</td>
+<td style="text-align: right;">1.155</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section></section><section id="sec-ch2_act4" class="level2" data-number="2.4"><h2 data-number="2.4" class="anchored" data-anchor-id="sec-ch2_act4">
+<span class="header-section-number">2.4</span> Activity 4: Questionable Research Practices (QRPs)</h2>
+<section id="the-main-goal-is-to-compute-the-mean-qrp-score-per-participant-for-time-point-1." class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="the-main-goal-is-to-compute-the-mean-qrp-score-per-participant-for-time-point-1.">The main goal is to compute the mean QRP score per participant for time point 1.</h4>
+<p>Looking at the QRP data at time point 1, you determine that</p>
+<ul>
+<li>individual item columns are <select class="webex-select"><option value="blank"></option>
+<option value="answer">numeric</option>
+<option value="x">character</option></select>, and</li>
+<li>according to the codebook, there are <select class="webex-select"><option value="blank"></option>
+<option value="answer">no</option>
+<option value="x">some</option></select> reverse-coded items in this questionnaire.</li>
+</ul>
+<p>So, we just have to <strong>compute an average score for items 1 to 11</strong> as items 12 to 15 are distractor items. Seems quite straightforward.</p>
+<p>The downside is that individual items are each in a separate column, i.e., in <strong>wide format</strong>, and everything would be easier if the items were arranged in <strong>long format</strong>.</p>
+<p>Let’s tackle this problem in steps. Best would be to create a separate data object for that. If we wanted to compute this within <code>data_prp</code>, it would turn into a nightmare.</p>
+<ul>
+<li>
+<strong>Step 1</strong>: Select the relevant columns <code>Code</code>, and <code>QRPs_1_Time1</code> to <code>QRPs_1_Time1</code> and store them in an object called <code>qrp_t1</code>
+</li>
+<li>
+<strong>Step 2</strong>: Pivot the data from wide format to long format using <code>pivot_longer()</code> so we can calculate the average score more easily (in step 3)</li>
+<li>
+<strong>Step 3</strong>: Calculate the average QRP score (<code>QRPs_Acceptance_Time1_mean</code>) per participant using <code>group_by()</code> and <code>summarise()</code>
+</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>qrp_t1 <span class="ot">&lt;-</span> data_prp <span class="sc">%&gt;%</span> </span>
+<span id="cb14-2"><a href="#cb14-2"></a>  <span class="co">#Step 1</span></span>
+<span id="cb14-3"><a href="#cb14-3"></a>  <span class="fu">select</span>(Code, QRPs_1_Time1<span class="sc">:</span>QRPs_11_Time1) <span class="sc">%&gt;%</span></span>
+<span id="cb14-4"><a href="#cb14-4"></a>  <span class="co"># Step 2</span></span>
+<span id="cb14-5"><a href="#cb14-5"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>Code, <span class="at">names_to =</span> <span class="st">"Items"</span>, <span class="at">values_to =</span> <span class="st">"Scores"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-6"><a href="#cb14-6"></a>  <span class="co"># Step 3</span></span>
+<span id="cb14-7"><a href="#cb14-7"></a>  <span class="fu">group_by</span>(Code) <span class="sc">%&gt;%</span> <span class="co"># grouping py participant id</span></span>
+<span id="cb14-8"><a href="#cb14-8"></a>  <span class="fu">summarise</span>(<span class="at">QRPs_Acceptance_Time1_mean =</span> <span class="fu">mean</span>(Scores)) <span class="sc">%&gt;%</span> <span class="co"># calculating the average Score</span></span>
+<span id="cb14-9"><a href="#cb14-9"></a>  <span class="fu">ungroup</span>() <span class="co"># just make it a habit</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Explain the individual functions
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page"><code>select ()</code></a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false"><code>pivot_longer()</code></a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false"><code>group_by()</code> and <code>summarise()</code></a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p>The select function allows to include or exclude certain variables (columns). Here we want to focus on the participant ID column (i.e., <code>Code</code>) and the QRP items at time point 1. We can either list them all individually, i.e., Code, QRPs_1_Time1, QRPs_2_Time1, QRPs_3_Time1, and so forth (you get the gist), but that would take forever to type.</p>
+<p>A shortcut is to use the colon operator <code>:</code>. It allows us to select all columns that fall within the range of <code>first_column_name</code> to <code>last_column_name</code>. We can apply this here since the QRP items (1 to 11) are sequentially listed in <code>data_prp</code>.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>qrp_step1 <span class="ot">&lt;-</span> data_prp <span class="sc">%&gt;%</span> </span>
+<span id="cb15-2"><a href="#cb15-2"></a>  <span class="fu">select</span>(Code, QRPs_1_Time1<span class="sc">:</span>QRPs_11_Time1)</span>
+<span id="cb15-3"><a href="#cb15-3"></a></span>
+<span id="cb15-4"><a href="#cb15-4"></a><span class="co"># show first 5 rows of qrp_step1</span></span>
+<span id="cb15-5"><a href="#cb15-5"></a><span class="fu">head</span>(qrp_step1, <span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 3%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 9%">
+<col style="width: 9%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">Code</th>
+<th style="text-align: right;">QRPs_1_Time1</th>
+<th style="text-align: right;">QRPs_2_Time1</th>
+<th style="text-align: right;">QRPs_3_Time1</th>
+<th style="text-align: right;">QRPs_4_Time1</th>
+<th style="text-align: right;">QRPs_5_Time1</th>
+<th style="text-align: right;">QRPs_6_Time1</th>
+<th style="text-align: right;">QRPs_7_Time1</th>
+<th style="text-align: right;">QRPs_8_Time1</th>
+<th style="text-align: right;">QRPs_9_Time1</th>
+<th style="text-align: right;">QRPs_10_Time1</th>
+<th style="text-align: right;">QRPs_11_Time1</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Tr10</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Bi07</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SK03</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SM95</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">St01</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">7</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>How many rows/observations and columns/variables do we have in <code>qrp_step1</code>?</p>
+<ul>
+<li>rows/observations: <input class="webex-solveme nospaces" size="2" data-answer="[&quot;89&quot;]">
+</li>
+<li>columns/variables: <input class="webex-solveme nospaces" size="2" data-answer="[&quot;12&quot;]">
+</li>
+</ul>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p>As you can see, the table we got from Step 1 is in wide format. To get it into wide format, we need to define:</p>
+<ul>
+<li>the columns that need to be reshuffled from wide into long format (<code>col</code> argument). Here we selected “everything except the <code>Code</code> column”, as indicated by <code>-Code</code> [minus <code>Code</code>]. However, <code>QRPs_1_Time1:QRPs_11_Time1</code> would also work and give you the exact same result.</li>
+<li>the <code>names_to</code> argument. R is creating a new column in which all the column names from the columns you selected in <code>col</code> will be stored in. Here we are naming this column “Items” but you could pick something equally sensible if you like.</li>
+<li>the <code>values_to</code> argument. R creates this second column to store all responses the participants gave to the individual questions, i.e., all the numbers in this case. We named it “Scores” here, but you could have called it something different, like “Responses”</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>qrp_step2 <span class="ot">&lt;-</span> qrp_step1 <span class="sc">%&gt;%</span> </span>
+<span id="cb16-2"><a href="#cb16-2"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>Code, <span class="at">names_to =</span> <span class="st">"Items"</span>, <span class="at">values_to =</span> <span class="st">"Scores"</span>)</span>
+<span id="cb16-3"><a href="#cb16-3"></a></span>
+<span id="cb16-4"><a href="#cb16-4"></a><span class="co"># show first 15 rows of qrp_step2</span></span>
+<span id="cb16-5"><a href="#cb16-5"></a><span class="fu">head</span>(qrp_step2, <span class="at">n =</span> <span class="dv">15</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: left;">Code</th>
+<th style="text-align: left;">Items</th>
+<th style="text-align: right;">Scores</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Tr10</td>
+<td style="text-align: left;">QRPs_1_Time1</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Tr10</td>
+<td style="text-align: left;">QRPs_2_Time1</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Tr10</td>
+<td style="text-align: left;">QRPs_3_Time1</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Tr10</td>
+<td style="text-align: left;">QRPs_4_Time1</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Tr10</td>
+<td style="text-align: left;">QRPs_5_Time1</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Tr10</td>
+<td style="text-align: left;">QRPs_6_Time1</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Tr10</td>
+<td style="text-align: left;">QRPs_7_Time1</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Tr10</td>
+<td style="text-align: left;">QRPs_8_Time1</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Tr10</td>
+<td style="text-align: left;">QRPs_9_Time1</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Tr10</td>
+<td style="text-align: left;">QRPs_10_Time1</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Tr10</td>
+<td style="text-align: left;">QRPs_11_Time1</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Bi07</td>
+<td style="text-align: left;">QRPs_1_Time1</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Bi07</td>
+<td style="text-align: left;">QRPs_2_Time1</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Bi07</td>
+<td style="text-align: left;">QRPs_3_Time1</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Bi07</td>
+<td style="text-align: left;">QRPs_4_Time1</td>
+<td style="text-align: right;">7</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Now, have a look at <code>qrp_step2</code>. In total, we now have <input class="webex-solveme nospaces" size="3" data-answer="[&quot;979&quot;]"> rows/observations, <input class="webex-solveme nospaces" size="2" data-answer="[&quot;11&quot;]"> per participant, and <input class="webex-solveme nospaces" size="1" data-answer="[&quot;3&quot;]"> columns/variables.</p>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<p>This follows exactly the same sequence we used when calculating descriptive statistics by gender. The only difference is that we are now grouping the data by the participant’s <code>Code</code> instead of <code>Gender</code>.</p>
+<p><code>summarise()</code> works exactly the same way: <code>summarise(new_column_name = function_to_calculate_something(column_name_of_numeric_values))</code></p>
+<p>The <code>function_to_calculate_something</code> can be <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code>, <code><a href="https://rdrr.io/r/stats/sd.html">sd()</a></code> or <code><a href="https://rdrr.io/r/base/sum.html">sum()</a></code> for mean scores, standard deviations, or summed-up scores respectively. You could also use <code><a href="https://rdrr.io/r/base/Extremes.html">min()</a></code> or <code><a href="https://rdrr.io/r/base/Extremes.html">max()</a></code> if you wanted to determine the lowest or the highest score for each participant.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You could <strong>rename the columns whilst selecting</strong> them. The pattern would be <code>select(new_name = old_name)</code>. For example, if we wanted to select variable <code>Code</code> and rename it as <code>Participant_ID</code>, we could do that.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>renaming_col <span class="ot">&lt;-</span> data_prp <span class="sc">%&gt;%</span> </span>
+<span id="cb17-2"><a href="#cb17-2"></a>  <span class="fu">select</span>(<span class="at">Participant_ID =</span> Code)</span>
+<span id="cb17-3"><a href="#cb17-3"></a></span>
+<span id="cb17-4"><a href="#cb17-4"></a><span class="fu">head</span>(renaming_col, <span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: left;">Participant_ID</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Tr10</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Bi07</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SK03</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SM95</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">St01</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section></section><section id="activity-5-knitting" class="level2" data-number="2.5"><h2 data-number="2.5" class="anchored" data-anchor-id="activity-5-knitting">
+<span class="header-section-number">2.5</span> Activity 5: Knitting</h2>
+<p>Once you’ve completed your R Markdown file, the final step is to “knit” it, which converts the <code>.Rmd</code> file into a HTML file. Knitting combines your code, text, and output (like tables and plots) into a single cohesive document. This is a really good way to check your code is working.</p>
+<p>To knit the file, <strong>click the Knit button</strong> at the top of your RStudio window. The document will be generated and, depending on your setting, automatically opened in the viewer in the <code>Output pane</code> or an external browser window.</p>
+<p>If any errors occur during knitting, RStudio will show you an error message with details to help you troubleshoot.</p>
+<p>If you want to <strong>intentionally keep any errors</strong> we tackled today to keep a reference on how you solved them, you could add <code>error=TRUE</code> or <code>eval=FALSE</code> to the code chunk that isn’t running.</p>
+</section><section id="activity-6-export-a-data-object-as-a-csv" class="level2" data-number="2.6"><h2 data-number="2.6" class="anchored" data-anchor-id="activity-6-export-a-data-object-as-a-csv">
+<span class="header-section-number">2.6</span> Activity 6: Export a data object as a csv</h2>
+<p>To avoid having to repeat the same steps in the next chapter, it’s a good idea to save the data objects you’ve created today as csv files. You can do this by using the <code>write_csv()</code> function from the <code>readr</code> package. The csv files will appear in your project folder.</p>
+<p>The basic syntax is:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">write_csv</span>(data_object, <span class="st">"filename.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now, let’s export the objects <code>data_prp</code> and <code>qrp_t1</code>.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="fu">write_csv</span>(data_prp, <span class="st">"data_prp_for_ch3.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Here we named the file <code>data_prp_for_ch3.csv</code>, so we wouldn’t override the original data csv file <code>prp_data_reduced.csv</code>. However, feel free to choose a name that makes sense to you.</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Your Turn
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Export <code>qrp_t1</code>.</p>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="fu">write_csv</span>(qrp_t1, <span class="st">"qrp_t1.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Check that your csv files have appeared in your project folder, and you’re all set!</p>
+<p><strong>That’s it for Chapter 2: Individual Walkthrough.</strong></p>
+</section><section id="pair-coding" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="pair-coding"><span style="color: #F39C12; text-transform: uppercase;">Pair-coding</span></h2>
+<p>We will continue working with the data from Binfet et al.&nbsp;(2021), focusing on the randomised controlled trial of therapy dog interventions. Today, our goal is to <strong>calculate an average <code>Flourishing</code> score for each participant</strong> at time point 1 (pre-intervention) using the raw data file <code>dog_data_raw</code>. Currently, the data looks like this:</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: right;">RID</th>
+<th style="text-align: right;">F1_1</th>
+<th style="text-align: right;">F1_2</th>
+<th style="text-align: right;">F1_3</th>
+<th style="text-align: right;">F1_4</th>
+<th style="text-align: right;">F1_5</th>
+<th style="text-align: right;">F1_6</th>
+<th style="text-align: right;">F1_7</th>
+<th style="text-align: right;">F1_8</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">6</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>However, we want the data to look like this:</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: right;">RID</th>
+<th style="text-align: right;">Flourishing_pre</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">6.125</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">5.250</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">5.375</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">6.375</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">5.875</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<section id="task-1-open-the-r-project-you-created-last-week" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="task-1-open-the-r-project-you-created-last-week">Task 1: Open the R project you created last week</h3>
+<p>If you haven’t created an R project for the lab yet, please do so now. If you already have one set up, go ahead and open it.</p>
+</section><section id="task-2-open-your-.rmd-file-from-last-week" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="task-2-open-your-.rmd-file-from-last-week">Task 2: Open your <code>.Rmd</code> file from last week</h3>
+<p>Since we haven’t used it much yet, feel free to continue using the <code>.Rmd</code> file you created last week in Task 2.</p>
+</section><section id="task-3-load-in-the-library-and-read-in-the-data" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="task-3-load-in-the-library-and-read-in-the-data">Task 3: Load in the library and read in the data</h3>
+<p>The data should be in your project folder. If you didn’t download it last week, or if you’d like a fresh copy, you can download the data again here: <a href="data/data_pair_ch1.zip" title="download">data_pair_ch1</a>.</p>
+<p>We will be using the <code>tidyverse</code> package today, and the data file we need to read in is <code>dog_data_raw.csv</code>.</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="co"># loading tidyverse into the library</span></span>
+<span id="cb21-2"><a href="#cb21-2"></a><span class="fu">library</span>(???)</span>
+<span id="cb21-3"><a href="#cb21-3"></a></span>
+<span id="cb21-4"><a href="#cb21-4"></a><span class="co"># reading in `dog_data_raw.csv`</span></span>
+<span id="cb21-5"><a href="#cb21-5"></a>dog_data_raw <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"???"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="task-4-calculating-the-mean-for-flourishing_pre" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="task-4-calculating-the-mean-for-flourishing_pre">Task 4: Calculating the mean for <code>Flourishing_pre</code>
+</h3>
+<ul>
+<li>
+<strong>Step 1</strong>: Select all relevant columns, including participant ID and all 8 items from the <code>Flourishing</code> questionnaire completed before the intervention. Store this data in an object called <code>data_flourishing</code>.</li>
+</ul>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-13" class="callout-13-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Look at the codebook. Try to determine:</p>
+<ul>
+<li>The variable name of the column where the participant ID is stored.</li>
+<li>The items related to the Flourishing scale at the pre-intervention stage.</li>
+</ul>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+More concrete hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-12" class="callout-12-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>From the codebook, we know that:</p>
+<ul>
+<li>The participant ID column is called <code>RID</code>.</li>
+<li>The Flourishing items at the pre-intervention stage start with <code>F1_</code>.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<ul>
+<li>
+<strong>Step 2</strong>: Pivot the data from wide format to long format so we can calculate the average score more easily (in step 3).</li>
+</ul>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-15" class="callout-15-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Which pivot function should you use? We have <code>pivot_wider()</code> and <code>pivot_longer()</code> to choose from.</p>
+<p>We also need 3 arguments in that function:</p>
+<ul>
+<li>The columns you want to select (e.g., all the Flourishing items),</li>
+<li>The name of the column where the current column headings will be stored (e.g., “Questionnaire”),</li>
+<li>The name of the column that should store all the values (e.g., “Responses”).</li>
+</ul>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+More concrete hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-14" class="callout-14-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> ???, <span class="at">names_to =</span> <span class="st">"???"</span>, <span class="at">values_to =</span> <span class="st">"???"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<ul>
+<li>
+<strong>Step 3</strong>: Calculate the average Flourishing score per participant and name this column <code>Flourishing_pre</code> to match the table above.</li>
+</ul>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-17" class="callout-17-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Before summarising the mean, you may need to group the data.</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+More concrete hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-16" class="callout-16-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>  <span class="fu">group_by</span>(???) <span class="sc">%&gt;%</span> </span>
+<span id="cb23-2"><a href="#cb23-2"></a>  <span class="fu">summarise</span>(<span class="at">Flourishing_pre =</span> ???(???)) <span class="sc">%&gt;%</span> </span>
+<span id="cb23-3"><a href="#cb23-3"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-18" class="callout-18-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="co"># loading tidyverse into the library</span></span>
+<span id="cb24-2"><a href="#cb24-2"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb24-3"><a href="#cb24-3"></a></span>
+<span id="cb24-4"><a href="#cb24-4"></a><span class="co"># reading in `dog_data_raw.csv`</span></span>
+<span id="cb24-5"><a href="#cb24-5"></a>dog_data_raw <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"dog_data_raw.csv"</span>)</span>
+<span id="cb24-6"><a href="#cb24-6"></a></span>
+<span id="cb24-7"><a href="#cb24-7"></a><span class="co"># Task 4: Tidying </span></span>
+<span id="cb24-8"><a href="#cb24-8"></a>data_flourishing <span class="ot">&lt;-</span> dog_data_raw <span class="sc">%&gt;%</span> </span>
+<span id="cb24-9"><a href="#cb24-9"></a>  <span class="co"># Step 1</span></span>
+<span id="cb24-10"><a href="#cb24-10"></a>  <span class="fu">select</span>(RID, F1_1<span class="sc">:</span>F1_8) <span class="sc">%&gt;%</span> </span>
+<span id="cb24-11"><a href="#cb24-11"></a>  <span class="co"># Step 2</span></span>
+<span id="cb24-12"><a href="#cb24-12"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>RID, <span class="at">names_to =</span> <span class="st">"Questionnaire"</span>, <span class="at">values_to =</span> <span class="st">"Responses"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb24-13"><a href="#cb24-13"></a>  <span class="co"># Step 3</span></span>
+<span id="cb24-14"><a href="#cb24-14"></a>  <span class="fu">group_by</span>(RID) <span class="sc">%&gt;%</span> </span>
+<span id="cb24-15"><a href="#cb24-15"></a>  <span class="fu">summarise</span>(<span class="at">Flourishing_pre =</span> <span class="fu">mean</span>(Response)) <span class="sc">%&gt;%</span> </span>
+<span id="cb24-16"><a href="#cb24-16"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section></section><section id="test-your-knowledge-and-challenge-yourself" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="test-your-knowledge-and-challenge-yourself"><span style="color: #F39C12; text-transform: uppercase;">Test your knowledge and challenge yourself</span></h2>
+<section id="knowledge-check" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="knowledge-check">Knowledge check</h3>
+<section id="question-1" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-1">Question 1</h4>
+<p>Which function of the Wickham Six would you use to include or exclude certain variables (columns)? <select class="webex-select"><option value="blank"></option>
+<option value="answer">select()</option>
+<option value="x">filter()</option>
+<option value="x">mutate()</option>
+<option value="x">arrange()</option>
+<option value="x">group_by()</option>
+<option value="x">summarise()</option></select></p>
+</section><section id="question-2" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-2">Question 2</h4>
+<p>Which function of the Wickham Six would you use to create new columns or modify existing columns in a dataframe? <select class="webex-select"><option value="blank"></option>
+<option value="x">select()</option>
+<option value="x">filter()</option>
+<option value="answer">mutate()</option>
+<option value="x">arrange()</option>
+<option value="x">group_by()</option>
+<option value="x">summarise()</option></select></p>
+</section><section id="question-3" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-3">Question 3</h4>
+<p>Which function of the Wickham Six would you use to organise data into groups based on one or more columns? <select class="webex-select"><option value="blank"></option>
+<option value="x">select()</option>
+<option value="x">filter()</option>
+<option value="x">mutate()</option>
+<option value="x">arrange()</option>
+<option value="answer">group_by()</option>
+<option value="x">summarise()</option></select></p>
+</section><section id="question-4" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-4">Question 4</h4>
+<p>Which function of the Wickham Six would you use to sort the rows of a dataframe based on the values in one or more columns? <select class="webex-select"><option value="blank"></option>
+<option value="x">select()</option>
+<option value="x">filter()</option>
+<option value="x">mutate()</option>
+<option value="answer">arrange()</option>
+<option value="x">group_by()</option>
+<option value="x">summarise()</option></select></p>
+</section><section id="question-5" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-5">Question 5</h4>
+<p>Which function of the Wickham Six would NOT modify the original dataframe? <select class="webex-select"><option value="blank"></option>
+<option value="x">select()</option>
+<option value="x">filter()</option>
+<option value="x">mutate()</option>
+<option value="x">arrange()</option>
+<option value="x">group_by()</option>
+<option value="answer">summarise()</option></select></p>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Explain these answers
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-19" class="callout-19-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<table class="table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 79%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">Function</th>
+<th style="text-align: left;">Description</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>select()</code></td>
+<td style="text-align: left;">Include or exclude certain variables/columns</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code><a href="https://rdrr.io/r/stats/filter.html">filter()</a></code></td>
+<td style="text-align: left;">Include or exclude certain observations/rows</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>mutate()</code></td>
+<td style="text-align: left;">Creates new columns or modifies existing ones</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>arrange()</code></td>
+<td style="text-align: left;">Changes the order of the rows</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>group_by()</code></td>
+<td style="text-align: left;">Split data into groups based on one or more variables</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>summarise()</code></td>
+<td style="text-align: left;">Creates a new dataframe returning one row for each combination of grouping variables</td>
+</tr>
+</tbody>
+</table>
+<p>Technically, the first five functions operate on the existing data object, making adjustments like sorting the data (e.g., with <code>arrange()</code>), reducing the number of rows (e.g., with <code><a href="https://rdrr.io/r/stats/filter.html">filter()</a></code>), reducing the number of columns (e.g., with <code>select()</code>), or adding new columns (e.g., with <code>mutate()</code>). In contrast, <code>summarise()</code> fundamentally alters the structure of the original dataframe by generating a completely new dataframe that contains only summary statistics, rather than retaining the original rows and columns.</p>
+</div>
+</div>
+</div>
+</section></section><section id="error-mode" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="error-mode">Error mode</h3>
+<p>Some of the code chunks contain mistakes and result in errors, while others do not produce the expected results. Your task is to identify any issues, explain why they occurred, and, if possible, fix them.</p>
+<p>We will use a few built-in datasets, such as <code>billboard</code> and <code>starwars</code>, to help you replicate the errors in your own R environment. You can view the data either by typing the dataset name directly into your console or by storing the data as a separate object in your <code>Global Environment</code>.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>billboard</span>
+<span id="cb25-2"><a href="#cb25-2"></a></span>
+<span id="cb25-3"><a href="#cb25-3"></a>starwars_data <span class="ot">=</span> starwars</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="question-6" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-6">Question 6</h4>
+<p>Currently, the weekly song rankings for Billboard Top 100 in 2000 are in wide format, with each week in a separate column. The following code is supposed to transpose the wide-format <code>billboard</code> data into long format:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>long_data <span class="ot">&lt;-</span> billboard <span class="sc">%&gt;%</span> </span>
+<span id="cb26-2"><a href="#cb26-2"></a>  <span class="fu">pivot_longer</span>(<span class="at">names_to =</span> <span class="st">"weeks"</span>, <span class="at">values_to =</span> <span class="st">"rank"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>However, an error occurs during execution: <code>`cols` must select at least one column</code>. What does this error message mean and how do you fix it?</p>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Explain the solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-20" class="callout-20-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The error message indicates that the <code>cols</code> argument is missing in the function. This means the function doesn’t know which columns to transpose from wide format to long format.</p>
+<p>FIX: Add <code>cols = wk1:wk76</code> to the function to select columns from wk1 to wk76. Alternatively, <code>cols = starts_with("wk")</code> would also work since all columns start with the letter combination “wk”.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>long_data <span class="ot">&lt;-</span> billboard <span class="sc">%&gt;%</span> </span>
+<span id="cb27-2"><a href="#cb27-2"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> wk1<span class="sc">:</span>wk76, <span class="at">names_to =</span> <span class="st">"weeks"</span>, <span class="at">values_to =</span> <span class="st">"rank"</span>)</span>
+<span id="cb27-3"><a href="#cb27-3"></a><span class="co"># OR</span></span>
+<span id="cb27-4"><a href="#cb27-4"></a>long_data <span class="ot">&lt;-</span> billboard <span class="sc">%&gt;%</span> </span>
+<span id="cb27-5"><a href="#cb27-5"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"wk"</span>), <span class="at">names_to =</span> <span class="st">"weeks"</span>, <span class="at">values_to =</span> <span class="st">"rank"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="question-7" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-7">Question 7</h4>
+<p>The following code is intended to calculate the mean height of all the characters in the built-in <code>starwars</code> dataset, grouped by their gender.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>summary_data <span class="ot">&lt;-</span> starwars <span class="sc">%&gt;%</span></span>
+<span id="cb28-2"><a href="#cb28-2"></a>  <span class="fu">group_by</span>(gender) <span class="sc">%&gt;%</span></span>
+<span id="cb28-3"><a href="#cb28-3"></a>  <span class="fu">summarise</span>(<span class="at">mean_height =</span> height)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Returning more (or less) than 1 row per `summarise()` group was deprecated in
+dplyr 1.1.0.
+ℹ Please use `reframe()` instead.
+ℹ When switching from `summarise()` to `reframe()`, remember that `reframe()`
+  always returns an ungrouped data frame and adjust accordingly.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'gender'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+</div>
+<p>The code runs, but it’s giving us some weird warning and the output is also not as expected. What steps should we take to fix this?</p>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-21-contents" aria-controls="callout-21" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Explain the solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-21" class="callout-21-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The aggregation function <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code> is missing from within <code>summarise()</code>. Without it, the function does not perform any aggregation and returns <em>all</em> rows with only the columns for gender and height.</p>
+<p>FIX: Wrap the <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code> function around the variable you want to aggregate, here <code>height</code>.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>summary_data <span class="ot">&lt;-</span> starwars <span class="sc">%&gt;%</span></span>
+<span id="cb31-2"><a href="#cb31-2"></a>  <span class="fu">group_by</span>(gender) <span class="sc">%&gt;%</span></span>
+<span id="cb31-3"><a href="#cb31-3"></a>  <span class="fu">summarise</span>(<span class="at">mean_height =</span> <span class="fu">mean</span>(height))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="question-8" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-8">Question 8</h4>
+<p>Following up on Question 7, we now have <code>summary_data</code> that looks approximately correct - it has the expected rows and column numbers, however, the cell values are “weird”.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>summary_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: left;">gender</th>
+<th style="text-align: right;">mean_height</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">feminine</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">masculine</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">175</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Can you explain what is happening here? And how can we modify the code to fix this?</p>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-22-contents" aria-controls="callout-22" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Explain the solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-22" class="callout-22-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Look at the original <code>starwars</code> data. You will notice that some of the characters with feminine and masculine gender entries have missing height values. However, all four characters without a specified gender have provided their height.</p>
+<p>FIX: We need to add <code>na.rm = TRUE</code> to the <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code> function to ensure that R ignores missing values before aggregating the data.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>summary_data <span class="ot">&lt;-</span> starwars <span class="sc">%&gt;%</span></span>
+<span id="cb33-2"><a href="#cb33-2"></a>  <span class="fu">group_by</span>(gender) <span class="sc">%&gt;%</span></span>
+<span id="cb33-3"><a href="#cb33-3"></a>  <span class="fu">summarise</span>(<span class="at">mean_height =</span> <span class="fu">mean</span>(height, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb33-4"><a href="#cb33-4"></a></span>
+<span id="cb33-5"><a href="#cb33-5"></a>summary_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: left;">gender</th>
+<th style="text-align: right;">mean_height</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">feminine</td>
+<td style="text-align: right;">166.5333</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">masculine</td>
+<td style="text-align: right;">176.5323</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">175.0000</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section></section><section id="challenge-yourself" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="challenge-yourself">Challenge Yourself</h3>
+<p>If you want to <strong>challenge yourself</strong> and further apply the skills from Chapter 2, you can wrangle the data from <code>dog_data_raw</code> for additional questionnaires from either the pre- and/or post-intervention stages:</p>
+<ul>
+<li>Calculate the mean score for <code>flourishing_post</code> for each participant.</li>
+<li>Calculate the mean score for the <code>PANAS</code> (Positive and/or Negative Affect) per participant</li>
+<li>Calculate the mean score for happiness (<code>SHS</code>) per participant</li>
+</ul>
+<p>The 3 steps are equivalent for those questionnaires - select, pivot, group_by and summarise; you just have to “replace” the questionnaire items involved.</p>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-23-contents" aria-controls="callout-23" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution for <strong>Challenge yourself</strong>
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-23" class="callout-23-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Flourishing post-intervention</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="do">## flourishing_post</span></span>
+<span id="cb34-2"><a href="#cb34-2"></a>flourishing_post <span class="ot">&lt;-</span> dog_data_raw <span class="sc">%&gt;%</span> </span>
+<span id="cb34-3"><a href="#cb34-3"></a>  <span class="co"># Step 1</span></span>
+<span id="cb34-4"><a href="#cb34-4"></a>  <span class="fu">select</span>(RID, <span class="fu">starts_with</span>(<span class="st">"F2"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb34-5"><a href="#cb34-5"></a>  <span class="co"># Step 2</span></span>
+<span id="cb34-6"><a href="#cb34-6"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>RID, <span class="at">names_to =</span> <span class="st">"Names"</span>, <span class="at">values_to =</span> <span class="st">"Response"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb34-7"><a href="#cb34-7"></a>  <span class="co"># Step 3</span></span>
+<span id="cb34-8"><a href="#cb34-8"></a>  <span class="fu">group_by</span>(RID) <span class="sc">%&gt;%</span> </span>
+<span id="cb34-9"><a href="#cb34-9"></a>  <span class="fu">summarise</span>(<span class="at">Flourishing_post =</span> <span class="fu">mean</span>(Response)) <span class="sc">%&gt;%</span> </span>
+<span id="cb34-10"><a href="#cb34-10"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The PANAS could be solved more concisely with the skills we learn in <span class="quarto-unresolved-ref">?sec-wrangling2</span>, but for now, you would have solved it this way:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="co"># PANAS - positive affect pre</span></span>
+<span id="cb35-2"><a href="#cb35-2"></a>PANAS_PA_pre <span class="ot">&lt;-</span> dog_data_raw <span class="sc">%&gt;%</span> </span>
+<span id="cb35-3"><a href="#cb35-3"></a>  <span class="co"># Step 1</span></span>
+<span id="cb35-4"><a href="#cb35-4"></a>  <span class="fu">select</span>(RID, PN1_3, PN1_5, PN1_7, PN1_8, PN1_10) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-5"><a href="#cb35-5"></a>  <span class="co"># Step 2</span></span>
+<span id="cb35-6"><a href="#cb35-6"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>RID, <span class="at">names_to =</span> <span class="st">"Items"</span>, <span class="at">values_to =</span> <span class="st">"Scores"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-7"><a href="#cb35-7"></a>  <span class="co"># Step 3</span></span>
+<span id="cb35-8"><a href="#cb35-8"></a>  <span class="fu">group_by</span>(RID) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-9"><a href="#cb35-9"></a>  <span class="fu">summarise</span>(<span class="at">PANAS_PA_pre =</span> <span class="fu">mean</span>(Scores)) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-10"><a href="#cb35-10"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb35-11"><a href="#cb35-11"></a></span>
+<span id="cb35-12"><a href="#cb35-12"></a><span class="co"># PANAS - positive affect post</span></span>
+<span id="cb35-13"><a href="#cb35-13"></a>PANAS_PA_post <span class="ot">&lt;-</span> dog_data_raw <span class="sc">%&gt;%</span> </span>
+<span id="cb35-14"><a href="#cb35-14"></a>  <span class="co"># Step 1</span></span>
+<span id="cb35-15"><a href="#cb35-15"></a>  <span class="fu">select</span>(RID, PN2_3, PN2_5, PN2_7, PN2_8, PN2_10) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-16"><a href="#cb35-16"></a>  <span class="co"># Step 2</span></span>
+<span id="cb35-17"><a href="#cb35-17"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>RID, <span class="at">names_to =</span> <span class="st">"Items"</span>, <span class="at">values_to =</span> <span class="st">"Scores"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-18"><a href="#cb35-18"></a>  <span class="co"># Step 3</span></span>
+<span id="cb35-19"><a href="#cb35-19"></a>  <span class="fu">group_by</span>(RID) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-20"><a href="#cb35-20"></a>  <span class="fu">summarise</span>(<span class="at">PANAS_PA_post =</span> <span class="fu">mean</span>(Scores)) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-21"><a href="#cb35-21"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb35-22"><a href="#cb35-22"></a></span>
+<span id="cb35-23"><a href="#cb35-23"></a><span class="co"># PANAS - negative affect pre</span></span>
+<span id="cb35-24"><a href="#cb35-24"></a>PANAS_NA_pre <span class="ot">&lt;-</span> dog_data_raw <span class="sc">%&gt;%</span> </span>
+<span id="cb35-25"><a href="#cb35-25"></a>  <span class="co"># Step 1</span></span>
+<span id="cb35-26"><a href="#cb35-26"></a>  <span class="fu">select</span>(RID, PN1_1, PN1_2, PN1_4, PN1_6, PN1_9) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-27"><a href="#cb35-27"></a>  <span class="co"># Step 2</span></span>
+<span id="cb35-28"><a href="#cb35-28"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>RID, <span class="at">names_to =</span> <span class="st">"Items"</span>, <span class="at">values_to =</span> <span class="st">"Scores"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-29"><a href="#cb35-29"></a>  <span class="co"># Step 3</span></span>
+<span id="cb35-30"><a href="#cb35-30"></a>  <span class="fu">group_by</span>(RID) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-31"><a href="#cb35-31"></a>  <span class="fu">summarise</span>(<span class="at">PANAS_NA_pre =</span> <span class="fu">mean</span>(Scores)) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-32"><a href="#cb35-32"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb35-33"><a href="#cb35-33"></a></span>
+<span id="cb35-34"><a href="#cb35-34"></a><span class="co"># PANAS - negative affect post</span></span>
+<span id="cb35-35"><a href="#cb35-35"></a>PANAS_NA_post <span class="ot">&lt;-</span> dog_data_raw <span class="sc">%&gt;%</span> </span>
+<span id="cb35-36"><a href="#cb35-36"></a>  <span class="co"># Step 1</span></span>
+<span id="cb35-37"><a href="#cb35-37"></a>  <span class="fu">select</span>(RID, PN2_1, PN2_2, PN2_4, PN2_6, PN2_9) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-38"><a href="#cb35-38"></a>  <span class="co"># Step 2</span></span>
+<span id="cb35-39"><a href="#cb35-39"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>RID, <span class="at">names_to =</span> <span class="st">"Items"</span>, <span class="at">values_to =</span> <span class="st">"Scores"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-40"><a href="#cb35-40"></a>  <span class="co"># Step 3</span></span>
+<span id="cb35-41"><a href="#cb35-41"></a>  <span class="fu">group_by</span>(RID) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-42"><a href="#cb35-42"></a>  <span class="fu">summarise</span>(<span class="at">PANAS_NA_post =</span> <span class="fu">mean</span>(Scores)) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-43"><a href="#cb35-43"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Happiness scale</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="co"># happiness_pre</span></span>
+<span id="cb36-2"><a href="#cb36-2"></a>happiness_pre <span class="ot">&lt;-</span> dog_data_raw <span class="sc">%&gt;%</span> </span>
+<span id="cb36-3"><a href="#cb36-3"></a>  <span class="co"># Step 1</span></span>
+<span id="cb36-4"><a href="#cb36-4"></a>  <span class="fu">select</span>(RID, HA1_1, HA1_2, HA1_3) <span class="sc">%&gt;%</span> </span>
+<span id="cb36-5"><a href="#cb36-5"></a>  <span class="co"># Step 2</span></span>
+<span id="cb36-6"><a href="#cb36-6"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>RID, <span class="at">names_to =</span> <span class="st">"Item"</span>, <span class="at">values_to =</span> <span class="st">"Score"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb36-7"><a href="#cb36-7"></a>  <span class="co"># Step 3</span></span>
+<span id="cb36-8"><a href="#cb36-8"></a>  <span class="fu">group_by</span>(RID) <span class="sc">%&gt;%</span> </span>
+<span id="cb36-9"><a href="#cb36-9"></a>  <span class="fu">summarise</span>(<span class="at">SHS_pre =</span> <span class="fu">mean</span>(Score)) <span class="sc">%&gt;%</span> </span>
+<span id="cb36-10"><a href="#cb36-10"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb36-11"><a href="#cb36-11"></a></span>
+<span id="cb36-12"><a href="#cb36-12"></a><span class="co">#happiness_post</span></span>
+<span id="cb36-13"><a href="#cb36-13"></a>happiness_post <span class="ot">&lt;-</span> dog_data_raw <span class="sc">%&gt;%</span> </span>
+<span id="cb36-14"><a href="#cb36-14"></a>  <span class="co"># Step 1</span></span>
+<span id="cb36-15"><a href="#cb36-15"></a>  <span class="fu">select</span>(RID, HA2_1, HA2_2, HA2_3) <span class="sc">%&gt;%</span> </span>
+<span id="cb36-16"><a href="#cb36-16"></a>  <span class="co"># Step 2</span></span>
+<span id="cb36-17"><a href="#cb36-17"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>RID, <span class="at">names_to =</span> <span class="st">"Item"</span>, <span class="at">values_to =</span> <span class="st">"Score"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb36-18"><a href="#cb36-18"></a>  <span class="co"># Step 3</span></span>
+<span id="cb36-19"><a href="#cb36-19"></a>  <span class="fu">group_by</span>(RID) <span class="sc">%&gt;%</span> </span>
+<span id="cb36-20"><a href="#cb36-20"></a>  <span class="fu">summarise</span>(<span class="at">SHS_post =</span> <span class="fu">mean</span>(Score)) <span class="sc">%&gt;%</span> </span>
+<span id="cb36-21"><a href="#cb36-21"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+</section></section></main><!-- /main --><script>
+
+/* update total correct if #webex-total_correct exists */
+update_total_correct = function() {
+  console.log("webex: update total_correct");
+
+  var t = document.getElementsByClassName("webex-total_correct");
+  for (var i = 0; i < t.length; i++) {
+    p = t[i].parentElement;
+    var correct = p.getElementsByClassName("webex-correct").length;
+    var solvemes = p.getElementsByClassName("webex-solveme").length;
+    var radiogroups = p.getElementsByClassName("webex-radiogroup").length;
+    var selects = p.getElementsByClassName("webex-select").length;
+
+    t[i].innerHTML = correct + " of " + (solvemes + radiogroups + selects) + " correct";
+  }
+}
+
+/* webex-solution button toggling function */
+b_func = function() {
+  console.log("webex: toggle hide");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* check answers */
+check_func = function() {
+  console.log("webex: check answers");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('unchecked')) {
+    cl.remove("unchecked");
+    this.innerHTML = "Hide Answers";
+  } else {
+    cl.add("unchecked");
+    this.innerHTML = "Show Answers";
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  console.log("webex: check solveme");
+
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "")
+  }
+
+  if (my_answer == "") {
+    cl.remove("webex-correct");
+    cl.remove("webex-incorrect");
+  } else if (real_answers.includes(my_answer)) {
+    cl.add("webex-correct");
+    cl.remove("webex-incorrect");
+  } else {
+    cl.add("webex-incorrect");
+    cl.remove("webex-correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("webex-correct");
+    } else {
+      cl.remove("webex-correct");
+    }
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("webex-correct");
+    }
+  }
+
+  update_total_correct();
+}
+
+/* function for checking select answers */
+select_func = function(e) {
+  console.log("webex: check select");
+
+  var cl = this.classList
+
+  /* add style */
+  cl.remove("webex-incorrect");
+  cl.remove("webex-correct");
+  if (this.value == "answer") {
+    cl.add("webex-correct");
+  } else if (this.value != "blank") {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+/* function for checking radiogroups answers */
+radiogroups_func = function(e) {
+  console.log("webex: check radiogroups");
+
+  var checked_button = document.querySelector('input[name=' + this.id + ']:checked');
+  var cl = checked_button.parentElement.classList;
+  var labels = checked_button.parentElement.parentElement.children;
+
+  /* get rid of styles */
+  for (i = 0; i < labels.length; i++) {
+    labels[i].classList.remove("webex-incorrect");
+    labels[i].classList.remove("webex-correct");
+  }
+
+  /* add style */
+  if (checked_button.value == "answer") {
+    cl.add("webex-correct");
+  } else {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+window.onload = function() {
+  console.log("webex onload");
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('webex-solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+
+  var check_sections = document.getElementsByClassName("webex-check");
+  console.log("check:", check_sections.length);
+  for (var i = 0; i < check_sections.length; i++) {
+    check_sections[i].classList.add("unchecked");
+
+    let btn = document.createElement("button");
+    btn.innerHTML = "Show Answers";
+    btn.classList.add("webex-check-button");
+    btn.onclick = check_func;
+    check_sections[i].appendChild(btn);
+
+    let spn = document.createElement("span");
+    spn.classList.add("webex-total_correct");
+    check_sections[i].appendChild(spn);
+  }
+
+  /* set up webex-solveme inputs */
+  var solveme = document.getElementsByClassName("webex-solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off");
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+
+    solveme[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  /* set up radiogroups */
+  var radiogroups = document.getElementsByClassName("webex-radiogroup");
+  for (var i = 0; i < radiogroups.length; i++) {
+    radiogroups[i].onchange = radiogroups_func;
+  }
+
+  /* set up selects */
+  var selects = document.getElementsByClassName("webex-select");
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].onchange = select_func;
+    selects[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  update_total_correct();
+}
+
+</script><script>
+// open rdrr links externally ----
+
+var exlinks = document.querySelectorAll("a[href^='https://rdrr.io']");
+var exlink_func = function(){
+  window.open(this.href);
+  return false;
+};
+for (var i = 0; i < exlinks.length; i++) {
+    exlinks[i].addEventListener('click', exlink_func, false);
+}
+
+// visible second sidebar in mobile ----
+
+function move_sidebar() {
+  var toc = document.getElementById("TOC");
+  var small_sidebar = document.querySelector("#quarto-sidebar .sidebar-menu-container");
+  var right_sidebar = document.getElementById("quarto-margin-sidebar");
+
+  if (window.innerWidth < 768) {
+    small_sidebar.append(toc);
+  } else {
+    right_sidebar.append(toc);
+  }
+}
+move_sidebar();
+window.onresize = move_sidebar;
+</script><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./01-basics.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Projects and R Markdown</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./appendix-a-installing-r.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Installing R</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">CC-BY (2024) Gaby Mahrholz Carolina E. Kuepper-Tetzel</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+</body></html>

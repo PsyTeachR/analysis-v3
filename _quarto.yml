@@ -51,6 +51,7 @@ book:
   chapters:
   - index.qmd
   - 01-basics.qmd
+  - 02-wrangling.qmd
   appendices:
   - appendix-a-installing-r.qmd
   - appendix-b-updating-packages.qmd
