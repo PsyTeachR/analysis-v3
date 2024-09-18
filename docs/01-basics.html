@@ -177,6 +177,12 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data wrangling I</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-wrangling2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data wrangling II</span></span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
@@ -863,7 +869,7 @@ For screenshots click here
 <p>Research shows that questionable research practices (QRPs) are present in undergraduate final-year dissertation projects. One entry-level Open Science practice proposed to mitigate QRPs is “study preregistration,” through which researchers outline their research questions, design, method, and analysis plans before data collection and/or analysis. In this study, we aimed to empirically test the effectiveness of preregistration as a pedagogic tool in undergraduate dissertations using a quasi-experimental design. A total of 89 UK psychology students were recruited, including students who preregistered their empirical quantitative dissertation (<em>n</em> = 52; experimental group) and students who did not (<em>n</em> = 37; control group). Attitudes toward statistics, acceptance of QRPs, and perceived understanding of Open Science were measured both before and after dissertation completion. Exploratory measures included capability, opportunity, and motivation to engage with preregistration, measured at Time 1 only. This study was conducted as a Registered Report; Stage 1 protocol: https://osf.io/9hjbw (date of in-principle acceptance: September 21, 2021). Study preregistration did not significantly affect attitudes toward statistics or acceptance of QRPs. However, students who preregistered reported greater perceived understanding of Open Science concepts from Time 1 to Time 2 compared with students who did not preregister. Exploratory analyses indicated that students who preregistered reported significantly greater capability, opportunity, and motivation to preregister. Qualitative responses revealed that preregistration was perceived to improve clarity and organization of the dissertation, prevent QRPs, and promote rigor. Disadvantages and barriers included time, perceived rigidity, and need for training. These results contribute to discussions surrounding embedding Open Science principles into research training.</p>
 </blockquote>
 <p><strong>Changes made to the dataset</strong></p>
-<p>We made some changes to the dataset for the purpose of increasing difficulty for data wrangling (<a href="02-wrangling.html"><span>Chapter&nbsp;2</span></a> and <span class="quarto-unresolved-ref">?sec-wrangling2</span>) and data visualisation (<span class="quarto-unresolved-ref">?sec-dataviz</span> and <span class="quarto-unresolved-ref">?sec-dataviz2</span>). This will ensure some “teachable moments”. The changes are as follows:</p>
+<p>We made some changes to the dataset for the purpose of increasing difficulty for data wrangling (<a href="02-wrangling.html"><span>Chapter&nbsp;2</span></a> and <a href="03-wrangling2.html"><span>Chapter&nbsp;3</span></a>) and data visualisation (<span class="quarto-unresolved-ref">?sec-dataviz</span> and <span class="quarto-unresolved-ref">?sec-dataviz2</span>). This will ensure some “teachable moments”. The changes are as follows:</p>
 <ul>
 <li>We removed some of the variables to make the data more manageable for teaching purposes.</li>
 <li>We recoded some values from numeric responses to labels (e.g., <code>understanding</code>).</li>
@@ -1288,7 +1294,7 @@ Possible solution
 </div>
 </div>
 </div>
-<p><strong>Logical</strong> data (also sometimes called “Boolean” values) are one of two values: TRUE or FALSE (written in uppercase). They become really important when we use <code><a href="https://rdrr.io/r/stats/filter.html">filter()</a></code> or <code>mutate()</code> with conditional statements such as <code>case_when()</code>. More about those in <span class="quarto-unresolved-ref">?sec-wrangling2</span>.</p>
+<p><strong>Logical</strong> data (also sometimes called “Boolean” values) are one of two values: TRUE or FALSE (written in uppercase). They become really important when we use <code><a href="https://rdrr.io/r/stats/filter.html">filter()</a></code> or <code>mutate()</code> with conditional statements such as <code>case_when()</code>. More about those in <a href="03-wrangling2.html"><span>Chapter&nbsp;3</span></a>.</p>
 <p>Some commonly used logical operators:</p>
 <table class="table">
 <thead><tr class="header">
@@ -1643,7 +1649,7 @@ Revealing the mystery code that created <code>data_quiz</code>
 <ul>
 <li>Evans removed the demographics ethnicity and gender to make the study data available while protecting participant privacy. Which means we’ll have limited demographic variables available, but we will make do with what we’ve got.</li>
 <li>We modified some of the responses in the raw data csv - for example, we took out impossible response values and replaced them with <code>NA</code>.</li>
-<li>We replaced some of the numbers with labels to increase the difficulty in the dataset for <a href="02-wrangling.html"><span>Chapter&nbsp;2</span></a> and <span class="quarto-unresolved-ref">?sec-wrangling2</span>.</li>
+<li>We replaced some of the numbers with labels to increase the difficulty in the dataset for <a href="02-wrangling.html"><span>Chapter&nbsp;2</span></a> and <a href="03-wrangling2.html"><span>Chapter&nbsp;3</span></a>.</li>
 </ul>
 <section id="task-1-create-a-project-folder-for-the-lab-activities" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="task-1-create-a-project-folder-for-the-lab-activities">Task 1: Create a project folder for the lab activities</h3>
 <p>Since we will be working with the same data throughout semester 1, create a separate project for the lab data. Name it something useful, like <code>lab_data</code> or <code>dogs_in_the_lab</code>. Make sure you are not placing it within the project you have already created today. If you need guidance, see <a href="#sec-project"><span>Section&nbsp;1.2</span></a> above.</p>

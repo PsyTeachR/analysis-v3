@@ -742,7 +742,7 @@ summary_data
 
 
 
-### Challenge Yourself {.unnumbered}
+### Challenge yourself {.unnumbered}
 
 If you want to **challenge yourself** and further apply the skills from Chapter 2, you can wrangle the data from `dog_data_raw` for additional questionnaires from either the pre- and/or post-intervention stages:
 

@@ -1,1 +1,1 @@
-{"options":{"chapters":true,"chapters-alpha":true,"chapter-id":"sec-installing-r","chapters-appendix":true},"headings":["how-to-install-r-and-rstudio","sec-installing-r"],"entries":[{"key":"sec-installing-r","order":{"number":1,"section":[1,0,0,0,0,0,0]}}]}
+{"options":{"chapters-alpha":true,"chapter-id":"sec-installing-r","chapters":true,"chapters-appendix":true},"headings":["how-to-install-r-and-rstudio","sec-installing-r"],"entries":[{"order":{"section":[1,0,0,0,0,0,0],"number":1},"key":"sec-installing-r"}]}

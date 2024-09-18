@@ -60,7 +60,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./appendix-a-installing-r.html" rel="next">
+<link href="./03-wrangling2.html" rel="next">
 <link href="./01-basics.html" rel="prev">
 <link href="./images/logos/logo_analysis.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
@@ -177,6 +177,12 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data wrangling I</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-wrangling2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data wrangling II</span></span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
@@ -255,7 +261,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
   <ul class="collapse">
 <li><a href="#knowledge-check" id="toc-knowledge-check" class="nav-link" data-scroll-target="#knowledge-check">Knowledge check</a></li>
   <li><a href="#error-mode" id="toc-error-mode" class="nav-link" data-scroll-target="#error-mode">Error mode</a></li>
-  <li><a href="#challenge-yourself" id="toc-challenge-yourself" class="nav-link" data-scroll-target="#challenge-yourself">Challenge Yourself</a></li>
+  <li><a href="#challenge-yourself" id="toc-challenge-yourself" class="nav-link" data-scroll-target="#challenge-yourself">Challenge yourself</a></li>
   </ul>
 </li>
   </ul></nav>
@@ -284,7 +290,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <li>realise there are several ways of getting to the results</li>
 <li>export data objects as csv files</li>
 </ul>
-<p>The main purpose of this chapter and <span class="quarto-unresolved-ref">?sec-wrangling2</span> is to wrangle your data into shape for data visualisation (<span class="quarto-unresolved-ref">?sec-dataviz</span> and <span class="quarto-unresolved-ref">?sec-dataviz2</span>). For the two chapters, we will:</p>
+<p>The main purpose of this chapter and <a href="03-wrangling2.html"><span>Chapter&nbsp;3</span></a> is to wrangle your data into shape for data visualisation (<span class="quarto-unresolved-ref">?sec-dataviz</span> and <span class="quarto-unresolved-ref">?sec-dataviz2</span>). For the two chapters, we will:</p>
 <ol type="1">
 <li>calculate demographics</li>
 <li>tidy 3 different questionnaires with varying degrees of complexity</li>
@@ -1671,7 +1677,7 @@ Explain the solution
 </div>
 </div>
 </div>
-</section></section><section id="challenge-yourself" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="challenge-yourself">Challenge Yourself</h3>
+</section></section><section id="challenge-yourself" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="challenge-yourself">Challenge yourself</h3>
 <p>If you want to <strong>challenge yourself</strong> and further apply the skills from Chapter 2, you can wrangle the data from <code>dog_data_raw</code> for additional questionnaires from either the pre- and/or post-intervention stages:</p>
 <ul>
 <li>Calculate the mean score for <code>flourishing_post</code> for each participant.</li>
@@ -1704,7 +1710,7 @@ Solution for <strong>Challenge yourself</strong>
 <span id="cb34-9"><a href="#cb34-9"></a>  <span class="fu">summarise</span>(<span class="at">Flourishing_post =</span> <span class="fu">mean</span>(Response)) <span class="sc">%&gt;%</span> </span>
 <span id="cb34-10"><a href="#cb34-10"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The PANAS could be solved more concisely with the skills we learn in <span class="quarto-unresolved-ref">?sec-wrangling2</span>, but for now, you would have solved it this way:</p>
+<p>The PANAS could be solved more concisely with the skills we learn in <a href="03-wrangling2.html"><span>Chapter&nbsp;3</span></a>, but for now, you would have solved it this way:</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="co"># PANAS - positive affect pre</span></span>
 <span id="cb35-2"><a href="#cb35-2"></a>PANAS_PA_pre <span class="ot">&lt;-</span> dog_data_raw <span class="sc">%&gt;%</span> </span>
@@ -2364,8 +2370,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./appendix-a-installing-r.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Installing R</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./03-wrangling2.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data wrangling II</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
