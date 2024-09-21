@@ -183,6 +183,12 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data wrangling II</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-dataviz.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data viz I</span></span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
@@ -290,7 +296,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <li>realise there are several ways of getting to the results</li>
 <li>export data objects as csv files</li>
 </ul>
-<p>The main purpose of this chapter and <a href="03-wrangling2.html"><span>Chapter&nbsp;3</span></a> is to wrangle your data into shape for data visualisation (<span class="quarto-unresolved-ref">?sec-dataviz</span> and <span class="quarto-unresolved-ref">?sec-dataviz2</span>). For the two chapters, we will:</p>
+<p>The main purpose of this chapter and <a href="03-wrangling2.html"><span>Chapter&nbsp;3</span></a> is to wrangle your data into shape for data visualisation (<a href="04-dataviz.html"><span>Chapter&nbsp;4</span></a> and <span class="quarto-unresolved-ref">?sec-dataviz2</span>). For the two chapters, we will:</p>
 <ol type="1">
 <li>calculate demographics</li>
 <li>tidy 3 different questionnaires with varying degrees of complexity</li>
@@ -1532,8 +1538,12 @@ Explain these answers
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>long_data <span class="ot">&lt;-</span> billboard <span class="sc">%&gt;%</span> </span>
 <span id="cb26-2"><a href="#cb26-2"></a>  <span class="fu">pivot_longer</span>(<span class="at">names_to =</span> <span class="st">"weeks"</span>, <span class="at">values_to =</span> <span class="st">"rank"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in `pivot_longer()`:
+! `cols` must select at least one column.</code></pre>
 </div>
-<p>However, an error occurs during execution: <code>`cols` must select at least one column</code>. What does this error message mean and how do you fix it?</p>
+</div>
+<p>What does this error message mean and how do you fix it?</p>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -1549,11 +1559,11 @@ Explain the solution
 <p>The error message indicates that the <code>cols</code> argument is missing in the function. This means the function doesn’t know which columns to transpose from wide format to long format.</p>
 <p>FIX: Add <code>cols = wk1:wk76</code> to the function to select columns from wk1 to wk76. Alternatively, <code>cols = starts_with("wk")</code> would also work since all columns start with the letter combination “wk”.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>long_data <span class="ot">&lt;-</span> billboard <span class="sc">%&gt;%</span> </span>
-<span id="cb27-2"><a href="#cb27-2"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> wk1<span class="sc">:</span>wk76, <span class="at">names_to =</span> <span class="st">"weeks"</span>, <span class="at">values_to =</span> <span class="st">"rank"</span>)</span>
-<span id="cb27-3"><a href="#cb27-3"></a><span class="co"># OR</span></span>
-<span id="cb27-4"><a href="#cb27-4"></a>long_data <span class="ot">&lt;-</span> billboard <span class="sc">%&gt;%</span> </span>
-<span id="cb27-5"><a href="#cb27-5"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"wk"</span>), <span class="at">names_to =</span> <span class="st">"weeks"</span>, <span class="at">values_to =</span> <span class="st">"rank"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>long_data <span class="ot">&lt;-</span> billboard <span class="sc">%&gt;%</span> </span>
+<span id="cb28-2"><a href="#cb28-2"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> wk1<span class="sc">:</span>wk76, <span class="at">names_to =</span> <span class="st">"weeks"</span>, <span class="at">values_to =</span> <span class="st">"rank"</span>)</span>
+<span id="cb28-3"><a href="#cb28-3"></a><span class="co"># OR</span></span>
+<span id="cb28-4"><a href="#cb28-4"></a>long_data <span class="ot">&lt;-</span> billboard <span class="sc">%&gt;%</span> </span>
+<span id="cb28-5"><a href="#cb28-5"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"wk"</span>), <span class="at">names_to =</span> <span class="st">"weeks"</span>, <span class="at">values_to =</span> <span class="st">"rank"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -1561,19 +1571,15 @@ Explain the solution
 </section><section id="question-7" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-7">Question 7</h4>
 <p>The following code is intended to calculate the mean height of all the characters in the built-in <code>starwars</code> dataset, grouped by their gender.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>summary_data <span class="ot">&lt;-</span> starwars <span class="sc">%&gt;%</span></span>
-<span id="cb28-2"><a href="#cb28-2"></a>  <span class="fu">group_by</span>(gender) <span class="sc">%&gt;%</span></span>
-<span id="cb28-3"><a href="#cb28-3"></a>  <span class="fu">summarise</span>(<span class="at">mean_height =</span> height)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>summary_data <span class="ot">&lt;-</span> starwars <span class="sc">%&gt;%</span></span>
+<span id="cb29-2"><a href="#cb29-2"></a>  <span class="fu">group_by</span>(gender) <span class="sc">%&gt;%</span></span>
+<span id="cb29-3"><a href="#cb29-3"></a>  <span class="fu">summarise</span>(<span class="at">mean_height =</span> height)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Returning more (or less) than 1 row per `summarise()` group was deprecated in
 dplyr 1.1.0.
 ℹ Please use `reframe()` instead.
 ℹ When switching from `summarise()` to `reframe()`, remember that `reframe()`
   always returns an ungrouped data frame and adjust accordingly.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>`summarise()` has grouped output by 'gender'. You can override using the
-`.groups` argument.</code></pre>
 </div>
 </div>
 <p>The code runs, but it’s giving us some weird warning and the output is also not as expected. What steps should we take to fix this?</p>

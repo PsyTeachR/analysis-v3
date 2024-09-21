@@ -53,6 +53,7 @@ book:
   - 01-basics.qmd
   - 02-wrangling.qmd
   - 03-wrangling2.qmd
+  - 04-dataviz.qmd
   appendices:
   - appendix-a-installing-r.qmd
   - appendix-b-updating-packages.qmd

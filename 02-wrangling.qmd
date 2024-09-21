@@ -654,12 +654,12 @@ starwars_data = starwars
 
 Currently, the weekly song rankings for Billboard Top 100 in 2000 are in wide format, with each week in a separate column. The following code is supposed to transpose the wide-format `billboard` data into long format:
 
-```{r eval=FALSE}
+```{r error=TRUE}
 long_data <- billboard %>% 
   pivot_longer(names_to = "weeks", values_to = "rank")
 ```
 
-However, an error occurs during execution: ```` `cols` must select at least one column````. What does this error message mean and how do you fix it?
+What does this error message mean and how do you fix it?
 
 ::: {.callout-caution collapse="true" icon="false"}
 
@@ -685,7 +685,7 @@ long_data <- billboard %>%
 
 The following code is intended to calculate the mean height of all the characters in the built-in `starwars` dataset, grouped by their gender. 
 
-```{r error=TRUE}
+```{r error=TRUE, message=FALSE}
 summary_data <- starwars %>%
   group_by(gender) %>%
   summarise(mean_height = height)

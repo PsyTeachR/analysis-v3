@@ -11,15 +11,15 @@ library(patchwork)
 
 ## Intended Learning Outcomes {.unnumbered}
 
-By the end of this chapter you should be able to:
+By the end of this chapter, you should be able to:
 
 -   explain the layered grammar of graphics
 -   choose an appropriate plot for categorical variables
 -   create a basic version of an appropriate plot
--   apply extra layers to change the appearance of the plot
+-   apply additional layers to modify the appearance of the plot
 
 
-It is time to think about which plot is the appropriate plot for your data. Different types of variables require different types of plots, so this comes back to how many variables are you aiming to plot and what kind of data type are they. Today, we will focus on **plots for categorical data**. Next week, we'll cover plots for continuous variables and discover which plots are appropriate if you have a mix of continuous and categorical variables.
+It is time to think about selecting the most appropriate plot for your data. Different types of variables call for different kinds of plots, which depends on how many variables you’re aiming to plot and what their data types are. In this chapter, we will focus on **plots for categorical data**. Next week, we will explore plots for continuous variables and learn which plots work best when combining continuous and categorical data.
 
 ## [Individual Walkthrough]{style="color: #F39C12; text-transform: uppercase;"} {.unnumbered}
 
@@ -27,11 +27,14 @@ It is time to think about which plot is the appropriate plot for your data. Diff
 
 We are using the package `ggplot2` to create data visualisations. It's part of the tidyverse package. Actually, most people call th package `ggplot` but it's official name is `ggplot2`.
 
+We’ll be using the `ggplot2` package to create data visualisations. It’s part of the `tidyverse` suite of packages. Although many people refer to it simply as `ggplot`, its official name is `ggplot2`.
+
 ::: grid
 ::: g-col-6
-**ggplot2** uses a **layered grammar of graphics**, in which plots are built up in a series of layers. You would start with a base layer (opening ggplot), adding **data** and **aesthetics**, and selecting the **geometries** for plot.
+**ggplot2** uses a layered grammar of graphics, where plots are constructed through a series of layers. You start with a base layer (by calling `ggplot`), then add **data** and **aesthetics**, followed by selecting the appropriate **geometries** for the plot.
 
-These first 3 layers will give you the most simple version of a complete plot, but you could add other layers to make the plots more accessible (and pretty) by using **scales**, **facets**, **coordinates**, **labels** and **themes**.
+These first 3 layers will give you the most simple version of a complete plot. However, you can enhance the plot’s clarity and appearance by adding additional layers such as **scales**, **facets**, **coordinates**, **labels** and **themes**.
+
 :::
 
 ::: g-col-6
@@ -39,7 +42,7 @@ These first 3 layers will give you the most simple version of a complete plot, b
 :::
 :::
 
-To give you a brief overview of the layering system, let's use the package `palmerpenguins` ([https://allisonhorst.github.io/palmerpenguins/](https://allisonhorst.github.io/palmerpenguins/){target="_blank"}). It contains data about bill length and depth, flipper length, and body mass, etc.
+To give you a brief overview of the layering system, we will use the `palmerpenguins` package ([https://allisonhorst.github.io/palmerpenguins/](https://allisonhorst.github.io/palmerpenguins/){target="_blank"}). This dataset contains information about penguins, including bill length and depth, flipper length, body mass, and more.
 
 ```{r}
 head(penguins)
@@ -47,16 +50,18 @@ head(penguins)
 
 Let's build a basic scatterplot to show the relationship between `flipper_length` and `body_mass`. We will customise plots further later on in the individual plots. This is just a quick overview of the different layers.
 
--   Layer 1 creates a plot base to built up upon.
--   Layer 2 adds the `data` and some `aesthetics`
-    -   data is first argument
-    -   aesthetics are added via the mapping argument. There you define your variables to be added (such as x, or x and y) and allows you specify overall properties like the colour of grouping variables etc.
--   Layer 3 adds the geometries or `geom_?` for short. This tells ggplot in which style we want to plot the data points. Remember to add these layers with a `+` rather than a pipe `%>%`. You can add multiple geoms if you wish, e.g., building a violin-boxplot
--   Layer 4 adds the `scale_?` functions which can help you customise the aesthetics, such as changing colour. You can do much more with scales, but we'll get to that later.
--   Layer 5 introduces `facets`, such as `facet_wrap()` which allows you to add another dimension to the data output by showing the relationship you are interested in for each level of a categorical variable.
--   Layer 6 - coordinates: `coord_cartesian()` controls the limits for the x- and y-axes (arguments `xlim` and `ylim`). Changing those allows you to zoom in or out of your plot.
--   Layer 7 helps you to modify axes labels.
--   Layer 8 controls the general style of a ggplot (e.g., background colour, size of text, borders, etc.). R comes with a few pre-defined ones (like `theme_classic`, `theme_bw`, `theme_minimal`, `theme_light`).
+Let’s build a basic scatterplot to show the relationship between `flipper_length` and `body_mass`. We will further customise the plots in subsequent sections, but for now, this will provide a quick overview of the different layers.
+
+* **Layer 1** creates the base plot that we build upon.
+* **Layer 2** adds the `data` and some `aesthetics`:
+  * The data is passed as the first argument.
+  * Aesthetics are added via the mapping argument, where you define your variables (e.g., x or both x and y). This also allows you to specify general properties, like the color for grouping variables, etc.
+* **Layer 3** adds geometries, or `geom_?` for short. This tells ggplot how to display the data points. Remember to add these layers with a `+`, rather than using a pipe (`%>%`). You can also add multiple geoms if needed, for example, combining a violin plot with a boxplot.
+* **Layer 4** includes `scale_?` functions, which let you customise aesthetics like color. You can do much more with scales, but we'll explore later.
+* **Layer 5** introduces facets, such as `facet_wrap()`, allowing you to add an extra dimension to your plot by showing the relationship you are interested in for each level of a categorical variable.
+* **Layer 6** involves coordinates, where `coord_cartesian()` controls the limits for the x- and y-axes (xlim and ylim), enabling you to zoom in or out of the plot.
+* **Layer 7** helps you modify axis labels.
+* **Layer 8** controls the overall style of the plot, including background color, text size, and borders. R provides several predefined themes, such as `theme_classic`, `theme_bw`, `theme_minimal`, and `theme_light`.
 
 Click on the tabs below to see how each layer contributes to refining the plot.
 
@@ -67,18 +72,20 @@ Click on the tabs below to see how each layer contributes to refining the plot.
 ggplot()
 ```
 
-We don't see much here. It's basically an empty plot layer.
+There’s not much to see at this stage - this is basically an empty plot layer.
 
 ## Layer 2
 
 ```{r}
-ggplot(data = penguins, mapping = aes(x=body_mass_g, y=flipper_length_mm))
+ggplot(data = penguins, mapping = aes(x = body_mass_g, y = flipper_length_mm))
 ```
 
-You won't see any data points yet, because we haven't specified how we want to display the data points. But we mapped in the aesthetics, that we want to plot variable body mass on the x-axis and flipper length on the y-axis. This also adds the axes titles and the values and break points of the axes.
+You won’t see any data points yet because we haven’t specified how to display them. However, we have mapped the aesthetics, indicating that we want to plot `body_mass` on the x-axis and `flipper_length` on the y-axis. This also sets the axis titles, as well as the axis values and breakpoints.
 
 ::: callout-tip
 You won't need to add `data =` or `mapping =` if you keep those arguments in exactly that order. Likewise, the first column name you enter within the `aes()` function will always be interpreted as x, and the second as y, so you could omit them if you wish.
+
+You don’t need to include `data =` or `mapping =` if you keep those arguments in the default order. Similarly, the first column name you enter in the `aes()` function will automatically be interpreted as the x variable, and the second as y, so you can omit specifying `x` and `y` if you prefer.
 
 ```{r eval = FALSE}
 ggplot(penguins, aes(body_mass_g, flipper_length_mm))
@@ -90,18 +97,18 @@ will give you the same output as the code above.
 ## Layer 3
 
 ```{r}
-ggplot(data = penguins, mapping = aes(x=body_mass_g, y=flipper_length_mm, colour=sex)) +
+ggplot(data = penguins, mapping = aes(x = body_mass_g, y = flipper_length_mm, colour = sex)) +
   geom_point()
 ```
 
-Here we are telling ggplot that we want a scatterplot added. There is a warning displayed showing that rows were removed because of missing values.
+Here we are telling `ggplot` to add a scatterplot. You may notice a warning indicating that some rows were removed due to missing values.
 
-The argument `colour` adds colour to the points according to a grouping variable (in this case sex). If you want all of the points to be black (i.e. only represent 2 rather than 3 dimensions of the data), leave the `colour` argument out.
+The `colour` argument adds colour to the points based on a grouping variable (in this case, `sex`).  If you want all the points to be black — representing only two dimensions rather than three — simply omit the `colour` argument.
 
 ## Layer 4
 
 ```{r}
-ggplot(data = penguins, mapping = aes(x=body_mass_g, y=flipper_length_mm, colour=sex)) +
+ggplot(data = penguins, mapping = aes(x = body_mass_g, y = flipper_length_mm, colour = sex)) +
   geom_point() +
   # changes colour palette
   scale_colour_brewer(palette = "Dark2") + 
@@ -110,7 +117,7 @@ ggplot(data = penguins, mapping = aes(x=body_mass_g, y=flipper_length_mm, colour
   
 ```
 
-The `scale_?` functions allow us to change the colour palette of the plot or the axes breaks etc. You could change the name of the axis in `scale_x_continuous()` as well or leave it for Layer 7.
+The `scale_?` functions allow us to modify the color palette of the plot, adjust axis breaks, and more. You could change the axis labels within `scale_x_continuous()` as well or leave it for Layer 7.
 
 ## Layer 5
 
@@ -123,7 +130,7 @@ ggplot(data = penguins, mapping = aes(x=body_mass_g, y=flipper_length_mm, colour
 
 ```
 
-Here we are faceting this plot out for the individual species.
+In this step, we’re using faceting to split the plot by species.
 
 ## Layer 6
 
@@ -136,7 +143,7 @@ ggplot(data = penguins, mapping = aes(x=body_mass_g, y=flipper_length_mm, colour
   coord_cartesian(ylim = c(0, 250)) 
 ```
 
-Changing the limits of the y axis to zoom in or out of the plot. If you wanted to the same for the x axis, you would add an argument `xlim` to the `coord_cartesian()` function.
+Here we adjust the limits of the y-axis to zoom out of the plot. If you want to zoom in or out of the x-axis, you can add the `xlim` argument to the `coord_cartesian()` function.
 
 ## Layer 7
 
@@ -150,7 +157,7 @@ ggplot(data = penguins, mapping = aes(x=body_mass_g, y=flipper_length_mm, colour
        colour = "Sex") # labels the grouping variable in the legend
 ```
 
-You can change the axes labels via the `labs()` function or include that step when modifying the scales (i.e. in the `scale_x_continuous()` function).
+You can change the axis labels using the `labs()` function, or you can modify them when adjusting the scales (e.g., within the `scale_x_continuous()` function).
 
 ## Layer 8
 
@@ -167,25 +174,28 @@ ggplot(data = penguins, mapping = aes(x=body_mass_g, y=flipper_length_mm, colour
 
 ```
 
-`theme_classic()` is applied to change the overall appearance of the plot.
+The `theme_classic()` function is applied to change the overall appearance of the plot.
+
 :::
 
 ::: callout-important
-You need to stick to the first 3 layers to get your base plot. Everything else is optional meaning you don't have to use all 8 layers in a plot. And layers 4-8 can be added in a random order whereas layers 1-3 are fixed.
+
+You need to stick to the first three layers to create your base plot. Everything else is optional, meaning you don’t need to use all eight layers. Additionally, layers 4-8 can be added in any order (more or less), whereas layers 1-3 must follow a fixed sequence.
+
 :::
 
 ## Activity 1: Set-up and data for today
 
--   We are still working with the data by Pownall et al. (2023), so **open your project**.
--   However, we could do with a fresh Rmd: **Create a new `.Rmd` file*** and save it to your project folder. Name it something meaningful (e.g., "chapter_04.Rmd", "04_data_viz.Rmd"). See @sec-rmd if you need some guidance. Delete everything below line 12 (keep the set-up code chunk)
--   We aggregated the data in @sec-wrangling and @sec-wrangling2. If you want a fresh copy, download the data here: [data_prp_for_ch4.csv](data/data_prp_for_ch4.csv "download"). Make sure to place the csv file in the project folder.
--   If you need a reminder about the data and variables, have a look at the codebook and/or @sec-download_data_ch1.
+* We are still working with the data from Pownall et al. (2023), so **open your project**.
+* However, let’s start with a fresh R Markdown file: **Create a new `.Rmd` file** and save it in your project folder. Give it a meaningful name (e.g., "chapter_04.Rmd" or "04_data_viz.Rmd"). If you need guidance, refer to @sec-rmd. Delete everything below line 12, but keep the setup code chunk.
+* We previously aggregated the data in @sec-wrangling and @sec-wrangling2. If you want a fresh copy, download the data here: [data_prp_for_ch4.csv](data/data_prp_for_ch4.csv "download"). Make sure to place the csv file in the project folder.
+* If you need a reminder about the data and variables, check the codebook or refer back to @sec-download_data_ch1.
 
 
 
 ## Activity 2: Load in libraries, read in data, and adjust data types
 
-We need the package `tidyverse` today, and the data `data_prp_for_ch4.csv`.
+Today, we will be using the `tidyverse` package and the dataset `data_prp_for_ch4.csv`.
 
 ```{r eval=FALSE}
 ## packages 
@@ -216,9 +226,10 @@ data_prp_viz <- read_csv("data/data_prp_for_ch4.csv")
 
 
 
-As we said in @sec-familiarise, it is always recommended to glimpse at the data to see how many variables and observations there are in the dataset and what kind of data type they are.
+As mentioned in @sec-familiarise, it is always a good idea to take a glimpse at the data to see how many variables and observations are in the dataset, as well as the data types.
 
 ::: {.callout-note collapse="true" icon="false"}
+
 ## glimpse output
 
 ```{r}
@@ -228,9 +239,10 @@ glimpse(data_prp_viz)
 :::
 
 
-We can see that some of the categorical data in `data_prp_viz` was read in as numeric variables which makes them continuous. This is going to haunt us big time when building the plots. We would be better off addressing these changes in the dataset before we start plotting (and potentially getting frustrated with R and data viz in general)
+We can see that some of the categorical data in `data_prp_viz` was read in as numeric variables which makes them continuous. This will haunt us big time when building the plots. We would be better off addressing these changes in the dataset before we start plotting (and potentially getting frustrated with R and data viz in general).
 
-Let’s turn a few of the categorical variables into factors.
+Let’s convert some of the categorical variables into factors.
+
 
 ```{r}
 data_prp_viz <- data_prp_viz %>% 
@@ -253,16 +265,12 @@ data_prp_viz <- data_prp_viz %>%
 
 
 
-
-
-
-
-
 ## Activity 3: Barchart (`geom_bar()`)
 
-A barchart is the way to go when you have a single categorical variable you want to plot.
+A bar chart is the best choice when you want to plot a single categorical variable.
 
-Let's say we want to count some demographics. To keep it simple, we want to show gender counts. We would use a **barplot** for it. This is done with `geom_bar()` in your third layer, and because the counting is done in the background, the `aes` only requires an x value (i.e. the name of your variable).
+For example, let’s say we want to count some demographic data, such as gender. To visualise the gender counts, we would use a **barplot**. This is done with `geom_bar()` in the third layer. Since the counting is done automatically in the background, the `aes()` function only requires an x value (i.e., the name of your variable).
+
 
 ```{r fig-bc-base, fig.cap="Default barchart"}
 ggplot(data_prp_viz, aes(x = Gender)) +
@@ -270,14 +278,16 @@ ggplot(data_prp_viz, aes(x = Gender)) +
 ```
 
 
-This is the base plot done. You can customise it by adding different layers. For example, the labels aren't super clear or it could do with a dash of colour. Click on the tabs below to see examples of what could be added and practice on your base plot in your own Rmd.
+This is the base plot done. You can customise it by adding different layers. For example, the **labels** could be clearer, or you might want to add a splash **colour**. Click on the tabs below to see examples of additional customisations, and try applying them to your base plot in your own `.Rmd` file.
 
 
 
 ::: {.panel-tabset}
+
 ## Colour
 
-We can change the colour by adding a fill argument in the `aes()`. If we want to modify these colours further, we would add a `scale_fill_?` argument. If you have specific colours in mind, you would use `scale_fill_manual()` or if you want to stick with pre-defined ones, like viridis, use `scale_fill_viridis_d()`
+We can change the colour by adding a `fill` argument in the `aes()`. If we want to modify these colours further, we would add a `scale_fill_?` argument. If you have specific colours in mind, you would use `scale_fill_manual()`, or if you prefer to stick with pre-defined options like viridis, you can use `scale_fill_viridis_d()`.
+
 
 ```{r}
 ggplot(data_prp_viz, aes(x = Gender, fill = Gender)) +
@@ -288,9 +298,10 @@ ggplot(data_prp_viz, aes(x = Gender, fill = Gender)) +
 
 ## Axes labels & margins
 
-The x-axis label is fine, but the categories need to be relabeled. You can achieve that with the `scale_x_discrete()` function and the argument `labels =`. But make sure you order them in the order of the labels in the dataframe.
+The x-axis label is fine, but the categories need to be relabelled. You can achieve this with the `scale_x_discrete()` function and the `labels =` argument. Just make sure to order the labels according to the order in the dataframe.
 
-There is also this gap between bottom of the chart and the bars which seems a bit weird. We can remove that with an `expansion()` function.
+There is also a gap between the bottom of the chart and the bars that looks a bit odd. You can remove it by using the `expansion()` function.
+
 
 ```{r}
 ggplot(data_prp_viz, aes(x = Gender, fill = Gender)) +
@@ -309,7 +320,8 @@ ggplot(data_prp_viz, aes(x = Gender, fill = Gender)) +
 
 ## Legend
 
-The legend does not add any information because the labels are already provided on the x axis. We can remove the legend by adding the argument `guide = "none"` into the `scale_fill` function.
+The legend does not add any useful information because the labels are already provided on the x-axis. We can remove the legend by adding the argument `guide = "none"` to the `scale_fill` function.
+
 
 ```{r}
 ggplot(data_prp_viz, aes(x = Gender, fill = Gender)) +
@@ -327,7 +339,8 @@ ggplot(data_prp_viz, aes(x = Gender, fill = Gender)) +
 
 ## Themes
 
-Let's experiment with the themes. For this plot we have chosen `theme_minimal()`
+Let's experiment with the themes. For this plot we have chosen `theme_minimal()`.
+
 
 ```{r}
 ggplot(data_prp_viz, aes(x = Gender, fill = Gender)) +
@@ -347,7 +360,8 @@ ggplot(data_prp_viz, aes(x = Gender, fill = Gender)) +
 
 ## Activity 4: Column plot (`geom_col()`)
 
-If someone had already summarised those counts for you, you would not be able to use `geom_bar()`. In that case, you would switch to `geom_col()`.
+If the counts had already been summarised for you, `geom_bar()` would not work. Instead, you’d need to use `geom_col()` to display the pre-aggregated data.
+
 
 ```{r}
 gender_count <- data_prp_viz %>% 
@@ -356,7 +370,8 @@ gender_count <- data_prp_viz %>%
 gender_count
 ```
 
-The mapping for `geom_col()` requires both an **x** and a **y** aesthetics. In our example, x would be our categorical variable (e.g., `Gender`), and y would be the column name that stored the values (`n`). Note how the base version has now n as an axis title (instead of count).
+The mapping for `geom_col()` requires both **x** and **y** aesthetics. In this example, **x** would represent the categorical variable (e.g., `Gender`), while **y** would refer to the column storing the summarised values (e.g., `n`). Notice how the axis title now reflects `n` instead of `count` in the base version.
+
 
 ```{r fig-col, fig.cap="Column plot with different coloured bars"}
 ggplot(gender_count, aes(x = Gender, y = n, fill = Gender)) +
@@ -366,17 +381,21 @@ ggplot(gender_count, aes(x = Gender, y = n, fill = Gender)) +
 
 ::: {.callout-note icon="false"}
 
+
 ## Your Turn: Make the column plot pretty
 
-The other layers to change the colour scheme, axes labels and margins, removing the legend and altering the theme require exactly the same functions as with the boxplot above. Test yourself to see if you could...
+The other layers to change the colour scheme, axes labels and margins, removing the legend and altering the theme require exactly the same functions as with the boxplot above. Test yourself to see if you can...
 
--   [ ] change the colour scheme (e.g., viridis or [any other colour palettes](https://www.datanovia.com/en/blog/the-a-z-of-rcolorbrewer-palette/){target="_blank"})
--   [ ] remove the legend
--   [ ] change the title of the x and y axes
--   [ ] make the bars start directly on the x axis
--   [ ] add a theme of your linking
+* [ ] change the colour scheme (e.g., viridis or [any other colour palettes](https://www.datanovia.com/en/blog/the-a-z-of-rcolorbrewer-palette/){target="_blank"})
+* [ ] remove the legend
+* [ ] change the titles of the x and y axes
+* [ ] make the bars start directly on the x-axis
+* [ ] add a theme of your liking
+
+
 
 ::: {.callout-tip collapse="true"}
+
 ## Possible solution code for the column plot (with a different colour palette and a different theme)
 
 ```{r}
@@ -402,14 +421,16 @@ ggplot(gender_count, aes(x = Gender, y = n, fill = Gender)) +
 
 :::
 
-## Activity 5: Stacked, percent stacked, and grouped barchart
 
-If we are dealing with **two categorical variables**, we have the three options to display stacked barcharts - "normal" **Stacked barchart** (default option), a **Percent stacked barchart**, or a **Grouped barchart**. 
+## Activity 5: Stacked, Percent Stacked, and Grouped Barchart
+
+When dealing with **two categorical variables**, you have three options for displaying stacked barcharts: the "normal" **Stacked Barchart** (the default option), a **Percent Stacked Barchart**, or a **Grouped Barchart**.
+
+For this activity, we will explore the variable `Plan_prereg`, which measures whether students planned to pre-register their undergraduate dissertation at time point 1, and `Pre_reg_group`, which tracks whether they actually followed through with a pre-registration for their dissertation.
+
+One way to display this data is by creating either a **Stacked Barchart** (the default) or a **Percent Stacked Barchart**. In both cases, the subgroups are displayed on top of each other. To make comparison easier, we will place the two plots side by side and move the legend to the bottom of the chart.
 
 
-For this activity, we can look at the variable `Plan_prereg` measuring whether students planned to pre-register their undergraduate dissertation at time point 1, and `Pre_reg_group` whether they actually ended up doing a pre-registration for their undergraduate dissertations.
-
-One way to display that data is by creating a **Stacked barchart** (default option) or a **Percent stacked barchart**. For both options, the subgroups are displayed on top of each other. To show the two plots next to each other for better comparison, we moved the legend to the bottom of the chart.
 
 ```{r, eval=FALSE}
 ## Stacked barchart
@@ -439,27 +460,32 @@ bc_percent <- ggplot(data_prp_viz, aes(x = Plan_prereg, fill = Pre_reg_group)) +
 bc_stacked + bc_percent + plot_layout(nrow = 1)
 ```
 
-In the **stacked barchart** (@fig-barcharts_stacked, left plot), you are able to plot participant numbers. Here we can see that the highest student number were unsure whether they wanted to pre-register their dissertation or not, followed closely by participants who answered yes. We can also see that the number of people who did not end up with a pre-registered dissertation (blue category) is the same for students who had planned to pre-register and those who did not want to pre-register. However, because `No` has quite a lower number than the other two categories, we are having a tough time seeing whether the ratio is the same across all 3 groups.
 
-If we wanted to show that, a **Percent stacked barchart** (@fig-barcharts_stacked, right plot) would make a lot more sense. Now we would see that approximately 80% of the students who wanted to pre-register their dissertations, 50% of the students who were initially unsure, and only 33% of the students who had no pre-registration plans ended up with a ended up with a pre-registered dissertation. BUT! We would lose the information about the raw values in the sample.
+In the **stacked barchart** (@fig-barcharts_stacked, left plot), you can display participant numbers. From this, we can see that the highest number of students were unsure whether they wanted to pre-register their dissertation, followed closely by those who answered "yes." We also see that the number of students who did not end up with a pre-registered dissertation (blue category) is the same for both those who had planned to pre-register and those who did not want to. However, since the "No" category has significantly fewer participants than the other two, it’s difficult to tell if the ratio remains consistent across all three groups.
 
-**It's all a trade-off and the plot you choose depends on which "story" of the data you want to tell.**
+If we want to highlight this ratio, a **Percent Stacked Barchart** (@fig-barcharts_stacked, right plot) would be more appropriate. This plot shows that approximately 80% of the students who had planned to pre-register their dissertations, 50% of the students who were initially unsure, and only 33% of the students who had no plan to pre-register ended up with a pre-registered dissertation. BUT! We would lose the information about the raw values in the sample.
+
+**It’s all a trade-off, and the plot you choose depends on the "story" you want the data to tell.**
+
 
 ::: callout-note
-The position argument `position = "stack"` is the default. Adding this argument to the code for the left plot in @fig-barcharts_stacked would produce the same plot a leaving the argument out.
+
+The position argument `position = "stack"` is the default. Adding this argument to the code for the left plot in @fig-barcharts_stacked would produce the same plot as leaving the argument out.
+
+
 :::
 
 
-The other option is a **Grouped barchart** which displays the bars next to each other. We would achieve that by changing the position argument to **"dogde"**. You can see the default version of the plot in the @fig-barchart_grouped on the left, and one with more layers on the right.
+The other option is a **Grouped Barchart**, which displays the bars next to each other. You can achieve this by changing the `position` argument to `"dodge"`. You can see the default version of the plot in @fig-barchart_grouped on the left, and one with additional layers on the right.
 
-Instead of using an existing colour palette, we changed the colours manually using hex codes. These are some of the colours Gaby used in her PhD thesis, but you can either ...
+Instead of using a pre-existing colour palette, we manually changed the colours using hex codes. These are some of the colours Gaby used in her PhD thesis, but you can:
 
-* create your own colour hex codes; check out [this website](https://www.hexcolortool.com/){target="_blank"} OR
-* use a pre-defined colour name like "green" or "purple instead. See a full list [here](https://www.datanovia.com/en/blog/awesome-list-of-657-r-color-names/){target="_blank"}
+* create your own colour hex codes by using [this website](https://www.hexcolortool.com/){target="_blank"}, OR
+* use pre-defined colour names like "green" or "purple" instead. See a full list [here](https://www.datanovia.com/en/blog/awesome-list-of-657-r-color-names/){target="_blank"}.
 
 Feel free to explore.
 
-Since the legend title for the second plot is a bit long, we displayed the legend content across 2 rows by adding the layer `guides(fill = guide_legend(nrow = 2))` at the end.
+Since the legend title for the second plot is a bit long, we displayed the legend content across two rows by adding the layer `guides(fill = guide_legend(nrow = 2))` at the end.
 
 
 
@@ -522,7 +548,8 @@ gbc_default + gbc_pretty + plot_layout(nrow = 1)
 
 ## Special case: Categorical variables with missing values
 
-If we had chosen a different categorical variable containing missing values, such as `Closely_follow` then our plots would have included those missing values by default. The code for changing the colour of the missing values columns would need to be specified slightly differently using an `na.value =` argument within the `scale_fill` function. Here is an example of a grouped barchart.
+If we had chosen a different categorical variable that contains missing values, such as `Closely_follow`, our plots would have included those missing values by default. To change the colour of the missing value bars, you would need to specify this using the `na.value =` argument within the `scale_fill()` function. Here’s an example of a grouped barchart.
+
 
 
 ```{r eval=FALSE}
@@ -568,7 +595,8 @@ gbc_pretty <- ggplot(data_prp_viz, aes(x = Plan_prereg, fill = Closely_follow)) 
 gbc_default + gbc_pretty + plot_layout(nrow = 1)  
 ```
 
-If you did not want those missing values to appear in the plot, you would have to do some data wrangling first to remove them. The function for that is `drop_na()`. Here we used `drop_na()` on `Closely_follow` only.
+
+If you don’t want the missing values to appear in the plot, you will need to do some data wrangling to remove them first. The function for this is `drop_na()`. Here we applied `drop_na()` to `Closely_follow` only.
 
 
 ```{r}
@@ -593,6 +621,7 @@ prereg_plan_follow %>%
 :::
 
 But keep in mind that it could misrepresent the data, e.g., giving a wrong impression about proportions. As a comparison...
+
 
 ```{r eval=FALSE}
 # with NA
@@ -629,9 +658,11 @@ comp_a + comp_b + plot_layout(nrow = 1)
 
 ## Activity 6: Save your plots
 
-You can save your figures with the function `ggsave()`. It will save to your project folder.
+You can save your figures using the `ggsave()` function, which will save them to your project folder.
 
-There are two ways you can use `ggsave()`. If you don't tell `ggsave()` which plot you want to save, by **default** it will **save the last plot you created**. Our last plot was the one without `NA` from the special case scenario  (@fig-barchart_na_no_na). However, if you did not follow along with the special case scenario, your last plot will be grouped bar chart on the right from @fig-barchart_grouped.
+There are two ways to use `ggsave()`. If you don’t specify which plot to save, by **default** it will **save the last plot you created**. In our case, the last plot was the one without `NA` from the special case scenario (@fig-barchart_na_no_na). However, if you did not follow along with the special case scenario, your last plot will be the grouped bar chart on the right from @fig-barchart_grouped.
+
+
 
 ```{r eval=FALSE}
 ggsave(filename = "last_plot.png")
@@ -652,6 +683,9 @@ ggsave(filename = "images/last_plot.png")
 
 The second option is to save the plot as an object and refer to the object within `ggsave()`. As an example, let's save the grouped barchart that contained missing values (@fig-barchart_grouped) as an object called `grouped_bar`.
 
+The second option is to save the plot as an object and then refer to that object within `ggsave()`. For example, let’s save the grouped barchart that contained missing values (@fig-barchart_grouped) as an object called `grouped_bar`.
+
+
 ```{r}
 grouped_bar <- ggplot(data_prp_viz, aes(x = Plan_prereg, fill = Closely_follow)) +
   geom_bar(position = "dodge") + 
@@ -666,7 +700,7 @@ grouped_bar <- ggplot(data_prp_viz, aes(x = Plan_prereg, fill = Closely_follow))
   guides(fill = guide_legend(nrow = 3)) # display across 3 rows
 ```
 
-Then you run the line
+Then, you can run the following line:
 
 ```{r eval=FALSE}
 ggsave(filename = "grouped_bar.png", 
@@ -678,7 +712,7 @@ ggsave(filename = "images/grouped_bar.png",
        plot = grouped_bar)
 ```
 
-Filename is the name you want your png to be called, plot refers to the object name. 
+The `filename` is the name you want your PNG file to have, and `plot` refers to the name of the plot object.
 
 
 ::: {.callout-note collapse="true" icon="false"}
@@ -688,7 +722,8 @@ Filename is the name you want your png to be called, plot refers to the object n
 ![](images/grouped_bar.png)
 :::
 
-That is with default settings. If you like it, keep it, but if you think it looks a bit "off", you can specify the width, the height, and the units (e.g., "cm", "mm", "in", "px" are possible). You might need to play about with the dimension before it feels right.
+This is the plot saved with the default settings. If you like it, feel free to keep it as is. However, if it seems a bit "off", you can adjust the width, height, and units (e.g., "cm", "mm", "in", "px"). You might need to experiment with the dimensions until it feels about right.
+
 
 ```{r eval=FALSE}
 ggsave(filename = "grouped_bar2.png", 
@@ -717,14 +752,339 @@ ggsave(filename = "images/grouped_bar2.png",
 
 ## [Pair-coding]{style="color: #F39C12; text-transform: uppercase;"} {.unnumbered}
 
-Provide a barchart, a violin-boxplot, and a scatterplot from the loneliness data and the students have to try and recreate one of those in the lab. If they are overly fast, they can do the other 2.
+### Task 1: Open the R project for the lab {.unnumbered}
+
+### Task 2: Create a new `.Rmd` file {.unnumbered}
+
+... and name it something useful. If you need help, have a look at @sec-rmd.
+
+### Task 3: Load in the library and read in the data {.unnumbered}
+
+The data should already be in your project folder. If you want a fresh copy, you can download the data again here: [data_pair_ch1](data/data_pair_ch1.zip "download").
+
+We are using the package `tidyverse` today, and the datafile we should read in is `dog_data_clean_wide.csv`.
+
+```{r reading in data for me, echo=FALSE, message=FALSE}
+library(tidyverse)
+
+dog_data_wide <- read_csv("data/dog_data_clean_wide.csv")
+```
+
+
+### Task 4: Create an appropriate plot {.unnumbered}
+
+Pick **any single or two categorical variables** from the Binfet dataset and **choose one of the appropriate plot choices**. Things to think about: 
+
+* [ ] Select your categorical variable(s): `GroupAssignment`, `Year_of_Study`, `Live_Pets`, and/or `Consumer_BARK`
+* [ ] Decide on the plot you want to display: barchart, stacked barchart, percent stacked barchart, or grouped barchart
+* [ ] You may need to convert your variables into factors
+* [ ] Think about what you want to do with missing data
+* [ ] Pick a colour scheme (manual or pre-defined colour palette)
+* [ ] Tidy the axes labels
+* [ ] Decide whether you need a legend or not, and if so, where you would want to place it
+* [ ] Remove the gap between the bottom of the chart and the bars
+* [ ] Pick a theme
+
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Possible solution for a plot with 1 categorical variable
+
+**Converting some variables into factors**
+
+```{r}
+dog_data_wide <- dog_data_wide %>% 
+  mutate(Year_of_Study = factor(Year_of_Study,
+                                levels = c("First", "Second", "Third", "Fourth", "Fifth or above")))
+```
+
+**Now we can plot**
+
+```{r}
+ggplot(dog_data_wide, aes(x = Year_of_Study, fill = Year_of_Study)) +
+  geom_bar() + 
+  scale_fill_brewer(
+    palette = "Dark2",
+    guide = "none") + 
+  scale_x_discrete(name = "Year of Study") + 
+  scale_y_continuous(name = "Count",
+                     expand = expansion(mult = c(0, 0.05))) + 
+  theme_classic()
+```
+
+:::
+
+
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Possible solution for a plot with 2 categorical variables
+
+**Converting some variables into factors**
+
+```{r}
+dog_data_wide <- dog_data_wide %>% 
+  mutate(GroupAssignment = factor(GroupAssignment,
+                                  levels = c("Direct", "Indirect", "Control")))
+```
+
+**Now we can plot**
+
+```{r}
+ggplot(dog_data_wide, aes(x = GroupAssignment , fill = Live_Pets)) +
+  geom_bar(position = "fill") + 
+  labs(x = "Experimental Group", y = "Count", fill = "Pets at Home") +
+  scale_fill_manual(values = c('deeppink', 'springgreen2'), na.value = 'orangered',
+                    labels = c("Yes", "No")) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.05))) +
+  theme_classic() + 
+  theme(legend.position = "bottom")
+```
+
+:::
+
+
 
 ## [Test your knowledge]{style="color: #F39C12; text-transform: uppercase;"} {.unnumbered}
 
-Which plot would you choose for
+Let's go back to the `palmerpenguins` package ([https://allisonhorst.github.io/palmerpenguins/](https://allisonhorst.github.io/palmerpenguins/){target="_blank"}), and assume you have the following data available:
+
+
+```{r message=FALSE}
+library(palmerpenguins)
+
+penguin_selection <- penguins %>% 
+  group_by(species, island) %>% 
+  summarise(penguin_count = n())
+
+penguin_selection
+```
+
+
+
+### Knowledge check {.unnumbered}
+
+#### Question 1 {.unnumbered}
+
+What `geom` would you use to plot penguin count for each species? `r mcq(c(x = "geom_bar", answer = "geom_col"))`
+
+
+#### Question 2 {.unnumbered}
+
+What mapping would you use to display penguin count across species? `r longmcq(c(x = "aes(x = penguin_count, y = species)", answer = "aes(x = species, y = penguin_count)", x = "aes(x = species)", x = "aes(x = penguin_count)"))`
+
+
+#### Question 3 {.unnumbered}
+
+What `geom` would you use to count the number of species on each island? `r mcq(c(answer = "geom_bar", x = "geom_col"))`
+
+
+#### Question 4 {.unnumbered}
+
+What mapping would you use to display the count of species per island? `r longmcq(c(x = "aes(x = island, y = species)", x = "aes(x = species, y = island)", answer = "aes(x = island)", x = "aes(x = species)"))`
+
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Explain these answers
+
+**Question 1**: `geom_col()` is the appropriate choice for bar charts with predefined y-values, such as `penguin_count`.
+
+**Question 2**: The correct aesthetic mapping places the categorical variable (`species`) on the x-axis and the numeric variable (number of observed penguins) on the y-axis. Using `aes(x = penguin_count, y = species)` would flip the axes, placing the number of penguins on the x-axis and species on the y-axis, which doesn’t match the conventional structure of a bar chart.
+
+**Question 3**: `geom_bar()` is the appropriate choice when you want to automatically count the number of observations within each category, such as counting the number of penguin species on each island.
+
+**Question 4**: For a simple count of species per island, you only need to map the categorical variable (`island`) to the x-axis. The y-axis will automatically represent counts when using `geom_bar()`.
+
+:::
+
+
+
+### Error mode {.unnumbered}
+
+Some of the code chunks contain mistakes and result in errors, while others do not produce the expected results. Your task is to identify any issues, explain why they occurred, and, if possible, fix them.
+
+
+#### Question 5 {.unnumbered}
+
+We want to plot the number of penguins across the different islands.
+
+```{r error=TRUE}
+ggplot(penguins, aes(x = islands)) +
+  geom_bar()
+```
+
+What does this error message mean and how do you fix it?
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Explain the solution
+
+The error message consists of 2 parts. Part 1 is perhaps a bit trickier to interpret, but part 2 gives some useful hints:
+
+* *"Aesthetics must be either length 1 or the same as the data (344)"*: This means that the variable mapped to `x` should either be a constant (like a single value) or a column that has 344 entries (matching the number of rows in the penguins dataset).
+* *"Fix the following mappings: `x`"*: The issue is specifically with the `x` aesthetic, meaning `islands` is either misspelled or doesn’t exist in the dataset.
+
+To check the `penguins` data, you can use `glimpse()`.
+
+```{r}
+glimpse(penguins)
+```
+
+
+To fix the error, you need to correct the column name. The correct column in the `penguins` dataset is called `island` (without the "s" at the end). The `island` column has 344 entries, just like the rest of the dataset, so the mapping now works properly.
+
+```{r}
+ggplot(penguins, aes(x = island)) +
+  geom_bar()
+```
+
+:::
+
+
+#### Question 6 {.unnumbered}
+
+Next, we want to create a grouped bar chart displaying species per island, using the viridis color palette.
+
+```{r error=TRUE}
+ggplot(penguins, aes(x = island, fill = species)) +
+  geom_bar(position = "dodge") +
+  scale_fill_viridis()
+```
+
+What does this error message mean and how do you fix it?
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Explain the solution
+
+The function `scale_fill_viridis()` is incorrect; the correct function is called `scale_fill_viridis_d()`.
+
+FIX: correct the function name to display the grouped bar chart with the viridis color palette.
+
+```{r}
+ggplot(penguins, aes(x = island, fill = species)) +
+  geom_bar(position = "dodge") +
+  scale_fill_viridis_d()
+```
+
+:::
+
+
+
+#### Question 7 {.unnumbered}
+
+We want to create a grouped bar chart showing the number of penguins on each island, broken down by year.
+
+```{r error=TRUE}
+ggplot(penguins, aes(x = island, fill = year)) +
+  geom_bar(position = "dodge")
+```
+
+Hmmm. We got a plot, but certainly not the one we intended. The warning message mentions something about the grouping structure and gives some additional hints.
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Explain the solution
+
+The grouping variable needs to be a factor. R helpfully asks if we’ve forgotten to convert a numerical variable into a factor!!! Oh, let's check that in the `penguins` data using the `glimpse()` function.
+
+
+```{r}
+glimpse(penguins)
+```
+
+Indeed, `year` is currently stored as a numeric (integer) variable. To fix this, we need to convert `year` to a factor. We can do this directly within the `ggplot()` function.
+
+```{r}
+ggplot(penguins, aes(x = island, fill = as.factor(year))) +
+  geom_bar(position = "dodge")
+```
+
+:::
 
 
 
 
+#### Question 8 {.unnumbered}
+
+We want to create a percent stacked bar chart that displays the ratio of penguins' sex on each island, using a manual color palette. Female penguins should be displayed in blue, males in green, and `NA` values in red.
+
+**Note**: This task is trickier than it looks. Although the code runs and produces a plot, there are three mistakes to identify and fix.
+
+```{r error=TRUE}
+ggplot(penguins, aes(x = sex, fill = island)) +
+  geom_bar(position = "dodge") +
+  scale_fill_manual(values = c("blue", "green", "red"))
+```
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Explain the solution
+
+::: {.callout-note collapse="true" icon="false"}
+
+## Hint for Mistake 1
+
+The task was to create a **percent stacked barchart**, but the current plot is displaying a grouped barchart. You will need to adjust the argument that defines the type of plot to achieve the correct visualisation.
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Fixing of Mistake 1
+
+```{r}
+ggplot(penguins, aes(x = sex, fill = island)) +
+  geom_bar(position = "fill") +
+  scale_fill_manual(values = c("blue", "green", "red"))
+```
+
+:::
+
+:::
+
+::: {.callout-note collapse="true" icon="false"}
+
+## Hint for Mistake 2
+
+You may have also noticed that the colours are mapped to the islands, not to the penguins' sex, which needs to be corrected.
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Fixing of Mistake 2
+
+We need to switch the columns mapped to the `x` and `fill` aesthetics.
+
+```{r}
+ggplot(penguins, aes(x = island, fill = sex)) +
+  geom_bar(position = "fill") +
+  scale_fill_manual(values = c("blue", "green", "red"))
+```
 
 
+:::
+
+:::
+
+::: {.callout-note collapse="true" icon="false"}
+
+## Hint for Mistake 3
+
+Now that the correct variables are mapped to the x-axis and the fill argument, the colour scheme no longer matches the instructions. According to the guidelines, missing values should be displayed in red.
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Fixing of Mistake 3
+
+Changing the colour of missing values is a special case that requires the argument `na.value =`.
+
+```{r}
+ggplot(penguins, aes(x = island, fill = sex)) +
+  geom_bar(position = "fill") +
+  scale_fill_manual(values = c("blue", "green"), na.value = "red")
+```
+
+:::
+
+:::
+
+:::

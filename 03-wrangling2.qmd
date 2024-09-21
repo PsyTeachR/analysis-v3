@@ -640,8 +640,6 @@ library(tidyverse)
 dog_data_raw <- read_csv("data/dog_data_raw.csv")
 ```
 
-We will be working with the data from Binfet et al. (2021) again - the randomised controlled trial data about therapy dog intervention. Today we want to **calculate an average `Loneliness` score for each participant** measured at time point 1 (pre-intervention) from the raw data file `dog_data_raw`. Currently, it looks like this:
-
 We will once again be working with data from Binfet et al. (2021), which focuses on the randomised controlled trials data involving therapy dog interventions. Today, our goal is to calculate the average `Loneliness` score for each participant measured at time point 1 (pre-intervention) using the raw data file `dog_data_raw`. Currently, the data looks like this:
 
 ```{r echo=FALSE}
