@@ -422,7 +422,21 @@ We made some changes to the dataset for the purpose of increasing difficulty for
 
 
 
-## Activity 4: Loading packages and reading in data
+## Activity 4: Installing packages, loading packages, and reading in data
+
+### Installing packages
+
+When you install R and RStudio for the first time (or after an update), most of the packages we will be using won’t be pre-installed. Before you can load new packages like `tidyverse`, you will need to install them.
+
+If you try to load a package that has not been installed yet, you will receive an error message that looks something like this: `Error in library(tidyverse) : there is no package called 'tidyverse'`. 
+
+To fix this, simply install the package first. **In the console**, type the command `install.packages("tidyverse")`. This **only needs to be done once after a fresh installation**. After that, you will be able to load the `tidyverse` package into your library whenever you open RStudio.
+
+
+Note, there will be other packages used in later chapters that will also need to be installed before their first use, so this error is not limited to `tidyverse`.
+
+
+### Loading packages and reading in data
 
 The first step is to load in the packages we need and read in the data. Today, we'll only be using `tidyverse`, and `read_csv()` will help us store the data from `prp_data_reduced.csv` in an object called data_prp.
 
