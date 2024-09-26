@@ -261,16 +261,25 @@ demo_by_gender
 
 #### The main goal is to compute the mean QRP score per participant for time point 1. {.unnumbered}
 
+At the moment, the data is in wide format. The table below shows data from the first 3 participants:
+
+```{r}
+head(data_prp, n = 3)
+```
+<p></p>
+
 Looking at the QRP data at time point 1, you determine that
 
 * individual item columns are `r mcq(c(answer = "numeric", x = "character"))`, and
 * according to the codebook, there are `r mcq(c(answer = "no", x = "some"))` reverse-coded items in this questionnaire.
 
-So, we just have to **compute an average score for items 1 to 11** as items 12 to 15 are distractor items. Seems quite straightforward.
+According to the codebook and the data table above, we just have to **compute the average score for QRP items `r fitb("1")` to `r fitb("11")`**, since items `r fitb("12")` to `r fitb("15")` are distractor items. Seems quite straightforward.
 
-The downside is that individual items are each in a separate column, i.e., in **wide format**, and everything would be easier if the items were arranged in **long format**.
+However, as you can see in the table above, each item is in a separate column, meaning the data is in **wide format**. It would be much easier to calculate the mean scores if the items were arranged in **long format**.
 
-Let's tackle this problem in steps. Best would be to create a separate data object for that. If we wanted to compute this within `data_prp`, it would turn into a nightmare.
+
+Let’s tackle this problem step by step. It’s best to create a separate data object for this. If we tried to compute it within `data_prp`, it could quickly become messy.
+
 
 * **Step 1**: Select the relevant columns `Code`, and `QRPs_1_Time1` to `QRPs_1_Time1` and store them in an object called `qrp_t1`
 * **Step 2**: Pivot the data from wide format to long format using `pivot_longer()` so we can calculate the average score more easily (in step 3)
@@ -283,7 +292,7 @@ qrp_t1 <- data_prp %>%
   # Step 2
   pivot_longer(cols = -Code, names_to = "Items", values_to = "Scores") %>% 
   # Step 3
-  group_by(Code) %>% # grouping py participant id
+  group_by(Code) %>% # grouping by participant id
   summarise(QRPs_Acceptance_Time1_mean = mean(Scores)) %>% # calculating the average Score
   ungroup() # just make it a habit
 ```
@@ -479,7 +488,8 @@ dog_data_raw <- read_csv("???")
 
 ### Task 4: Calculating the mean for `Flourishing_pre` {.unnumbered}
 
-* **Step 1**: Select all relevant columns, including participant ID and all 8 items from the `Flourishing` questionnaire completed before the intervention. Store this data in an object called `data_flourishing`.
+
+* **Step 1**: Select all relevant columns from `dog_data_raw`, including participant ID and all items from the `Flourishing` questionnaire completed before the intervention. Store this data in an object called `data_flourishing`.
 
 
 ::: {.callout-note collapse="true" icon="false"}
@@ -499,6 +509,11 @@ From the codebook, we know that:
 
 * The participant ID column is called `RID`.
 * The Flourishing items at the pre-intervention stage start with `F1_`.
+
+```{r eval=FALSE}
+data_flourishing <- ??? %>% 
+  select(???, F1_???:F1_???)
+```
 
 :::
 
@@ -524,6 +539,8 @@ We also need 3 arguments in that function:
 
 ## More concrete hint
 
+We need `pivot_longer()`. You already encountered `pivot_longer()` in first year (or in the individual walkthrough if you have already completed this Chapter). The 3 arguments was also a give-away; `pivot_wider()` only requires 2 arguments.
+
 ```{r eval=FALSE}
   pivot_longer(cols = ???, names_to = "???", values_to = "???")
 ```
@@ -545,14 +562,18 @@ Before summarising the mean, you may need to group the data.
 
 ## More concrete hint
 
+To compute an average score **per participant**, we would need to group by participant ID first.
+
 ```{r eval=FALSE}
   group_by(???) %>% 
-  summarise(Flourishing_pre = ???(???)) %>% 
+  summarise(Flourishing_pre = mean(???)) %>% 
   ungroup()
 ```
 :::
 
 :::
+
+
 
 
 ::: {.callout-caution collapse="true" icon="false"}
