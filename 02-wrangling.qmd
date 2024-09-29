@@ -281,7 +281,7 @@ However, as you can see in the table above, each item is in a separate column, m
 Let’s tackle this problem step by step. It’s best to create a separate data object for this. If we tried to compute it within `data_prp`, it could quickly become messy.
 
 
-* **Step 1**: Select the relevant columns `Code`, and `QRPs_1_Time1` to `QRPs_1_Time1` and store them in an object called `qrp_t1`
+* **Step 1**: Select the relevant columns `Code`, and `QRPs_1_Time1` to `QRPs_11_Time1` and store them in an object called `qrp_t1`
 * **Step 2**: Pivot the data from wide format to long format using `pivot_longer()` so we can calculate the average score more easily (in step 3)
 * **Step 3**: Calculate the average QRP score (`QRPs_Acceptance_Time1_mean`) per participant using `group_by()` and `summarise()`
 

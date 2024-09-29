@@ -1233,7 +1233,7 @@ Tip for decimal places - use <code><a href="https://rdrr.io/r/base/Round.html">r
 <p>Let’s tackle this problem step by step. It’s best to create a separate data object for this. If we tried to compute it within <code>data_prp</code>, it could quickly become messy.</p>
 <ul>
 <li>
-<strong>Step 1</strong>: Select the relevant columns <code>Code</code>, and <code>QRPs_1_Time1</code> to <code>QRPs_1_Time1</code> and store them in an object called <code>qrp_t1</code>
+<strong>Step 1</strong>: Select the relevant columns <code>Code</code>, and <code>QRPs_1_Time1</code> to <code>QRPs_11_Time1</code> and store them in an object called <code>qrp_t1</code>
 </li>
 <li>
 <strong>Step 2</strong>: Pivot the data from wide format to long format using <code>pivot_longer()</code> so we can calculate the average score more easily (in step 3)</li>
