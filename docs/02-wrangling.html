@@ -1910,7 +1910,7 @@ Solution
 <span id="cb26-12"><a href="#cb26-12"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>RID, <span class="at">names_to =</span> <span class="st">"Questionnaire"</span>, <span class="at">values_to =</span> <span class="st">"Responses"</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb26-13"><a href="#cb26-13"></a>  <span class="co"># Step 3</span></span>
 <span id="cb26-14"><a href="#cb26-14"></a>  <span class="fu">group_by</span>(RID) <span class="sc">%&gt;%</span> </span>
-<span id="cb26-15"><a href="#cb26-15"></a>  <span class="fu">summarise</span>(<span class="at">Flourishing_pre =</span> <span class="fu">mean</span>(Response)) <span class="sc">%&gt;%</span> </span>
+<span id="cb26-15"><a href="#cb26-15"></a>  <span class="fu">summarise</span>(<span class="at">Flourishing_pre =</span> <span class="fu">mean</span>(Responses)) <span class="sc">%&gt;%</span> </span>
 <span id="cb26-16"><a href="#cb26-16"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
