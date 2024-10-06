@@ -613,6 +613,22 @@ data_prp_final <- data_prp %>%
   select(Code:Plan_prereg, Pre_reg_group, SATS28_Affect_Time1_mean, SATS28_CognitiveCompetence_Time1_mean, SATS28_Value_Time1_mean, SATS28_Difficulty_Time1_mean, QRPs_Acceptance_Time1_mean, Time1_Understanding_OS, Other_OS_behav_2:Time2_Understanding_OS, Mean_Supervisor_Support)
 ```
 
+
+::: {.callout-important icon="false"}
+## No `by` argument in the code above? 
+
+Note how I didn't include a `by` argument in the code above. If you leave `by =` out, R will join the 2 data objects by **ALL** columns that have the same name.
+
+**Special case 1: matching column names but different values**
+
+If you want more control, you should include the `by` argument; for example, if both data objects include a column `age` but data was recorded at 2 different time points. In that case, the information from both `age` columns should be retained and the `by` argument would not include `age`.
+
+**Special case 2: different column names but matching values**
+
+Another special case presents when both data objects contain identical information but the variable names don't match. Let's say, both data objects contain gender information, but in one data object the variable is named `gender` and in the other one `gender_label`. In that case, your `by` argument needs to be modified as follows: `by = join_by(gender == gender_label)`.
+
+:::
+
 And this is basically the dataset we need for @sec-dataviz and @sec-dataviz2.
 
 
