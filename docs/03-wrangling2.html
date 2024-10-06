@@ -1167,7 +1167,8 @@ No <code>by</code> argument in the code above?
 <p><strong>Special case 1: matching column names but different values</strong></p>
 <p>If you want more control, you should include the <code>by</code> argument; for example, if both data objects include a column <code>age</code> but data was recorded at 2 different time points. In that case, the information from both <code>age</code> columns should be retained and the <code>by</code> argument would not include <code>age</code>.</p>
 <p><strong>Special case 2: different column names but matching values</strong></p>
-<p>Another special case presents when both data objects contain identical information but the variable names don’t match. Let’s say, both data objects contain gender information, but in one data object the variable is named <code>gender</code> and in the other one <code>gender_label</code>. In that case, your <code>by</code> argument needs to be modified as follows: <code>by = join_by(gender == gender_label)</code>.</p>
+<p>Another special case presents when both data objects contain identical information but the variable names don’t match. Let’s say, both data objects contain gender information, but in one data object the variable is named <code>gender</code> and in the other one <code>gender_label</code>. In that case, your <code>by</code> argument needs to be modified as: <code>by = join_by(gender == gender_label)</code>.</p>
+<p>More info on joins can be found <a href="https://www.tidyverse.org/blog/2023/01/dplyr-1-1-0-joins/" target="_blank">https://www.tidyverse.org/blog/2023/01/dplyr-1-1-0-joins/</a></p>
 </div>
 </div>
 <p>And this is basically the dataset we need for <a href="04-dataviz.html"><span>Chapter&nbsp;4</span></a> and <span class="quarto-unresolved-ref">?sec-dataviz2</span>.</p>

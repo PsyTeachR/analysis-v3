@@ -625,8 +625,9 @@ If you want more control, you should include the `by` argument; for example, if 
 
 **Special case 2: different column names but matching values**
 
-Another special case presents when both data objects contain identical information but the variable names don't match. Let's say, both data objects contain gender information, but in one data object the variable is named `gender` and in the other one `gender_label`. In that case, your `by` argument needs to be modified as follows: `by = join_by(gender == gender_label)`.
+Another special case presents when both data objects contain identical information but the variable names don't match. Let's say, both data objects contain gender information, but in one data object the variable is named `gender` and in the other one `gender_label`. In that case, your `by` argument needs to be modified as: `by = join_by(gender == gender_label)`.
 
+More info on joins can be found [https://www.tidyverse.org/blog/2023/01/dplyr-1-1-0-joins/](https://www.tidyverse.org/blog/2023/01/dplyr-1-1-0-joins/){target="_blank"}
 :::
 
 And this is basically the dataset we need for @sec-dataviz and @sec-dataviz2.
