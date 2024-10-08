@@ -605,7 +605,7 @@ Note: Since I (Gaby) like my columns arranged in a meaningful way, I will use `s
 
 ```{r eval=FALSE}
 data_prp_final <- data_prp %>% 
-  select(Code:Plan_prereg, Other_OS_behav_2:Time2_Understanding_OS) %>% 
+  select(Code:Plan_prereg, Pre_reg_group:Time2_Understanding_OS) %>% 
   full_join(qrp_t1) %>% 
   full_join(understanding_t1) %>% 
   full_join(sats_t1) %>% 

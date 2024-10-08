@@ -1146,7 +1146,7 @@ Info on mutating joins
 <p>Note: Since I (Gaby) like my columns arranged in a meaningful way, I will use <code>select()</code> at the end to order them better.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>data_prp_final <span class="ot">&lt;-</span> data_prp <span class="sc">%&gt;%</span> </span>
-<span id="cb28-2"><a href="#cb28-2"></a>  <span class="fu">select</span>(Code<span class="sc">:</span>Plan_prereg, Other_OS_behav_2<span class="sc">:</span>Time2_Understanding_OS) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-2"><a href="#cb28-2"></a>  <span class="fu">select</span>(Code<span class="sc">:</span>Plan_prereg, Pre_reg_group<span class="sc">:</span>Time2_Understanding_OS) <span class="sc">%&gt;%</span> </span>
 <span id="cb28-3"><a href="#cb28-3"></a>  <span class="fu">full_join</span>(qrp_t1) <span class="sc">%&gt;%</span> </span>
 <span id="cb28-4"><a href="#cb28-4"></a>  <span class="fu">full_join</span>(understanding_t1) <span class="sc">%&gt;%</span> </span>
 <span id="cb28-5"><a href="#cb28-5"></a>  <span class="fu">full_join</span>(sats_t1) <span class="sc">%&gt;%</span> </span>
