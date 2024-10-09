@@ -79,7 +79,7 @@ Again, let's do this step by step:
 * **Step 1**: Select the relevant columns `Code`, and every Understanding column from time point 1 (e.g., from `Understanding_OS_1_Time1` to `Understanding_OS_12_Time1`) and store them in an object called `understanding_t1`
 * **Step 2**: Pivot the data from wide format to long format using `pivot_longer()` so we can recode the labels into values (step 3) and calculate the average score (in step 4) more easily
 * **Step 3**: Recode the values "Not at all confident" as 1 and "Entirely confident" as 7. All other values are already numbers. We can use functions `mutate()` in combination with `case_match()` for that
-* **Step 4**: Calculate the average QRP score (`QRPs_Acceptance_Time1_mean`) per participant using `group_by()` and `summarise()`
+* **Step 4**: Calculate the average Understanding Open Science score (`Time1_Understanding_OS`) per participant using `group_by()` and `summarise()`
 
 #### Steps 1 and 2: Select and pivot {.unnumbered}
 
