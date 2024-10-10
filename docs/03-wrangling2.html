@@ -496,7 +496,7 @@ Your Turn
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Choose the option that works best for you to modify the code above that didn’t work. You should now be able to calculate the <strong>mean Understanding Score per participant</strong>. Store the average scores in a variable called <code>Time1_Understanding_OS</code>. If you need help, refer to the hint below or use Chapter 2 Activity 4 (<a href="02-wrangling.html#sec-ch2_act4"><span>Section&nbsp;2.4</span></a>) as guidance.</p>
+<p>Choose the option that works best for you to <strong>modify the code of <code>understanding_t1</code></strong> above that didn’t work/ gave you an error message. Once you do that, you should be able to calculate the <strong>mean Understanding Score per participant</strong>. Store the average scores in a variable called <code>Time1_Understanding_OS</code>. If you need help, refer to the hint below or use Chapter 2 Activity 4 (<a href="02-wrangling.html#sec-ch2_act4"><span>Section&nbsp;2.4</span></a>) as guidance.</p>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -511,15 +511,16 @@ One solution for Steps 3 and 4
 <div class="callout-body-container callout-body">
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>understanding_t1 <span class="ot">&lt;-</span> understanding_t1 <span class="sc">%&gt;%</span> </span>
-<span id="cb10-2"><a href="#cb10-2"></a>  <span class="fu">mutate</span>(<span class="at">Responses_corrected =</span> <span class="fu">case_match</span>(Responses, <span class="co"># column of the values to recode</span></span>
-<span id="cb10-3"><a href="#cb10-3"></a>                                          <span class="st">"Not at all confident"</span> <span class="sc">~</span> <span class="dv">1</span>, <span class="co"># values to recode</span></span>
-<span id="cb10-4"><a href="#cb10-4"></a>                                          <span class="st">"Entirely confident"</span> <span class="sc">~</span> <span class="dv">7</span>,</span>
-<span id="cb10-5"><a href="#cb10-5"></a>                                          <span class="at">.default =</span> <span class="fu">as.numeric</span>(Responses) <span class="co"># all other values taken from column Responses but as numeric data type </span></span>
-<span id="cb10-6"><a href="#cb10-6"></a>  )) <span class="sc">%&gt;%</span> </span>
-<span id="cb10-7"><a href="#cb10-7"></a>  <span class="co"># Step 4: calculating averages per participant</span></span>
-<span id="cb10-8"><a href="#cb10-8"></a>  <span class="fu">group_by</span>(Code) <span class="sc">%&gt;%</span></span>
-<span id="cb10-9"><a href="#cb10-9"></a>  <span class="fu">summarise</span>(<span class="at">Time1_Understanding_OS =</span> <span class="fu">mean</span>(Responses_corrected)) <span class="sc">%&gt;%</span></span>
-<span id="cb10-10"><a href="#cb10-10"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-2"><a href="#cb10-2"></a>  <span class="co"># Step 3</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a>  <span class="fu">mutate</span>(<span class="at">Responses_corrected =</span> <span class="fu">case_match</span>(Responses, <span class="co"># column of the values to recode</span></span>
+<span id="cb10-4"><a href="#cb10-4"></a>                                          <span class="st">"Not at all confident"</span> <span class="sc">~</span> <span class="dv">1</span>, <span class="co"># values to recode</span></span>
+<span id="cb10-5"><a href="#cb10-5"></a>                                          <span class="st">"Entirely confident"</span> <span class="sc">~</span> <span class="dv">7</span>,</span>
+<span id="cb10-6"><a href="#cb10-6"></a>                                          <span class="at">.default =</span> <span class="fu">as.numeric</span>(Responses) <span class="co"># all other values taken from column Responses but as numeric data type </span></span>
+<span id="cb10-7"><a href="#cb10-7"></a>  )) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-8"><a href="#cb10-8"></a>  <span class="co"># Step 4: calculating averages per participant</span></span>
+<span id="cb10-9"><a href="#cb10-9"></a>  <span class="fu">group_by</span>(Code) <span class="sc">%&gt;%</span></span>
+<span id="cb10-10"><a href="#cb10-10"></a>  <span class="fu">summarise</span>(<span class="at">Time1_Understanding_OS =</span> <span class="fu">mean</span>(Responses_corrected)) <span class="sc">%&gt;%</span></span>
+<span id="cb10-11"><a href="#cb10-11"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>

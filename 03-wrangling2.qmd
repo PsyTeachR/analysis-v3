@@ -191,7 +191,7 @@ understanding_t1_step3_v2 <- understanding_t1 %>%
 
 ## Your Turn
 
-Choose the option that works best for you to modify the code above that didn't work. You should now be able to calculate the **mean Understanding Score per participant**. Store the average scores in a variable called `Time1_Understanding_OS`. If you need help, refer to the hint below or use Chapter 2 Activity 4 (@sec-ch2_act4) as guidance.
+Choose the option that works best for you to **modify the code of `understanding_t1`** above that didn't work/ gave you an error message. Once you do that, you should be able to calculate the **mean Understanding Score per participant**. Store the average scores in a variable called `Time1_Understanding_OS`. If you need help, refer to the hint below or use Chapter 2 Activity 4 (@sec-ch2_act4) as guidance.
 
 ::: {.callout-caution icon="false" collapse="true"}
 
@@ -199,6 +199,7 @@ Choose the option that works best for you to modify the code above that didn't w
 
 ```{r warning=FALSE}
 understanding_t1 <- understanding_t1 %>% 
+  # Step 3
   mutate(Responses_corrected = case_match(Responses, # column of the values to recode
                                           "Not at all confident" ~ 1, # values to recode
                                           "Entirely confident" ~ 7,
