@@ -707,7 +707,7 @@ $ Mean_Supervisor_Support               &lt;dbl&gt; 5.230769, 6.285714, 6.857143
 </div>
 </div>
 <p>We can see that some of the categorical data in <code>data_prp_viz</code> was read in as numeric variables which makes them continuous. This will haunt us big time when building the plots. We would be better off addressing these changes in the dataset before we start plotting (and potentially getting frustrated with R and data viz in general).</p>
-<p>Let’s convert some of the categorical variables into factors.</p>
+<p>Let’s convert some of the categorical variables into factors. We’ll use the <code><a href="https://rdrr.io/r/base/factor.html">factor()</a></code> function, which requires the <code>variable</code> to convert, the <code>levels</code> (where we can re-order them as needed), and the corresponding <code>labels</code>.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>data_prp_viz <span class="ot">&lt;-</span> data_prp_viz <span class="sc">%&gt;%</span> </span>
 <span id="cb21-2"><a href="#cb21-2"></a>  <span class="fu">mutate</span>(<span class="at">Gender =</span> <span class="fu">factor</span>(Gender,</span>
@@ -1400,8 +1400,8 @@ Possible solution for a plot with 2 categorical variables
 <option value="answer">geom_col</option></select></p>
 </section><section id="question-2" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-2">Question 2</h4>
 What mapping would you use to display penguin count across species?
-<div id="radio_YBJBUHCCVR" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_YBJBUHCCVR" value="x"><span>aes(x = penguin_count, y = species)</span></label><label><input type="radio" autocomplete="off" name="radio_YBJBUHCCVR" value="answer"><span>aes(x = species, y = penguin_count)</span></label><label><input type="radio" autocomplete="off" name="radio_YBJBUHCCVR" value="x"><span>aes(x = species)</span></label><label><input type="radio" autocomplete="off" name="radio_YBJBUHCCVR" value="x"><span>aes(x = penguin_count)</span></label>
+<div id="radio_RPYTLMZVTQ" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_RPYTLMZVTQ" value="x"><span>aes(x = penguin_count, y = species)</span></label><label><input type="radio" autocomplete="off" name="radio_RPYTLMZVTQ" value="answer"><span>aes(x = species, y = penguin_count)</span></label><label><input type="radio" autocomplete="off" name="radio_RPYTLMZVTQ" value="x"><span>aes(x = species)</span></label><label><input type="radio" autocomplete="off" name="radio_RPYTLMZVTQ" value="x"><span>aes(x = penguin_count)</span></label>
 </div>
 </section><section id="question-3" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-3">Question 3</h4>
 <p>What <code>geom</code> would you use to count the number of species on each island? <select class="webex-select"><option value="blank"></option>
@@ -1409,8 +1409,8 @@ What mapping would you use to display penguin count across species?
 <option value="x">geom_col</option></select></p>
 </section><section id="question-4" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-4">Question 4</h4>
 What mapping would you use to display the count of species per island?
-<div id="radio_IGPMXNNSPA" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_IGPMXNNSPA" value="x"><span>aes(x = island, y = species)</span></label><label><input type="radio" autocomplete="off" name="radio_IGPMXNNSPA" value="x"><span>aes(x = species, y = island)</span></label><label><input type="radio" autocomplete="off" name="radio_IGPMXNNSPA" value="answer"><span>aes(x = island)</span></label><label><input type="radio" autocomplete="off" name="radio_IGPMXNNSPA" value="x"><span>aes(x = species)</span></label>
+<div id="radio_VRINXTVZQF" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_VRINXTVZQF" value="x"><span>aes(x = island, y = species)</span></label><label><input type="radio" autocomplete="off" name="radio_VRINXTVZQF" value="x"><span>aes(x = species, y = island)</span></label><label><input type="radio" autocomplete="off" name="radio_VRINXTVZQF" value="answer"><span>aes(x = island)</span></label><label><input type="radio" autocomplete="off" name="radio_VRINXTVZQF" value="x"><span>aes(x = species)</span></label>
 </div>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
