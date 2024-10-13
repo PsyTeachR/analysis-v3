@@ -694,7 +694,7 @@ You could continue the `.Rmd` file you used last week, or create a new `.Rmd`. I
 
 ### Task 3: Load in the library and read in the data {.unnumbered}
 
-The data should already be in your project folder. If you want a fresh copy, you can download the data again here: [data_pair_ch1](data/data_pair_ch1.zip "download").
+The data should already be in your project folder. If you want a fresh copy, you can download the data again here: [data_pair_coding](data/data_pair_coding.zip "download").
 
 We are using the package `tidyverse` today, and the datafile we should read in is `dog_data_raw.csv`.
 

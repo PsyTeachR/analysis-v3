@@ -791,7 +791,7 @@ Since we will be working with the same data throughout semester 1, create a sepa
 
 ### Task 3: Download the data {.unnumbered}
 
-Download the data here: [data_pair_ch1](data/data_pair_ch1.zip "download"). The zip folder contains the raw data file with responses to individual questions, a cleaned version of the same data in long format and wide format, and the codebook describing the variables in the raw data file and the long format.
+Download the data here: [data_pair_coding](data/data_pair_coding.zip "download"). The zip folder contains the raw data file with responses to individual questions, a cleaned version of the same data in long format and wide format, and the codebook describing the variables in the raw data file and the long format.
 
 **Unzip the folder and place the data files in the same folder as your project.**
 
