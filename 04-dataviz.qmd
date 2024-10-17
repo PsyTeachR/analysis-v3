@@ -267,7 +267,7 @@ data_prp_viz <- data_prp_viz %>%
 
 ## Activity 3: Barchart (`geom_bar()`)
 
-A bar chart is the best choice when you want to plot a single categorical variable.
+A barchart is the best choice when you want to plot a single categorical variable.
 
 For example, let’s say we want to count some demographic data, such as gender. To visualise the gender counts, we would use a **barplot**. This is done with `geom_bar()` in the third layer. Since the counting is done automatically in the background, the `aes()` function only requires an x value (i.e., the name of your variable).
 
@@ -422,7 +422,7 @@ ggplot(gender_count, aes(x = Gender, y = n, fill = Gender)) +
 :::
 
 
-## Activity 5: Stacked, Percent Stacked, and Grouped Barchart
+## Activity 5: Stacked, Percent Stacked, and Grouped Barchart {#sec-adv_bar}
 
 When dealing with **two categorical variables**, you have three options for displaying stacked barcharts: the "normal" **Stacked Barchart** (the default option), a **Percent Stacked Barchart**, or a **Grouped Barchart**.
 

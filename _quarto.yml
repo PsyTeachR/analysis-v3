@@ -54,6 +54,7 @@ book:
   - 02-wrangling.qmd
   - 03-wrangling2.qmd
   - 04-dataviz.qmd
+  - 05-dataviz2.qmd
   appendices:
   - appendix-a-installing-r.qmd
   - appendix-b-updating-packages.qmd

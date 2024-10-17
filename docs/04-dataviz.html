@@ -60,7 +60,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./appendix-a-installing-r.html" rel="next">
+<link href="./05-dataviz2.html" rel="next">
 <link href="./03-wrangling2.html" rel="prev">
 <link href="./images/logos/logo_analysis.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
@@ -189,6 +189,12 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data viz I</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-dataviz2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data viz II</span></span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
@@ -245,7 +251,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
   <li><a href="#activity-2-load-in-libraries-read-in-data-and-adjust-data-types" id="toc-activity-2-load-in-libraries-read-in-data-and-adjust-data-types" class="nav-link" data-scroll-target="#activity-2-load-in-libraries-read-in-data-and-adjust-data-types"><span class="header-section-number">4.3</span> Activity 2: Load in libraries, read in data, and adjust data types</a></li>
   <li><a href="#activity-3-barchart-geom_bar" id="toc-activity-3-barchart-geom_bar" class="nav-link" data-scroll-target="#activity-3-barchart-geom_bar"><span class="header-section-number">4.4</span> Activity 3: Barchart (<code>geom_bar()</code>)</a></li>
   <li><a href="#activity-4-column-plot-geom_col" id="toc-activity-4-column-plot-geom_col" class="nav-link" data-scroll-target="#activity-4-column-plot-geom_col"><span class="header-section-number">4.5</span> Activity 4: Column plot (<code>geom_col()</code>)</a></li>
-  <li><a href="#activity-5-stacked-percent-stacked-and-grouped-barchart" id="toc-activity-5-stacked-percent-stacked-and-grouped-barchart" class="nav-link" data-scroll-target="#activity-5-stacked-percent-stacked-and-grouped-barchart"><span class="header-section-number">4.6</span> Activity 5: Stacked, Percent Stacked, and Grouped Barchart</a></li>
+  <li><a href="#sec-adv_bar" id="toc-sec-adv_bar" class="nav-link" data-scroll-target="#sec-adv_bar"><span class="header-section-number">4.6</span> Activity 5: Stacked, Percent Stacked, and Grouped Barchart</a></li>
   <li><a href="#activity-6-save-your-plots" id="toc-activity-6-save-your-plots" class="nav-link" data-scroll-target="#activity-6-save-your-plots"><span class="header-section-number">4.7</span> Activity 6: Save your plots</a></li>
   <li>
 <a href="#pair-coding" id="toc-pair-coding" class="nav-link" data-scroll-target="#pair-coding"><span style="color: #F39C12; text-transform: uppercase;">Pair-coding</span></a>
@@ -727,7 +733,7 @@ $ Mean_Supervisor_Support               &lt;dbl&gt; 5.230769, 6.285714, 6.857143
 </div>
 </section><section id="activity-3-barchart-geom_bar" class="level2" data-number="4.4"><h2 data-number="4.4" class="anchored" data-anchor-id="activity-3-barchart-geom_bar">
 <span class="header-section-number">4.4</span> Activity 3: Barchart (<code>geom_bar()</code>)</h2>
-<p>A bar chart is the best choice when you want to plot a single categorical variable.</p>
+<p>A barchart is the best choice when you want to plot a single categorical variable.</p>
 <p>For example, let’s say we want to count some demographic data, such as gender. To visualise the gender counts, we would use a <strong>barplot</strong>. This is done with <code>geom_bar()</code> in the third layer. Since the counting is done automatically in the background, the <code>aes()</code> function only requires an x value (i.e., the name of your variable).</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="fu">ggplot</span>(data_prp_viz, <span class="fu">aes</span>(<span class="at">x =</span> Gender)) <span class="sc">+</span></span>
@@ -939,7 +945,7 @@ Possible solution code for the column plot (with a different colour palette and 
 </div>
 </div>
 </div>
-</section><section id="activity-5-stacked-percent-stacked-and-grouped-barchart" class="level2" data-number="4.6"><h2 data-number="4.6" class="anchored" data-anchor-id="activity-5-stacked-percent-stacked-and-grouped-barchart">
+</section><section id="sec-adv_bar" class="level2" data-number="4.6"><h2 data-number="4.6" class="anchored" data-anchor-id="sec-adv_bar">
 <span class="header-section-number">4.6</span> Activity 5: Stacked, Percent Stacked, and Grouped Barchart</h2>
 <p>When dealing with <strong>two categorical variables</strong>, you have three options for displaying stacked barcharts: the “normal” <strong>Stacked Barchart</strong> (the default option), a <strong>Percent Stacked Barchart</strong>, or a <strong>Grouped Barchart</strong>.</p>
 <p>For this activity, we will explore the variable <code>Plan_prereg</code>, which measures whether students planned to pre-register their undergraduate dissertation at time point 1, and <code>Pre_reg_group</code>, which tracks whether they actually followed through with a pre-registration for their dissertation.</p>
@@ -1400,8 +1406,8 @@ Possible solution for a plot with 2 categorical variables
 <option value="answer">geom_col</option></select></p>
 </section><section id="question-2" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-2">Question 2</h4>
 What mapping would you use to display penguin count across species?
-<div id="radio_QHPBJLCYAB" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_QHPBJLCYAB" value="x"><span>aes(x = penguin_count, y = species)</span></label><label><input type="radio" autocomplete="off" name="radio_QHPBJLCYAB" value="answer"><span>aes(x = species, y = penguin_count)</span></label><label><input type="radio" autocomplete="off" name="radio_QHPBJLCYAB" value="x"><span>aes(x = species)</span></label><label><input type="radio" autocomplete="off" name="radio_QHPBJLCYAB" value="x"><span>aes(x = penguin_count)</span></label>
+<div id="radio_ZDZTEOZRUU" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_ZDZTEOZRUU" value="x"><span>aes(x = penguin_count, y = species)</span></label><label><input type="radio" autocomplete="off" name="radio_ZDZTEOZRUU" value="answer"><span>aes(x = species, y = penguin_count)</span></label><label><input type="radio" autocomplete="off" name="radio_ZDZTEOZRUU" value="x"><span>aes(x = species)</span></label><label><input type="radio" autocomplete="off" name="radio_ZDZTEOZRUU" value="x"><span>aes(x = penguin_count)</span></label>
 </div>
 </section><section id="question-3" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-3">Question 3</h4>
 <p>What <code>geom</code> would you use to count the number of species on each island? <select class="webex-select"><option value="blank"></option>
@@ -1409,8 +1415,8 @@ What mapping would you use to display penguin count across species?
 <option value="x">geom_col</option></select></p>
 </section><section id="question-4" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-4">Question 4</h4>
 What mapping would you use to display the count of species per island?
-<div id="radio_PTLECNKVDM" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_PTLECNKVDM" value="x"><span>aes(x = island, y = species)</span></label><label><input type="radio" autocomplete="off" name="radio_PTLECNKVDM" value="x"><span>aes(x = species, y = island)</span></label><label><input type="radio" autocomplete="off" name="radio_PTLECNKVDM" value="answer"><span>aes(x = island)</span></label><label><input type="radio" autocomplete="off" name="radio_PTLECNKVDM" value="x"><span>aes(x = species)</span></label>
+<div id="radio_YNZXRBXRXH" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_YNZXRBXRXH" value="x"><span>aes(x = island, y = species)</span></label><label><input type="radio" autocomplete="off" name="radio_YNZXRBXRXH" value="x"><span>aes(x = species, y = island)</span></label><label><input type="radio" autocomplete="off" name="radio_YNZXRBXRXH" value="answer"><span>aes(x = island)</span></label><label><input type="radio" autocomplete="off" name="radio_YNZXRBXRXH" value="x"><span>aes(x = species)</span></label>
 </div>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
@@ -2342,8 +2348,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./appendix-a-installing-r.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Installing R</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./05-dataviz2.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data viz II</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
