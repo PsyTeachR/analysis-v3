@@ -1093,7 +1093,7 @@ ggplot(penguins_no_na, aes(x = island, y = flipper_length_mm, fill = sex)) +
   facet_wrap(~sex)
 ```
 
-Hmmm. We got a plot, but is it the one we aimed for? `r torf (FALSE)`
+We got a plot, but is it the one we aimed for? `r mcq(c(x = "yes", answer = "no"))`
 
 ::: {.callout-caution collapse="true" icon="false"}
 
@@ -1133,7 +1133,9 @@ ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g, colour = island)) +
 
 ## Explain the solution
 
-In this example, we used the wrong function for continuous variables. We used  `scale_y_discrete` and `scale_y_discrete`, instead of `scale_x_continuous` and `scale_y_continuous`. We must honour the variable type when we customise the plot, so think about what type of variable is on each axis and which function lets you edit it. 
+We used the wrong function for continuous variables. The error message helpfully asked us if we either meant to turn something into a factor or use `scale_*_continuous()` instead.
+
+Indeed, we used  `scale_x_discrete` and `scale_y_discrete`, instead of `scale_x_continuous` and `scale_y_continuous`. We must honour the variable type when we customise plots, so always check what type of variable is on each axis and which function lets you edit it.
 
 ```{r eval=FALSE}
 ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g, colour = island)) +

@@ -1613,13 +1613,13 @@ Solution for the scatterplot
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a><span class="fu">ggplot</span>(summarydata, <span class="fu">aes</span>(<span class="at">x =</span> sex)) <span class="sc">+</span></span>
 <span id="cb39-2"><a href="#cb39-2"></a>  <span class="fu">geom_barplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="radio_PYERCUHQGC" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_PYERCUHQGC" value="x"><span>because you have piped the barplot and not added it</span></label><label><input type="radio" autocomplete="off" name="radio_PYERCUHQGC" value="answer"><span>because there is no geom_barplot() and it should be geom_bar()</span></label><label><input type="radio" autocomplete="off" name="radio_PYERCUHQGC" value="x"><span>because you have not included a y axis</span></label><label><input type="radio" autocomplete="off" name="radio_PYERCUHQGC" value="x"><span>because this would create a histogram</span></label>
+<div id="radio_AUPZGYLOME" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_AUPZGYLOME" value="x"><span>because you have piped the barplot and not added it</span></label><label><input type="radio" autocomplete="off" name="radio_AUPZGYLOME" value="answer"><span>because there is no geom_barplot() and it should be geom_bar()</span></label><label><input type="radio" autocomplete="off" name="radio_AUPZGYLOME" value="x"><span>because you have not included a y axis</span></label><label><input type="radio" autocomplete="off" name="radio_AUPZGYLOME" value="x"><span>because this would create a histogram</span></label>
 </div>
 </section><section id="question-2" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-2">Question 2</h4>
 <p>If I wanted precisely 5 bars in my histogram, what argument would I use?</p>
-<div id="radio_MCGQGWPVDE" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_MCGQGWPVDE" value="answer"><span>ggplot() + geom_histogram(bins = 5)</span></label><label><input type="radio" autocomplete="off" name="radio_MCGQGWPVDE" value="x"><span>ggplot() + geom_histogram()</span></label><label><input type="radio" autocomplete="off" name="radio_MCGQGWPVDE" value="x"><span>ggplot() + geom_histogram(binwidth = 5)</span></label><label><input type="radio" autocomplete="off" name="radio_MCGQGWPVDE" value="x"><span>ggplot() + geom_histogram(bars = 5)</span></label>
+<div id="radio_IXJFESMOED" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_IXJFESMOED" value="x"><span>ggplot() + geom_histogram(bars = 5)</span></label><label><input type="radio" autocomplete="off" name="radio_IXJFESMOED" value="x"><span>ggplot() + geom_histogram(binwidth = 5)</span></label><label><input type="radio" autocomplete="off" name="radio_IXJFESMOED" value="answer"><span>ggplot() + geom_histogram(bins = 5)</span></label><label><input type="radio" autocomplete="off" name="radio_IXJFESMOED" value="x"><span>ggplot() + geom_histogram()</span></label>
 </div>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-32-contents" aria-controls="callout-32" aria-expanded="false" aria-label="Toggle callout">
@@ -1648,8 +1648,8 @@ Explain this answer
 </div>
 </section><section id="question-3" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-3">Question 3</h4>
 <p>You want to create a scatterplot to show the correlation between two continuous variables, which geom would you use?</p>
-<div id="radio_VOQKQBDUMX" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_VOQKQBDUMX" value="x"><span>geom_histogram()</span></label><label><input type="radio" autocomplete="off" name="radio_VOQKQBDUMX" value="x"><span>geom_boxplot()</span></label><label><input type="radio" autocomplete="off" name="radio_VOQKQBDUMX" value="answer"><span>geom_point()</span></label><label><input type="radio" autocomplete="off" name="radio_VOQKQBDUMX" value="x"><span>geom_violin()</span></label>
+<div id="radio_IGXUGJCFWG" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_IGXUGJCFWG" value="x"><span>geom_histogram()</span></label><label><input type="radio" autocomplete="off" name="radio_IGXUGJCFWG" value="x"><span>geom_boxplot()</span></label><label><input type="radio" autocomplete="off" name="radio_IGXUGJCFWG" value="answer"><span>geom_point()</span></label><label><input type="radio" autocomplete="off" name="radio_IGXUGJCFWG" value="x"><span>geom_violin()</span></label>
 </div>
 </section><section id="question-4" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-4">Question 4</h4>
 <p>True or False? To showcase different groups in a scatterplot, you could specify a grouping variable using the <code>fill</code> argument to change the colour of the points. <select class="webex-select"><option value="blank"></option>
@@ -1733,9 +1733,9 @@ Explain the solution
 </div>
 </div>
 </div>
-<p>Hmmm. We got a plot, but is it the one we aimed for? <select class="webex-select"><option value="blank"></option>
-<option value="">TRUE</option>
-<option value="answer">FALSE</option></select></p>
+<p>We got a plot, but is it the one we aimed for? <select class="webex-select"><option value="blank"></option>
+<option value="x">yes</option>
+<option value="answer">no</option></select></p>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-35-contents" aria-controls="callout-35" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -1805,7 +1805,8 @@ Explain the solution
 </div>
 <div id="callout-36" class="callout-36-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>In this example, we used the wrong function for continuous variables. We used <code>scale_y_discrete</code> and <code>scale_y_discrete</code>, instead of <code>scale_x_continuous</code> and <code>scale_y_continuous</code>. We must honour the variable type when we customise the plot, so think about what type of variable is on each axis and which function lets you edit it.</p>
+<p>We used the wrong function for continuous variables. The error message helpfully asked us if we either meant to turn something into a factor or use <code>scale_*_continuous()</code> instead.</p>
+<p>Indeed, we used <code>scale_x_discrete</code> and <code>scale_y_discrete</code>, instead of <code>scale_x_continuous</code> and <code>scale_y_continuous</code>. We must honour the variable type when we customise plots, so always check what type of variable is on each axis and which function lets you edit it.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm, <span class="at">y =</span> body_mass_g, <span class="at">colour =</span> island)) <span class="sc">+</span></span>
 <span id="cb49-2"><a href="#cb49-2"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
