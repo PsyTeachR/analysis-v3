@@ -195,6 +195,12 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data viz II</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-chi-square-one-sample.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Chi-square and one-sample t-test</span></span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
@@ -267,7 +273,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
   <li>
 <a href="#activity-4-installing-packages-loading-packages-and-reading-in-data" id="toc-activity-4-installing-packages-loading-packages-and-reading-in-data" class="nav-link" data-scroll-target="#activity-4-installing-packages-loading-packages-and-reading-in-data"><span class="header-section-number">1.5</span> Activity 4: Installing packages, loading packages, and reading in data</a>
   <ul class="collapse">
-<li><a href="#installing-packages" id="toc-installing-packages" class="nav-link" data-scroll-target="#installing-packages"><span class="header-section-number">1.5.1</span> Installing packages</a></li>
+<li><a href="#installing-packages-sec-install_packages" id="toc-installing-packages-sec-install_packages" class="nav-link" data-scroll-target="#installing-packages-sec-install_packages"><span class="header-section-number">1.5.1</span> Installing packages {sec-install_packages}</a></li>
   <li><a href="#loading-packages-and-reading-in-data" id="toc-loading-packages-and-reading-in-data" class="nav-link" data-scroll-target="#loading-packages-and-reading-in-data"><span class="header-section-number">1.5.2</span> Loading packages and reading in data</a></li>
   </ul>
 </li>
@@ -400,46 +406,46 @@ Quiz
 <div class="callout-body-container callout-body">
 <p><strong>What is their purpose?</strong></p>
 <strong>The Source pane…</strong>
-<div id="radio_PSZKVTJEEP" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_PSZKVTJEEP" value="answer"><span>allows users to view and edit various code-related files, such as .Rmd files</span></label><label><input type="radio" autocomplete="off" name="radio_PSZKVTJEEP" value=""><span>contains the Files, Plots, R Packages, Help, Tutorial, Viewer, and Presentation tabs</span></label><label><input type="radio" autocomplete="off" name="radio_PSZKVTJEEP" value=""><span>includes the Environment tab that displays currently saved objects, and the History tab that displays the commands that were executed in the current session along a search function</span></label><label><input type="radio" autocomplete="off" name="radio_PSZKVTJEEP" value=""><span>provides an area to interactively execute code</span></label>
+<div id="radio_LAHFGPAPRK" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_LAHFGPAPRK" value="answer"><span>allows users to view and edit various code-related files, such as .Rmd files</span></label><label><input type="radio" autocomplete="off" name="radio_LAHFGPAPRK" value=""><span>contains the Files, Plots, R Packages, Help, Tutorial, Viewer, and Presentation tabs</span></label><label><input type="radio" autocomplete="off" name="radio_LAHFGPAPRK" value=""><span>includes the Environment tab that displays currently saved objects, and the History tab that displays the commands that were executed in the current session along a search function</span></label><label><input type="radio" autocomplete="off" name="radio_LAHFGPAPRK" value=""><span>provides an area to interactively execute code</span></label>
 </div>
 <strong>The Environment pane…</strong>
-<div id="radio_CXCMCPGQUC" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_CXCMCPGQUC" value=""><span>allows users to view and edit various code-related files, such as .Rmd files</span></label><label><input type="radio" autocomplete="off" name="radio_CXCMCPGQUC" value=""><span>contains the Files, Plots, R Packages, Help, Tutorial, Viewer, and Presentation tabs</span></label><label><input type="radio" autocomplete="off" name="radio_CXCMCPGQUC" value="answer"><span>includes the Environment tab that displays currently saved objects, and the History tab that displays the commands that were executed in the current session along a search function</span></label><label><input type="radio" autocomplete="off" name="radio_CXCMCPGQUC" value=""><span>provides an area to interactively execute code</span></label>
+<div id="radio_RJFPMJOXRA" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_RJFPMJOXRA" value=""><span>allows users to view and edit various code-related files, such as .Rmd files</span></label><label><input type="radio" autocomplete="off" name="radio_RJFPMJOXRA" value=""><span>contains the Files, Plots, R Packages, Help, Tutorial, Viewer, and Presentation tabs</span></label><label><input type="radio" autocomplete="off" name="radio_RJFPMJOXRA" value="answer"><span>includes the Environment tab that displays currently saved objects, and the History tab that displays the commands that were executed in the current session along a search function</span></label><label><input type="radio" autocomplete="off" name="radio_RJFPMJOXRA" value=""><span>provides an area to interactively execute code</span></label>
 </div>
 <strong>The Console pane…</strong>
-<div id="radio_XCBETBAKBB" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_XCBETBAKBB" value=""><span>allows users to view and edit various code-related files, such as .Rmd files</span></label><label><input type="radio" autocomplete="off" name="radio_XCBETBAKBB" value=""><span>contains the Files, Plots, R Packages, Help, Tutorial, Viewer, and Presentation tabs</span></label><label><input type="radio" autocomplete="off" name="radio_XCBETBAKBB" value=""><span>includes the Environment tab that displays currently saved objects, and the History tab that displays the commands that were executed in the current session along a search function</span></label><label><input type="radio" autocomplete="off" name="radio_XCBETBAKBB" value="answer"><span>provides an area to interactively execute code</span></label>
+<div id="radio_KQMBAJXNHJ" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_KQMBAJXNHJ" value=""><span>allows users to view and edit various code-related files, such as .Rmd files</span></label><label><input type="radio" autocomplete="off" name="radio_KQMBAJXNHJ" value=""><span>contains the Files, Plots, R Packages, Help, Tutorial, Viewer, and Presentation tabs</span></label><label><input type="radio" autocomplete="off" name="radio_KQMBAJXNHJ" value=""><span>includes the Environment tab that displays currently saved objects, and the History tab that displays the commands that were executed in the current session along a search function</span></label><label><input type="radio" autocomplete="off" name="radio_KQMBAJXNHJ" value="answer"><span>provides an area to interactively execute code</span></label>
 </div>
 <strong>The Output pane…</strong>
-<div id="radio_KUUSSPGYFO" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_KUUSSPGYFO" value=""><span>allows users to view and edit various code-related files, such as .Rmd files</span></label><label><input type="radio" autocomplete="off" name="radio_KUUSSPGYFO" value="answer"><span>contains the Files, Plots, R Packages, Help, Tutorial, Viewer, and Presentation tabs</span></label><label><input type="radio" autocomplete="off" name="radio_KUUSSPGYFO" value=""><span>includes the Environment tab that displays currently saved objects, and the History tab that displays the commands that were executed in the current session along a search function</span></label><label><input type="radio" autocomplete="off" name="radio_KUUSSPGYFO" value=""><span>provides an area to interactively execute code</span></label>
+<div id="radio_AMGXOMFTAU" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_AMGXOMFTAU" value=""><span>allows users to view and edit various code-related files, such as .Rmd files</span></label><label><input type="radio" autocomplete="off" name="radio_AMGXOMFTAU" value="answer"><span>contains the Files, Plots, R Packages, Help, Tutorial, Viewer, and Presentation tabs</span></label><label><input type="radio" autocomplete="off" name="radio_AMGXOMFTAU" value=""><span>includes the Environment tab that displays currently saved objects, and the History tab that displays the commands that were executed in the current session along a search function</span></label><label><input type="radio" autocomplete="off" name="radio_AMGXOMFTAU" value=""><span>provides an area to interactively execute code</span></label>
 </div>
 <p><strong>Where are these panes located by default?</strong></p>
 <ul>
 <li>The Source pane is located? <select class="webex-select"><option value="blank"></option>
-<option value="">bottom left</option>
-<option value="">top right</option>
+<option value="">bottom right</option>
 <option value="answer">top left</option>
-<option value="">bottom right</option></select>
+<option value="">bottom left</option>
+<option value="">top right</option></select>
 </li>
 <li>The Environment pane is located? <select class="webex-select"><option value="blank"></option>
-<option value="">top left</option>
 <option value="">bottom right</option>
 <option value="">bottom left</option>
-<option value="answer">top right</option></select>
+<option value="answer">top right</option>
+<option value="">top left</option></select>
 </li>
 <li>The Console pane is located? <select class="webex-select"><option value="blank"></option>
+<option value="answer">bottom left</option>
 <option value="">top left</option>
 <option value="">bottom right</option>
-<option value="">top right</option>
-<option value="answer">bottom left</option></select>
+<option value="">top right</option></select>
 </li>
 <li>The Output pane is located? <select class="webex-select"><option value="blank"></option>
-<option value="">bottom left</option>
 <option value="">top right</option>
+<option value="">top left</option>
 <option value="answer">bottom right</option>
-<option value="">top left</option></select>
+<option value="">bottom left</option></select>
 </li>
 </ul>
 </div>
@@ -896,8 +902,8 @@ Screenshots for “unzipping a zip folder”
 <li>The scores in the original file were already corrected from reverse-coded responses. We reversed that process to present raw data here.</li>
 </ul></section><section id="activity-4-installing-packages-loading-packages-and-reading-in-data" class="level2" data-number="1.5"><h2 data-number="1.5" class="anchored" data-anchor-id="activity-4-installing-packages-loading-packages-and-reading-in-data">
 <span class="header-section-number">1.5</span> Activity 4: Installing packages, loading packages, and reading in data</h2>
-<section id="installing-packages" class="level3" data-number="1.5.1"><h3 data-number="1.5.1" class="anchored" data-anchor-id="installing-packages">
-<span class="header-section-number">1.5.1</span> Installing packages</h3>
+<section id="installing-packages-sec-install_packages" class="level3" data-number="1.5.1"><h3 data-number="1.5.1" class="anchored" data-anchor-id="installing-packages-sec-install_packages">
+<span class="header-section-number">1.5.1</span> Installing packages {sec-install_packages}</h3>
 <p>When you install R and RStudio for the first time (or after an update), most of the packages we will be using won’t be pre-installed. Before you can load new packages like <code>tidyverse</code>, you will need to install them.</p>
 <p>If you try to load a package that has not been installed yet, you will receive an error message that looks something like this: <code>Error in library(tidyverse) : there is no package called 'tidyverse'</code>.</p>
 <p>To fix this, simply install the package first. <strong>In the console</strong>, type the command <code>install.packages("tidyverse")</code>. This <strong>only needs to be done once after a fresh installation</strong>. After that, you will be able to load the <code>tidyverse</code> package into your library whenever you open RStudio.</p>
@@ -1387,7 +1393,7 @@ Why is this important you may ask?
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Knowing your variable and data types will help later on when deciding on an appropriate plot (see <a href="04-dataviz.html"><span>Chapter&nbsp;4</span></a> and <a href="05-dataviz2.html"><span>Chapter&nbsp;5</span></a>) or which inferential test to run (<span class="quarto-unresolved-ref">?sec-nhstI</span> to <span class="quarto-unresolved-ref">?sec-factorial</span>).</p>
+<p>Knowing your variable and data types will help later on when deciding on an appropriate plot (see <a href="04-dataviz.html"><span>Chapter&nbsp;4</span></a> and <a href="05-dataviz2.html"><span>Chapter&nbsp;5</span></a>) or which inferential test to run (<a href="06-chi-square-one-sample.html"><span>Chapter&nbsp;6</span></a> to <span class="quarto-unresolved-ref">?sec-factorial</span>).</p>
 </div>
 </div>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
@@ -1773,8 +1779,8 @@ Explain this answer
 <section id="knowledge-check" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="knowledge-check">Knowledge check</h3>
 <section id="question-1" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-1">Question 1</h4>
 One of the key first steps when we open RStudio is to:
-<div id="radio_EGXWGQZEYW" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_EGXWGQZEYW" value="x"><span>put on some music as we will be here a while</span></label><label><input type="radio" autocomplete="off" name="radio_EGXWGQZEYW" value="answer"><span>open an existing project or create a new one</span></label><label><input type="radio" autocomplete="off" name="radio_EGXWGQZEYW" value="x"><span>make a coffee</span></label><label><input type="radio" autocomplete="off" name="radio_EGXWGQZEYW" value="x"><span>check out the news</span></label>
+<div id="radio_ANYVIGQFPP" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_ANYVIGQFPP" value="x"><span>put on some music as we will be here a while</span></label><label><input type="radio" autocomplete="off" name="radio_ANYVIGQFPP" value="answer"><span>open an existing project or create a new one</span></label><label><input type="radio" autocomplete="off" name="radio_ANYVIGQFPP" value="x"><span>make a coffee</span></label><label><input type="radio" autocomplete="off" name="radio_ANYVIGQFPP" value="x"><span>check out the news</span></label>
 </div>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-25-contents" aria-controls="callout-25" aria-expanded="false" aria-label="Toggle callout">
@@ -1821,8 +1827,8 @@ Explain this answer
 </div>
 </section><section id="question-3" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-3">Question 3</h4>
 Code chunks start and end with:
-<div id="radio_SRNKSCHNWN" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_SRNKSCHNWN" value="x"><span>three single quotes</span></label><label><input type="radio" autocomplete="off" name="radio_SRNKSCHNWN" value="answer"><span>three backticks</span></label><label><input type="radio" autocomplete="off" name="radio_SRNKSCHNWN" value="x"><span>three double quotes</span></label><label><input type="radio" autocomplete="off" name="radio_SRNKSCHNWN" value="x"><span>three single asterisks</span></label>
+<div id="radio_HOUCYZVLLS" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_HOUCYZVLLS" value="x"><span>three single quotes</span></label><label><input type="radio" autocomplete="off" name="radio_HOUCYZVLLS" value="answer"><span>three backticks</span></label><label><input type="radio" autocomplete="off" name="radio_HOUCYZVLLS" value="x"><span>three double quotes</span></label><label><input type="radio" autocomplete="off" name="radio_HOUCYZVLLS" value="x"><span>three single asterisks</span></label>
 </div>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-27-contents" aria-controls="callout-27" aria-expanded="false" aria-label="Toggle callout">

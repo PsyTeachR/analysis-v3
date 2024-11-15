@@ -424,7 +424,7 @@ We made some changes to the dataset for the purpose of increasing difficulty for
 
 ## Activity 4: Installing packages, loading packages, and reading in data
 
-### Installing packages
+### Installing packages {sec-install_packages}
 
 When you install R and RStudio for the first time (or after an update), most of the packages we will be using won’t be pre-installed. Before you can load new packages like `tidyverse`, you will need to install them.
 

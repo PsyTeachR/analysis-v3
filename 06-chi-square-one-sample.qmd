@@ -1,6 +1,3 @@
----
-output: revealjs
----
 
 # Chi-square and one-sample t-test  {#sec-nhstI}
 
@@ -21,16 +18,14 @@ By the end of this chapter you should be able to:
 
 ## Overview
 
-they are all part of a general linear model. 
+From here on, we will explore inferential statistics, including chi-square test, various t-tests, correlations, ANOVAs, and regression. Most of these tests belong to the General Linear Model (GLM) family, which helps us analyse relationships between variables using linear equations. The chi-square test, while not part of the GLM, is also included here as it’s useful for analysing categorical data.
 
-The general linear model incorporates a number of different statistical models: ANOVA, ANCOVA, MANOVA, MANCOVA, ordinary linear regression, t-test and F-test. 
-
-Which test to use depends on what type of variable(s) you have, what design you chose, and what your research question is about. You can see them in the flowchart below.
+To help you choose the most appropriate test, refer to the simplified flowchart below. It guides you based on the types of variables - whether they are categorical or continuous.
 
 
 ![Simplified flowchart to help select the most appropriate test (created with [drawio](https://draw.io/){target="_blank"}). [View larger version](images/Flowchart_tests_drawio.png){target="_blank"}](images/Flowchart_tests_drawio.png)
 
-You can see below in which chapter they will be discussed:
+Each test is discussed in its respective chapter with guidance on when and how to apply it:
 
 * Cross-tabulation chi-Square test (this chapter, @sec-chi_square)
 * One-sample t-test (this chapter, @sec-onesample)
@@ -45,11 +40,13 @@ You can see below in which chapter they will be discussed:
 
 ## Activity 1: Setup & download the data
 
+This week, we will be working with a new dataset. Follow the steps below to set up your project:
+
 * **Create a new project** and name it something meaningful (e.g., "2A_chapter6", or "06_chi_square_one_sample_t"). See @sec-project if you need some guidance.
 * **Create a new `.Rmd` file** and save it to your project folder. See @sec-rmd if you get stuck. 
 * Delete everything after the setup code chunk (e.g., line 12 and below)
-* **Download a reduced dataset** here: [data_ch6.zip](data/data_ch6.zip "download"). You'll see one csv file with demographic information and questionnaire data as well as the codebook.
-* Extract the data files from the zip folder and place them in your project folder. If you need help, see @sec-download_data_ch1.
+* **Download the new dataset** here: [data_ch6.zip](data/data_ch6.zip "download"). This zip file contains one csv file with demographic information and questionnaire data as well as and Excel codebook.
+* Extract the data files from the zip folder and place them directly in your project folder (next to the project icon, not in a subfolder). For more help, see @sec-download_data_ch1.
 
 
 **Citation**
@@ -68,15 +65,17 @@ As you can see, the study is a pre-print published on PsyArXiv Preprints. The da
 
 **Changes made to the dataset**
 
-* We selected demographic variables, such as age, gender, ethnicity, employment, education level, and the Warwick-Edinburgh Mental Wellbeing Scale from the rich dataset.
-* We removed rows with missing values and categorical groupings for which observed frequencies were considered too small for the purpose of this chapter.
-* We won't be looking into any game-related associations, but feel free to download the full dataset to explore further.
-* The original authors had quite strict inclusion criteria for their analysis. We did not, hence we ended up with more participants than the original study
+* We extracted key demographic variables from the rich dataset, including age, gender, ethnicity, employment, education level, and scores from the Warwick-Edinburgh Mental Wellbeing Scale.
+* We removed rows with missing values and categorical groupings with low observed frequencies for the purpose of this chapter.
+* We won’t explore any associations related to gaming, but feel free to download the full dataset if you wish to investigate further.
+* Unlike the original study, which applied strict inclusion criteria, we used more flexible criteria, resulting in a larger sample size than the original analysis.
 
 
 ## Activity 2: Load in the library, read in the data, and familiarise yourself with the data
 
-Today, we'll need the following packages `tidyverse`, `lsr`, `scales`, `qqplotr`, `car`, `pwr`, and `rcompanion` as well as the data `data_ballou_reduced`.
+Today, we will be using the following packages: `tidyverse`, `lsr`, `scales`, `qqplotr`, `car`, `pwr`, and `rcompanion`. If you need to install any of them, do so via the console (see @sec-install_packages for more detail). 
+
+Additionally, we will need to read in the data `data_ballou_reduced`. 
 
 
 ```{r eval=FALSE}
@@ -123,24 +122,20 @@ data_ballou <- read_csv("data_ballou_reduced.csv")
 :::
 
 
-
-
 ## Activity 3: Data wrangling
 
-The categorical variables look quite tidy, but we need to **convert gender and education level into factors**. Our statistical test requires factors and categories might be sorted more easily when plotting.
+The categorical variables in our dataset look tidy, but we need to make a few adjustments to prepare for our analysis:
 
-We also have to **calculate the overall score for the Warwick-Edinburgh Mental Wellbeing Scale**. According to the [official WEMWBS website](https://warwick.ac.uk/fac/sci/med/research/platform/wemwbs/using/howto/){target="_blank"}, the scores of the individual items are summed up.
-
-* create a new data object `data_wemwbs` to calculate the summed up scores for the wemwbs.
-* convert gender and education level into factors in the original `data_ballou` object. Feel free to sort them in a meaningful order. 
-* join this `data_ballou` with `data_wembs`.
+* **Convert `gender` and `education_level` into factors** in the original `data_ballou` object. Our statistical tests require these variables to be factors, and converting them will also help with sorting categories effectively for plotting. Feel free to arrange the categories in a meaningful order.
+* Create a new data object called `data_wemwbs` to **calculate the total score for the Warwick-Edinburgh Mental Wellbeing Scale (WEMWBS**): According to the [official WEMWBS website](https://warwick.ac.uk/fac/sci/med/research/platform/wemwbs/using/howto/){target="_blank"}, the individual item scores should be summed to get the total. 
+* **Join** the the original `data_ballou` dataset with the new `data_wemwbs` dataset to have all the information in one place.
 
 ::: {.callout-note collapse="true" icon="false"} 
 
 ## Hints
 
-* We converted categorical variables into factors in @sec-dataviz if you need a refresher 
-* Check the `QRPs` questionnaire in @sec-wrangling to see how we approached aggregating scores 
+* We converted categorical variables into factors previously in @sec-dataviz - refer back if you need a refresher
+* Check how we handled the `QRPs` questionnaire in @sec-wrangling for guidance on aggregating scores 
 
 
 ::: {.callout-caution collapse="true" icon="false"} 
@@ -168,20 +163,19 @@ data_ballou <- data_ballou %>%
 
 ## Activity 4: Cross-tabulation Chi-square test {#sec-chi_square}
 
-A Cross-Tabulation Chi-Square Test, also known as a Chi-square test of association/independence, tests how one variable is associated with the distribution of outcomes in another variable.
-
+A Cross-Tabulation Chi-Square Test, also known as a Chi-Square Test of Association or Independence, tests how one variable is associated with the distribution of outcomes in another variable.
 
 We will be performing a Chi-Square test using the categorical variables **gender** and **eduLevel**:
 
 * Potential research question: "Is there an association between gender and level of education in the population?"
-* Null Hypothesis (H~0~): "Gender and student status are independent; there is no association between gender and level of education."
-* Alternative Hypothesis (H~1~): "Gender and student status are not independent; there is an association between gender and level of education."
+* Null Hypothesis (H~0~): "Gender and level of education are independent; there is no association between gender and level of education."
+* Alternative Hypothesis (H~1~): "Gender and level of education are not independent; there is an association between gender and level of education."
 
 
 
 ### Task 1: Preparing the dataframe
 
-We need to select your variables of interest. We don't have missing values in this dataset, but if your future dataframe might contain some, use `drop_na()` before you turn categorical variables into factors.
+First, select your variables of interest - here participant id, gender, and education levels. This dataset does not contain missing values, but in future datasets that might, use `drop_na()` to remove them before converting categorical variables into factors.
 
 ```{r}
 chi_square <- data_ballou %>% 
@@ -191,7 +185,7 @@ chi_square <- data_ballou %>%
 
 ### Task 2: Compute descriptives
 
-We need to calculate counts for each combination of the variables. This is best done in a frequency table. This also allows us to check that we don't have missing values in the cells. The function we are using does not work with missing values.
+Next, we need to calculate counts for each combination of the variables, which is best done in a frequency table. This will also allow us to verify that there are no missing values in any cells, as the function we’re using cannot handle missing values
 
 
 ```{r}
@@ -202,7 +196,7 @@ chi_square_frequency <- chi_square %>%
 chi_square_frequency
 ```
 
-We should be ok here, even though the count for non-binary/vocational is quite low.
+We should be fine here, even though the count for the non-binary/vocational category is quite low.
 
 
 ### Task 3: Check assumptions
@@ -210,28 +204,27 @@ We should be ok here, even though the count for non-binary/vocational is quite l
 
 #### Assumption 1: categorical data {.unnumbered}
 
-The two variables should be categorical data measured either at an ordinal or nominal level.
+Both variables should be categorical, measured at either the ordinal or nominal level.
 
 We can confirm that for our dataset. Gender is `r mcq(c(x = "ordinal", answer = "nominal"))`, and level of education is `r mcq(c(answer = "ordinal", x = "nominal"))`.
 
 
 #### Assumption 2: Independent observartions {.unnumbered}
 
-The value of one observation in the dataset does not affect the value of any other observation. 
+Each observation in the dataset has to be independent, meaning the value of one observation does not affect the value of any other. 
 
 And we assume as much for our data.
 
 
+
 #### Assumption 3: Cells in the contingency table are mutually exclusive {.unnumbered}
 
-Individuals can only belong to one cell in the contingency table. 
-
-We can confirm that by looking at the data and the contingency table.
+Each individual can belong to only one cell in the contingency table. We can confirm this by examining the data and reviewing the contingency table.
 
 
 #### Assumption 4: Expected frequencies are sufficiently large {.unnumbered}
 
-Not an assumption that is listed consistently across various sources. When it is, it suggests that expected frequencies are larger than 5 or at least 80% of the the expected frequencies are above 5 and none of them are below 1. However, Danielle Navarro points out that this seems to be a "somewhat conservative" criterion and should be taken as "rough guidelines" only (see [https://learningstatisticswithr.com/book/chisquare.html#chisqassumptions](https://learningstatisticswithr.com/book/chisquare.html#chisqassumptions){target="_blank"}.
+Assumption 4 is not an assumption that is listed consistently across various sources. When it is, it suggests that expected frequencies are larger than 5 or at least 80% of the the expected frequencies are above 5 and none of them are below 1. However, Danielle Navarro points out that this seems to be a "somewhat conservative" criterion and should be taken as "rough guidelines" only (see [https://learningstatisticswithr.com/book/chisquare.html#chisqassumptions](https://learningstatisticswithr.com/book/chisquare.html#chisqassumptions){target="_blank"}.
 
 This is information, we can either compute manually (see lecture slides) or wait till we get the output from the inferential statistics later.
 
@@ -240,7 +233,8 @@ This is information, we can either compute manually (see lecture slides) or wait
 
 Now we can create the appropriate plot. Which plot would you choose when building one from object `chi_square`? A `r mcq(c(answer = "Barchart", x = "Histogram", x = "Scatterplot", x = "Violin-Boxplot"))` with geom layer `r mcq(c(x = "geom_col", answer = "geom_bar", x = "geom_histogram", x = "geom_point", x = "geom_boxplot and geom_violin"))`
 
-Try first before looking at the solution. Feel free to practice adding other layers to make the plot pretty.
+
+Try creating the plot on your own before checking the solution. Feel free to practice adding different layers to make the plot pretty!
 
 ::: {.callout-caution collapse="true" icon="false"}
 
@@ -248,7 +242,7 @@ Try first before looking at the solution. Feel free to practice adding other lay
 
 ... is a grouped bar chart.
 
-I played about with the labels of the x-axis categories since the graduate label is super long. Google was my friend in this instance and showed me a nifty function called `label_wrap()` from the `scales` package which automatically adds line breaks after X characters. Here we chose 12; looked best. (See other options for long labels at [https://www.andrewheiss.com/blog/2022/06/23/long-labels-ggplot/](https://www.andrewheiss.com/blog/2022/06/23/long-labels-ggplot/){target="_blank"}).
+I played about with the labels of the x-axis categories since the graduate label is super long. Google was my friend in this instance and showed me a nifty function called `label_wrap()` from the `scales` package which automatically inserts line breaks after a set number of characters. Setting it to 12 characters looked best. (See other options for long labels at [https://www.andrewheiss.com/blog/2022/06/23/long-labels-ggplot/](https://www.andrewheiss.com/blog/2022/06/23/long-labels-ggplot/){target="_blank"}).
 
 
 ```{r}
@@ -268,14 +262,14 @@ ggplot(chi_square, aes(x = eduLevel, fill = gender)) +
 ### Task 5: Compute a chi-square test
 
 
-Before we can do that, we need to turn our tibble into a dataframe - the `associationTest()` function we are using to compute the Chi-square test does not like tibbles. [*you have nooooo clue how long that took to figure out - let's say the error message was not entirely useful*]
+Before we can do that, we need to turn our tibble into a dataframe - the `associationTest()` function we are using to compute the Chi-square test does not like tibbles. [*you have nooooo clue how long that took to figure out - let's say the error message was not exactly helpful*]
 
 ```{r}
 chi_square_df <- as.data.frame(chi_square)
 ```
 
 
-Now we can run the `associationTest()` function from the `lsr` package. The first argument is a formula. It starts with a `~` and then expects the 2 variables we want to associate connected with a `+`. The second argument is the dataframe.
+Now we can run the `associationTest()` function from the `lsr` package. The first argument is a formula. It starts with a `~` followed by the two variables you want to associate, separated by a `+`. The second argument is the dataframe.
 
 
 ```{r}
@@ -283,22 +277,22 @@ associationTest(formula = ~ eduLevel + gender, data = chi_square_df)
 ```
 
 
-The output is quite informative. It gives information about:
+The output is quite informative as it gives information about:
 
 * the variables that were tested, 
 * the null and alternative hypotheses, 
-* a table with the observed frequencies (which matches what we calculated in `chi_square_assumptions` without the rows/columns of the missing values we removed), 
+* a table with the observed frequencies (which matches our calculations in `chi_square_frequency` without the rows/columns of the missing values we removed), 
 * an output of the frequencies you'd expect if the null hypothesis were true, 
 * the result of the hypothesis test, and 
 * the effect size Cramer's v.
 
-And it gives us a **warning message** saying that expected frequencies are too small and that the chi-squared approximation may be incorrect. This ties in with Assumption 4. Depending on your stance on Assumption 4, you may or may not want to ignore the warning.
+It also gives us a **warning message** saying that expected frequencies are too small and that the chi-squared approximation may be incorrect. This relates to Assumption 4. Depending on your stance on Assumption 4, you may choose to either address or ignore this warning.
 
-The p-value tells us that the null hypothesis is not being rejected, since the p-value is larger than 0.05. 
+The p-value indicates that we do not reject the null hypothesis, as it is greater than 0.05.
 
 ### Task 6: The write-up
 
-The Chi-Square test revealed that there is no statistically significant association between Gender and Student Status, $\chi^2(8) = 13.59, p = .093, V = .079$. The strength of the association between the variables is considered small. We therefore fail to reject the null hypothesis. 
+The Chi-Square test revealed that there is no statistically significant association between Gender and Level of Education, $\chi^2(8) = 13.59, p = .093, V = .079$. The strength of the association between the variables is considered small. We therefore fail to reject the null hypothesis. 
 
 
 
@@ -306,9 +300,9 @@ The Chi-Square test revealed that there is no statistically significant associat
 
 ## Activity 5: One-sample t-test {#sec-onesample}
 
-The one-sample t-test is used to determine whether a sample comes from a population with a specific mean. This population mean is not always known, but is sometimes hypothesized. 
+The one-sample t-test is used to determine whether a sample comes from a population with a specific mean. This population mean is not always known, but is sometimes hypothesised. 
 
-We will be performing a one-sample t-test using the continuous variable **wemwbs_sum**. The [official website for the Warwick-Edinburgh Mental Wellbeing Scales](https://warwick.ac.uk/fac/sci/med/research/platform/wemwbs/using/howto/){target="_blank"} states that the "WEMWBS has a mean score of 51.0 in general population samples in the UK with a standard deviation of 7 (Tennant et al., 2007)".
+We will perform a one-sample t-test using the continuous variable **wemwbs_sum**. The [official website for the Warwick-Edinburgh Mental Wellbeing Scales](https://warwick.ac.uk/fac/sci/med/research/platform/wemwbs/using/howto/){target="_blank"} states that the "WEMWBS has a mean score of 51.0 in general population samples in the UK with a standard deviation of 7 (Tennant et al., 2007)".
 
 * Potential research question: "Is the average mental well-being of gamers different from the general population's average well-being?"
 * Null Hypothesis (H~0~): "The summed-up WEMWBS score of gamers is not different to 51.0."
@@ -317,7 +311,7 @@ We will be performing a one-sample t-test using the continuous variable **wemwbs
 
 ### Task 1: Preparing the dataframe
 
-We need to select your variables of interest.
+First, we need to select the variables of interest: participant ID and `wemwbs_sum`.
 
 ```{r}
 one_sample <- data_ballou %>% 
@@ -327,7 +321,7 @@ one_sample <- data_ballou %>%
 
 ### Task 2: Compute descriptives
 
-We want to compute means and standard deviations for our variable of interest. This should be straight forward. Try it yourself and then compare your result with the solution below.
+Next, we want to compute means and standard deviations for our variable of interest. This should be straight forward. Try it yourself and then compare your result with the solution below.
 
 ::: {.callout-caution collapse="true" icon="false"} 
 
@@ -346,7 +340,7 @@ descriptives
 
 ### Task 3: Create an appropriate plot
 
-This is the one you want to include in your report, so make sure everything is clearly labelled. Which plot would you choose? Start creating one first before comparing with the solution below.
+This is the plot you will want to include in your report, so make sure everything is clearly labelled. Which plot would you choose? Try creating one on your own first, then compare it with the solution below.
 
 ::: {.callout-caution collapse="true" icon="false"} 
 
@@ -369,33 +363,33 @@ ggplot(one_sample, aes(x = "", y = wemwbs_sum)) +
 
 #### Assumption 1: Continuous DV {.unnumbered}
 
-The dependent variable needs to be measured at interval or ratio level. We can confirm that by looking at `one_sample`. 
+The dependent variable (DV) needs to be measured at interval or ratio level. We can confirm that by looking at `one_sample`. 
 
 
 
 #### Assumption 2: Data are independent {.unnumbered}
 
-There is no relationship between the observations. Whilst this is an important assumption, it's not one we can really test for. It has more to do with study design. Anyway, we assume this assumption holds for our data.
+There should be no relationship between the observations. While this is an important assumption, it is more related to study design and isn’t something we can easily test for. Anyway, we will assume this assumption holds for our data.
+
 
 
 #### Assumption 3: No significant outliers {.unnumbered}
 
 We can check for that visually, for example in the violin-boxplot above. 
 
-It appears that there is one outlier on the lower tail, however, when inspecting the data in `one_sample`, we can see that it's one person who got a score of 14 which is a possible value. Furthermore, when sample sizes are sufficiently large, like ours with 1083 participants, removing a single outlier makes not much sense. So we have checked this assumption, consider this outlier not significant, and therefore keep this observation in the dataset.
+It appears there is one outlier in the lower tail. However, upon inspecting the `one_sample` data, we see it is a single participant with a score of 14, which is a possible value. Additionally, with a large sample size of 1,083 participants, removing a single outlier makes not much sense. Thus, we have checked this assumption, considered this outlier not significant, and therefore keep this observation in the dataset.
 
 ::: {.callout-important} 
 
-If you are removing any of the outliers, you need to recalculated the descriptive stats.
+If you decide to remove any outliers, remember to recalculate the descriptive statistics.
 
 :::
 
 #### Assumption 4: DV should be approximately normally distributed {.unnumbered}
 
-We can already check normality from the violin-boxplot above but you could plot a histogram, a density plot, or a qqplot as an alternative to assess normality visually.
+We can already check normality from the violin-boxplot above but you could also use a histogram, a density plot, or a Q-Q plot as an alternative to assess normality visually.
 
-All of these options show that **the data is normally distributed**. That means, we will conduct a parametric test, i.e. a one-sample t-test.
-
+Each of these options shows that **the data is normally distributed**. This allows us to proceed with a parametric test, specifically a one-sample t-test.
 
 ::: {.callout-note collapse="true" icon="false"}
 
@@ -414,7 +408,7 @@ ggplot(one_sample, aes(x = wemwbs_sum)) +
 
 ## Density plot
 
-A density plot shows a smooth distribution curve of the data. The curve represents the proportion of the data in each range rather than the frequency. This means that the height of the curve doesn’t show how many times a value appears but rather the proportion of the data that falls into that range.
+A density plot shows a smooth distribution curve of the data. Unlike a histogram, the height of the curve reflects the proportion of data within each range rather than the frequency of individual values. This means the curve shows where data points are concentrated, not how many times each value appears.
 
 ```{r}
 ggplot(one_sample, aes(x = wemwbs_sum)) +
@@ -424,13 +418,13 @@ ggplot(one_sample, aes(x = wemwbs_sum)) +
 
 ## Q-Q plot
 
-Q-Q plot stands for Quantile-Quantile Plot and compare two distributions by matching a common set of quantiles. It basically means that it's comparing the distribution you have in your data with a normal distribution and plots this along a 45 degree line. 
+Q-Q plot stands for Quantile-Quantile Plot and compare two distributions by matching a common set of quantiles. Essentially, it compares the distribution of your data to a normal distribution and plots the points along a 45-degree line.
 
-**If the dots in the Q-Q plot fall roughly along that line, you can assume normality of the data. If they stray away from the line (and worse in some sort of pattern), we might not assume normality and conduct a non-parametric test instead. For the non-parametric equivalent, see @sec-alternative_one_sample.**
+**If the dots in the Q-Q plot fall roughly along that line, we can assume the data is normally distributed. If they stray away from the line (and worse in some sort of pattern), we might not assume normality and conduct a non-parametric test instead. For the non-parametric equivalent, see @sec-alternative_one_sample.**
 
-We can either use the package `car` or `qqplotr` to build the qqplot. 
+To create the Q-Q plot, you can use either the `car` or `qqplotr` package
 
-* The function `qqPlot()` is a single line but uses BaseR coding (i.e., the `$` symbol) to access the column in the data object.
+* The `qqPlot()` function is a single line but requires BaseR syntax (i.e., the `$` symbol) to access the column within the data object. For example, `one_sample$wemwbs_sum` directs R to look for a column named `wemwbs_sum` that is located within the data object `one_sample`.
 
 
 ```{r fig-qqplot1, fig.cap="Q-Q plot created with the car package"}
@@ -466,13 +460,14 @@ In contrast, when you have large sample sizes, Shapiro-Wilk is overly sensitive 
 
 :::
 
-The function in R is `shapiro.test()` and it's built into BaseR, meaning, we need our data object, the `$` and the column we want to address.
+The function in R for this test is `shapiro.test()` which is part of BaseR. This means, we need to specify our data object, use the `$`, and indicate the column we want to address.
 
 
 ```{r}
 shapiro.test(one_sample$wemwbs_sum)
 ```
-No surprise here, the test shows p < .001 because we have more than 1000 participants. Nevertheless, if you decided on using the Shapiro-Wilk test in your report, you'd need to write this result up in APA style: $W = .99, p < .001$.
+
+No surprise here! The test shows a p-value of  < .001 due to our large sample size of over 1000 participants. Nevertheless, if you decided on using the Shapiro-Wilk test in your report, you'd need to write this result up in APA style: $W = .99, p < .001$.
 
 
 ::: {.callout-tip}
@@ -489,18 +484,16 @@ Either choose visual or computational inspection for normality tests. NO NEED TO
 
 
 
-
-
 ### Task 5: Compute a One-sample t-test and effect size
 
 
-We can use the `t.test()` function to compute a one-sample t-test. The `t.test()` function is part of BaseR, and yes, you guessed it, our first argument has to follow the pattern `data$column`. The second argument (`mu`) lists the population mean we are testing our sample against (here 51.0). The `alternative` is "two.sided" by default, so you could leave the argument out.
+To compute a one-sample t-test, we can use the `t.test() function`, which is part of Base R. And yes, you guessed it, our first argument should follow the pattern `data$column`. The second argument, `mu`, specifies the population mean we are testing our sample against (in this case, 51.0). The `alternative` is "two.sided" by default, so it can be omitted if you are conducting a two-sided test.
 
 ```{r}
 t.test(one_sample$wemwbs_sum, mu = 51.0, alternative = "two.sided")
 ```
 
-The output is quite informative. It gives us information about:
+The output is quite informative. It provides information about:
 
 * the variable column that was tested, 
 * the t value, degrees of freedom, and p,
@@ -508,7 +501,7 @@ The output is quite informative. It gives us information about:
 * a 95% confidence interval,
 * and the mean of the column (which matches the one we computed in the descriptive - yay)
 
-What it doesn't give us is an **effect size**. Meh. So we have to compute one ourselves.
+What it doesn't give us is an **effect size**. Meh. So we will need to compute one ourselves.
 
 We will calculate **Cohen's d** using the function `cohensD()` from the `lsr` package. Similar to the t-test we just conducted, the first argument is `data$column`, the second argument is `mu`.
 
@@ -519,9 +512,11 @@ cohensD(one_sample$wemwbs_sum, mu = 51.0)
 
 ### Task 6: Sensitivity power analysis
 
-A **sensitivity power analysis allows you to determine the minimum effect size that the study could reliably detect** given the number of participants you have in the sample, the alpha level at 0.05, and an assumed power of 0.8. 
+A **sensitivity power analysis allows you to determine the minimum effect size that the study could reliably detect** given the number of participants you have in the sample (i.e., sample size), the alpha level at 0.05, and an assumed power of 0.8. 
 
-The function we need to compute this is `pwr.t.test()` which is part of the `pwr` package. There are 4 factors - the APES (alpha, power, effect size, and sample size) - if you have 3, you can calculate the 4th. As stated above, we have 3. We also need to specify the `type`, i.e., that we are using it for a one-sample t-test, and that `alternative` is "two.sided" because we have a non-directional hypothesis.
+
+To perform this calculation, we use the `pwr.t.test()` function from the `pwr` package. This function relies on four key factors — alpha, power, effect size, and sample size (APES). If you know three, you can calculate the fourth. Since we have three specified, we can solve for the effect size. Additionally, we need to specify the `type` argument to indicate we are using a one-sample t-test, and set `alternative` to "two.sided" for a non-directional hypothesis.
+
 
 ```{r}
 pwr.t.test(n = 1083, sig.level = 0.05, power = 0.8, type = "one.sample")
@@ -539,25 +534,25 @@ A one-sample t-test was computed to determine whether the average mental well-be
 
 ## Activity 6: Non-parametric alternative {#sec-alternative_one_sample}
 
-If any of the assumptions are violated, you need to switch to the non-parametric alternative. For the one-sample t-test, this is a **One-sample Wilcoxon signed-rank test**. Instead of the mean, it compares the median of a sample against a single value (i.e., the population median).
+If any of the assumptions are violated, switch to the non-parametric alternative. For the one-sample t-test, this would be a **One-sample Wilcoxon signed-rank test**. Instead of the mean, it compares the median of a sample against a single value (i.e., the population median).
 
-That means we need to find the population median, and calculate some **summary stats** for our sample:
+That means we will need to determine the population median, and calculate some **summary stats** for our sample:
 
 * The population median is listed in a supporting document on the [official WEMWBS website](https://warwick.ac.uk/fac/sci/med/research/platform/wemwbs/using/howto/){target="_blank"} as 53.0. 
-* We can easily calculate the summary statistics using the function summary.
+* We can easily calculate the summary statistics using the function `summary()`.
 
 ```{r}
 summary(one_sample)
 ```
 
 
-The function to **compute a one-sample Wilcoxon test** is `wilcox.test()`. It's part of BaseR and code-wise, it works very similar to the one-sample t-test.
+The function to **compute a one-sample Wilcoxon test** is `wilcox.test()` which is part of BaseR. Code-wise, it works very similar to the one-sample t-test.
 
 ```{r}
 wilcox.test(one_sample$wemwbs_sum, mu = 53.0)
 ```
 
-As we can see, the output gives us a V value, but we need to report **the standardised test statistic Z** in the final write-up. Unfortunately, we have to calculate Z manually. According to Andy Field (2012, p. 665), we need to use the qnorm function on the halved p-value from our Wilcoxon test above. Here, we store the p-value in the `Global Environment` as `p_wilcoxon` because it can store more decimal places than we see on the output above which means the Z value will be more accurate.
+As we can see, the output shows a V value, but for the final write-up, we need to report **the standardised test statistic Z** in the final write-up. Unfortunately, this requires manual calculation. According to Andy Field (2012, p. 665), we need to use the qnorm function on the halved p-value from our Wilcoxon test above. Here, we store the p-value in the `Global Environment` as `p_wilcoxon`. This retains more decimal places than shown in the output, giving us a more precise Z value."
 
 ```{r}
 # storing the p-value
@@ -570,7 +565,8 @@ z
 ```
 
 
-We also need to **calculate the effect size `r`**, which we can do via the `wilcoxonOneSampleR` from the `rcompanion` package. The default value will be 3 decimal places, but you can change that with the `digits` argument.
+
+We also need to **calculate the effect size `r`** for the One-sample Wilcoxon signed-rank test. This can be done using the `wilcoxonOneSampleR()` function from the `rcompanion` package. By default, the result is rounded to three decimal places, but you can adjust this by adding the `digits` argument.
 
 ```{r}
 wilcoxonOneSampleR(one_sample$wemwbs_sum, mu = 53.0, digits = 3)
@@ -583,9 +579,9 @@ A One-sample Wilcoxon signed-rank test was used to compare Gamers’ mental-well
 
 ## [Pair-coding]{style="color: #F39C12; text-transform: uppercase;"} {.unnumbered}
 
-
+to be added
 
 
 ## [Test your knowledge on Chapters 3 and 4]{style="color: #F39C12; text-transform: uppercase;"} {.unnumbered}
 
-
+to be added

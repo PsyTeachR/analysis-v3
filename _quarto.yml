@@ -55,6 +55,7 @@ book:
   - 03-wrangling2.qmd
   - 04-dataviz.qmd
   - 05-dataviz2.qmd
+  - 06-chi-square-one-sample.qmd
   appendices:
   - appendix-a-installing-r.qmd
   - appendix-b-updating-packages.qmd
