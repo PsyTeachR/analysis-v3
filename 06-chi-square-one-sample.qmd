@@ -185,7 +185,9 @@ chi_square <- data_ballou %>%
 
 ### Task 2: Compute descriptives
 
-Next, we need to calculate counts for each combination of the variables, which is best done in a frequency table. This will also allow us to verify that there are no missing values in any cells, as the function we’re using cannot handle missing values
+Next, we need to calculate counts for each combination of the variables, which is best done in a frequency table - or more precisely a **contingency table** since we are looking at a combination of 2 categorical variables (sometimes they are called crosstabulation and two-way tables). 
+
+This will also allow us to verify that there are no missing values in any cells, as the function we’re using cannot handle missing values
 
 
 ```{r}
@@ -202,7 +204,7 @@ We should be fine here, even though the count for the non-binary/vocational cate
 ### Task 3: Check assumptions
 
 
-#### Assumption 1: categorical data {.unnumbered}
+#### Assumption 1: Categorical data {.unnumbered}
 
 Both variables should be categorical, measured at either the ordinal or nominal level.
 
@@ -579,9 +581,337 @@ A One-sample Wilcoxon signed-rank test was used to compare Gamers’ mental-well
 
 ## [Pair-coding]{style="color: #F39C12; text-transform: uppercase;"} {.unnumbered}
 
-to be added
+### Task 1: Open the R project for the lab {.unnumbered}
+
+### Task 2: Create a new `.Rmd` file {.unnumbered}
+
+... and name it something useful. If you need help, have a look at @sec-rmd.
+
+### Task 3: Load in the library and read in the data {.unnumbered}
+
+The data should already be in your project folder. If you want a fresh copy, you can download the data again here: [data_pair_coding](data/data_pair_coding.zip "download").
+
+We are using the packages `tidyverse` and `lsr` today, and the data file we need to read in is `dog_data_clean_wide.csv`. I've named my data object `dog_data_wide` to shorten the name but feel free to use whatever object name sounds intuitive to you.
+
+If you have not worked through chapter 6 yet, you may need to install the package `lsr` before you can load it into the library. Run `install.packages("lsr")` in your **CONSOLE**.
+
+```{r reading in data for me, echo=FALSE, message=FALSE}
+library(tidyverse)
+library(lsr)
+
+dog_data_wide <- read_csv("data/dog_data_clean_wide.csv")
+dog_data_long <- read_csv("data/dog_data_clean_long.csv")
+
+## I need dog_chi
+dog_chi <- dog_data_wide %>% 
+  # Step 1
+  select(RID, Year_of_Study, Live_Pets) %>% 
+  # Step 2
+  drop_na() %>% 
+  # STep 3
+  mutate(Year_of_Study = factor(Year_of_Study,
+                                levels = c("First", "Second", "Third", "Fourth", "Fifth or above")),
+         Live_Pets = factor(Live_Pets,
+                            levels = c("yes", "no")))
+```
 
 
-## [Test your knowledge on Chapters 3 and 4]{style="color: #F39C12; text-transform: uppercase;"} {.unnumbered}
+### Task 4: Tidy data for a Chi-Square t-test {.unnumbered}
 
-to be added
+Look at `dog_data_wide` and choose two categorical variables. To guide you through this example, I have selected Year of Study and whether or not the students owned pets as my categorical variable.
+
+
+* **Step 1**: Select all relevant columns from `dog_data_wide`. In my case, those would be the participant ID `RID`, `Year_of_Study`, and `Live_Pets`. Store this data in an object called `dog_chi`.
+
+* **Step 2**: Check if we have any missing values in the `dog_chi`. If so remove them with the function `drop_na()`.
+
+* **Step 3**: Convert `Year_of_Study` and `Live_Pets` into factors. Feel free to order the categories meaningfully.
+
+::: {.callout-note collapse="true" icon="false"}
+
+## Hints
+
+```{r eval=FALSE}
+dog_chi <- ??? %>% 
+  # Step 1
+  select(???, ???, ???) %>% 
+  # Step 2
+  drop_na() %>% 
+  # Step 3
+  mutate(Year_of_Study = ???(Year_of_Study,
+                                levels = c("First", "Second", "Third", "Fourth", "Fifth or above")),
+         Live_Pets = ???(Live_Pets,
+                            levels = c("yes", "no")))
+```
+
+:::
+
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Solution for Tasks 3 and 4
+
+```{r eval=FALSE}
+# loading tidyverse and lsr into the library
+library(tidyverse)
+library(lsr)
+
+# reading in `dog_data_wide.csv`
+dog_data_wide <- read_csv("dog_data_wide.csv")
+
+# Task 4: Tidying 
+dog_chi <- dog_data_wide %>% 
+  # Step 1
+  select(RID, Year_of_Study, Live_Pets) %>% 
+  # Step 2
+  drop_na() %>% 
+  # Step 3
+  mutate(Year_of_Study = factor(Year_of_Study,
+                                levels = c("First", "Second", "Third", "Fourth", "Fifth or above")),
+         Live_Pets = factor(Live_Pets,
+                            levels = c("yes", "no")))
+
+```
+
+
+:::
+
+### Task 5: Compute descriptives {.unnumbered}
+
+Create a frequency table (or contingency table to be more exact) from `dog_chi`, i.e., we need counts for each combination of the variables. Store the data in a new data object `dog_chi_contingency`. `dog_chi_contingency` should look like this:
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(kableExtra)
+
+dog_chi_contingency <- dog_chi %>% 
+  count(Live_Pets, Year_of_Study) %>% 
+  pivot_wider(names_from = Live_Pets, values_from = n)
+
+dog_chi_contingency %>% 
+  kbl() %>%
+  kable_styling()
+```
+
+
+::: {.callout-note collapse="true" icon="false"}
+
+## Hints
+
+```{r eval=FALSE}
+dog_chi_contingency <- dog_chi %>% 
+  count(???, ???) %>% 
+  pivot_wider(names_from = ???, values_from = n)
+```
+
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Solution
+
+```{r eval=FALSE}
+# Task 5: Frequency table
+dog_chi_contingency <- dog_chi %>% 
+  count(Live_Pets, Year_of_Study) %>% 
+  pivot_wider(names_from = Live_Pets, values_from = n)
+```
+
+:::
+
+:::
+
+
+### Task 6: Check assumptions {.unnumbered}
+
+
+1. Both variables should be categorical, measured at either the ordinal or nominal level. Answer: `r mcq(c(answer = "yes", x = "no"))` as `Year_of_Study` is `r mcq(c(answer = "ordinal", x = "nominal"))`, and `Live_Pets` is `r mcq(c(x = "ordinal", answer = "nominal"))`.
+
+2. Each observation in the dataset has to be independent, meaning the value of one observation does not affect the value of any other. Answer: `r mcq(c(answer = "yes", x = "no"))`
+
+3. Cells in the contingency table are mutually exclusive. Answer: `r mcq(c(answer = "yes", x = "no"))` because each individual can belong to `r mcq(c(x = "multiple cells", answer = "only one cell"))` in the contingency table.
+
+
+### Task 7: Compute a chi-square test & interpret the output {.unnumbered}
+
+* **Step 1**: Use the function `as.data.frame` to turn `dog_chi` into a dataframe. Store this output in a new data object called `dog_chi_df`.
+
+
+::: {.callout-note collapse="true" icon="false"}
+
+## Hints
+
+```{r eval=FALSE}
+??? <- as.data.frame(???)
+```
+
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Solution
+
+```{r}
+dog_chi_df <- as.data.frame(dog_chi)
+```
+
+:::
+
+:::
+
+* **Step 2**: Run the `associationTest()` function from the `lsr` package to compute the Chi-Square test. The structure of the function is as follows:
+
+```{r eval=FALSE}
+associationTest(formula = ~ Variable1 + Variable2, data = your_dataframe)
+```
+
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Solution
+
+```{r eval=FALSE}
+associationTest(formula = ~ Year_of_Study + Live_Pets, data = dog_chi_df)
+```
+
+:::
+
+
+* **Step 3**: Interpreting the output
+
+
+```{r echo=FALSE}
+associationTest(formula = ~ Year_of_Study + Live_Pets, data = dog_chi_df)
+```
+
+
+The Chi-Square test revealed that there is `r mcq(c(answer = "a statistically significant association", x = "no statistically significant association"))` between Year of Study and whether students live with pets, $\chi^2$ (`r fitb("4")`) = `r fitb(c("12.28"))`, p = `r fitb(".015")`, V = `r fitb(".209")`. The strength of the association between the variables is considered `r mcq(c(x = "small", answer = "moderate", x = "strong"))`. We therefore `r mcq(c(x = "fail to reject the null hypothesis", answer = "reject the null hypothesis"))`.
+
+
+
+
+## [Test your knowledge]{style="color: #F39C12; text-transform: uppercase;"} {.unnumbered}
+
+#### Question 1: Conceptual Understanding - Chi-Square Test {.unnumbered}
+
+**What is the primary purpose of a Chi-square test?**
+
+`r longmcq(sample(c(x = "To compare means between two groups", answer = "To test the relationship between categorical variables", x = "To assess the correlation between two continuous variables", x = "To test for differences in variances")))`
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Explain this answer
+
+The Chi-square test evaluates whether there is an association or relationship between two categorical variables. Those variables can either be nominal or ordinal.
+
+:::
+
+#### Question 2: Application - Chi-Square Test {.unnumbered}
+
+**Which of the following scenarios would require a Chi-square test?**
+
+`r longmcq(c(x = "Comparing the average exam scores of students in two classrooms", answer = "Determining if there is an association between people’s favourite pizza topping and their region of residence", x = "Testing whether the average height of basketball players differs from the general population", x = "Assessing whether the reaction times of drivers are influenced by caffeine consumption"))`
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Explain this answer
+
+The only option with 2 categorical variables is pizza topping (e.g., pepperoni, vegetarian, cheese) and region of residence (e.g., North, South, East, West).
+
+:::
+
+
+#### Question 3: Interpreting Output - Chi-Square Test {.unnumbered}
+
+**In a Chi-square test, the p-value is .005. What does this imply if the significance level is set at .05?**
+
+`r longmcq(sample(c(answer = "The null hypothesis is rejected; there is a significant association.", x = "The null hypothesis is rejected; there is no significant association.", x = "The null hypothesis is not rejected; there is a significant association.", x = "The null hypothesis is not rejected; there is no significant association.")))`
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Explain this answer
+
+A p-value of .005 is less than the significance level (.05), indicating that the observed association between the variables is unlikely to have happened by chance.
+
+:::
+
+
+
+#### Question 4: Using R - Chi-Square Test {.unnumbered}
+
+**Which of the following R functions is used to perform a Chi-square test and displays a Cramer's V in the output?**
+
+`r longmcq(sample(c(answer = "associationTest()", x = "chisq.test()", x = "t.test()", x = "one.sample()")))`
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Explain this answer
+
+The `associationTest()` function from the `lsr` package performs a Chi-square test and directly provides Cramer's V as part of the output. The `chisq.test()` function exists it but does not compute Cramer's V. The other options either don’t exist or don’t meet the criteria.
+
+:::
+
+
+
+#### Question 5: Conceptual Understanding - One-sample t-test {.unnumbered}
+
+**What is the null hypothesis in a one-sample t-test?**
+
+`r longmcq(sample(c(x = "The population mean is equal to zero", answer = "The sample mean is equal to the population mean", x = "The sample mean is greater than the population mean", x = "The sample mean is less than the population mean")))`
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Explain this answer
+
+The one-sample t-test tests whether the sample mean is significantly different from a known or hypothesised population mean.
+
+:::
+
+#### Question 6: Application - One-sample t-test {.unnumbered}
+
+**Which of the following scenarios would require a one-sample t-test?**
+
+`r longmcq(c(x = "Comparing the average exam scores of students in two classrooms", x = "Determining if there is an association between people’s favourite pizza topping and their region of residence", answer = "Testing whether the average height of basketball players differs from the general population", x = "Assessing whether the reaction times of drivers are influenced by caffeine consumption"))`
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Explain this answer
+
+A one-sample t-test is appropriate when comparing the mean of a single sample (e.g., basketball players’ heights) to a known or hypothesised population mean (e.g., mean of the general population). The other options involve comparisons between groups (option 1), categorical associations (option 2), or repeated measures (option 4).
+
+:::
+
+
+#### Question 7: Interpreting Output - One-sample t-test {.unnumbered}
+
+**If the p-value in a one-sample t-test is .15 and the significance level is .05, what is the conclusion?**
+
+`r longmcq(sample(c(x = "The sample mean is significantly different from the population mean.", answer = "The sample mean is not significantly different from the population mean.", x = "The sample mean is equal to the population mean.", x = "The sample mean is further from the population mean than expected by chance.")))`
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Explain this answer
+
+Since the p-value (.15) is greater than the significance level (.05), we fail to reject the null hypothesis. This means there is no evidence to suggest that the sample mean is significantly different from the population mean.
+
+However, this does not mean we have evidence to suggest that the sample mean is exactly equal to the population mean. In statistics, 'not significantly different' is not the same as 'equal.' Therefore, the option 'The sample mean is equal to the population mean' is incorrect.
+
+:::
+
+
+
+#### Question 8: Using R - One-sample t-test {.unnumbered}
+
+**Which of the following R functions is used to perform a one-sample t-test?**
+
+`r longmcq(sample(c(x = "associationTest()", x = "chisq.test()", answer = "t.test()", x = "one.sample()")))`
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Explain this answer
+
+`t.test()` is the standard function in R for performing a one-sample t-test. In the next 2 weeks, we will see that the function can also be used for two-sample and paired t-tests. 
+
+The function `one.sample()` does not exist. 
+
+The other two functions perform Chi-square tests, which are specifically designed for categorical variables. They cannot be used when one of the variables is continuous.
+
+:::
+
