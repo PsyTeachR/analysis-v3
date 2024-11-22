@@ -2,21 +2,27 @@
 
 ## Intended Learning Outcomes {.unnumbered}
 
-By the end of this chapter you should be able to:
+In this chapter, we will focus on two-sample t-tests, also known as between-groups, between-subjects, or independent-samples t-tests. By the end of this chapter, you should be able to:
 
--   a
--   b
--   c
+- Compute a two-sample t-test and effectively report the results.
+- Understand when to use a non-parametric equivalent of the two-sample t-test, compute it, and report the results.
 
 
 ## [Individual Walkthrough]{style="color: #F39C12; text-transform: uppercase;"} {.unnumbered}
 
 ## Activity 1: Setup & download the data
 
+This week, we will be working with a new dataset. Follow the steps below to set up your project:
+
 * **Create a new project** and name it something meaningful (e.g., "2A_chapter7", or "07_independent_ttest"). See @sec-project if you need some guidance.
 * **Create a new `.Rmd` file** and save it to your project folder. See @sec-rmd if you get stuck. 
 * Delete everything after the setup code chunk (e.g., line 12 and below)
-* **Download a reduced dataset** here: [data_ch7.zip](data/data_ch7.zip "download"). You'll see the Codebook, a demographics file, a file containing the mean response times, and a docx file of Supplementary Materials with extra information about the Simon Task, the results, etc. We also provided the raw data file for you to see what experimental data looks like when it hasn't been pre-processed yet.
+* **Download the reduced version of a new dataset** here: [data_ch7.zip](data/data_ch7.zip "download"). The zip folder includes the following files:
+  * CodebookSimonTask.xlsx: A codebook with detailed variable descriptions
+  * DemoSimonTask.csv: A CSV file containing demographic information
+  * MeanSimonTask.csv: A CSV file with the mean response times
+  * Sup_Mats_Simon_Task.docx: A Word document with Supplementary Materials providing additional details about the task
+  * RawDataSimonTask.csv: The raw data file, allowing you to explore what experimental data looks like prior to pre-processing.
 * Extract the data files from the zip folder and place them in your project folder. If you need help, see @sec-download_data_ch1.
 
 
@@ -34,14 +40,15 @@ The data and supplementary materials are available on OSF: [https://osf.io/ghv6m
 
 **Changes made to the dataset**
 
-* We reduced the dataset, demographic information, and Supplementary Materials to only include information about the Simon Task. The full dataset including the other 8 tasks can be found on OSF.
+* The dataset, demographic information, and Supplementary Materials have been reduced to include only information related to the Simon Task. The full dataset, which includes the other eight tasks, is available on OSF.
 * No other changes were made.
 
 
 ## Activity 2: Library and data for today
 
-Today, we'll need the following packages `rstatix`, `tidyverse`, `car`, `lsr`, and `pwr`. Make sure that rstatix is read in before tidyverse, otherwise, it will mask some functions we will need later on. We also need to read in the data from `MeansSimonTask.csv` and the demographics information from `DemoSimonTask.csv`.
+Today, we’ll be using the following packages: `rstatix`, `tidyverse`, `car`, `lsr`, and `pwr`. You may need to install the packages before using them Make sure that `rstatix` is loaded in before tidyverse to avoid masking certain functions that we will need later.
 
+We will also read in the data from `MeansSimonTask.csv`  and the demographic information from `DemoSimonTask.csv`.
 
 ```{r eval=FALSE}
 # load in the packages
@@ -89,12 +96,16 @@ zwaan_demo <- read_csv("DemoSimonTask.csv")
 
 ## Activity 3: Familiarise yourself with the data
 
-As usual, familiarise yourself with the data before starting on the between-subjects t-test. Also, more importantly, have a look at the Supplementary Materials in which the Simon effect is explained in more depth.
+As usual, take some time to familiarise yourself with the data before starting on the between-subjects t-test. Also, more importantly, have a look at the Supplementary Materials in which the Simon effect is explained in more depth.
 
-In general, **the Simon effect** refers to the observation that participants have shorter response times when the stimulus appears on the same side of the screen as the button they need to press (i.e., a congruent condition). In contrast, when the stimulus appears on the opposite side of the screen from the button they are supposed to press (i.e., an incongruent condition), their response times are longer. 
+In general, **the Simon effect** refers to the phenomenon where participants respond faster when the stimulus appears on the same side of the screen as the button they need to press (i.e., a congruent condition). Conversely, response times are slower when the stimulus appears on the opposite side of the screen from the required button (i.e., an incongruent condition).
 
-In this experiment, all participants completed 2 sessions of trials. Half of the participants received the same stimulus set across sessions 1 and 2, whereas for the other half the stimulus set they received in session 2 differed from the one already encountered in session 1. 
+In this experiment, all participants completed two sessions of trials. However, they were divided into two groups based on the stimuli they received:
 
+* **Same Stimuli Group**: Half of the participants received the same set of stimuli in both sessions.
+* **Different Stimuli Group**: The other half received a different set of stimuli in session 2 compared to session 1.
+
+### Potential research questions and hypotheses
 
 * Potential research question: “Is there a significant difference in the Simon effect between participants who received the same stimuli in both sessions compared to those who received different stimuli?”
 * Null Hypothesis (H~0~): "There is no significant difference in the Simon effect between participants who received the same stimuli in both sessions and those who received different stimuli."
@@ -104,15 +115,15 @@ In this experiment, all participants completed 2 sessions of trials. Half of the
 
 ## Activity 4: Preparing the dataframe
 
-The data is already in a very good shape, however, we do have some wrangling to do to compute this Simon effect.
+The data is already in a very good shape, however, we need to perform some data wrangling to compute the Simon effect.
 
 
-To calculate the Simon effect, we need 
+**Steps to calculate the Simon effect:**
 
-1. one mean response time (RT) value for congruent and one for incongruent trials per participant, and then
-2. subtract the mean RT of congruent trials from the mean RT of incongruent trials.
+1. For each participant, **compute the mean response time (RT)** for congruent trials and the mean RT for incongruent trials
+2. Subtract the mean RT of congruent trials from the mean RT of incongruent trials to **calculate the Simon effect**
 
-And to have all data in one place, we should join this output with the demographics.
+To streamline analysis, we should join this output with the demographics data to have all relevant information in one place.
 
 Basically, we want to create a tibble that has the following content. *[Note that I re-arranged the columns and re-labelled some of them in a final step, so your column names and/or order might be slightly different, but content should match.]*
 
@@ -131,19 +142,19 @@ simon_effect <- zwaan_data %>%
 head(simon_effect, n = 5)
 ```
 
-Obviously, there are various ways of doing this, so feel free to come up with your own way. However, we will provide step-by-step instructions for one of those ways that will get you the output:
+Obviously, there are various ways to achieve this, so feel free to explore and come up with your own approach. However, we will provide step-by-step instructions for one of those ways that will get you the desired output.
 
 ::: {.callout-note collapse="true" icon="false"}
 
 ## Hints
 
-* **Step 1**: the data is currently in wide format but would be better if it were in long format (so that all RT values are in 1 column; each participant has now 4 rows)
-* **Step 2**: there should be a column now that contained the previous column headings with information on session number and congruency. It would be best if that was separated into 2 columns instead.
-* **Step 3**: now we can calculate the mean RT for each `participant`, `similarity`, and `congruency`
-* **Step 4**: pivot the data again, this time into wide format so that congruent and incongruent values are in 2 columns 
-* **Step 5**: create a new column called the `simon_effect` that subtracts congruent from incongruent values 
-* **Step 6**: join this together with the demographic information
-* **Step 7**: feel free to rearrange the order of columns and/or rename them to match your output with ours (not strictly necessary tbh)
+* **Step 1**: Convert the data from wide format to long format, so that all RT values are consolidated into a single column. This transformation will result in each participant having four rows.
+* **Step 2**: There should be a column now that contained the previous column headings with information on session number and congruency. Separate this information into 2 separate columns (i.e., session number and congruency).
+* **Step 3**: Compute the mean RT values for each combination of `participant`, `similarity`, and `congruency`
+* **Step 4**: Pivot the data back to wide format so that the mean RT values for congruent and incongruent trials are placed in two separate columns.
+* **Step 5**: Add a new column called the `simon_effect` that calculates the Simon effect by subtracting the mean RT for congruent trials from the mean RT for incongruent trials.
+* **Step 6**: Merge this processed dataset with the demographics data to ensure all relevant information is in one table.
+* **Step 7**: Feel free to rearrange the order of columns and/or rename them to match your output with ours (not strictly necessary tbh)
 
 ::: {.callout-caution collapse="true" icon="false"}
 
@@ -169,7 +180,8 @@ simon_effect <- zwaan_data %>%
 
 ## Activity 5: Compute descriptives
 
-We want to compute means and standard deviations for each group of our variable of interest, i.e., the mean RT and sd for our variable `simon_effect` for the `same` and the `different` group.
+Next, we want to compute number of participants (**n**), **means** and **standard deviations** for each group (i.e., `same` and `different`) of our variable of interest (i.e., `simon_effect`).
+
 
 ::: {.callout-caution collapse="true" icon="false"}
 
@@ -178,8 +190,10 @@ We want to compute means and standard deviations for each group of our variable 
 ```{r}
 descriptives <- simon_effect %>% 
   group_by(similarity) %>% 
-  summarise(mean_RT = mean(simon_effect),
-            sd_RT = sd(simon_effect))
+  summarise(n = n(),
+            mean_RT = mean(simon_effect),
+            sd_RT = sd(simon_effect)) %>% 
+  ungroup()
 
 descriptives
 ```
@@ -189,7 +203,7 @@ descriptives
 
 ## Activity 6: Create an appropriate plot
 
-Which plot would you choose to represent the data appropriately? Create an appropriate plot, then compare with the solution below.
+Which plot would you choose to represent the data appropriately? Create a plot that effectively visualises the data, and then compare it with the solution provided below.
 
 ::: {.callout-caution collapse="true" icon="false"} 
 
@@ -202,7 +216,6 @@ ggplot(simon_effect, aes(x = similarity, y = simon_effect, fill = similarity)) +
   scale_fill_viridis_d(guide = "none") +
   theme_classic() +
   labs(x = "Similarity", y = "Simon effect")
-  
 ```
 
 :::
@@ -211,37 +224,40 @@ ggplot(simon_effect, aes(x = similarity, y = simon_effect, fill = similarity)) +
 
 #### Assumption 1: Continuous DV {.unnumbered}
 
-The dependent variable needs to be measured at interval or ratio level. We can confirm that by looking at `simon_effect`. 
+The dependent variable must be measured at interval or ratio level. We can confirm that by looking at `simon_effect`. 
 
 
 #### Assumption 2: Data are independent {.unnumbered}
 
-There is no relationship between the observations. The scores in one condition/observation can’t influence the scores in another. We assume this assumption holds for our data.
+There should be no relationship between the observations. Scores in one condition or observation should not influence scores in another. We assume this assumption holds for our data.
 
 
+#### Assumption 3: Homoscedasticity (homogeneity of variance) {.unnumbered}
 
-#### Assumption 3: Homoskedasticity (homogeneity of variance) {.unnumbered}
+This assumption requires the variances between the two groups to be similar (i.e., homoscedasticity). If the variances between the 2 groups are dissimilar/unequal, we have heteroscedasticity.
 
-If the variances between the 2 groups are similar/equal, we have homoskedasticity.
-If the variances between the 2 groups are dissimilar/unequal, we have heteroskedasticity.
+We can test this using a **Levene’s Test for Equality of Variance** which is available in the package `car`. The first argument specifies the formula in the format `DV ~ IV`. Here:
 
-We can test this with a **Levene’s Test for Equality of Variance**. The Levene's test is part of the package `car`. The first argument is a formula, and it's structured as `DV ~ IV`. In our data, the DV would be our continuous `simon_effect` variable, and the IV is the grouping variable `similarity`. Separate those 2 variables with a tilde. The second argument is the data.
+* The dependent variable (DV) is `simon_effect` (continuous)
+* The independent variable (IV) is `similarity` (the grouping variable)
+
+To perform the test, separate the variables with a tilde (`~`), and specify the dataset using the `data` argument:
 
 ```{r}
 leveneTest(simon_effect ~ similarity, data = simon_effect)
 ```
 
-The warning message tells us that the grouping variable was converted into a factor. Oops, I guess we forgot to turn the variables into a factor during data wrangling.
+The warning message tells us that the grouping variable was converted into a factor. Oops, I guess we forgot to convert `similarity` into a factor during data wrangling.
 
-From the above result, we see that p-value is greater than .05. That means, we do have not enough evidence to reject the null hypothesis. So the variance across the 2 groups are assumed equal. 
+The test output shows a **p-value greater than .05**. This indicates that we do not have enough evidence to reject the null hypothesis. Therefore, the variances across the two groups can be assumed equal.
 
-You would report this in APA style: A Levene's test of homogeneity of variances was used to compare the variances of the same and the different groups. It indicated that the variances were homogenous, $F(1,158) = 0.73, p = .395$.
+You would report this result in APA style: A Levene's test of homogeneity of variances was used to compare the variances of the same and the different groups. The test indicated that the variances were homogeneous, $F(1,158) = 0.73, p = .395$.
 
 ::: {.callout-important}
 
-One other thing to note is the t-test we are conducting is a **Welch t-test** by default. Welch gives similar results to a Student's t-test when variances are equal, but is to be favoured when variances are not equal. 
+The t-test we are conducting is a Welch t-test by default. The Welch t-test provides similar results to a Student’s t-test when variances are equal but is preferred when variances are unequal.
 
-So even if Levene's returns a significant p-value indicating groups have unequal variances, we can still use the Welch t-test.
+This means that even if Levene’s test returns a significant p-value, indicating that the variances between the groups are unequal, the Welch t-test remains appropriate and valid for analysis.
 
 :::
 
@@ -249,23 +265,34 @@ So even if Levene's returns a significant p-value indicating groups have unequal
 
 #### Assumption 4: DV should be approximately normally distributed {.unnumbered}
 
-Here, we need to pay attention that this means **normally distributed in each group**.
+It’s important to note that this assumption requires the **dependent variable to be normally distributed within each group**.
 
-We can either use our eyeballs again on the violin-boxplot we created earlier (or use a qqplot, density plot, or histogram instead), OR compute a statistic like the Shapiro-Wilk's test we already mentioned for the one-sample t-test. However, might still have the issue of large sample sizes (i.e. ca 80 participants in each group).
+We can either use our eyeballs again on the violin-boxplot we created earlier (or use a qqplot, density plot, or histogram instead), OR compute a statistic like the Shapiro-Wilk's test we already mentioned previously for the one-sample t-test. However, keep in mind that with large sample sizes (approximately 80 participants per group), this test may flag minor deviations from normality as significant, even if the data is reasonably normal.
 
-Visual inspection would tell us that both groups look pretty normally distributed - the "same" group slightly more so than the "different" group because of the peak in the lower tail. But it still looks pretty normal for real-life data.
+
+Visual inspection suggests that both groups are approximately normally distributed. The **"same" group** appears slightly more normally distributed than the **"different" group**, which has a small peak in the lower tail. Despite this, both distributions seem normal enough for practical purposes with real-world data.
 
 ::: {.callout-tip} 
 
-If you wanted to use a histogram, density plot or qqplot (the ones created with the `ggplot2` and `qqplotr` packages), you could just add a `facet_wrap()` function to display the figures separate for each group. 
+## Tip: Visual inspection
 
-If you used the Q-Q plot function from the `car` package, you would need to create different data objects with the filtered data for each group first before you can create the Q-Q plots for both groups separately.
+If you want to use a histogram, density plot or qqplot (the ones created with the `ggplot2` and `qqplotr` packages), you can simply add a `facet_wrap()` function to display the plots separately for each group. 
+
+If you are using the Q-Q plot function from the `car` package, you will need to create separate data objects filtered for each group before generating Q-Q plots for the groups individually.
 
 :::
 
-You can still use computational methods, like the **Shapiro-Wilk's test** we mentioned in the last chapter. The function does not allow for a formula, which means we would have to use different objects for the 2 different groups first. I guess this is a good way of practicing the filter function.
+::: {.callout-note icon="false"} 
 
-Task: Create separate data object for the same and different group and then run the Shapiro-Wilk test on them. What do you conclude from the results?
+## Task: Compute Shapiro-Wilk's test
+
+As mentioned above, the function for the **Shapiro-Wilk's test** does not allow for a formula. This means you will need to create separate data objects for the two groups first. Consider this a good opportunity to practice using the `filter()` function.
+
+**Step-by-step instructions**: 
+
+1. Create separate data objects for the same and different groups.
+2. Run the Shapiro-Wilk test on each group’s data.
+3. Examine the results. What do you conclude from the test outcomes?
 
 ::: {.callout-caution collapse="true" icon="false"} 
 
@@ -285,21 +312,26 @@ different <- simon_effect %>%
 shapiro.test(different$simon_effect)
 ```
 
-Shapiro-Wilk's test also showed the data for both groups, "same" and "different", are normally distributed as all p-values are above .05. Again, if you used this method in your report, you would have to write up the results in APA style (see one-sample t-test).
+**Interpretation:**
+
+Shapiro-Wilk's test also suggests that the data for both groups, "same" and "different", are normally distributed as all p-values are above .05. 
+
+Again, if you used this method in your report, you would have to write up the results in APA style (refer to the section on the one-sample t-test for guidance on reporting).
 
 :::
 
+:::
 
 
 ::: {.callout-important}
 
-If you have read the Delacre et al. (2017) paper ([https://rips-irsp.com/articles/10.5334/irsp.82](https://rips-irsp.com/articles/10.5334/irsp.82){target="_blank"}), you might be aware that the normality assumption is not overly important for the Welch t-test.
+If you have read the Delacre et al. (2017) paper ([https://rips-irsp.com/articles/10.5334/irsp.82](https://rips-irsp.com/articles/10.5334/irsp.82){target="_blank"}), you might be aware that the **normality assumption is not critical for the Welch t-test**.
 
-So whether you judge both groups as "normally distributed" or interpret one as deviating slightly from normality, the Welch t-test should still be ok to use for this dataset.
+This means that, whether you consider both groups to be "normally distributed" or interpret one as slightly deviating from normality, the Welch t-test remains an appropriate choice for this dataset.
 
 :::
 
-After checking all of these assumptions, we decided that all of them held, and we will compute a **Welch two-sample t-test**.
+After verifying all the assumptions, we concluded that they were met. Therefore, we will compute a **Welch two-sample t-test**.
 
 
 
@@ -307,45 +339,61 @@ After checking all of these assumptions, we decided that all of them held, and w
 
 ## Activity 8: Compute a Two-sample t-test and effect size
 
-The `t.test()` function we used for the one-sample t-test can be used here, however, we can use it in a slightly different way. It does allow for a formula option. So instead of having to wrangle the data again and having to use `$` to access columns, we can use the formula `DV ~ IV`. The `t.test()` function expects the following arguments:
+The `t.test()` function, which we previously used for the one-sample t-test, can also be used here, but with a slightly different approach. It supports a formula option, which simplifies the process. This means we don’t need to wrangle the data further or use the `$` operator to access columns directly. Instead, we can specify the formula as `DV ~ IV`.
+
+The key arguments for `t.test()` are:
 
 * The first argument in the formula with the pattern `DV ~ IV`
 * The second argument is the data
-* The third argument is specifying whether variances are equal between the groups. By default is is `var.equal = FALSE` which means a **Welch t-test** is getting conducted. If you were to set `var.equal` to `TRUE`, you would conduct a Student t-test.
-* The 4th argument `alternative` is "two.sided" by default, meaning we are checking the alternative hypothesis in both directions (i.e., a non-directional hypothesis)
+* The third argument is specifying whether variances are equal between the groups. The default value is `var.equal = FALSE`, which conducts a **Welch t-test**. If you set `var.equal = TRUE`, you would conduct a Student t-test instead.
+* The 4th argument `alternative` specifies the alternative hypothesis. The default value is "two.sided", meaning the test will check for differences in both directions (i.e., a non-directional hypothesis)
 
 
 ```{r}
 t.test(simon_effect ~ similarity, data = simon_effect, var.equal = FALSE, alternative = "two.sided")
 ```
-The output tells us:
 
-* the test that was conducted (here Welch)
-* the variables that were tested (here simon_effect by similarity), 
-* the t value, degrees of freedom, and p,
-* the alternative hypothesis, 
-* a 95% confidence interval,
-* and the mean of both groups (which again match with our descriptives)
+The output of the `t.test()` function tells us:
 
-The `t.test()` function does not give us an **effect size**, so we have to compute it once again. We can use the `CohensD()` function from the `lsr` package as we did for the one-sample t-test. We can use the formula approach here as well. It requires us to add an extra argument `method = "unequal"` for the Welch version of the t-test.
+* the **type of test** that was conducted (here Welch t-test)
+* the **variables** that were tested (here `simon_effect` by `similarity`), 
+* the **t-value**, **degrees of freedom**, and **p**,
+* the **alternative hypothesis** tested, 
+* a **95% confidence interval** for the difference between group means, and
+* the **mean of both groups** (which should match our descriptive stats)
+
+
+The `t.test()` function does not calculate an **effect size**, so we have to compute it separately once again. As with the one-sample t-test, we can use the `CohensD()` function from the `lsr` package. The formula-based approach works here too. For the **Welch version** of the t-test, you need to include the argument `method = "unequal"` in the `CohensD()` function to account for unequal variances.
+
 
 ```{r}
 cohensD(simon_effect ~ similarity, data = simon_effect, method = "unequal")
 ```
 
+
 ## Activity 9: Sensitivity power analysis
 
-Next up is the sensitivity power analysis to determine the minimum effect size that we could have reliably detected with the number of participants that took part, the alpha level at 0.05, and an assumed power of 0.8. 
+Next, we will conduct a **sensitivity power analysis** to determine the minimum effect size that could have been reliably detected with our sample size, an alpha level of 0.05, and a power of 0.8.
 
-The function we need to compute this is `pwr.t.test()` which is part of the `pwr` package. The arguments in the formula are the same as for the one-sample t-test; we just need to adjust the number of participants (which is the number of observations per sample) and set the type to "two.sample".
+To perform this analysis, we use the `pwr.t.test()` from the `pwr` package. The arguments are the same as those used for the one-sample t-test, but with a few adjustments:
+
+* **Number of Participants**: Specify the number of observations per sample (i.e., n)
+* **Test Type**: Set the `type` argument to "two.sample" for a two-sample t-test.
+
 
 ```{r}
 pwr.t.test(n = 80, sig.level = 0.05, power = 0.8, type = "two.sample", alternative = "two.sided")
 ```
 
-So the smallest effect size we can detect with a sample size of 80 participants in each group, an alpha level of 0.05, and power of 0.8 is 0.45. This is a larger value than the actual effect size we calculated with the `CohensD` function above (i.e., 0.14) which means our analysis is underpowered to detect this extremely small effect.
+Sooo, the smallest effect size we can detect with a sample size of 80 participants in each group, an alpha level of .05, and power of .8 is **0.45**. This is larger than the actual effect size we calculated using the `CohensD()` function (i.e., 0.14). This indicates that our analysis is underpowered to detect such a small effect size.
 
-Just out of curiosity, if we were to replicate this study, and we wanted to be able to detect an effect size that small, how many participants would we need to recruit? We run the `pwr.t.test()` function again, but replacing n with the effect size d. Ooft; we would need ca 1500 participants in total. To be honest, 0.145 would not be a meaningful effect size.
+#### Hypothetical Replication Study {.unnumbered}
+
+Out of curiosity, if we were to replicate this study and wanted to reliably detect an effect size as small as **0.14**, how many participants would we need?
+
+We can use the `pwr.t.test()` function again. This time, instead of specifying `n`, we provide the effect size (`d = 0.14`). The result shows that we would need approximately **1,500 participants in total** (750 per group). Ooft; that's quite a few people to recruit.
+
+However, it’s worth noting that an effect size of 0.14 may not be practically meaningful, even if statistically detectable.
 
 ```{r}
 pwr.t.test(d = 0.145, sig.level = 0.05, power = 0.8, type = "two.sample", alternative = "two.sided")
@@ -356,7 +404,9 @@ pwr.t.test(d = 0.145, sig.level = 0.05, power = 0.8, type = "two.sample", altern
 
 ## But my two groups have unequal sample sizes, and there is only one n in `pwr.t.test`. What do I do?
 
-No problem. You can use the function `pwr.t2n.test()` that allows you to specify two different sample sizes n1 and n2. The rest stays pretty much the same, even though there is no need to specify the type anymore.
+No problem! You can use the `pwr.t2n.test()` function, which allows you to specify different sample sizes for the two groups (`n1` and `n2`). 
+
+The rest of the arguments are essentially the same as with `pwr.t.test()`. Additionally, there is no need to specify the `type` argument, as the function is specifically designed for two-sample t-tests with unequal sample sizes.
 
 ```{r eval=FALSE}
 pwr.t2n.test(n1 = NULL, n2= NULL, d = NULL, sig.level = 0.05, power = NULL, alternative = c("two.sided", "less","greater"))
@@ -373,18 +423,18 @@ pwr.t2n.test(n1 = 80, n2= 80, sig.level = 0.05, power = 0.8, alternative = "two.
 
 ## Activity 10: The write-up
 
-We hypothesised that there would be a significant difference in the Simon effect between participants who received the same stimuli in both sessions $(N = 80, M = 35.99 msec, SD = 22.40 msec)$ and those who received different stimuli $(N = 80, M = 32.86 msec, SD = 20.79 msec)$. Using a two-sample Welch t-test, the effect was found to be non-significant and of a small magnitude, $t(157.14) = 0.92, p = .360, d = 0.15$. The overall mean difference between groups was small $(M_{diff} = 3.14 msec)$. Therefore, we fail to reject the null hypothesis.
+We hypothesised that there would be a significant difference in the Simon effect between participants who received the same stimuli in both sessions $(N = 80, M = 35.99 msec, SD = 22.40 msec)$ and those who received different stimuli $(N = 80, M = 32.86 msec, SD = 20.79 msec)$. Using a Welch two-sample  t-test, the effect was found to be non-significant and of a small magnitude, $t(157.14) = 0.92, p = .360, d = 0.15$. The overall mean difference between groups was small $(M_{diff} = 3.14 msec)$. Therefore, we fail to reject the null hypothesis.
 
 
 
 ## Activity 11: Non-parametric alternative {#sec-alternative_two_sample}
 
-The **Mann-Whitney U-test** is the non-parametric equivalent to the independent two-sample t-test. The test can be used for any situation requiring a test to compare the median of two samples. 
+The **Mann-Whitney U-test** is the non-parametric equivalent of the independent two-sample t-test. It is used to compare the medians of two samples and is particularly useful when the assumptions of the t-test are not met.
 
-According to the paper by Delacre et al. (2017), the Mann-Whitney U-test can cope with normality issues, but it remains sensitive to heteroscedasticity. Here, we won't have a problem, since the variances in the two groups were equal, but perhaps be mindful in other datasets when assessing assumptions and drawing conclusions from them.
+According to Delacre et al. (2017), the Mann-Whitney U-test is robust to violations of normality but remains sensitive to heteroscedasticity. In this case, we don’t need to worry about heteroscedasticity, as the variances in the two groups are equal. However, it’s important to keep this in mind when assessing assumptions and interpreting results with other datasets.
 
 
-First, let's start of by computing some **summary statistics** for each group.
+First, let's start by computing some **summary statistics** for each group.
 
 ```{r}
 simon_effect %>% 
@@ -394,13 +444,14 @@ simon_effect %>%
 ```
 
 
-To **conduct a Mann-Whitney U-test**, use the function `wilcox.test()`. This time, use the formula approach `DV ~ IV` - again, this is the same code structure we just used for the independent t-test.
+To **conduct a Mann-Whitney U-test**, use the `wilcox.test()` function. As with the independent t-test, you can use the formula approach `DV ~ IV`. The code structure is identical to what we used for the independent t-test.
 
 ```{r}
 wilcox.test(simon_effect ~ similarity, data = simon_effect)
 ```
 
-We should compute the **standardised test statistic Z** once again. We need to calculate Z manually, using the qnorm function on the halved p-value from our Wilcoxon test above.
+
+We should compute the **standardised test statistic Z** manually. To do this, use the `qnorm()` function on the halved p-value obtained from the Wilcoxon test conducted earlier.
 
 ```{r}
 # storing the p-value
@@ -413,11 +464,11 @@ z
 ```
 
 
+The **effect size** for the Mann-Whitney U-test is **r**. To compute r, we'd need the standardised test statistic z and divide that the square-root of the number of pairs n: $r = \frac{|z|}{\sqrt n}$. 
 
+Alternatively, you can use the `wilcox_effsize()` function from the `rstatix` package to simplify the process.
 
-The **effect size** for the Mann-Whitney U-test is r. To compute r, we'd need the standardised test statistic z and divide that the square-root of the number of pairs n: $r = \frac{|z|}{\sqrt n}$. Or we could just use the `wilcox_effsize()` function from the `rstatix` package.
-
-The arguments are in a slightly different order, but exactly the same as in the Wilcox test we used above.
+The arguments for this function are slightly different in order but otherwise identical to those used in the `wilcox.test()` function above.
 
 ```{r}
 wilcox_effsize(data = simon_effect, formula = simon_effect ~ similarity)
@@ -426,14 +477,326 @@ wilcox_effsize(data = simon_effect, formula = simon_effect ~ similarity)
 This is once again considered a small effect. Anyway, we do have all the numbers now to **write up the results**:
 
 
-A Mann-Whitney U-test was conducted to determine whether there was a significant difference in the Simon effect between participants who received the same stimuli in both sessions $(N = 80, Mdn = 35.68 msec)$ and those who received different stimuli $(N = 80, Mdn = 34.44 msec)$. The results indicate that the median response time difference was non-significant and of small magnitude, $W = 3001, Z = -0.68, p = .498, r = .054$. Therefore, we fail to reject the null hypothesis.
+A Mann-Whitney U-test was conducted to determine whether there was a significant difference in the Simon effect between participants who received the same stimuli in both sessions $(N = 80, Mdn = 35.68 \text{msec})$ and those who received different stimuli $(N = 80, Mdn = 34.44 \text{msec})$. The results indicate that the median difference in response time was non-significant and of small magnitude, $W = 3001, Z = -0.68, p = .498, r = .054$. Therefore, we fail to reject the null hypothesis.
 
 
 ## [Pair-coding]{style="color: #F39C12; text-transform: uppercase;"} {.unnumbered}
 
 
+### Task 1: Open the R project for the lab {.unnumbered}
+
+### Task 2: Create a new `.Rmd` file {.unnumbered}
+
+... and name it something useful. If you need help, have a look at @sec-rmd.
+
+### Task 3: Load in the library and read in the data {.unnumbered}
+
+The data should already be in your project folder. If you want a fresh copy, you can download the data again here: [data_pair_coding](data/data_pair_coding.zip "download").
+
+We are using the packages `tidyverse`, `car`, and `lsr` today, and the data file we need to read in is `dog_data_clean_wide.csv`. I've named my data object `dog_data_wide` to shorten the name but feel free to use whatever object name sounds intuitive to you.
+
+If you have not worked through chapter 7 yet, you may need to install a few packages first before you can load them into the library, for example, if `car` is missing, run `install.packages("car")` in your **CONSOLE**.
+
+```{r reading in data for me, echo=FALSE, message=FALSE}
+library(tidyverse)
+library(car)
+library(lsr)
+
+dog_data_wide <- read_csv("data/dog_data_clean_wide.csv")
+dog_data_long <- read_csv("data/dog_data_clean_long.csv")
+
+## I need dog_two_sample
+dog_independent <- dog_data_wide %>% 
+  # Step 1
+  select(RID, GroupAssignment, Flourishing_post) %>% 
+  # Step 2
+  filter(GroupAssignment %in% c("Control", "Direct")) %>% 
+  # Step 3
+  mutate(GroupAssignment = factor(GroupAssignment))
+```
+
+
+### Task 4: Tidy data for a two-sample t-test {.unnumbered}
+
+For today’s task, we want to analyse how **students’ psychological well-being scores** differed at the **post_intervention** time point. Specifically, we will compare the scores of students who directly interacted with the dogs (Group `direct`)to those who only talked to the dog handlers (Group `control`).
+
+
+To achieve that, we need to select all relevant columns from `dog_data_wide`, and narrow down the dataframe to only include students assigned either to the `direct` or the `control` groups.
+
+
+* **Step 1**: Select all relevant columns from `dog_data_wide`. For the task at hand, those would be the participant ID `RID`, `GroupAssignment`, and `Flourishing_post`. Store this data in an object called `dog_independent`.
+
+* **Step 2**: Narrow down `dog_independent` to only include `GroupAssignment` groups `direct` or the `control`.
+
+* **Step 3**: Convert `GroupAssignment` into a factor.
+
+::: {.callout-note collapse="true" icon="false"}
+
+## Hints
+
+```{r eval=FALSE}
+dog_independent <- ??? %>% 
+  # Step 1
+  select(???, ???, ???) %>% 
+  # Step 2
+  filter(??? %in% c(???, ???)) %>% 
+  # Step 3
+  mutate(GroupAssignment = ???())
+```
+
+:::
+
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Solution for Tasks 3 and 4
+
+```{r eval=FALSE}
+# loading tidyverse and lsr into the library
+library(tidyverse)
+library(car)
+library(lsr)
+
+# reading in `dog_data_clean_wide.csv`
+dog_data_wide <- read_csv("dog_data_clean_wide.csv")
+
+# Task 4: Tidying 
+dog_independent <- dog_data_wide %>% 
+  # Step 1
+  select(RID, GroupAssignment, Flourishing_post) %>% 
+  # Step 2
+  filter(GroupAssignment %in% c("Control", "Direct")) %>% 
+  # Step 3
+  mutate(GroupAssignment = factor(GroupAssignment))
+
+```
+
+
+:::
+
+### Task 5: Compute descriptives {.unnumbered}
+
+Calculate the sample size (n), the mean, and the standard deviation of the psychological well-being score for both groups. Save the output in an object called `dog_independent_descriptives`. The resulting dataframe should look like this:
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(kableExtra)
+
+dog_independent_descriptives <- dog_independent %>% 
+  group_by(GroupAssignment) %>% 
+  summarise(n = n(),
+            mean_Flourishing = mean(Flourishing_post),
+            sd_Flourishing = sd(Flourishing_post)) %>% 
+  ungroup()
+
+dog_independent_descriptives %>% 
+  kbl() %>%
+  kable_styling()
+```
+
+
+::: {.callout-note collapse="true" icon="false"}
+
+## Hints
+
+```{r eval=FALSE}
+dog_independent_descriptives <- dog_independent %>% 
+  group_by(???) %>% 
+  summarise(n = n(),
+            mean_Flourishing = mean(???),
+            sd_Flourishing = sd(???)) %>% 
+  ungroup()
+```
+
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Solution
+
+```{r eval=FALSE}
+# Task 5: Means & SD
+dog_independent_descriptives <- dog_independent %>% 
+  group_by(GroupAssignment) %>% 
+  summarise(n = n(), 
+            mean_Flourishing = mean(Flourishing_post),
+            sd_Flourishing = sd(Flourishing_post)) %>% 
+  ungroup()
+```
+
+:::
+
+
+
+:::
+
+
+### Task 6: Check assumptions {.unnumbered}
+
+
+#### Assumption 1: Continuous DV {.unnumbered} 
+
+Is the dependent variable (DV) continuous? Answer: `r longmcq(sample(c(answer = "Yes. The DV is called Flourishing and it is continuous", x = "No. The DV is called Flourishing and it is categorical", x = "No. The DV is called GroupAssignment and it is categorical", x = "Yes. The DV is called GroupAssignment and it is continuous")))`
+
+#### Assumption 2: Data are independent {.unnumbered} 
+
+Each observation in the dataset has to be independent, meaning the value of one observation does not affect the value of any other. Answer: `r mcq(c(answer = "yes", x = "no"))`
+
+#### Assumption 3: Homoscedasticity (homogeneity of variance) {.unnumbered} 
+
+I've computed Levene's test below. How do you interpret the output?
+
+```{r}
+leveneTest(Flourishing_post ~ GroupAssignment, data = dog_independent)
+```
+Answer: `r longmcq(c(x = "The p-value of Levene's test is significant, therefore we conclude that there is a difference between the variances in the population.", x = "The p-value of Levene's test is non-significant, therefore we conclude that there is a difference between the variances in the population.", x = "The p-value of Levene's test is significant, therefore we conclude that the variances in the population are equal.", answer = "The p-value of Levene's test is non-significant, therefore we conclude that the variances in the population are equal."))`
+
+#### Assumption 4: DV should be approximately normally distributed {.unnumbered}
+
+Looking at the violin-boxplot below, are both groups normally distributed?
+
+```{r}
+ggplot(dog_independent, aes(x = GroupAssignment, y = Flourishing_post, fill = GroupAssignment)) +
+  geom_violin(alpha = 0.4) +
+  geom_boxplot(width = 0.3, alpha = 0.8) +
+  scale_fill_viridis_d(option = "cividis", guide = "none") +
+  theme_classic() +
+  labs(x = "Group", y = "Psychological well-being (post-intervention)")
+```
+
+Answer:
+
+`r longmcq(c(x = "yes, both groups are normally distributed", answer = "no, both groups are sightly skewed", x = "no, both groups are extremely skewed"))`
+
+#### Conclusion from assumption tests {.unnumbered}
+
+With all assumptions tested, which statistical test would you recommend for this analysis?
+
+
+
+Answer: `r longmcq(c(x = "All assumptions held. We will conduct a Student two-sample t-test.", answer = "The assumption of normality was violated. We will conduct a Welch two-sample t-test because it has been shown to be robust to slight deviations from normality (Delacre et al., 2017).", x = "The assumptions of normality and homoscedasticity were violated. Therefore, we will conduct a non-parametric test."))`
+
+
+### Task 7: Computing a two-sample t-test with effect size & interpret the output {.unnumbered}
+
+* **Step 1**: Compute the Welch two-sample t-test. The structure of the function is as follows:
+
+```{r eval=FALSE}
+t.test(DV ~ IV, data = your_dataframe, var.equal = FALSE, alternative = "two.sided")
+```
+
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Solution
+
+```{r eval=FALSE}
+t.test(Flourishing_post ~ GroupAssignment, data = dog_independent, var.equal = FALSE, alternative = "two.sided")
+```
+
+:::
+
+
+* **Step 2**: Calculate an effect size
+
+Calculate Cohen's D. The structure of the function is as follows:
+
+```{r eval=FALSE}
+cohensD(DV ~ IV, data = your_dataframe, method = "unequal")
+```
+
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Solution
+
+```{r eval=FALSE}
+cohensD(Flourishing_post ~ GroupAssignment, data = dog_independent, method = "unequal")
+```
+
+:::
+
+
+* **Step 3**: Interpreting the output
+
+Below are the outputs for the **descriptive statistics** (table), **Welch t-test** (main output), and **Cohen’s D** (last line starting with [1]). Based on these, write up the results in APA style and provide an interpretation.
+
+```{r echo=FALSE}
+dog_independent_descriptives
+
+t.test(Flourishing_post ~ GroupAssignment, data = dog_independent, var.equal = FALSE, alternative = "two.sided")
+
+cohensD(Flourishing_post ~ GroupAssignment, data = dog_independent, method = "unequal")
+```
+
+
+The Welch two-sample t-test revealed that there is `r mcq(c(x = "a statistically significant difference", answer = "no statistically significant difference"))` in psychological well-being scores between direct (N = `r fitb("95")`, M = `r fitb("5.78")`, SD = `r fitb("0.86")`) and control group (N = `r fitb("94")`, M = `r fitb("5.72")`, SD = `r fitb("0.77")`), t(`r fitb("185.05")`) = `r fitb("0.49")`, p = `r fitb(".625")`, V = `r fitb("0.07")`. The strength of the association between the variables is considered `r mcq(c(answer = "small", x = "moderate", x = "strong"))`. We therefore `r mcq(c(answer = "fail to reject the null hypothesis", x = "reject the null hypothesis"))`.
+
 
 
 ## [Test your knowledge]{style="color: #F39C12; text-transform: uppercase;"} {.unnumbered}
+
+#### Question 1 {.unnumbered}
+
+**What is the main purpose of an independent t-test?**
+
+`r longmcq(sample(c(answer = "To compare means between two independent groups", x = "To compare means between two related groups", x = "To assess the correlation between two continuous variables", x = "To test for differences in variances between two independent groups")))`
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Explain this answer
+
+The independent t-test is specifically designed to compare the means of two separate (independent) groups to determine whether the difference between their means is statistically significant. For example, it could be used to compare the test scores of students who received two different teaching methods (Group 1 vs. Group 2).
+
+:::
+
+#### Question 2 {.unnumbered}
+
+**Which of the following is a key assumption of the two-sample t-test that should be considered?**
+
+`r longmcq(sample(c(answer = "The observations are independent of each other", x = "The independent variable is normally distributed", x = "The dependent variable is categorical", x = "The sample sizes must be equal")))`
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Explain this answer
+
+Independence of observations is a crucial assumption for the two-sample t-test. It means that the data collected from one participant should not influence the data from another participant.
+
+:::
+
+
+#### Question 3 {.unnumbered}
+
+**How can you recognise the difference between the output of a Student’s t-test and a Welch t-test?**
+
+`r longmcq(sample(c(answer = "The Welch t-test reports non-integer degrees of freedom, while the Student’s t-test reports integer degrees of freedom.", x = "The Welch t-test includes a confidence interval, while the Student’s t-test does not.", x = "The Welch t-test uses medians instead of means, unlike the Student’s t-test.", x = "The Welch t-test reports an effect size directly, while the Student’s t-test does not.")))`
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Explain this answer
+
+The Welch t-test adjusts for unequal variances and sample sizes, which leads to non-integer degrees of freedom. In contrast, the Student’s t-test assumes equal variances and reports integer degrees of freedom based on total sample size minus the number of groups.
+
+The other options are incorrect: 
+
+* Both tests report confidence intervals for the mean difference.
+* Both tests compare means, not medians.
+* Neither test reports effect size directly; it must be calculated separately (e.g., using Cohen’s d).
+
+:::
+
+
+
+#### Question 4 {.unnumbered}
+
+**You perform an independent t-test and find $t(48)=2.10,p=.042,d=0.58$. How would you interpret these results?**
+
+`r longmcq(sample(c(x = "There is no significant difference between the two groups", x = "There is a significant difference between the two groups, with a large effect size.", answer = "There is a significant difference between the two groups, with a medium effect size.", x = "There is a significant difference between the two groups, with a small effect size.")))`
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Explain this answer
+
+The p-value ($p=.042$) is less than the common significance threshold of 0.05, indicating that the difference between the two groups is statistically significant. This means we reject the null hypothesis and conclude that there is evidence of a difference between the group means.
+
+:::
 
 

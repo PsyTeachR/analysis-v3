@@ -56,6 +56,7 @@ book:
   - 04-dataviz.qmd
   - 05-dataviz2.qmd
   - 06-chi-square-one-sample.qmd
+  - 07-independent.qmd
   appendices:
   - appendix-a-installing-r.qmd
   - appendix-b-updating-packages.qmd

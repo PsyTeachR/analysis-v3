@@ -60,7 +60,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./appendix-a-installing-r.html" rel="next">
+<link href="./07-independent.html" rel="next">
 <link href="./05-dataviz2.html" rel="prev">
 <link href="./images/logos/logo_analysis.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
@@ -202,6 +202,12 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Chi-square and one-sample t-test</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-independent.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Two-sample t-test</span></span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
@@ -330,7 +336,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <ul>
 <li>Cross-tabulation chi-Square test (this chapter, <a href="#sec-chi_square"><span>Section&nbsp;6.5</span></a>)</li>
 <li>One-sample t-test (this chapter, <a href="#sec-onesample"><span>Section&nbsp;6.6</span></a>)</li>
-<li>Two-sample or independent t-test (between-subjects design, <span class="quarto-unresolved-ref">?sec-independent</span>)</li>
+<li>Two-sample or independent t-test (between-subjects design, <a href="07-independent.html"><span>Chapter&nbsp;7</span></a>)</li>
 <li>Paired t-test (within-subjects design, <span class="quarto-unresolved-ref">?sec-within</span>)</li>
 <li>Correlation (<span class="quarto-unresolved-ref">?sec-cor</span>)</li>
 <li>Simple regression (<span class="quarto-unresolved-ref">?sec-reg</span>)</li>
@@ -1087,8 +1093,8 @@ Solution for Tasks 3 and 4
 <span id="cb37-2"><a href="#cb37-2"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb37-3"><a href="#cb37-3"></a><span class="fu">library</span>(lsr)</span>
 <span id="cb37-4"><a href="#cb37-4"></a></span>
-<span id="cb37-5"><a href="#cb37-5"></a><span class="co"># reading in `dog_data_wide.csv`</span></span>
-<span id="cb37-6"><a href="#cb37-6"></a>dog_data_wide <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"dog_data_wide.csv"</span>)</span>
+<span id="cb37-5"><a href="#cb37-5"></a><span class="co"># reading in `dog_data_clean_wide.csv`</span></span>
+<span id="cb37-6"><a href="#cb37-6"></a>dog_data_wide <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"dog_data_clean_wide.csv"</span>)</span>
 <span id="cb37-7"><a href="#cb37-7"></a></span>
 <span id="cb37-8"><a href="#cb37-8"></a><span class="co"># Task 4: Tidying </span></span>
 <span id="cb37-9"><a href="#cb37-9"></a>dog_chi <span class="ot">&lt;-</span> dog_data_wide <span class="sc">%&gt;%</span> </span>
@@ -1328,8 +1334,8 @@ Other information:
 </section></section><section id="test-your-knowledge" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="test-your-knowledge"><span style="color: #F39C12; text-transform: uppercase;">Test your knowledge</span></h2>
 <section id="question-1-conceptual-understanding---chi-square-test" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-1-conceptual-understanding---chi-square-test">Question 1: Conceptual Understanding - Chi-Square Test</h4>
 <p><strong>What is the primary purpose of a Chi-square test?</strong></p>
-<div id="radio_OFVPJSUHZP" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_OFVPJSUHZP" value="answer"><span>To test the relationship between categorical variables</span></label><label><input type="radio" autocomplete="off" name="radio_OFVPJSUHZP" value="x"><span>To compare means between two groups</span></label><label><input type="radio" autocomplete="off" name="radio_OFVPJSUHZP" value="x"><span>To test for differences in variances</span></label><label><input type="radio" autocomplete="off" name="radio_OFVPJSUHZP" value="x"><span>To assess the correlation between two continuous variables</span></label>
+<div id="radio_ZMFMNTIVFB" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_ZMFMNTIVFB" value="x"><span>To assess the correlation between two continuous variables</span></label><label><input type="radio" autocomplete="off" name="radio_ZMFMNTIVFB" value="answer"><span>To test the relationship between categorical variables</span></label><label><input type="radio" autocomplete="off" name="radio_ZMFMNTIVFB" value="x"><span>To test for differences in variances</span></label><label><input type="radio" autocomplete="off" name="radio_ZMFMNTIVFB" value="x"><span>To compare means between two groups</span></label>
 </div>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
@@ -1349,8 +1355,8 @@ Explain this answer
 </div>
 </section><section id="question-2-application---chi-square-test" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-2-application---chi-square-test">Question 2: Application - Chi-Square Test</h4>
 <p><strong>Which of the following scenarios would require a Chi-square test?</strong></p>
-<div id="radio_RGWUDJUYLS" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_RGWUDJUYLS" value="x"><span>Comparing the average exam scores of students in two classrooms</span></label><label><input type="radio" autocomplete="off" name="radio_RGWUDJUYLS" value="answer"><span>Determining if there is an association between people’s favourite pizza topping and their region of residence</span></label><label><input type="radio" autocomplete="off" name="radio_RGWUDJUYLS" value="x"><span>Testing whether the average height of basketball players differs from the general population</span></label><label><input type="radio" autocomplete="off" name="radio_RGWUDJUYLS" value="x"><span>Assessing whether the reaction times of drivers are influenced by caffeine consumption</span></label>
+<div id="radio_BZFHJATEAA" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_BZFHJATEAA" value="x"><span>Comparing the average exam scores of students in two classrooms</span></label><label><input type="radio" autocomplete="off" name="radio_BZFHJATEAA" value="answer"><span>Determining if there is an association between people’s favourite pizza topping and their region of residence</span></label><label><input type="radio" autocomplete="off" name="radio_BZFHJATEAA" value="x"><span>Testing whether the average height of basketball players differs from the general population</span></label><label><input type="radio" autocomplete="off" name="radio_BZFHJATEAA" value="x"><span>Assessing whether the reaction times of drivers are influenced by caffeine consumption</span></label>
 </div>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
@@ -1370,8 +1376,8 @@ Explain this answer
 </div>
 </section><section id="question-3-interpreting-output---chi-square-test" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-3-interpreting-output---chi-square-test">Question 3: Interpreting Output - Chi-Square Test</h4>
 <p><strong>In a Chi-square test, the p-value is .005. What does this imply if the significance level is set at .05?</strong></p>
-<div id="radio_LIBMVUUXBP" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_LIBMVUUXBP" value="answer"><span>The null hypothesis is rejected; there is a significant association.</span></label><label><input type="radio" autocomplete="off" name="radio_LIBMVUUXBP" value="x"><span>The null hypothesis is not rejected; there is no significant association.</span></label><label><input type="radio" autocomplete="off" name="radio_LIBMVUUXBP" value="x"><span>The null hypothesis is rejected; there is no significant association.</span></label><label><input type="radio" autocomplete="off" name="radio_LIBMVUUXBP" value="x"><span>The null hypothesis is not rejected; there is a significant association.</span></label>
+<div id="radio_TYIICUPWTC" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_TYIICUPWTC" value="x"><span>The null hypothesis is not rejected; there is no significant association.</span></label><label><input type="radio" autocomplete="off" name="radio_TYIICUPWTC" value="answer"><span>The null hypothesis is rejected; there is a significant association.</span></label><label><input type="radio" autocomplete="off" name="radio_TYIICUPWTC" value="x"><span>The null hypothesis is rejected; there is no significant association.</span></label><label><input type="radio" autocomplete="off" name="radio_TYIICUPWTC" value="x"><span>The null hypothesis is not rejected; there is a significant association.</span></label>
 </div>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
@@ -1391,8 +1397,8 @@ Explain this answer
 </div>
 </section><section id="question-4-using-r---chi-square-test" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-4-using-r---chi-square-test">Question 4: Using R - Chi-Square Test</h4>
 <p><strong>Which of the following R functions is used to perform a Chi-square test and displays a Cramer’s V in the output?</strong></p>
-<div id="radio_MUNCJTQSLF" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_MUNCJTQSLF" value="x"><span>t.test()</span></label><label><input type="radio" autocomplete="off" name="radio_MUNCJTQSLF" value="x"><span>chisq.test()</span></label><label><input type="radio" autocomplete="off" name="radio_MUNCJTQSLF" value="x"><span>one.sample()</span></label><label><input type="radio" autocomplete="off" name="radio_MUNCJTQSLF" value="answer"><span>associationTest()</span></label>
+<div id="radio_OFJXPXNRNG" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_OFJXPXNRNG" value="answer"><span>associationTest()</span></label><label><input type="radio" autocomplete="off" name="radio_OFJXPXNRNG" value="x"><span>t.test()</span></label><label><input type="radio" autocomplete="off" name="radio_OFJXPXNRNG" value="x"><span>one.sample()</span></label><label><input type="radio" autocomplete="off" name="radio_OFJXPXNRNG" value="x"><span>chisq.test()</span></label>
 </div>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-21-contents" aria-controls="callout-21" aria-expanded="false" aria-label="Toggle callout">
@@ -1412,8 +1418,8 @@ Explain this answer
 </div>
 </section><section id="question-5-conceptual-understanding---one-sample-t-test" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-5-conceptual-understanding---one-sample-t-test">Question 5: Conceptual Understanding - One-sample t-test</h4>
 <p><strong>What is the null hypothesis in a one-sample t-test?</strong></p>
-<div id="radio_JJKSNPHGIW" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_JJKSNPHGIW" value="answer"><span>The sample mean is equal to the population mean</span></label><label><input type="radio" autocomplete="off" name="radio_JJKSNPHGIW" value="x"><span>The sample mean is greater than the population mean</span></label><label><input type="radio" autocomplete="off" name="radio_JJKSNPHGIW" value="x"><span>The sample mean is less than the population mean</span></label><label><input type="radio" autocomplete="off" name="radio_JJKSNPHGIW" value="x"><span>The population mean is equal to zero</span></label>
+<div id="radio_GNEJLTJCJR" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_GNEJLTJCJR" value="x"><span>The sample mean is greater than the population mean</span></label><label><input type="radio" autocomplete="off" name="radio_GNEJLTJCJR" value="answer"><span>The sample mean is equal to the population mean</span></label><label><input type="radio" autocomplete="off" name="radio_GNEJLTJCJR" value="x"><span>The sample mean is less than the population mean</span></label><label><input type="radio" autocomplete="off" name="radio_GNEJLTJCJR" value="x"><span>The population mean is equal to zero</span></label>
 </div>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-22-contents" aria-controls="callout-22" aria-expanded="false" aria-label="Toggle callout">
@@ -1433,8 +1439,8 @@ Explain this answer
 </div>
 </section><section id="question-6-application---one-sample-t-test" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-6-application---one-sample-t-test">Question 6: Application - One-sample t-test</h4>
 <p><strong>Which of the following scenarios would require a one-sample t-test?</strong></p>
-<div id="radio_NRNRBUMBDU" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_NRNRBUMBDU" value="x"><span>Comparing the average exam scores of students in two classrooms</span></label><label><input type="radio" autocomplete="off" name="radio_NRNRBUMBDU" value="x"><span>Determining if there is an association between people’s favourite pizza topping and their region of residence</span></label><label><input type="radio" autocomplete="off" name="radio_NRNRBUMBDU" value="answer"><span>Testing whether the average height of basketball players differs from the general population</span></label><label><input type="radio" autocomplete="off" name="radio_NRNRBUMBDU" value="x"><span>Assessing whether the reaction times of drivers are influenced by caffeine consumption</span></label>
+<div id="radio_PYTNYATPLR" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_PYTNYATPLR" value="x"><span>Comparing the average exam scores of students in two classrooms</span></label><label><input type="radio" autocomplete="off" name="radio_PYTNYATPLR" value="x"><span>Determining if there is an association between people’s favourite pizza topping and their region of residence</span></label><label><input type="radio" autocomplete="off" name="radio_PYTNYATPLR" value="answer"><span>Testing whether the average height of basketball players differs from the general population</span></label><label><input type="radio" autocomplete="off" name="radio_PYTNYATPLR" value="x"><span>Assessing whether the reaction times of drivers are influenced by caffeine consumption</span></label>
 </div>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-23-contents" aria-controls="callout-23" aria-expanded="false" aria-label="Toggle callout">
@@ -1454,8 +1460,8 @@ Explain this answer
 </div>
 </section><section id="question-7-interpreting-output---one-sample-t-test" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-7-interpreting-output---one-sample-t-test">Question 7: Interpreting Output - One-sample t-test</h4>
 <p><strong>If the p-value in a one-sample t-test is .15 and the significance level is .05, what is the conclusion?</strong></p>
-<div id="radio_ZQGVMWVFMD" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_ZQGVMWVFMD" value="x"><span>The sample mean is significantly different from the population mean.</span></label><label><input type="radio" autocomplete="off" name="radio_ZQGVMWVFMD" value="x"><span>The sample mean is equal to the population mean.</span></label><label><input type="radio" autocomplete="off" name="radio_ZQGVMWVFMD" value="answer"><span>The sample mean is not significantly different from the population mean.</span></label><label><input type="radio" autocomplete="off" name="radio_ZQGVMWVFMD" value="x"><span>The sample mean is further from the population mean than expected by chance.</span></label>
+<div id="radio_ZJQGBEWQDD" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_ZJQGBEWQDD" value="x"><span>The sample mean is significantly different from the population mean.</span></label><label><input type="radio" autocomplete="off" name="radio_ZJQGBEWQDD" value="x"><span>The sample mean is equal to the population mean.</span></label><label><input type="radio" autocomplete="off" name="radio_ZJQGBEWQDD" value="answer"><span>The sample mean is not significantly different from the population mean.</span></label><label><input type="radio" autocomplete="off" name="radio_ZJQGBEWQDD" value="x"><span>The sample mean is further from the population mean than expected by chance.</span></label>
 </div>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-24-contents" aria-controls="callout-24" aria-expanded="false" aria-label="Toggle callout">
@@ -1476,8 +1482,8 @@ Explain this answer
 </div>
 </section><section id="question-8-using-r---one-sample-t-test" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-8-using-r---one-sample-t-test">Question 8: Using R - One-sample t-test</h4>
 <p><strong>Which of the following R functions is used to perform a one-sample t-test?</strong></p>
-<div id="radio_QQWNQWLKEM" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_QQWNQWLKEM" value="answer"><span>t.test()</span></label><label><input type="radio" autocomplete="off" name="radio_QQWNQWLKEM" value="x"><span>one.sample()</span></label><label><input type="radio" autocomplete="off" name="radio_QQWNQWLKEM" value="x"><span>associationTest()</span></label><label><input type="radio" autocomplete="off" name="radio_QQWNQWLKEM" value="x"><span>chisq.test()</span></label>
+<div id="radio_CNINBSOBKU" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_CNINBSOBKU" value="answer"><span>t.test()</span></label><label><input type="radio" autocomplete="off" name="radio_CNINBSOBKU" value="x"><span>one.sample()</span></label><label><input type="radio" autocomplete="off" name="radio_CNINBSOBKU" value="x"><span>chisq.test()</span></label><label><input type="radio" autocomplete="off" name="radio_CNINBSOBKU" value="x"><span>associationTest()</span></label>
 </div>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-25-contents" aria-controls="callout-25" aria-expanded="false" aria-label="Toggle callout">
@@ -2084,8 +2090,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./appendix-a-installing-r.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Installing R</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./07-independent.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Two-sample t-test</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

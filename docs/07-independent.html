@@ -1,0 +1,2037 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="description" content="Data skills book for Level 2 Psychology students at the School of Psychology and Neuroscience at the University of Glasgow">
+<title>Analysis - 7&nbsp; Two-sample t-test</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./appendix-a-installing-r.html" rel="next">
+<link href="./06-chi-square-one-sample.html" rel="prev">
+<link href="./images/logos/logo_analysis.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-6NP3MF25W3"></script><script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
+</script><script src="site_libs/kePrint-0.0.1/kePrint.js"></script><link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
+<link rel="stylesheet" href="include/booktem.css">
+<link rel="stylesheet" href="include/webex.css">
+<link rel="stylesheet" href="include/glossary.css">
+<link rel="stylesheet" href="include/style.css">
+<link rel="stylesheet" href="include/custom.scss">
+</head>
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./07-independent.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Two-sample t-test</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Analysis</a> 
+        <div class="sidebar-tools-main">
+    <div class="dropdown">
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+<li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
+              <i class="bi bi-bi-twitter pe-1"></i>
+            Twitter
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
+              <i class="bi bi-bi-facebook pe-1"></i>
+            Facebook
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
+              <i class="bi bi-bi-linkedin pe-1"></i>
+            LinkedIn
+            </a>
+          </li>
+      </ul>
+</div>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Projects and R Markdown</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-wrangling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data wrangling I</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-wrangling2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data wrangling II</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-dataviz.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data viz I</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-dataviz2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data viz II</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-chi-square-one-sample.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Chi-square and one-sample t-test</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-independent.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Two-sample t-test</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-a-installing-r.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Installing R</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-b-updating-packages.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Updating R, RStudio, and packages</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-d-symbols.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Symbols</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-x-How-to-cite-R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Citing R and RStudio</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix-y-license.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">License</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li><a href="#intended-learning-outcomes" id="toc-intended-learning-outcomes" class="nav-link active" data-scroll-target="#intended-learning-outcomes">Intended Learning Outcomes</a></li>
+  <li><a href="#individual-walkthrough" id="toc-individual-walkthrough" class="nav-link" data-scroll-target="#individual-walkthrough"><span style="color: #F39C12; text-transform: uppercase;">Individual Walkthrough</span></a></li>
+  <li><a href="#activity-1-setup-download-the-data" id="toc-activity-1-setup-download-the-data" class="nav-link" data-scroll-target="#activity-1-setup-download-the-data"><span class="header-section-number">7.1</span> Activity 1: Setup &amp; download the data</a></li>
+  <li><a href="#activity-2-library-and-data-for-today" id="toc-activity-2-library-and-data-for-today" class="nav-link" data-scroll-target="#activity-2-library-and-data-for-today"><span class="header-section-number">7.2</span> Activity 2: Library and data for today</a></li>
+  <li>
+<a href="#activity-3-familiarise-yourself-with-the-data" id="toc-activity-3-familiarise-yourself-with-the-data" class="nav-link" data-scroll-target="#activity-3-familiarise-yourself-with-the-data"><span class="header-section-number">7.3</span> Activity 3: Familiarise yourself with the data</a>
+  <ul class="collapse">
+<li><a href="#potential-research-questions-and-hypotheses" id="toc-potential-research-questions-and-hypotheses" class="nav-link" data-scroll-target="#potential-research-questions-and-hypotheses"><span class="header-section-number">7.3.1</span> Potential research questions and hypotheses</a></li>
+  </ul>
+</li>
+  <li><a href="#activity-4-preparing-the-dataframe" id="toc-activity-4-preparing-the-dataframe" class="nav-link" data-scroll-target="#activity-4-preparing-the-dataframe"><span class="header-section-number">7.4</span> Activity 4: Preparing the dataframe</a></li>
+  <li><a href="#activity-5-compute-descriptives" id="toc-activity-5-compute-descriptives" class="nav-link" data-scroll-target="#activity-5-compute-descriptives"><span class="header-section-number">7.5</span> Activity 5: Compute descriptives</a></li>
+  <li><a href="#activity-6-create-an-appropriate-plot" id="toc-activity-6-create-an-appropriate-plot" class="nav-link" data-scroll-target="#activity-6-create-an-appropriate-plot"><span class="header-section-number">7.6</span> Activity 6: Create an appropriate plot</a></li>
+  <li><a href="#activity-7-check-assumptions" id="toc-activity-7-check-assumptions" class="nav-link" data-scroll-target="#activity-7-check-assumptions"><span class="header-section-number">7.7</span> Activity 7: Check assumptions</a></li>
+  <li><a href="#activity-8-compute-a-two-sample-t-test-and-effect-size" id="toc-activity-8-compute-a-two-sample-t-test-and-effect-size" class="nav-link" data-scroll-target="#activity-8-compute-a-two-sample-t-test-and-effect-size"><span class="header-section-number">7.8</span> Activity 8: Compute a Two-sample t-test and effect size</a></li>
+  <li><a href="#activity-9-sensitivity-power-analysis" id="toc-activity-9-sensitivity-power-analysis" class="nav-link" data-scroll-target="#activity-9-sensitivity-power-analysis"><span class="header-section-number">7.9</span> Activity 9: Sensitivity power analysis</a></li>
+  <li><a href="#activity-10-the-write-up" id="toc-activity-10-the-write-up" class="nav-link" data-scroll-target="#activity-10-the-write-up"><span class="header-section-number">7.10</span> Activity 10: The write-up</a></li>
+  <li><a href="#sec-alternative_two_sample" id="toc-sec-alternative_two_sample" class="nav-link" data-scroll-target="#sec-alternative_two_sample"><span class="header-section-number">7.11</span> Activity 11: Non-parametric alternative</a></li>
+  <li>
+<a href="#pair-coding" id="toc-pair-coding" class="nav-link" data-scroll-target="#pair-coding"><span style="color: #F39C12; text-transform: uppercase;">Pair-coding</span></a>
+  <ul class="collapse">
+<li><a href="#task-1-open-the-r-project-for-the-lab" id="toc-task-1-open-the-r-project-for-the-lab" class="nav-link" data-scroll-target="#task-1-open-the-r-project-for-the-lab">Task 1: Open the R project for the lab</a></li>
+  <li><a href="#task-2-create-a-new-.rmd-file" id="toc-task-2-create-a-new-.rmd-file" class="nav-link" data-scroll-target="#task-2-create-a-new-.rmd-file">Task 2: Create a new <code>.Rmd</code> file</a></li>
+  <li><a href="#task-3-load-in-the-library-and-read-in-the-data" id="toc-task-3-load-in-the-library-and-read-in-the-data" class="nav-link" data-scroll-target="#task-3-load-in-the-library-and-read-in-the-data">Task 3: Load in the library and read in the data</a></li>
+  <li><a href="#task-4-tidy-data-for-a-two-sample-t-test" id="toc-task-4-tidy-data-for-a-two-sample-t-test" class="nav-link" data-scroll-target="#task-4-tidy-data-for-a-two-sample-t-test">Task 4: Tidy data for a two-sample t-test</a></li>
+  <li><a href="#task-5-compute-descriptives" id="toc-task-5-compute-descriptives" class="nav-link" data-scroll-target="#task-5-compute-descriptives">Task 5: Compute descriptives</a></li>
+  <li><a href="#task-6-check-assumptions" id="toc-task-6-check-assumptions" class="nav-link" data-scroll-target="#task-6-check-assumptions">Task 6: Check assumptions</a></li>
+  <li><a href="#task-7-computing-a-two-sample-t-test-with-effect-size-interpret-the-output" id="toc-task-7-computing-a-two-sample-t-test-with-effect-size-interpret-the-output" class="nav-link" data-scroll-target="#task-7-computing-a-two-sample-t-test-with-effect-size-interpret-the-output">Task 7: Computing a two-sample t-test with effect size &amp; interpret the output</a></li>
+  </ul>
+</li>
+  <li><a href="#test-your-knowledge" id="toc-test-your-knowledge" class="nav-link" data-scroll-target="#test-your-knowledge"><span style="color: #F39C12; text-transform: uppercase;">Test your knowledge</span></a></li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title"><span id="sec-independent" class="quarto-section-identifier"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Two-sample t-test</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header><section id="intended-learning-outcomes" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="intended-learning-outcomes">Intended Learning Outcomes</h2>
+<p>In this chapter, we will focus on two-sample t-tests, also known as between-groups, between-subjects, or independent-samples t-tests. By the end of this chapter, you should be able to:</p>
+<ul>
+<li>Compute a two-sample t-test and effectively report the results.</li>
+<li>Understand when to use a non-parametric equivalent of the two-sample t-test, compute it, and report the results.</li>
+</ul></section><section id="individual-walkthrough" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="individual-walkthrough"><span style="color: #F39C12; text-transform: uppercase;">Individual Walkthrough</span></h2>
+</section><section id="activity-1-setup-download-the-data" class="level2" data-number="7.1"><h2 data-number="7.1" class="anchored" data-anchor-id="activity-1-setup-download-the-data">
+<span class="header-section-number">7.1</span> Activity 1: Setup &amp; download the data</h2>
+<p>This week, we will be working with a new dataset. Follow the steps below to set up your project:</p>
+<ul>
+<li>
+<strong>Create a new project</strong> and name it something meaningful (e.g., “2A_chapter7”, or “07_independent_ttest”). See <a href="01-basics.html#sec-project"><span>Section&nbsp;1.2</span></a> if you need some guidance.</li>
+<li>
+<strong>Create a new <code>.Rmd</code> file</strong> and save it to your project folder. See <a href="01-basics.html#sec-rmd"><span>Section&nbsp;1.3</span></a> if you get stuck.</li>
+<li>Delete everything after the setup code chunk (e.g., line 12 and below)</li>
+<li>
+<strong>Download the reduced version of a new dataset</strong> here: <a href="data/data_ch7.zip" title="download">data_ch7.zip</a>. The zip folder includes the following files:
+<ul>
+<li>CodebookSimonTask.xlsx: A codebook with detailed variable descriptions</li>
+<li>DemoSimonTask.csv: A CSV file containing demographic information</li>
+<li>MeanSimonTask.csv: A CSV file with the mean response times</li>
+<li>Sup_Mats_Simon_Task.docx: A Word document with Supplementary Materials providing additional details about the task</li>
+<li>RawDataSimonTask.csv: The raw data file, allowing you to explore what experimental data looks like prior to pre-processing.</li>
+</ul>
+</li>
+<li>Extract the data files from the zip folder and place them in your project folder. If you need help, see <a href="01-basics.html#sec-download_data_ch1"><span>Section&nbsp;1.4</span></a>.</li>
+</ul>
+<p><strong>Citation</strong></p>
+<blockquote class="blockquote">
+<p>Zwaan, R. A., Pecher, D., Paolacci, G., Bouwmeester, S., Verkoeijen, P., Dijkstra, K., &amp; Zeelenberg, R. (2018). Participant nonnaiveté and the reproducibility of cognitive psychology. <em>Psychonomic Bulletin &amp; Review, 25</em>, 1968-1972. <a href="https://doi.org/10.3758/s13423-017-1348-y" target="_blank">https://doi.org/10.3758/s13423-017-1348-y</a></p>
+</blockquote>
+<p>The data and supplementary materials are available on OSF: <a href="https://osf.io/ghv6m/" target="_blank">https://osf.io/ghv6m/</a></p>
+<p><strong>Abstract</strong></p>
+<blockquote class="blockquote">
+<p>Many argue that there is a reproducibility crisis in psychology. We investigated nine well-known effects from the cognitive psychology literature—three each from the domains of perception/action, memory, and language, respectively—and found that they are highly reproducible. Not only can they be reproduced in online environments, but they also can be reproduced with nonnaïve participants with no reduction of effect size. Apparently, some cognitive tasks are so constraining that they encapsulate behavior from external influences, such as testing situation and prior recent experience with the experiment to yield highly robust effects.</p>
+</blockquote>
+<p><strong>Changes made to the dataset</strong></p>
+<ul>
+<li>The dataset, demographic information, and Supplementary Materials have been reduced to include only information related to the Simon Task. The full dataset, which includes the other eight tasks, is available on OSF.</li>
+<li>No other changes were made.</li>
+</ul></section><section id="activity-2-library-and-data-for-today" class="level2" data-number="7.2"><h2 data-number="7.2" class="anchored" data-anchor-id="activity-2-library-and-data-for-today">
+<span class="header-section-number">7.2</span> Activity 2: Library and data for today</h2>
+<p>Today, we’ll be using the following packages: <code>rstatix</code>, <code>tidyverse</code>, <code>car</code>, <code>lsr</code>, and <code>pwr</code>. You may need to install the packages before using them Make sure that <code>rstatix</code> is loaded in before tidyverse to avoid masking certain functions that we will need later.</p>
+<p>We will also read in the data from <code>MeansSimonTask.csv</code> and the demographic information from <code>DemoSimonTask.csv</code>.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># load in the packages</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a>???</span>
+<span id="cb1-3"><a href="#cb1-3"></a></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="co"># read in the data</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a>zwaan_data <span class="ot">&lt;-</span> ???</span>
+<span id="cb1-6"><a href="#cb1-6"></a>zwaan_demo <span class="ot">&lt;-</span> ???</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># load in the packages</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="fu">library</span>(rstatix)</span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="fu">library</span>(car)</span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="fu">library</span>(lsr)</span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="fu">library</span>(pwr)</span>
+<span id="cb2-7"><a href="#cb2-7"></a></span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="co"># read in the data</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a>zwaan_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"MeansSimonTask.csv"</span>)</span>
+<span id="cb2-10"><a href="#cb2-10"></a>zwaan_demo <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"DemoSimonTask.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="activity-3-familiarise-yourself-with-the-data" class="level2" data-number="7.3"><h2 data-number="7.3" class="anchored" data-anchor-id="activity-3-familiarise-yourself-with-the-data">
+<span class="header-section-number">7.3</span> Activity 3: Familiarise yourself with the data</h2>
+<p>As usual, take some time to familiarise yourself with the data before starting on the between-subjects t-test. Also, more importantly, have a look at the Supplementary Materials in which the Simon effect is explained in more depth.</p>
+<p>In general, <strong>the Simon effect</strong> refers to the phenomenon where participants respond faster when the stimulus appears on the same side of the screen as the button they need to press (i.e., a congruent condition). Conversely, response times are slower when the stimulus appears on the opposite side of the screen from the required button (i.e., an incongruent condition).</p>
+<p>In this experiment, all participants completed two sessions of trials. However, they were divided into two groups based on the stimuli they received:</p>
+<ul>
+<li>
+<strong>Same Stimuli Group</strong>: Half of the participants received the same set of stimuli in both sessions.</li>
+<li>
+<strong>Different Stimuli Group</strong>: The other half received a different set of stimuli in session 2 compared to session 1.</li>
+</ul>
+<section id="potential-research-questions-and-hypotheses" class="level3" data-number="7.3.1"><h3 data-number="7.3.1" class="anchored" data-anchor-id="potential-research-questions-and-hypotheses">
+<span class="header-section-number">7.3.1</span> Potential research questions and hypotheses</h3>
+<ul>
+<li>Potential research question: “Is there a significant difference in the Simon effect between participants who received the same stimuli in both sessions compared to those who received different stimuli?”</li>
+<li>Null Hypothesis (H<sub>0</sub>): “There is no significant difference in the Simon effect between participants who received the same stimuli in both sessions and those who received different stimuli.”</li>
+<li>Alternative Hypothesis (H<sub>1</sub>): “There is a significant difference in the Simon effect between participants who received the same stimuli in both sessions and those who received different stimuli.”</li>
+</ul></section></section><section id="activity-4-preparing-the-dataframe" class="level2" data-number="7.4"><h2 data-number="7.4" class="anchored" data-anchor-id="activity-4-preparing-the-dataframe">
+<span class="header-section-number">7.4</span> Activity 4: Preparing the dataframe</h2>
+<p>The data is already in a very good shape, however, we need to perform some data wrangling to compute the Simon effect.</p>
+<p><strong>Steps to calculate the Simon effect:</strong></p>
+<ol type="1">
+<li>For each participant, <strong>compute the mean response time (RT)</strong> for congruent trials and the mean RT for incongruent trials</li>
+<li>Subtract the mean RT of congruent trials from the mean RT of incongruent trials to <strong>calculate the Simon effect</strong>
+</li>
+</ol>
+<p>To streamline analysis, we should join this output with the demographics data to have all relevant information in one place.</p>
+<p>Basically, we want to create a tibble that has the following content. <em>[Note that I re-arranged the columns and re-labelled some of them in a final step, so your column names and/or order might be slightly different, but content should match.]</em></p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 7%">
+<col style="width: 4%">
+<col style="width: 21%">
+<col style="width: 12%">
+<col style="width: 11%">
+<col style="width: 13%">
+<col style="width: 14%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">participant</th>
+<th style="text-align: left;">gender</th>
+<th style="text-align: right;">age</th>
+<th style="text-align: left;">education</th>
+<th style="text-align: left;">similarity</th>
+<th style="text-align: right;">congruent</th>
+<th style="text-align: right;">incongruent</th>
+<th style="text-align: right;">simon_effect</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">T1</td>
+<td style="text-align: left;">Female</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: left;">High school</td>
+<td style="text-align: left;">same</td>
+<td style="text-align: right;">475.0032</td>
+<td style="text-align: right;">508.2835</td>
+<td style="text-align: right;">33.28029</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">T10</td>
+<td style="text-align: left;">Male</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: left;">Associate’s degree</td>
+<td style="text-align: left;">same</td>
+<td style="text-align: right;">420.1515</td>
+<td style="text-align: right;">401.5800</td>
+<td style="text-align: right;">-18.57148</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">T109</td>
+<td style="text-align: left;">Male</td>
+<td style="text-align: right;">33</td>
+<td style="text-align: left;">Bachelor’s degree</td>
+<td style="text-align: left;">same</td>
+<td style="text-align: right;">339.5343</td>
+<td style="text-align: right;">375.7152</td>
+<td style="text-align: right;">36.18085</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">T11</td>
+<td style="text-align: left;">Female</td>
+<td style="text-align: right;">71</td>
+<td style="text-align: left;">High school</td>
+<td style="text-align: left;">same</td>
+<td style="text-align: right;">516.9722</td>
+<td style="text-align: right;">542.3111</td>
+<td style="text-align: right;">25.33889</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">T111</td>
+<td style="text-align: left;">Female</td>
+<td style="text-align: right;">34</td>
+<td style="text-align: left;">High school</td>
+<td style="text-align: left;">same</td>
+<td style="text-align: right;">373.5778</td>
+<td style="text-align: right;">394.0665</td>
+<td style="text-align: right;">20.48874</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Obviously, there are various ways to achieve this, so feel free to explore and come up with your own approach. However, we will provide step-by-step instructions for one of those ways that will get you the desired output.</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hints
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li>
+<strong>Step 1</strong>: Convert the data from wide format to long format, so that all RT values are consolidated into a single column. This transformation will result in each participant having four rows.</li>
+<li>
+<strong>Step 2</strong>: There should be a column now that contained the previous column headings with information on session number and congruency. Separate this information into 2 separate columns (i.e., session number and congruency).</li>
+<li>
+<strong>Step 3</strong>: Compute the mean RT values for each combination of <code>participant</code>, <code>similarity</code>, and <code>congruency</code>
+</li>
+<li>
+<strong>Step 4</strong>: Pivot the data back to wide format so that the mean RT values for congruent and incongruent trials are placed in two separate columns.</li>
+<li>
+<strong>Step 5</strong>: Add a new column called the <code>simon_effect</code> that calculates the Simon effect by subtracting the mean RT for congruent trials from the mean RT for incongruent trials.</li>
+<li>
+<strong>Step 6</strong>: Merge this processed dataset with the demographics data to ensure all relevant information is in one table.</li>
+<li>
+<strong>Step 7</strong>: Feel free to rearrange the order of columns and/or rename them to match your output with ours (not strictly necessary tbh)</li>
+</ul>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution to the steps outlined above
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>simon_effect <span class="ot">&lt;-</span> zwaan_data <span class="sc">%&gt;%</span> </span>
+<span id="cb3-2"><a href="#cb3-2"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> session1_congruent<span class="sc">:</span>session2_incongruent, <span class="at">names_to =</span> <span class="st">"col_headings"</span>, <span class="at">values_to =</span> <span class="st">"RT"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-3"><a href="#cb3-3"></a>  <span class="fu">separate</span>(col_headings, <span class="at">into =</span> <span class="fu">c</span>(<span class="st">"Session_number"</span>, <span class="st">"congruency"</span>), <span class="at">sep =</span> <span class="st">"_"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-4"><a href="#cb3-4"></a>  <span class="fu">group_by</span>(participant, similarity, congruency) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-5"><a href="#cb3-5"></a>  <span class="fu">summarise</span>(<span class="at">mean_RT =</span> <span class="fu">mean</span>(RT)) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-6"><a href="#cb3-6"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb3-7"><a href="#cb3-7"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> congruency, <span class="at">values_from =</span> mean_RT) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-8"><a href="#cb3-8"></a>  <span class="fu">mutate</span>(<span class="at">simon_effect =</span> incongruent <span class="sc">-</span> congruent) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-9"><a href="#cb3-9"></a>  <span class="fu">full_join</span>(zwaan_demo, <span class="at">by =</span> <span class="fu">join_by</span>(participant <span class="sc">==</span> twosubjectnumber)) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-10"><a href="#cb3-10"></a>  <span class="fu">select</span>(participant, <span class="at">gender =</span> gender_response, <span class="at">age =</span> age_response, <span class="at">education =</span> education_response, similarity<span class="sc">:</span>simon_effect)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="activity-5-compute-descriptives" class="level2" data-number="7.5"><h2 data-number="7.5" class="anchored" data-anchor-id="activity-5-compute-descriptives">
+<span class="header-section-number">7.5</span> Activity 5: Compute descriptives</h2>
+<p>Next, we want to compute number of participants (<strong>n</strong>), <strong>means</strong> and <strong>standard deviations</strong> for each group (i.e., <code>same</code> and <code>different</code>) of our variable of interest (i.e., <code>simon_effect</code>).</p>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>descriptives <span class="ot">&lt;-</span> simon_effect <span class="sc">%&gt;%</span> </span>
+<span id="cb4-2"><a href="#cb4-2"></a>  <span class="fu">group_by</span>(similarity) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-3"><a href="#cb4-3"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb4-4"><a href="#cb4-4"></a>            <span class="at">mean_RT =</span> <span class="fu">mean</span>(simon_effect),</span>
+<span id="cb4-5"><a href="#cb4-5"></a>            <span class="at">sd_RT =</span> <span class="fu">sd</span>(simon_effect)) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-6"><a href="#cb4-6"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb4-7"><a href="#cb4-7"></a></span>
+<span id="cb4-8"><a href="#cb4-8"></a>descriptives</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: left;">similarity</th>
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">mean_RT</th>
+<th style="text-align: right;">sd_RT</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">different</td>
+<td style="text-align: right;">80</td>
+<td style="text-align: right;">32.85726</td>
+<td style="text-align: right;">20.79313</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">same</td>
+<td style="text-align: right;">80</td>
+<td style="text-align: right;">35.99415</td>
+<td style="text-align: right;">22.39601</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="activity-6-create-an-appropriate-plot" class="level2" data-number="7.6"><h2 data-number="7.6" class="anchored" data-anchor-id="activity-6-create-an-appropriate-plot">
+<span class="header-section-number">7.6</span> Activity 6: Create an appropriate plot</h2>
+<p>Which plot would you choose to represent the data appropriately? Create a plot that effectively visualises the data, and then compare it with the solution provided below.</p>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">ggplot</span>(simon_effect, <span class="fu">aes</span>(<span class="at">x =</span> similarity, <span class="at">y =</span> simon_effect, <span class="at">fill =</span> similarity)) <span class="sc">+</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>  <span class="fu">geom_violin</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> <span class="fl">0.4</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">guide =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Similarity"</span>, <span class="at">y =</span> <span class="st">"Simon effect"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="07-independent_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="activity-7-check-assumptions" class="level2" data-number="7.7"><h2 data-number="7.7" class="anchored" data-anchor-id="activity-7-check-assumptions">
+<span class="header-section-number">7.7</span> Activity 7: Check assumptions</h2>
+<section id="assumption-1-continuous-dv" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="assumption-1-continuous-dv">Assumption 1: Continuous DV</h4>
+<p>The dependent variable must be measured at interval or ratio level. We can confirm that by looking at <code>simon_effect</code>.</p>
+</section><section id="assumption-2-data-are-independent" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="assumption-2-data-are-independent">Assumption 2: Data are independent</h4>
+<p>There should be no relationship between the observations. Scores in one condition or observation should not influence scores in another. We assume this assumption holds for our data.</p>
+</section><section id="assumption-3-homoscedasticity-homogeneity-of-variance" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="assumption-3-homoscedasticity-homogeneity-of-variance">Assumption 3: Homoscedasticity (homogeneity of variance)</h4>
+<p>This assumption requires the variances between the two groups to be similar (i.e., homoscedasticity). If the variances between the 2 groups are dissimilar/unequal, we have heteroscedasticity.</p>
+<p>We can test this using a <strong>Levene’s Test for Equality of Variance</strong> which is available in the package <code>car</code>. The first argument specifies the formula in the format <code>DV ~ IV</code>. Here:</p>
+<ul>
+<li>The dependent variable (DV) is <code>simon_effect</code> (continuous)</li>
+<li>The independent variable (IV) is <code>similarity</code> (the grouping variable)</li>
+</ul>
+<p>To perform the test, separate the variables with a tilde (<code>~</code>), and specify the dataset using the <code>data</code> argument:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">leveneTest</span>(simon_effect <span class="sc">~</span> similarity, <span class="at">data =</span> simon_effect)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in leveneTest.default(y = y, group = group, ...): group coerced to
+factor.</code></pre>
+</div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Df</th>
+<th style="text-align: right;">F value</th>
+<th style="text-align: right;">Pr(&gt;F)</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">group</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.7263221</td>
+<td style="text-align: right;">0.3953679</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: right;">158</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>The warning message tells us that the grouping variable was converted into a factor. Oops, I guess we forgot to convert <code>similarity</code> into a factor during data wrangling.</p>
+<p>The test output shows a <strong>p-value greater than .05</strong>. This indicates that we do not have enough evidence to reject the null hypothesis. Therefore, the variances across the two groups can be assumed equal.</p>
+<p>You would report this result in APA style: A Levene’s test of homogeneity of variances was used to compare the variances of the same and the different groups. The test indicated that the variances were homogeneous, <span class="math inline">\(F(1,158) = 0.73, p = .395\)</span>.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The t-test we are conducting is a Welch t-test by default. The Welch t-test provides similar results to a Student’s t-test when variances are equal but is preferred when variances are unequal.</p>
+<p>This means that even if Levene’s test returns a significant p-value, indicating that the variances between the groups are unequal, the Welch t-test remains appropriate and valid for analysis.</p>
+</div>
+</div>
+</section><section id="assumption-4-dv-should-be-approximately-normally-distributed" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="assumption-4-dv-should-be-approximately-normally-distributed">Assumption 4: DV should be approximately normally distributed</h4>
+<p>It’s important to note that this assumption requires the <strong>dependent variable to be normally distributed within each group</strong>.</p>
+<p>We can either use our eyeballs again on the violin-boxplot we created earlier (or use a qqplot, density plot, or histogram instead), OR compute a statistic like the Shapiro-Wilk’s test we already mentioned previously for the one-sample t-test. However, keep in mind that with large sample sizes (approximately 80 participants per group), this test may flag minor deviations from normality as significant, even if the data is reasonably normal.</p>
+<p>Visual inspection suggests that both groups are approximately normally distributed. The <strong>“same” group</strong> appears slightly more normally distributed than the <strong>“different” group</strong>, which has a small peak in the lower tail. Despite this, both distributions seem normal enough for practical purposes with real-world data.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip: Visual inspection
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you want to use a histogram, density plot or qqplot (the ones created with the <code>ggplot2</code> and <code>qqplotr</code> packages), you can simply add a <code>facet_wrap()</code> function to display the plots separately for each group.</p>
+<p>If you are using the Q-Q plot function from the <code>car</code> package, you will need to create separate data objects filtered for each group before generating Q-Q plots for the groups individually.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Task: Compute Shapiro-Wilk’s test
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>As mentioned above, the function for the <strong>Shapiro-Wilk’s test</strong> does not allow for a formula. This means you will need to create separate data objects for the two groups first. Consider this a good opportunity to practice using the <code><a href="https://rdrr.io/r/stats/filter.html">filter()</a></code> function.</p>
+<p><strong>Step-by-step instructions</strong>:</p>
+<ol type="1">
+<li>Create separate data objects for the same and different groups.</li>
+<li>Run the Shapiro-Wilk test on each group’s data.</li>
+<li>Examine the results. What do you conclude from the test outcomes?</li>
+</ol>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="do">## same group</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>same <span class="ot">&lt;-</span> simon_effect <span class="sc">%&gt;%</span> </span>
+<span id="cb8-3"><a href="#cb8-3"></a>  <span class="fu">filter</span>(similarity <span class="sc">==</span> <span class="st">"same"</span>)</span>
+<span id="cb8-4"><a href="#cb8-4"></a></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="fu">shapiro.test</span>(same<span class="sc">$</span>simon_effect)</span>
+<span id="cb8-6"><a href="#cb8-6"></a></span>
+<span id="cb8-7"><a href="#cb8-7"></a><span class="do">## different group</span></span>
+<span id="cb8-8"><a href="#cb8-8"></a>different <span class="ot">&lt;-</span> simon_effect <span class="sc">%&gt;%</span> </span>
+<span id="cb8-9"><a href="#cb8-9"></a>  <span class="fu">filter</span>(similarity <span class="sc">==</span> <span class="st">"different"</span>)</span>
+<span id="cb8-10"><a href="#cb8-10"></a></span>
+<span id="cb8-11"><a href="#cb8-11"></a><span class="fu">shapiro.test</span>(different<span class="sc">$</span>simon_effect)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  same$simon_effect
+W = 0.98921, p-value = 0.7447
+
+
+    Shapiro-Wilk normality test
+
+data:  different$simon_effect
+W = 0.96949, p-value = 0.05262</code></pre>
+</div>
+</div>
+<p><strong>Interpretation:</strong></p>
+<p>Shapiro-Wilk’s test also suggests that the data for both groups, “same” and “different”, are normally distributed as all p-values are above .05.</p>
+<p>Again, if you used this method in your report, you would have to write up the results in APA style (refer to the section on the one-sample t-test for guidance on reporting).</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you have read the Delacre et al.&nbsp;(2017) paper (<a href="https://rips-irsp.com/articles/10.5334/irsp.82" target="_blank">https://rips-irsp.com/articles/10.5334/irsp.82</a>), you might be aware that the <strong>normality assumption is not critical for the Welch t-test</strong>.</p>
+<p>This means that, whether you consider both groups to be “normally distributed” or interpret one as slightly deviating from normality, the Welch t-test remains an appropriate choice for this dataset.</p>
+</div>
+</div>
+<p>After verifying all the assumptions, we concluded that they were met. Therefore, we will compute a <strong>Welch two-sample t-test</strong>.</p>
+</section></section><section id="activity-8-compute-a-two-sample-t-test-and-effect-size" class="level2" data-number="7.8"><h2 data-number="7.8" class="anchored" data-anchor-id="activity-8-compute-a-two-sample-t-test-and-effect-size">
+<span class="header-section-number">7.8</span> Activity 8: Compute a Two-sample t-test and effect size</h2>
+<p>The <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> function, which we previously used for the one-sample t-test, can also be used here, but with a slightly different approach. It supports a formula option, which simplifies the process. This means we don’t need to wrangle the data further or use the <code>$</code> operator to access columns directly. Instead, we can specify the formula as <code>DV ~ IV</code>.</p>
+<p>The key arguments for <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> are:</p>
+<ul>
+<li>The first argument in the formula with the pattern <code>DV ~ IV</code>
+</li>
+<li>The second argument is the data</li>
+<li>The third argument is specifying whether variances are equal between the groups. The default value is <code>var.equal = FALSE</code>, which conducts a <strong>Welch t-test</strong>. If you set <code>var.equal = TRUE</code>, you would conduct a Student t-test instead.</li>
+<li>The 4th argument <code>alternative</code> specifies the alternative hypothesis. The default value is “two.sided”, meaning the test will check for differences in both directions (i.e., a non-directional hypothesis)</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">t.test</span>(simon_effect <span class="sc">~</span> similarity, <span class="at">data =</span> simon_effect, <span class="at">var.equal =</span> <span class="cn">FALSE</span>, <span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Welch Two Sample t-test
+
+data:  simon_effect by similarity
+t = -0.91809, df = 157.14, p-value = 0.36
+alternative hypothesis: true difference in means between group different and group same is not equal to 0
+95 percent confidence interval:
+ -9.885574  3.611799
+sample estimates:
+mean in group different      mean in group same 
+               32.85726                35.99415 </code></pre>
+</div>
+</div>
+<p>The output of the <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> function tells us:</p>
+<ul>
+<li>the <strong>type of test</strong> that was conducted (here Welch t-test)</li>
+<li>the <strong>variables</strong> that were tested (here <code>simon_effect</code> by <code>similarity</code>),</li>
+<li>the <strong>t-value</strong>, <strong>degrees of freedom</strong>, and <strong>p</strong>,</li>
+<li>the <strong>alternative hypothesis</strong> tested,</li>
+<li>a <strong>95% confidence interval</strong> for the difference between group means, and</li>
+<li>the <strong>mean of both groups</strong> (which should match our descriptive stats)</li>
+</ul>
+<p>The <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> function does not calculate an <strong>effect size</strong>, so we have to compute it separately once again. As with the one-sample t-test, we can use the <code>CohensD()</code> function from the <code>lsr</code> package. The formula-based approach works here too. For the <strong>Welch version</strong> of the t-test, you need to include the argument <code>method = "unequal"</code> in the <code>CohensD()</code> function to account for unequal variances.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">cohensD</span>(simon_effect <span class="sc">~</span> similarity, <span class="at">data =</span> simon_effect, <span class="at">method =</span> <span class="st">"unequal"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1451628</code></pre>
+</div>
+</div>
+</section><section id="activity-9-sensitivity-power-analysis" class="level2" data-number="7.9"><h2 data-number="7.9" class="anchored" data-anchor-id="activity-9-sensitivity-power-analysis">
+<span class="header-section-number">7.9</span> Activity 9: Sensitivity power analysis</h2>
+<p>Next, we will conduct a <strong>sensitivity power analysis</strong> to determine the minimum effect size that could have been reliably detected with our sample size, an alpha level of 0.05, and a power of 0.8.</p>
+<p>To perform this analysis, we use the <code>pwr.t.test()</code> from the <code>pwr</code> package. The arguments are the same as those used for the one-sample t-test, but with a few adjustments:</p>
+<ul>
+<li>
+<strong>Number of Participants</strong>: Specify the number of observations per sample (i.e., n)</li>
+<li>
+<strong>Test Type</strong>: Set the <code>type</code> argument to “two.sample” for a two-sample t-test.</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">pwr.t.test</span>(<span class="at">n =</span> <span class="dv">80</span>, <span class="at">sig.level =</span> <span class="fl">0.05</span>, <span class="at">power =</span> <span class="fl">0.8</span>, <span class="at">type =</span> <span class="st">"two.sample"</span>, <span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+     Two-sample t test power calculation 
+
+              n = 80
+              d = 0.445672
+      sig.level = 0.05
+          power = 0.8
+    alternative = two.sided
+
+NOTE: n is number in *each* group</code></pre>
+</div>
+</div>
+<p>Sooo, the smallest effect size we can detect with a sample size of 80 participants in each group, an alpha level of .05, and power of .8 is <strong>0.45</strong>. This is larger than the actual effect size we calculated using the <code>CohensD()</code> function (i.e., 0.14). This indicates that our analysis is underpowered to detect such a small effect size.</p>
+<section id="hypothetical-replication-study" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="hypothetical-replication-study">Hypothetical Replication Study</h4>
+<p>Out of curiosity, if we were to replicate this study and wanted to reliably detect an effect size as small as <strong>0.14</strong>, how many participants would we need?</p>
+<p>We can use the <code>pwr.t.test()</code> function again. This time, instead of specifying <code>n</code>, we provide the effect size (<code>d = 0.14</code>). The result shows that we would need approximately <strong>1,500 participants in total</strong> (750 per group). Ooft; that’s quite a few people to recruit.</p>
+<p>However, it’s worth noting that an effect size of 0.14 may not be practically meaningful, even if statistically detectable.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">pwr.t.test</span>(<span class="at">d =</span> <span class="fl">0.145</span>, <span class="at">sig.level =</span> <span class="fl">0.05</span>, <span class="at">power =</span> <span class="fl">0.8</span>, <span class="at">type =</span> <span class="st">"two.sample"</span>, <span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+     Two-sample t test power calculation 
+
+              n = 747.5833
+              d = 0.145
+      sig.level = 0.05
+          power = 0.8
+    alternative = two.sided
+
+NOTE: n is number in *each* group</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+But my two groups have unequal sample sizes, and there is only one n in <code>pwr.t.test</code>. What do I do?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>No problem! You can use the <code>pwr.t2n.test()</code> function, which allows you to specify different sample sizes for the two groups (<code>n1</code> and <code>n2</code>).</p>
+<p>The rest of the arguments are essentially the same as with <code>pwr.t.test()</code>. Additionally, there is no need to specify the <code>type</code> argument, as the function is specifically designed for two-sample t-tests with unequal sample sizes.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">pwr.t2n.test</span>(<span class="at">n1 =</span> <span class="cn">NULL</span>, <span class="at">n2=</span> <span class="cn">NULL</span>, <span class="at">d =</span> <span class="cn">NULL</span>, <span class="at">sig.level =</span> <span class="fl">0.05</span>, <span class="at">power =</span> <span class="cn">NULL</span>, <span class="at">alternative =</span> <span class="fu">c</span>(<span class="st">"two.sided"</span>, <span class="st">"less"</span>,<span class="st">"greater"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let’s try it for our example. We should get the same result though.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="fu">pwr.t2n.test</span>(<span class="at">n1 =</span> <span class="dv">80</span>, <span class="at">n2=</span> <span class="dv">80</span>, <span class="at">sig.level =</span> <span class="fl">0.05</span>, <span class="at">power =</span> <span class="fl">0.8</span>, <span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+     t test power calculation 
+
+             n1 = 80
+             n2 = 80
+              d = 0.445672
+      sig.level = 0.05
+          power = 0.8
+    alternative = two.sided</code></pre>
+</div>
+</div>
+</div>
+</div>
+</section></section><section id="activity-10-the-write-up" class="level2" data-number="7.10"><h2 data-number="7.10" class="anchored" data-anchor-id="activity-10-the-write-up">
+<span class="header-section-number">7.10</span> Activity 10: The write-up</h2>
+<p>We hypothesised that there would be a significant difference in the Simon effect between participants who received the same stimuli in both sessions <span class="math inline">\((N = 80, M = 35.99 msec, SD = 22.40 msec)\)</span> and those who received different stimuli <span class="math inline">\((N = 80, M = 32.86 msec, SD = 20.79 msec)\)</span>. Using a Welch two-sample t-test, the effect was found to be non-significant and of a small magnitude, <span class="math inline">\(t(157.14) = 0.92, p = .360, d = 0.15\)</span>. The overall mean difference between groups was small <span class="math inline">\((M_{diff} = 3.14 msec)\)</span>. Therefore, we fail to reject the null hypothesis.</p>
+</section><section id="sec-alternative_two_sample" class="level2" data-number="7.11"><h2 data-number="7.11" class="anchored" data-anchor-id="sec-alternative_two_sample">
+<span class="header-section-number">7.11</span> Activity 11: Non-parametric alternative</h2>
+<p>The <strong>Mann-Whitney U-test</strong> is the non-parametric equivalent of the independent two-sample t-test. It is used to compare the medians of two samples and is particularly useful when the assumptions of the t-test are not met.</p>
+<p>According to Delacre et al.&nbsp;(2017), the Mann-Whitney U-test is robust to violations of normality but remains sensitive to heteroscedasticity. In this case, we don’t need to worry about heteroscedasticity, as the variances in the two groups are equal. However, it’s important to keep this in mind when assessing assumptions and interpreting results with other datasets.</p>
+<p>First, let’s start by computing some <strong>summary statistics</strong> for each group.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>simon_effect <span class="sc">%&gt;%</span> </span>
+<span id="cb21-2"><a href="#cb21-2"></a>  <span class="fu">group_by</span>(similarity) <span class="sc">%&gt;%</span> </span>
+<span id="cb21-3"><a href="#cb21-3"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(), </span>
+<span id="cb21-4"><a href="#cb21-4"></a>            <span class="at">median =</span> <span class="fu">median</span>(simon_effect))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: left;">similarity</th>
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">median</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">different</td>
+<td style="text-align: right;">80</td>
+<td style="text-align: right;">34.44134</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">same</td>
+<td style="text-align: right;">80</td>
+<td style="text-align: right;">35.68470</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>To <strong>conduct a Mann-Whitney U-test</strong>, use the <code><a href="https://rdrr.io/r/stats/wilcox.test.html">wilcox.test()</a></code> function. As with the independent t-test, you can use the formula approach <code>DV ~ IV</code>. The code structure is identical to what we used for the independent t-test.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="fu">wilcox.test</span>(simon_effect <span class="sc">~</span> similarity, <span class="at">data =</span> simon_effect)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Wilcoxon rank sum test with continuity correction
+
+data:  simon_effect by similarity
+W = 3001, p-value = 0.4981
+alternative hypothesis: true location shift is not equal to 0</code></pre>
+</div>
+</div>
+<p>We should compute the <strong>standardised test statistic Z</strong> manually. To do this, use the <code><a href="https://rdrr.io/r/stats/Normal.html">qnorm()</a></code> function on the halved p-value obtained from the Wilcoxon test conducted earlier.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="co"># storing the p-value</span></span>
+<span id="cb24-2"><a href="#cb24-2"></a>p_wilcoxon <span class="ot">&lt;-</span> <span class="fu">wilcox.test</span>(simon_effect <span class="sc">~</span> similarity, <span class="at">data =</span> simon_effect)<span class="sc">$</span>p.value</span>
+<span id="cb24-3"><a href="#cb24-3"></a></span>
+<span id="cb24-4"><a href="#cb24-4"></a><span class="co"># calculate the z value from half the p-value</span></span>
+<span id="cb24-5"><a href="#cb24-5"></a>z <span class="ot">=</span> <span class="fu">qnorm</span>(p_wilcoxon<span class="sc">/</span><span class="dv">2</span>)</span>
+<span id="cb24-6"><a href="#cb24-6"></a>z</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.6774047</code></pre>
+</div>
+</div>
+<p>The <strong>effect size</strong> for the Mann-Whitney U-test is <strong>r</strong>. To compute r, we’d need the standardised test statistic z and divide that the square-root of the number of pairs n: <span class="math inline">\(r = \frac{|z|}{\sqrt n}\)</span>.</p>
+<p>Alternatively, you can use the <code>wilcox_effsize()</code> function from the <code>rstatix</code> package to simplify the process.</p>
+<p>The arguments for this function are slightly different in order but otherwise identical to those used in the <code><a href="https://rdrr.io/r/stats/wilcox.test.html">wilcox.test()</a></code> function above.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="fu">wilcox_effsize</span>(<span class="at">data =</span> simon_effect, <span class="at">formula =</span> simon_effect <span class="sc">~</span> similarity)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: left;">.y.</th>
+<th style="text-align: left;">group1</th>
+<th style="text-align: left;">group2</th>
+<th style="text-align: right;">effsize</th>
+<th style="text-align: right;">n1</th>
+<th style="text-align: right;">n2</th>
+<th style="text-align: left;">magnitude</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td style="text-align: left;">simon_effect</td>
+<td style="text-align: left;">different</td>
+<td style="text-align: left;">same</td>
+<td style="text-align: right;">0.0536884</td>
+<td style="text-align: right;">80</td>
+<td style="text-align: right;">80</td>
+<td style="text-align: left;">small</td>
+</tr></tbody>
+</table>
+</div>
+</div>
+</div>
+<p>This is once again considered a small effect. Anyway, we do have all the numbers now to <strong>write up the results</strong>:</p>
+<p>A Mann-Whitney U-test was conducted to determine whether there was a significant difference in the Simon effect between participants who received the same stimuli in both sessions <span class="math inline">\((N = 80, Mdn = 35.68 \text{msec})\)</span> and those who received different stimuli <span class="math inline">\((N = 80, Mdn = 34.44 \text{msec})\)</span>. The results indicate that the median difference in response time was non-significant and of small magnitude, <span class="math inline">\(W = 3001, Z = -0.68, p = .498, r = .054\)</span>. Therefore, we fail to reject the null hypothesis.</p>
+</section><section id="pair-coding" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="pair-coding"><span style="color: #F39C12; text-transform: uppercase;">Pair-coding</span></h2>
+<section id="task-1-open-the-r-project-for-the-lab" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="task-1-open-the-r-project-for-the-lab">Task 1: Open the R project for the lab</h3>
+</section><section id="task-2-create-a-new-.rmd-file" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="task-2-create-a-new-.rmd-file">Task 2: Create a new <code>.Rmd</code> file</h3>
+<p>… and name it something useful. If you need help, have a look at <a href="01-basics.html#sec-rmd"><span>Section&nbsp;1.3</span></a>.</p>
+</section><section id="task-3-load-in-the-library-and-read-in-the-data" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="task-3-load-in-the-library-and-read-in-the-data">Task 3: Load in the library and read in the data</h3>
+<p>The data should already be in your project folder. If you want a fresh copy, you can download the data again here: <a href="data/data_pair_coding.zip" title="download">data_pair_coding</a>.</p>
+<p>We are using the packages <code>tidyverse</code>, <code>car</code>, and <code>lsr</code> today, and the data file we need to read in is <code>dog_data_clean_wide.csv</code>. I’ve named my data object <code>dog_data_wide</code> to shorten the name but feel free to use whatever object name sounds intuitive to you.</p>
+<p>If you have not worked through chapter 7 yet, you may need to install a few packages first before you can load them into the library, for example, if <code>car</code> is missing, run <code>install.packages("car")</code> in your <strong>CONSOLE</strong>.</p>
+</section><section id="task-4-tidy-data-for-a-two-sample-t-test" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="task-4-tidy-data-for-a-two-sample-t-test">Task 4: Tidy data for a two-sample t-test</h3>
+<p>For today’s task, we want to analyse how <strong>students’ psychological well-being scores</strong> differed at the <strong>post_intervention</strong> time point. Specifically, we will compare the scores of students who directly interacted with the dogs (Group <code>direct</code>)to those who only talked to the dog handlers (Group <code>control</code>).</p>
+<p>To achieve that, we need to select all relevant columns from <code>dog_data_wide</code>, and narrow down the dataframe to only include students assigned either to the <code>direct</code> or the <code>control</code> groups.</p>
+<ul>
+<li><p><strong>Step 1</strong>: Select all relevant columns from <code>dog_data_wide</code>. For the task at hand, those would be the participant ID <code>RID</code>, <code>GroupAssignment</code>, and <code>Flourishing_post</code>. Store this data in an object called <code>dog_independent</code>.</p></li>
+<li><p><strong>Step 2</strong>: Narrow down <code>dog_independent</code> to only include <code>GroupAssignment</code> groups <code>direct</code> or the <code>control</code>.</p></li>
+<li><p><strong>Step 3</strong>: Convert <code>GroupAssignment</code> into a factor.</p></li>
+</ul>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hints
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-12" class="callout-12-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>dog_independent <span class="ot">&lt;-</span> ??? <span class="sc">%&gt;%</span> </span>
+<span id="cb27-2"><a href="#cb27-2"></a>  <span class="co"># Step 1</span></span>
+<span id="cb27-3"><a href="#cb27-3"></a>  <span class="fu">select</span>(???, ???, ???) <span class="sc">%&gt;%</span> </span>
+<span id="cb27-4"><a href="#cb27-4"></a>  <span class="co"># Step 2</span></span>
+<span id="cb27-5"><a href="#cb27-5"></a>  <span class="fu">filter</span>(??? <span class="sc">%in%</span> <span class="fu">c</span>(???, ???)) <span class="sc">%&gt;%</span> </span>
+<span id="cb27-6"><a href="#cb27-6"></a>  <span class="co"># Step 3</span></span>
+<span id="cb27-7"><a href="#cb27-7"></a>  <span class="fu">mutate</span>(<span class="at">GroupAssignment =</span> ???())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution for Tasks 3 and 4
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-13" class="callout-13-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="co"># loading tidyverse and lsr into the library</span></span>
+<span id="cb28-2"><a href="#cb28-2"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb28-3"><a href="#cb28-3"></a><span class="fu">library</span>(car)</span>
+<span id="cb28-4"><a href="#cb28-4"></a><span class="fu">library</span>(lsr)</span>
+<span id="cb28-5"><a href="#cb28-5"></a></span>
+<span id="cb28-6"><a href="#cb28-6"></a><span class="co"># reading in `dog_data_clean_wide.csv`</span></span>
+<span id="cb28-7"><a href="#cb28-7"></a>dog_data_wide <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"dog_data_clean_wide.csv"</span>)</span>
+<span id="cb28-8"><a href="#cb28-8"></a></span>
+<span id="cb28-9"><a href="#cb28-9"></a><span class="co"># Task 4: Tidying </span></span>
+<span id="cb28-10"><a href="#cb28-10"></a>dog_independent <span class="ot">&lt;-</span> dog_data_wide <span class="sc">%&gt;%</span> </span>
+<span id="cb28-11"><a href="#cb28-11"></a>  <span class="co"># Step 1</span></span>
+<span id="cb28-12"><a href="#cb28-12"></a>  <span class="fu">select</span>(RID, GroupAssignment, Flourishing_post) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-13"><a href="#cb28-13"></a>  <span class="co"># Step 2</span></span>
+<span id="cb28-14"><a href="#cb28-14"></a>  <span class="fu">filter</span>(GroupAssignment <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Control"</span>, <span class="st">"Direct"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-15"><a href="#cb28-15"></a>  <span class="co"># Step 3</span></span>
+<span id="cb28-16"><a href="#cb28-16"></a>  <span class="fu">mutate</span>(<span class="at">GroupAssignment =</span> <span class="fu">factor</span>(GroupAssignment))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="task-5-compute-descriptives" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="task-5-compute-descriptives">Task 5: Compute descriptives</h3>
+<p>Calculate the sample size (n), the mean, and the standard deviation of the psychological well-being score for both groups. Save the output in an object called <code>dog_independent_descriptives</code>. The resulting dataframe should look like this:</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small" data-quarto-postprocess="true">
+<thead><tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">GroupAssignment</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">n</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">mean_Flourishing</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">sd_Flourishing</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Control</td>
+<td style="text-align: right;">94</td>
+<td style="text-align: right;">5.718085</td>
+<td style="text-align: right;">0.7709738</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Direct</td>
+<td style="text-align: right;">95</td>
+<td style="text-align: right;">5.776316</td>
+<td style="text-align: right;">0.8638912</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hints
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-15" class="callout-15-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>dog_independent_descriptives <span class="ot">&lt;-</span> dog_independent <span class="sc">%&gt;%</span> </span>
+<span id="cb29-2"><a href="#cb29-2"></a>  <span class="fu">group_by</span>(???) <span class="sc">%&gt;%</span> </span>
+<span id="cb29-3"><a href="#cb29-3"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb29-4"><a href="#cb29-4"></a>            <span class="at">mean_Flourishing =</span> <span class="fu">mean</span>(???),</span>
+<span id="cb29-5"><a href="#cb29-5"></a>            <span class="at">sd_Flourishing =</span> <span class="fu">sd</span>(???)) <span class="sc">%&gt;%</span> </span>
+<span id="cb29-6"><a href="#cb29-6"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-14" class="callout-14-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="co"># Task 5: Means &amp; SD</span></span>
+<span id="cb30-2"><a href="#cb30-2"></a>dog_independent_descriptives <span class="ot">&lt;-</span> dog_independent <span class="sc">%&gt;%</span> </span>
+<span id="cb30-3"><a href="#cb30-3"></a>  <span class="fu">group_by</span>(GroupAssignment) <span class="sc">%&gt;%</span> </span>
+<span id="cb30-4"><a href="#cb30-4"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(), </span>
+<span id="cb30-5"><a href="#cb30-5"></a>            <span class="at">mean_Flourishing =</span> <span class="fu">mean</span>(Flourishing_post),</span>
+<span id="cb30-6"><a href="#cb30-6"></a>            <span class="at">sd_Flourishing =</span> <span class="fu">sd</span>(Flourishing_post)) <span class="sc">%&gt;%</span> </span>
+<span id="cb30-7"><a href="#cb30-7"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="task-6-check-assumptions" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="task-6-check-assumptions">Task 6: Check assumptions</h3>
+<section id="assumption-1-continuous-dv-1" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="assumption-1-continuous-dv-1">Assumption 1: Continuous DV</h4>
+Is the dependent variable (DV) continuous? Answer:
+<div id="radio_CWMJIJELLT" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_CWMJIJELLT" value="x"><span>No.&nbsp;The DV is called GroupAssignment and it is categorical</span></label><label><input type="radio" autocomplete="off" name="radio_CWMJIJELLT" value="x"><span>Yes. The DV is called GroupAssignment and it is continuous</span></label><label><input type="radio" autocomplete="off" name="radio_CWMJIJELLT" value="answer"><span>Yes. The DV is called Flourishing and it is continuous</span></label><label><input type="radio" autocomplete="off" name="radio_CWMJIJELLT" value="x"><span>No.&nbsp;The DV is called Flourishing and it is categorical</span></label>
+</div>
+</section><section id="assumption-2-data-are-independent-1" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="assumption-2-data-are-independent-1">Assumption 2: Data are independent</h4>
+<p>Each observation in the dataset has to be independent, meaning the value of one observation does not affect the value of any other. Answer: <select class="webex-select"><option value="blank"></option>
+<option value="answer">yes</option>
+<option value="x">no</option></select></p>
+</section><section id="assumption-3-homoscedasticity-homogeneity-of-variance-1" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="assumption-3-homoscedasticity-homogeneity-of-variance-1">Assumption 3: Homoscedasticity (homogeneity of variance)</h4>
+<p>I’ve computed Levene’s test below. How do you interpret the output?</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="fu">leveneTest</span>(Flourishing_post <span class="sc">~</span> GroupAssignment, <span class="at">data =</span> dog_independent)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Df</th>
+<th style="text-align: right;">F value</th>
+<th style="text-align: right;">Pr(&gt;F)</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">group</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.7111707</td>
+<td style="text-align: right;">0.4001329</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: right;">187</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+Answer:
+<div id="radio_KZIKSTBJAI" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_KZIKSTBJAI" value="x"><span>The p-value of Levene's test is significant, therefore we conclude that there is a difference between the variances in the population.</span></label><label><input type="radio" autocomplete="off" name="radio_KZIKSTBJAI" value="x"><span>The p-value of Levene's test is non-significant, therefore we conclude that there is a difference between the variances in the population.</span></label><label><input type="radio" autocomplete="off" name="radio_KZIKSTBJAI" value="x"><span>The p-value of Levene's test is significant, therefore we conclude that the variances in the population are equal.</span></label><label><input type="radio" autocomplete="off" name="radio_KZIKSTBJAI" value="answer"><span>The p-value of Levene's test is non-significant, therefore we conclude that the variances in the population are equal.</span></label>
+</div>
+</section><section id="assumption-4-dv-should-be-approximately-normally-distributed-1" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="assumption-4-dv-should-be-approximately-normally-distributed-1">Assumption 4: DV should be approximately normally distributed</h4>
+<p>Looking at the violin-boxplot below, are both groups normally distributed?</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="fu">ggplot</span>(dog_independent, <span class="fu">aes</span>(<span class="at">x =</span> GroupAssignment, <span class="at">y =</span> Flourishing_post, <span class="at">fill =</span> GroupAssignment)) <span class="sc">+</span></span>
+<span id="cb32-2"><a href="#cb32-2"></a>  <span class="fu">geom_violin</span>(<span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb32-3"><a href="#cb32-3"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> <span class="fl">0.3</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb32-4"><a href="#cb32-4"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">option =</span> <span class="st">"cividis"</span>, <span class="at">guide =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
+<span id="cb32-5"><a href="#cb32-5"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb32-6"><a href="#cb32-6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Group"</span>, <span class="at">y =</span> <span class="st">"Psychological well-being (post-intervention)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="07-independent_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Answer:</p>
+<div id="radio_HYRCNKMPTO" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_HYRCNKMPTO" value="x"><span>yes, both groups are normally distributed</span></label><label><input type="radio" autocomplete="off" name="radio_HYRCNKMPTO" value="answer"><span>no, both groups are sightly skewed</span></label><label><input type="radio" autocomplete="off" name="radio_HYRCNKMPTO" value="x"><span>no, both groups are extremely skewed</span></label>
+</div>
+</section><section id="conclusion-from-assumption-tests" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="conclusion-from-assumption-tests">Conclusion from assumption tests</h4>
+<p>With all assumptions tested, which statistical test would you recommend for this analysis?</p>
+Answer:
+<div id="radio_FKGOWIMXNI" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_FKGOWIMXNI" value="x"><span>All assumptions held. We will conduct a Student two-sample t-test.</span></label><label><input type="radio" autocomplete="off" name="radio_FKGOWIMXNI" value="answer"><span>The assumption of normality was violated. We will conduct a Welch two-sample t-test because it has been shown to be robust to slight deviations from normality (Delacre et al., 2017).</span></label><label><input type="radio" autocomplete="off" name="radio_FKGOWIMXNI" value="x"><span>The assumptions of normality and homoscedasticity were violated. Therefore, we will conduct a non-parametric test.</span></label>
+</div>
+</section></section><section id="task-7-computing-a-two-sample-t-test-with-effect-size-interpret-the-output" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="task-7-computing-a-two-sample-t-test-with-effect-size-interpret-the-output">Task 7: Computing a two-sample t-test with effect size &amp; interpret the output</h3>
+<ul>
+<li>
+<strong>Step 1</strong>: Compute the Welch two-sample t-test. The structure of the function is as follows:</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="fu">t.test</span>(DV <span class="sc">~</span> IV, <span class="at">data =</span> your_dataframe, <span class="at">var.equal =</span> <span class="cn">FALSE</span>, <span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-16" class="callout-16-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="fu">t.test</span>(Flourishing_post <span class="sc">~</span> GroupAssignment, <span class="at">data =</span> dog_independent, <span class="at">var.equal =</span> <span class="cn">FALSE</span>, <span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<ul>
+<li>
+<strong>Step 2</strong>: Calculate an effect size</li>
+</ul>
+<p>Calculate Cohen’s D. The structure of the function is as follows:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="fu">cohensD</span>(DV <span class="sc">~</span> IV, <span class="at">data =</span> your_dataframe, <span class="at">method =</span> <span class="st">"unequal"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-17" class="callout-17-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="fu">cohensD</span>(Flourishing_post <span class="sc">~</span> GroupAssignment, <span class="at">data =</span> dog_independent, <span class="at">method =</span> <span class="st">"unequal"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<ul>
+<li>
+<strong>Step 3</strong>: Interpreting the output</li>
+</ul>
+<p>Below are the outputs for the <strong>descriptive statistics</strong> (table), <strong>Welch t-test</strong> (main output), and <strong>Cohen’s D</strong> (last line starting with [1]). Based on these, write up the results in APA style and provide an interpretation.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: left;">GroupAssignment</th>
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">mean_Flourishing</th>
+<th style="text-align: right;">sd_Flourishing</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Control</td>
+<td style="text-align: right;">94</td>
+<td style="text-align: right;">5.718085</td>
+<td style="text-align: right;">0.7709738</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Direct</td>
+<td style="text-align: right;">95</td>
+<td style="text-align: right;">5.776316</td>
+<td style="text-align: right;">0.8638912</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Welch Two Sample t-test
+
+data:  Flourishing_post by GroupAssignment
+t = -0.48902, df = 185.05, p-value = 0.6254
+alternative hypothesis: true difference in means between group Control and group Direct is not equal to 0
+95 percent confidence interval:
+ -0.2931533  0.1766920
+sample estimates:
+mean in group Control  mean in group Direct 
+             5.718085              5.776316 
+
+[1] 0.0711213</code></pre>
+</div>
+</div>
+<p>The Welch two-sample t-test revealed that there is <select class="webex-select"><option value="blank"></option>
+<option value="x">a statistically significant difference</option>
+<option value="answer">no statistically significant difference</option></select> in psychological well-being scores between direct (N = <input class="webex-solveme nospaces" size="2" data-answer="[&quot;95&quot;]">, M = <input class="webex-solveme nospaces" size="4" data-answer="[&quot;5.78&quot;]">, SD = <input class="webex-solveme nospaces" size="4" data-answer="[&quot;0.86&quot;]">) and control group (N = <input class="webex-solveme nospaces" size="2" data-answer="[&quot;94&quot;]">, M = <input class="webex-solveme nospaces" size="4" data-answer="[&quot;5.72&quot;]">, SD = <input class="webex-solveme nospaces" size="4" data-answer="[&quot;0.77&quot;]">), t(<input class="webex-solveme nospaces" size="6" data-answer="[&quot;185.05&quot;]">) = <input class="webex-solveme nospaces" size="4" data-answer="[&quot;0.49&quot;]">, p = <input class="webex-solveme nospaces" size="4" data-answer="[&quot;.625&quot;]">, V = <input class="webex-solveme nospaces" size="4" data-answer="[&quot;0.07&quot;]">. The strength of the association between the variables is considered <select class="webex-select"><option value="blank"></option>
+<option value="answer">small</option>
+<option value="x">moderate</option>
+<option value="x">strong</option></select>. We therefore <select class="webex-select"><option value="blank"></option>
+<option value="answer">fail to reject the null hypothesis</option>
+<option value="x">reject the null hypothesis</option></select>.</p>
+</section></section><section id="test-your-knowledge" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="test-your-knowledge"><span style="color: #F39C12; text-transform: uppercase;">Test your knowledge</span></h2>
+<section id="question-1" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-1">Question 1</h4>
+<p><strong>What is the main purpose of an independent t-test?</strong></p>
+<div id="radio_BKYZTHXCZY" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_BKYZTHXCZY" value="answer"><span>To compare means between two independent groups</span></label><label><input type="radio" autocomplete="off" name="radio_BKYZTHXCZY" value="x"><span>To test for differences in variances between two independent groups</span></label><label><input type="radio" autocomplete="off" name="radio_BKYZTHXCZY" value="x"><span>To assess the correlation between two continuous variables</span></label><label><input type="radio" autocomplete="off" name="radio_BKYZTHXCZY" value="x"><span>To compare means between two related groups</span></label>
+</div>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Explain this answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-18" class="callout-18-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The independent t-test is specifically designed to compare the means of two separate (independent) groups to determine whether the difference between their means is statistically significant. For example, it could be used to compare the test scores of students who received two different teaching methods (Group 1 vs.&nbsp;Group 2).</p>
+</div>
+</div>
+</div>
+</section><section id="question-2" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-2">Question 2</h4>
+<p><strong>Which of the following is a key assumption of the two-sample t-test that should be considered?</strong></p>
+<div id="radio_TIOGJBTQZU" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_TIOGJBTQZU" value="answer"><span>The observations are independent of each other</span></label><label><input type="radio" autocomplete="off" name="radio_TIOGJBTQZU" value="x"><span>The independent variable is normally distributed</span></label><label><input type="radio" autocomplete="off" name="radio_TIOGJBTQZU" value="x"><span>The sample sizes must be equal</span></label><label><input type="radio" autocomplete="off" name="radio_TIOGJBTQZU" value="x"><span>The dependent variable is categorical</span></label>
+</div>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Explain this answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-19" class="callout-19-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Independence of observations is a crucial assumption for the two-sample t-test. It means that the data collected from one participant should not influence the data from another participant.</p>
+</div>
+</div>
+</div>
+</section><section id="question-3" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-3">Question 3</h4>
+<p><strong>How can you recognise the difference between the output of a Student’s t-test and a Welch t-test?</strong></p>
+<div id="radio_ZCJQHTFDOC" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_ZCJQHTFDOC" value="x"><span>The Welch t-test includes a confidence interval, while the Student’s t-test does not.</span></label><label><input type="radio" autocomplete="off" name="radio_ZCJQHTFDOC" value="answer"><span>The Welch t-test reports non-integer degrees of freedom, while the Student’s t-test reports integer degrees of freedom.</span></label><label><input type="radio" autocomplete="off" name="radio_ZCJQHTFDOC" value="x"><span>The Welch t-test uses medians instead of means, unlike the Student’s t-test.</span></label><label><input type="radio" autocomplete="off" name="radio_ZCJQHTFDOC" value="x"><span>The Welch t-test reports an effect size directly, while the Student’s t-test does not.</span></label>
+</div>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Explain this answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-20" class="callout-20-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The Welch t-test adjusts for unequal variances and sample sizes, which leads to non-integer degrees of freedom. In contrast, the Student’s t-test assumes equal variances and reports integer degrees of freedom based on total sample size minus the number of groups.</p>
+<p>The other options are incorrect:</p>
+<ul>
+<li>Both tests report confidence intervals for the mean difference.</li>
+<li>Both tests compare means, not medians.</li>
+<li>Neither test reports effect size directly; it must be calculated separately (e.g., using Cohen’s d).</li>
+</ul>
+</div>
+</div>
+</div>
+</section><section id="question-4" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-4">Question 4</h4>
+<p><strong>You perform an independent t-test and find <span class="math inline">\(t(48)=2.10,p=.042,d=0.58\)</span>. How would you interpret these results?</strong></p>
+<div id="radio_XAKEGXIRHW" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_XAKEGXIRHW" value="x"><span>There is no significant difference between the two groups</span></label><label><input type="radio" autocomplete="off" name="radio_XAKEGXIRHW" value="x"><span>There is a significant difference between the two groups, with a small effect size.</span></label><label><input type="radio" autocomplete="off" name="radio_XAKEGXIRHW" value="answer"><span>There is a significant difference between the two groups, with a medium effect size.</span></label><label><input type="radio" autocomplete="off" name="radio_XAKEGXIRHW" value="x"><span>There is a significant difference between the two groups, with a large effect size.</span></label>
+</div>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-21-contents" aria-controls="callout-21" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Explain this answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-21" class="callout-21-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The p-value (<span class="math inline">\(p=.042\)</span>) is less than the common significance threshold of 0.05, indicating that the difference between the two groups is statistically significant. This means we reject the null hypothesis and conclude that there is evidence of a difference between the group means.</p>
+</div>
+</div>
+</div>
+
+
+</section></section></main><!-- /main --><script>
+
+/* update total correct if #webex-total_correct exists */
+update_total_correct = function() {
+  console.log("webex: update total_correct");
+
+  var t = document.getElementsByClassName("webex-total_correct");
+  for (var i = 0; i < t.length; i++) {
+    p = t[i].parentElement;
+    var correct = p.getElementsByClassName("webex-correct").length;
+    var solvemes = p.getElementsByClassName("webex-solveme").length;
+    var radiogroups = p.getElementsByClassName("webex-radiogroup").length;
+    var selects = p.getElementsByClassName("webex-select").length;
+
+    t[i].innerHTML = correct + " of " + (solvemes + radiogroups + selects) + " correct";
+  }
+}
+
+/* webex-solution button toggling function */
+b_func = function() {
+  console.log("webex: toggle hide");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* check answers */
+check_func = function() {
+  console.log("webex: check answers");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('unchecked')) {
+    cl.remove("unchecked");
+    this.innerHTML = "Hide Answers";
+  } else {
+    cl.add("unchecked");
+    this.innerHTML = "Show Answers";
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  console.log("webex: check solveme");
+
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "")
+  }
+
+  if (my_answer == "") {
+    cl.remove("webex-correct");
+    cl.remove("webex-incorrect");
+  } else if (real_answers.includes(my_answer)) {
+    cl.add("webex-correct");
+    cl.remove("webex-incorrect");
+  } else {
+    cl.add("webex-incorrect");
+    cl.remove("webex-correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("webex-correct");
+    } else {
+      cl.remove("webex-correct");
+    }
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("webex-correct");
+    }
+  }
+
+  update_total_correct();
+}
+
+/* function for checking select answers */
+select_func = function(e) {
+  console.log("webex: check select");
+
+  var cl = this.classList
+
+  /* add style */
+  cl.remove("webex-incorrect");
+  cl.remove("webex-correct");
+  if (this.value == "answer") {
+    cl.add("webex-correct");
+  } else if (this.value != "blank") {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+/* function for checking radiogroups answers */
+radiogroups_func = function(e) {
+  console.log("webex: check radiogroups");
+
+  var checked_button = document.querySelector('input[name=' + this.id + ']:checked');
+  var cl = checked_button.parentElement.classList;
+  var labels = checked_button.parentElement.parentElement.children;
+
+  /* get rid of styles */
+  for (i = 0; i < labels.length; i++) {
+    labels[i].classList.remove("webex-incorrect");
+    labels[i].classList.remove("webex-correct");
+  }
+
+  /* add style */
+  if (checked_button.value == "answer") {
+    cl.add("webex-correct");
+  } else {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+window.onload = function() {
+  console.log("webex onload");
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('webex-solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+
+  var check_sections = document.getElementsByClassName("webex-check");
+  console.log("check:", check_sections.length);
+  for (var i = 0; i < check_sections.length; i++) {
+    check_sections[i].classList.add("unchecked");
+
+    let btn = document.createElement("button");
+    btn.innerHTML = "Show Answers";
+    btn.classList.add("webex-check-button");
+    btn.onclick = check_func;
+    check_sections[i].appendChild(btn);
+
+    let spn = document.createElement("span");
+    spn.classList.add("webex-total_correct");
+    check_sections[i].appendChild(spn);
+  }
+
+  /* set up webex-solveme inputs */
+  var solveme = document.getElementsByClassName("webex-solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off");
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+
+    solveme[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  /* set up radiogroups */
+  var radiogroups = document.getElementsByClassName("webex-radiogroup");
+  for (var i = 0; i < radiogroups.length; i++) {
+    radiogroups[i].onchange = radiogroups_func;
+  }
+
+  /* set up selects */
+  var selects = document.getElementsByClassName("webex-select");
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].onchange = select_func;
+    selects[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  update_total_correct();
+}
+
+</script><script>
+// open rdrr links externally ----
+
+var exlinks = document.querySelectorAll("a[href^='https://rdrr.io']");
+var exlink_func = function(){
+  window.open(this.href);
+  return false;
+};
+for (var i = 0; i < exlinks.length; i++) {
+    exlinks[i].addEventListener('click', exlink_func, false);
+}
+
+// visible second sidebar in mobile ----
+
+function move_sidebar() {
+  var toc = document.getElementById("TOC");
+  var small_sidebar = document.querySelector("#quarto-sidebar .sidebar-menu-container");
+  var right_sidebar = document.getElementById("quarto-margin-sidebar");
+
+  if (window.innerWidth < 768) {
+    small_sidebar.append(toc);
+  } else {
+    right_sidebar.append(toc);
+  }
+}
+move_sidebar();
+window.onresize = move_sidebar;
+</script><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./06-chi-square-one-sample.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Chi-square and one-sample t-test</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./appendix-a-installing-r.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Installing R</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">CC-BY (2024) Gaby Mahrholz Carolina E. Kuepper-Tetzel</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+</body></html>

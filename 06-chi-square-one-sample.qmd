@@ -656,8 +656,8 @@ dog_chi <- ??? %>%
 library(tidyverse)
 library(lsr)
 
-# reading in `dog_data_wide.csv`
-dog_data_wide <- read_csv("dog_data_wide.csv")
+# reading in `dog_data_clean_wide.csv`
+dog_data_wide <- read_csv("dog_data_clean_wide.csv")
 
 # Task 4: Tidying 
 dog_chi <- dog_data_wide %>% 
