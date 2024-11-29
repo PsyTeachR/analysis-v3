@@ -1,14 +1,11 @@
-# Paired t-test {#sec-within}
+# Paired t-test {#sec-paired}
 
 ## Intended Learning Outcomes {.unnumbered}
 
 By the end of this chapter you should be able to:
 
--   a
--   b
--   c
-
-
+- Compute a paired t-test and effectively report the results.
+- Understand when to use a non-parametric equivalent of the paired t-test, compute it, and report the results.
 
 
 
@@ -20,13 +17,15 @@ We will still be working with the dataset from the study by Zwaan et al. (2018) 
 
 * Open last week's project
 * Create a new `.Rmd` file and save it to your project folder
-* Delete everything after the setup code chunk 
+* Delete everything after the setup code chunk (e.g., line 12 and below) 
 
 
 
 ## Activity 2: Library and data for today
 
-Today, we'll need the following packages `rstatix`, `tidyverse`, `qqplotr`, `lsr`, and `pwr`. Again, we also need to read in the data from `MeansSimonTask.csv` and the demographics information from `DemoSimonTask.csv`.
+Today, we'll need the following packages `rstatix`, `tidyverse`, `qqplotr`, `lsr`, and `pwr`. You should have all the packages installed already from previous chapters installed already, but if you need to install any of them, do so via the console (see @sec-install_packages for more detail). 
+
+Again, load package `rstatix` before `tidyverse`, and read in the data from `MeansSimonTask.csv` and the demographics information from `DemoSimonTask.csv`.
 
 
 ```{r eval=FALSE}
@@ -79,9 +78,9 @@ As usual, take some time to familiarize yourself with the data before starting t
 Today, we’ll focus on the Simon effect. Remember that the Simon effect predicts that congruent trials will have shorter response times than incongruent trials.
 
 
-* Potential research question: "Is there a significant difference in response times between congruent and incongruent trials in a Simon task?"
-* Null Hypothesis (H~0~): "There is no significant difference in response times between congruent and incongruent trials in a Simon task."
-* Alternative Hypothesis (H~1~): "There is a significant difference in response times between congruent and incongruent trials in a Simon task."
+* **Potential research question**: "Is there a significant difference in response times between congruent and incongruent trials in a Simon task?"
+* **Null Hypothesis (H~0~)**: "There is no significant difference in response times between congruent and incongruent trials in a Simon task."
+* **Alternative Hypothesis (H~1~)**: "There is a significant difference in response times between congruent and incongruent trials in a Simon task."
 
 ## Activity 3: Preparing the dataframe
 
@@ -166,6 +165,8 @@ Notice how we did not have to use `group_by()` here since the data is in wide fo
 
 ## Activity 5: Create an appropriate plot
 
+### Option 1: congruent and incongruent trials
+
 To create an appropriate plot, we'd like the data to be in long format, with a column for `congruency` that hold the labels of congruent and incorgruent trials, and a column that stores the `mean_RT` for each. Each participant should have 2 rows now:
 
 ```{r echo=FALSE, warning=FALSE, message=FALSE}
@@ -210,6 +211,39 @@ ggplot(simon_effect_long, aes(x = congruency, y = mean_RT, fill = congruency)) +
 ```
 
 :::
+
+:::
+
+### Option 2: difference scores between congruent and incongruent trials
+
+We could have displayed the difference scores between the 2 conditions. That would have involved using object `simon_effect` without further data wrangling. The difference score is stored in the column `simon_effect`. 
+
+::: {.callout-note collapse="true" icon="false"} 
+
+## Hints for the plot
+
+We want to create a violin-boxplot, but it would only have 1 value on the x-axis rather than the grouping variable we are usually. That means the ggplot function behaves slightly differently than usual. You would leave the x-value blank.
+
+```{r eval=FALSE}
+ggplot(data, aes(x = "", y = continuous_variable)) +
+```
+
+Adding some colour would also have to be done within the `geom_` functions rather than within `ggplot()` like we usually do.
+
+:::
+
+::: {.callout-caution collapse="true" icon="false"} 
+
+## Solution for the plot
+
+```{r}
+ggplot(simon_effect, aes(x = "", y = simon_effect)) +
+  geom_violin(fill = "#A3319F", alpha = 0.5) +
+  geom_boxplot(fill = "#A3319F", width = 0.4) +
+  theme_classic() +
+  labs(x = "",
+       y = "Difference in mean Response Time scores")
+```
 
 :::
 
@@ -264,10 +298,12 @@ ggplot(simon_effect, aes(sample = simon_effect)) +
 
 ## Option 2: Violin-boxplot of the difference score
 
+You could also use the one from above if you chose option 2; or create one here if you opted for option 1 above.
+
 ```{r}
 ggplot(simon_effect, aes(x = "", y = simon_effect)) +
-  geom_violin(fill = "#FB8D61", alpha = 0.4) + # alpha for opacity, fill for adding colour
-  geom_boxplot(fill = "#FB8D61", width = 0.5) + # change width of the boxes
+  geom_violin(fill = "#FB8D61", alpha = 0.5) + # alpha for opacity, fill for adding colour
+  geom_boxplot(fill = "#FB8D61", width = 0.4) + # change width of the boxes
   theme_classic() +
   labs(x = "",
        y = "Difference in mean Response Time scores")
@@ -345,8 +381,6 @@ The minimum effect size we could reliably detect is 0.22. Our actual effect size
 
 ## Activity 9: The write-up
 
-Using a , a medium significant effect was found (t(31) = 2.4, p = .023, d = .42) which supports the alternative hypothesis that preferential looking time is higher for the familiar melody compared to the baseline stage.
-
 We hypothesised that there would be a significant difference in the response times between congruent $(M = 427.65 msec, SD = 74.17 msec)$ and incongruent trials $(M = 462.08 msec, SD = 74.70 msec)$ of a Simon task. On average, participants were faster in the congruent compared to the incongruent condition $(M_{diff} = 34.43 msec, SD_{diff} = 21.60 msec)$. Using a within-subjects t-test, the effect was found to be significant and of a large magnitude, $t(159) = 20.16, p < .001, d = 1.59$. Therefore, we reject the null hypothesis in favour of H~1~.
 
 
@@ -417,9 +451,324 @@ A Wilcoxon signed-rank test was conducted to determine whether there was a signi
 
 ## [Pair-coding]{style="color: #F39C12; text-transform: uppercase;"} {.unnumbered}
 
+::: {.callout-important}
 
+This week's pair-coding activity mirrors the one from @sec-independent. While there’s no lab scheduled this week, I wanted to provide an opportunity for you to practice. You can treat this either as a "Challenge Yourself" activity or get together with friends to work through it together.
+
+:::
+
+### Task 1: Open the R project for the lab {.unnumbered}
+
+### Task 2: Create a new `.Rmd` file {.unnumbered}
+
+... and name it something useful. If you need help, have a look at @sec-rmd.
+
+### Task 3: Load in the library and read in the data {.unnumbered}
+
+The data should already be in your project folder. If you want a fresh copy, you can download the data again here: [data_pair_coding](data/data_pair_coding.zip "download").
+
+We are using the packages `rstatix`, `tidyverse`, `qqplotr`, `lsr` today.
+Make sure to load `rstatix` in before `tidyverse`.
+
+We also need to read in `dog_data_clean_wide.csv`. Again, I've named my data object `dog_data_wide` to shorten the name but feel free to use whatever object name sounds intuitive to you. 
+
+For the plot, we will need the data in long format. We can either read in `dog_data_clean_long.csv` to take a shortcut, or wrangle the data from `dog_data_wide`. I've taken the shortcut and named my data object `dog_data_long`.
+
+
+
+```{r reading in data for me, echo=FALSE, message=FALSE}
+library(rstatix)
+library(tidyverse)
+library(lsr)
+
+dog_data_wide <- read_csv("data/dog_data_clean_wide.csv")
+dog_data_long <- read_csv("data/dog_data_clean_long.csv")
+```
+
+### Task 4: Tidy data for a paired t-test {.unnumbered}
+
+Not much tidying to do for today. 
+
+Pick a variable of interest and select the pre- and post-scores, and calculate the difference score. Store them in a separate data object with a meaningful name.
+
+I will use Loneliness as an example and call my data object `dog_lonely`. Regardless of your chosen variable, your data object should look like/ similar to the table below. 
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+dog_lonely <- dog_data_wide %>% 
+  select(RID, Loneliness_pre, Loneliness_post) %>% 
+  mutate(Loneliness_diff = Loneliness_post - Loneliness_pre)
+
+head(dog_lonely, n = 5)
+```
+
+In `dog_data_long`, we want to turn `Stage` into a factor so we can re-order the labels (i.e., "pre" before "post").
+
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Solution for Tasks 3 and 4
+
+```{r}
+## Task 3
+library(rstatix)
+library(tidyverse)
+library(lsr)
+
+dog_data_wide <- read_csv("data/dog_data_clean_wide.csv")
+dog_data_long <- read_csv("data/dog_data_clean_long.csv")
+
+## Task 4
+dog_lonely <- dog_data_wide %>% 
+  select(RID, Loneliness_pre, Loneliness_post) %>% 
+  mutate(Loneliness_diff = Loneliness_post - Loneliness_pre)
+
+dog_data_long <- dog_data_long %>% 
+  mutate(Stage = factor(Stage,
+                        levels = c("pre", "post")))
+```
+
+
+:::
+
+### Task 5: Compute descriptives {.unnumbered}
+
+We want to determine the mean and sd of:
+
+* the pre-scores
+* the post-scores, and
+* the difference scores
+
+Store them in a data object called `descriptives`.
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Solution
+
+```{r}
+descriptives <- dog_lonely %>% 
+  summarise(mean_pre = mean(Loneliness_pre),
+            sd_pre = sd(Loneliness_pre),
+            mean_post = mean(Loneliness_post),
+            sd_post = sd(Loneliness_post),
+            diff = mean(Loneliness_diff),
+            sd_diff = sd(Loneliness_diff))
+```
+
+:::
+
+
+### Task 6: Check assumptions {.unnumbered}
+
+
+#### Assumption 1: Continuous DV {.unnumbered} 
+
+Is the dependent variable (DV) continuous? Answer: `r longmcq(sample(c(answer = "Yes. The DV is the difference in loneliness scores and it is continuous", x = "No. The DV is the difference in loneliness scores but it is categorical", x = "No. The DV is the pre- and post-stages and it is categorical")))`
+
+
+#### Assumption 2: Data are independent {.unnumbered} 
+
+Each pair of values in the dataset has to be independent, meaning each pair of values needs to be from a separate participant. Answer: `r mcq(c(answer = "yes", x = "no"))`
+
+#### Assumption 3: Normality {.unnumbered}
+
+Looking at the violin-boxplots below, do you think the assumption of normality holds?
+
+::: {.callout-note}
+The labels of Plot 2 turned out to be quite long here. I've used the escape character `\n` here. to break up the title across 2 lines.
+:::
+
+```{r eval = FALSE, message = FALSE}
+## Plot 1
+ggplot(dog_data_long, aes(x = Stage, y = Loneliness, fill = Stage)) +
+  geom_violin(alpha = 0.5) +
+  geom_boxplot(width = 0.4, alpha = 0.8) +
+  scale_fill_viridis_d(guide = "none") +
+  theme_classic() +
+  labs(x = "Time point", y = "mean Loneliness Scores")
+
+## Plot 2
+ggplot(dog_lonely, aes(x = "", y = Loneliness_diff)) +
+  geom_violin(fill = "#21908C", alpha = 0.5) +
+  geom_boxplot(fill = "#21908C", width = 0.4) +
+  theme_classic() +
+  labs(x = "",
+       y = "Difference in mean Loneliness scores \nbetween pre- and post- intervention")
+
+```
+
+```{r fig.cap="Plots displayed to assess normality assumption", echo=FALSE}
+library(patchwork)
+
+## Plot 1
+p1 <- ggplot(dog_data_long, aes(x = Stage, y = Loneliness, fill = Stage)) +
+  geom_violin(alpha = 0.5) +
+  geom_boxplot(width = 0.4, alpha = 0.8) +
+  scale_fill_viridis_d(guide = "none") +
+  theme_classic() +
+  labs(x = "Time point", y = "mean Loneliness Scores") +
+  ggtitle("Plot 1")
+
+## Plot 2
+p2 <- ggplot(dog_lonely, aes(x = "", y = Loneliness_diff)) +
+  geom_violin(fill = "#21908C", alpha = 0.5) +
+  geom_boxplot(fill = "#21908C", width = 0.4) +
+  theme_classic() +
+  labs(x = "",
+       y = "Difference in mean Loneliness scores \nbetween pre- and post- intervention") +
+  ggtitle("Plot 2")
+
+p1 + p2 + plot_layout(nrow = 1)
+```
+
+
+
+
+Answer:
+
+`r longmcq(c(x = "yes, because both pre- and post-scores in Plot 1 are approximately normally distributed", answer = "yes, because the difference scores in Plot 2 are approximately normally distributed", x = "no, because both pre- and post-scores in Plot 1 are extremely skewed", x = "no, because the difference scores in Plot 2 are extremely skewed"))`
+
+#### Conclusion from assumption tests {.unnumbered}
+
+With all assumptions tested, which statistical test would you recommend for this analysis?
+
+Answer: `r longmcq(c(answer = "All assumptions held. We will conduct a paired-samples t-test.", x = "The assumption of normality was violated. We will conduct a Wilcoxon signed-rank test."))`
+
+
+
+### Task 7: Computing a paired-sample t-test with effect size & interpret the output {.unnumbered}
+
+
+* **Step 1**: Compute the paired-sample t-test. The structure of the function is as follows:
+
+```{r eval=FALSE}
+t.test(your_data$var1, your_data$var2, paired = TRUE)
+```
+
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Solution
+
+```{r eval=FALSE}
+t.test(dog_lonely$Loneliness_pre, dog_lonely$Loneliness_post, paired = TRUE)
+```
+
+:::
+
+
+* **Step 2**: Calculate an effect size
+
+Calculate Cohen's D. The structure of the function is as follows:
+
+```{r eval=FALSE}
+cohensD(your_data$var1, your_data$var2, method = "paired")
+```
+
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Solution
+
+```{r eval=FALSE}
+cohensD(dog_lonely$Loneliness_pre, dog_lonely$Loneliness_post, method = "paired")
+```
+
+:::
+
+
+* **Step 3**: Interpreting the output
+
+Below are the outputs for the **descriptive statistics** (table), **paired-samples t-test** (main output), and **Cohen’s D** (last line starting with [1]). Based on these, write up the results in APA style and provide an interpretation.
+
+```{r echo=FALSE}
+descriptives
+
+t.test(dog_lonely$Loneliness_pre, dog_lonely$Loneliness_post, paired = TRUE)
+
+cohensD(dog_lonely$Loneliness_pre, dog_lonely$Loneliness_post, method = "paired")
+```
+We hypothesised that there would be a significant difference between Loneliness measured before (M = `r fitb("2.04")`, SD = `r fitb("0.53")`) and after (M = `r fitb("1.91")`, SD = `r fitb("0.53")`) the dog intervention. On average, participants felt less lonely after the intervention (M{diff} = `r fitb("0.13")`, SD{diff} = `r fitb("0.23")`). 
+Using a paired-samples t-test, the effect was found to be `r mcq(c(answer = "significant", x = "non-significant"))` and of a `r mcq(c(answer = "small", x = "medium", x = "large"))` magnitude, t(`r fitb("283")`) = `r fitb("9.26")`, p `r fitb("< .001")`, d = `r fitb("0.55")`. We therefore `r mcq(c(x = "fail to reject the null hypothesis", answer = "reject the null hypothesis in favour of H~1~"))`.
 
 
 ## [Test your knowledge]{style="color: #F39C12; text-transform: uppercase;"} {.unnumbered}
+
+#### Question 1 {.unnumbered}
+
+**What is the main purpose of an paired-samples t-test?**
+
+`r longmcq(sample(c(x = "To compare means between two independent groups", answer = "To compare means between two related groups", x = "To assess the correlation between two continuous variables", x = "To test for differences in variances between two independent groups")))`
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Explain this answer
+
+The paired t-test is used when comparing means from related groups. It requires two measurements from the same group or individual. Examples could be before-and-after measurements (e.g., pre- and post-intervention),
+or repeated measures (e.g., exercise under 2 different conditions, such as indoor and outdoor), etc.
+
+
+:::
+
+#### Question 2 {.unnumbered}
+
+**Which of the following is a key assumption of the paired t-test?**
+
+`r longmcq(sample(c(answer = "The differences between paired observations are normally distributed.", x = "The two samples are independent.", x = "The dependent variable is categorical.", x = "The two groups have equal variances.")))`
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Explain this answer
+
+The paired t-test assumes that the differences between the paired observations are normally distributed, as the test is applied to these differences, not the raw scores.
+
+:::
+
+
+#### Question 3 {.unnumbered}
+
+**What is the null hypothesis for a paired t-test?**
+
+`r longmcq(sample(c(answer = "The differences between paired observations are equal to zero.", x = "The means of two independent groups are equal.", x = "The variances of the two samples are equal.", x = "There is no relationship between two variables.")))`
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Explain this answer
+
+The paired t-test specifically tests whether the mean difference between paired observations (e.g., pre-test and post-test scores) is zero, indicating no systematic difference.
+
+Why the other options are incorrect:
+
+* **The means of two independent groups are equal**: This describes the null hypothesis for an independent t-test, not a paired t-test. The paired t-test is used for related groups or repeated measures, not independent groups.
+* **The variances of the two samples are equal**: This is an assumption that applies to the independent t-test, which compares two unrelated groups. The paired t-test does not test variances; it focuses on the differences between paired observations.
+* **There is no relationship between two variables**: This is not the null hypothesis for a paired t-test. It relates more to correlation or regression analyses, which assess relationships between variables, not mean differences.
+
+:::
+
+
+
+#### Question 4 {.unnumbered}
+
+**A paired-samples t-test was conducted to compare sleep quality scores with (M = 7.5, SD = 1.8) and without (M = 6.0, SD = 1.9) white noise, t(29) = 4.55, p < .001, d = 0.82. Answer the questions below.**
+
+* How many participants were included in the study? `r fitb("30")`
+* What is the effect size, and how would you describe its magnitude?
+  The effect size is `r fitb("0.82")` and of `r mcq(c(x = "small", x = "medium", answer = "large"))` magnitude.
+* Is the result statistically significant? `r mcq(sample(c(answer = "The result is statistically significant because p < .001", x = "The result is statistically non-significant because p < .001")))`
+* Based on the means and standard deviations, how would you summarise the direction of the effect?
+`r longmcq(sample(c(answer = "Sleep quality was higher with white noise than without white noise.", x = "Sleep quality was higher without white noise than with white noise.", x = "Sleep quality was the same in both conditions.", x = "The direction of the effect cannot be determined from the output.")))`
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Explain these answers
+
+The degrees of freedom for a paired-samples t-test are calculated as N - 1 for the number of paired observations. With df = 29, the sample size is 30 participants.
+
+An effect size of d = 0.82 is considered large. This suggests a meaningful and substantial difference in sleep quality between the two conditions.
+
+The result is statistically significant. The p-value (p < .001) indicates that the observed difference in the sample is very unlikely to occur if we assume there is no true difference in the population.
+
+The mean sleep quality score with white noise (M = 7.5) is higher than without white noise (M = 6.0), indicating improved sleep quality with white noise.
+
+:::
 
 

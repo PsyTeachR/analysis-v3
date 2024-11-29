@@ -60,7 +60,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./appendix-a-installing-r.html" rel="next">
+<link href="./08-paired.html" rel="next">
 <link href="./06-chi-square-one-sample.html" rel="prev">
 <link href="./images/logos/logo_analysis.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
@@ -208,6 +208,12 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Two-sample t-test</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-paired.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Paired t-test</span></span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
@@ -347,7 +353,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <li>No other changes were made.</li>
 </ul></section><section id="activity-2-library-and-data-for-today" class="level2" data-number="7.2"><h2 data-number="7.2" class="anchored" data-anchor-id="activity-2-library-and-data-for-today">
 <span class="header-section-number">7.2</span> Activity 2: Library and data for today</h2>
-<p>Today, we’ll be using the following packages: <code>rstatix</code>, <code>tidyverse</code>, <code>car</code>, <code>lsr</code>, and <code>pwr</code>. You may need to install the packages before using them Make sure that <code>rstatix</code> is loaded in before tidyverse to avoid masking certain functions that we will need later.</p>
+<p>Today, we’ll be using the following packages: <code>rstatix</code>, <code>tidyverse</code>, <code>car</code>, <code>lsr</code>, and <code>pwr</code>. You may need to install the packages before using them (see <a href="01-basics.html#sec-install_packages"><span>Section&nbsp;1.5.1</span></a> if you need some help). Make sure that <code>rstatix</code> is loaded in before tidyverse to avoid masking certain functions that we will need later.</p>
 <p>We will also read in the data from <code>MeansSimonTask.csv</code> and the demographic information from <code>DemoSimonTask.csv</code>.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># load in the packages</span></span>
@@ -398,9 +404,12 @@ Solution
 <section id="potential-research-questions-and-hypotheses" class="level3" data-number="7.3.1"><h3 data-number="7.3.1" class="anchored" data-anchor-id="potential-research-questions-and-hypotheses">
 <span class="header-section-number">7.3.1</span> Potential research questions and hypotheses</h3>
 <ul>
-<li>Potential research question: “Is there a significant difference in the Simon effect between participants who received the same stimuli in both sessions compared to those who received different stimuli?”</li>
-<li>Null Hypothesis (H<sub>0</sub>): “There is no significant difference in the Simon effect between participants who received the same stimuli in both sessions and those who received different stimuli.”</li>
-<li>Alternative Hypothesis (H<sub>1</sub>): “There is a significant difference in the Simon effect between participants who received the same stimuli in both sessions and those who received different stimuli.”</li>
+<li>
+<strong>Potential research question</strong>: “Is there a significant difference in the Simon effect between participants who received the same stimuli in both sessions compared to those who received different stimuli?”</li>
+<li>
+<strong>Null Hypothesis (H<sub>0</sub>)</strong>: “There is no significant difference in the Simon effect between participants who received the same stimuli in both sessions and those who received different stimuli.”</li>
+<li>
+<strong>Alternative Hypothesis (H<sub>1</sub>)</strong>: “There is a significant difference in the Simon effect between participants who received the same stimuli in both sessions and those who received different stimuli.”</li>
 </ul></section></section><section id="activity-4-preparing-the-dataframe" class="level2" data-number="7.4"><h2 data-number="7.4" class="anchored" data-anchor-id="activity-4-preparing-the-dataframe">
 <span class="header-section-number">7.4</span> Activity 4: Preparing the dataframe</h2>
 <p>The data is already in a very good shape, however, we need to perform some data wrangling to compute the Simon effect.</p>
@@ -1012,6 +1021,19 @@ alternative hypothesis: true location shift is not equal to 0</code></pre>
 <p>This is once again considered a small effect. Anyway, we do have all the numbers now to <strong>write up the results</strong>:</p>
 <p>A Mann-Whitney U-test was conducted to determine whether there was a significant difference in the Simon effect between participants who received the same stimuli in both sessions <span class="math inline">\((N = 80, Mdn = 35.68 \text{msec})\)</span> and those who received different stimuli <span class="math inline">\((N = 80, Mdn = 34.44 \text{msec})\)</span>. The results indicate that the median difference in response time was non-significant and of small magnitude, <span class="math inline">\(W = 3001, Z = -0.68, p = .498, r = .054\)</span>. Therefore, we fail to reject the null hypothesis.</p>
 </section><section id="pair-coding" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="pair-coding"><span style="color: #F39C12; text-transform: uppercase;">Pair-coding</span></h2>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Similar to last week, this week’s pair coding task may be a bit long to fully complete in class. Try to progress as far as possible without compromising understanding, and treat the remaining section as a “Challenge Yourself” activity.</p>
+</div>
+</div>
 <section id="task-1-open-the-r-project-for-the-lab" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="task-1-open-the-r-project-for-the-lab">Task 1: Open the R project for the lab</h3>
 </section><section id="task-2-create-a-new-.rmd-file" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="task-2-create-a-new-.rmd-file">Task 2: Create a new <code>.Rmd</code> file</h3>
 <p>… and name it something useful. If you need help, have a look at <a href="01-basics.html#sec-rmd"><span>Section&nbsp;1.3</span></a>.</p>
@@ -1028,7 +1050,7 @@ alternative hypothesis: true location shift is not equal to 0</code></pre>
 <li><p><strong>Step 3</strong>: Convert <code>GroupAssignment</code> into a factor.</p></li>
 </ul>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -1037,7 +1059,7 @@ Hints
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-12" class="callout-12-contents callout-collapse collapse">
+<div id="callout-13" class="callout-13-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>dog_independent <span class="ot">&lt;-</span> ??? <span class="sc">%&gt;%</span> </span>
@@ -1052,7 +1074,7 @@ Hints
 </div>
 </div>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -1061,7 +1083,7 @@ Solution for Tasks 3 and 4
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-13" class="callout-13-contents callout-collapse collapse">
+<div id="callout-14" class="callout-14-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="co"># loading tidyverse and lsr into the library</span></span>
@@ -1113,7 +1135,7 @@ Solution for Tasks 3 and 4
 </div>
 </div>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -1122,7 +1144,7 @@ Hints
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-15" class="callout-15-contents callout-collapse collapse">
+<div id="callout-16" class="callout-16-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>dog_independent_descriptives <span class="ot">&lt;-</span> dog_independent <span class="sc">%&gt;%</span> </span>
@@ -1133,7 +1155,7 @@ Hints
 <span id="cb29-6"><a href="#cb29-6"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -1142,7 +1164,7 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-14" class="callout-14-contents callout-collapse collapse">
+<div id="callout-15" class="callout-15-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="co"># Task 5: Means &amp; SD</span></span>
@@ -1162,8 +1184,8 @@ Solution
 </section><section id="task-6-check-assumptions" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="task-6-check-assumptions">Task 6: Check assumptions</h3>
 <section id="assumption-1-continuous-dv-1" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="assumption-1-continuous-dv-1">Assumption 1: Continuous DV</h4>
 Is the dependent variable (DV) continuous? Answer:
-<div id="radio_CWMJIJELLT" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_CWMJIJELLT" value="x"><span>No.&nbsp;The DV is called GroupAssignment and it is categorical</span></label><label><input type="radio" autocomplete="off" name="radio_CWMJIJELLT" value="x"><span>Yes. The DV is called GroupAssignment and it is continuous</span></label><label><input type="radio" autocomplete="off" name="radio_CWMJIJELLT" value="answer"><span>Yes. The DV is called Flourishing and it is continuous</span></label><label><input type="radio" autocomplete="off" name="radio_CWMJIJELLT" value="x"><span>No.&nbsp;The DV is called Flourishing and it is categorical</span></label>
+<div id="radio_YFFIYYCHQV" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_YFFIYYCHQV" value="x"><span>No.&nbsp;The DV is called Flourishing and it is categorical</span></label><label><input type="radio" autocomplete="off" name="radio_YFFIYYCHQV" value="answer"><span>Yes. The DV is called Flourishing and it is continuous</span></label><label><input type="radio" autocomplete="off" name="radio_YFFIYYCHQV" value="x"><span>Yes. The DV is called GroupAssignment and it is continuous</span></label><label><input type="radio" autocomplete="off" name="radio_YFFIYYCHQV" value="x"><span>No.&nbsp;The DV is called GroupAssignment and it is categorical</span></label>
 </div>
 </section><section id="assumption-2-data-are-independent-1" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="assumption-2-data-are-independent-1">Assumption 2: Data are independent</h4>
 <p>Each observation in the dataset has to be independent, meaning the value of one observation does not affect the value of any other. Answer: <select class="webex-select"><option value="blank"></option>
@@ -1201,8 +1223,8 @@ Is the dependent variable (DV) continuous? Answer:
 </div>
 </div>
 Answer:
-<div id="radio_KZIKSTBJAI" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_KZIKSTBJAI" value="x"><span>The p-value of Levene's test is significant, therefore we conclude that there is a difference between the variances in the population.</span></label><label><input type="radio" autocomplete="off" name="radio_KZIKSTBJAI" value="x"><span>The p-value of Levene's test is non-significant, therefore we conclude that there is a difference between the variances in the population.</span></label><label><input type="radio" autocomplete="off" name="radio_KZIKSTBJAI" value="x"><span>The p-value of Levene's test is significant, therefore we conclude that the variances in the population are equal.</span></label><label><input type="radio" autocomplete="off" name="radio_KZIKSTBJAI" value="answer"><span>The p-value of Levene's test is non-significant, therefore we conclude that the variances in the population are equal.</span></label>
+<div id="radio_CRBIRZVURF" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_CRBIRZVURF" value="x"><span>The p-value of Levene's test is significant, therefore we conclude that there is a difference between the variances in the population.</span></label><label><input type="radio" autocomplete="off" name="radio_CRBIRZVURF" value="x"><span>The p-value of Levene's test is non-significant, therefore we conclude that there is a difference between the variances in the population.</span></label><label><input type="radio" autocomplete="off" name="radio_CRBIRZVURF" value="x"><span>The p-value of Levene's test is significant, therefore we conclude that the variances in the population are equal.</span></label><label><input type="radio" autocomplete="off" name="radio_CRBIRZVURF" value="answer"><span>The p-value of Levene's test is non-significant, therefore we conclude that the variances in the population are equal.</span></label>
 </div>
 </section><section id="assumption-4-dv-should-be-approximately-normally-distributed-1" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="assumption-4-dv-should-be-approximately-normally-distributed-1">Assumption 4: DV should be approximately normally distributed</h4>
 <p>Looking at the violin-boxplot below, are both groups normally distributed?</p>
@@ -1221,14 +1243,14 @@ Answer:
 </div>
 </div>
 <p>Answer:</p>
-<div id="radio_HYRCNKMPTO" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_HYRCNKMPTO" value="x"><span>yes, both groups are normally distributed</span></label><label><input type="radio" autocomplete="off" name="radio_HYRCNKMPTO" value="answer"><span>no, both groups are sightly skewed</span></label><label><input type="radio" autocomplete="off" name="radio_HYRCNKMPTO" value="x"><span>no, both groups are extremely skewed</span></label>
+<div id="radio_PTKFVWVPAG" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_PTKFVWVPAG" value="x"><span>yes, both groups are normally distributed</span></label><label><input type="radio" autocomplete="off" name="radio_PTKFVWVPAG" value="answer"><span>no, both groups are sightly skewed</span></label><label><input type="radio" autocomplete="off" name="radio_PTKFVWVPAG" value="x"><span>no, both groups are extremely skewed</span></label>
 </div>
 </section><section id="conclusion-from-assumption-tests" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="conclusion-from-assumption-tests">Conclusion from assumption tests</h4>
 <p>With all assumptions tested, which statistical test would you recommend for this analysis?</p>
 Answer:
-<div id="radio_FKGOWIMXNI" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_FKGOWIMXNI" value="x"><span>All assumptions held. We will conduct a Student two-sample t-test.</span></label><label><input type="radio" autocomplete="off" name="radio_FKGOWIMXNI" value="answer"><span>The assumption of normality was violated. We will conduct a Welch two-sample t-test because it has been shown to be robust to slight deviations from normality (Delacre et al., 2017).</span></label><label><input type="radio" autocomplete="off" name="radio_FKGOWIMXNI" value="x"><span>The assumptions of normality and homoscedasticity were violated. Therefore, we will conduct a non-parametric test.</span></label>
+<div id="radio_QNQVCDRJMW" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_QNQVCDRJMW" value="x"><span>All assumptions held. We will conduct a Student two-sample t-test.</span></label><label><input type="radio" autocomplete="off" name="radio_QNQVCDRJMW" value="answer"><span>The assumption of normality was violated. We will conduct a Welch two-sample t-test because it has been shown to be robust to slight deviations from normality (Delacre et al., 2017).</span></label><label><input type="radio" autocomplete="off" name="radio_QNQVCDRJMW" value="x"><span>The assumptions of normality and homoscedasticity were violated. Therefore, we will conduct a non-parametric test.</span></label>
 </div>
 </section></section><section id="task-7-computing-a-two-sample-t-test-with-effect-size-interpret-the-output" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="task-7-computing-a-two-sample-t-test-with-effect-size-interpret-the-output">Task 7: Computing a two-sample t-test with effect size &amp; interpret the output</h3>
 <ul>
@@ -1239,7 +1261,7 @@ Answer:
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="fu">t.test</span>(DV <span class="sc">~</span> IV, <span class="at">data =</span> your_dataframe, <span class="at">var.equal =</span> <span class="cn">FALSE</span>, <span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -1248,7 +1270,7 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-16" class="callout-16-contents callout-collapse collapse">
+<div id="callout-17" class="callout-17-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="fu">t.test</span>(Flourishing_post <span class="sc">~</span> GroupAssignment, <span class="at">data =</span> dog_independent, <span class="at">var.equal =</span> <span class="cn">FALSE</span>, <span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1265,7 +1287,7 @@ Solution
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="fu">cohensD</span>(DV <span class="sc">~</span> IV, <span class="at">data =</span> your_dataframe, <span class="at">method =</span> <span class="st">"unequal"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -1274,7 +1296,7 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-17" class="callout-17-contents callout-collapse collapse">
+<div id="callout-18" class="callout-18-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="fu">cohensD</span>(Flourishing_post <span class="sc">~</span> GroupAssignment, <span class="at">data =</span> dog_independent, <span class="at">method =</span> <span class="st">"unequal"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1332,38 +1354,17 @@ mean in group Control  mean in group Direct
 </div>
 <p>The Welch two-sample t-test revealed that there is <select class="webex-select"><option value="blank"></option>
 <option value="x">a statistically significant difference</option>
-<option value="answer">no statistically significant difference</option></select> in psychological well-being scores between direct (N = <input class="webex-solveme nospaces" size="2" data-answer="[&quot;95&quot;]">, M = <input class="webex-solveme nospaces" size="4" data-answer="[&quot;5.78&quot;]">, SD = <input class="webex-solveme nospaces" size="4" data-answer="[&quot;0.86&quot;]">) and control group (N = <input class="webex-solveme nospaces" size="2" data-answer="[&quot;94&quot;]">, M = <input class="webex-solveme nospaces" size="4" data-answer="[&quot;5.72&quot;]">, SD = <input class="webex-solveme nospaces" size="4" data-answer="[&quot;0.77&quot;]">), t(<input class="webex-solveme nospaces" size="6" data-answer="[&quot;185.05&quot;]">) = <input class="webex-solveme nospaces" size="4" data-answer="[&quot;0.49&quot;]">, p = <input class="webex-solveme nospaces" size="4" data-answer="[&quot;.625&quot;]">, V = <input class="webex-solveme nospaces" size="4" data-answer="[&quot;0.07&quot;]">. The strength of the association between the variables is considered <select class="webex-select"><option value="blank"></option>
+<option value="answer">no statistically significant difference</option></select> in psychological well-being scores between direct (N = <input class="webex-solveme nospaces" size="2" data-answer="[&quot;95&quot;]">, M = <input class="webex-solveme nospaces" size="4" data-answer="[&quot;5.78&quot;]">, SD = <input class="webex-solveme nospaces" size="4" data-answer="[&quot;0.86&quot;]">) and control group (N = <input class="webex-solveme nospaces" size="2" data-answer="[&quot;94&quot;]">, M = <input class="webex-solveme nospaces" size="4" data-answer="[&quot;5.72&quot;]">, SD = <input class="webex-solveme nospaces" size="4" data-answer="[&quot;0.77&quot;]">), t(<input class="webex-solveme nospaces" size="6" data-answer="[&quot;185.05&quot;]">) = <input class="webex-solveme nospaces" size="4" data-answer="[&quot;0.49&quot;]">, p = <input class="webex-solveme nospaces" size="4" data-answer="[&quot;.625&quot;]">, d = <input class="webex-solveme nospaces" size="4" data-answer="[&quot;0.07&quot;]">. The strength of the association between the variables is considered <select class="webex-select"><option value="blank"></option>
 <option value="answer">small</option>
-<option value="x">moderate</option>
-<option value="x">strong</option></select>. We therefore <select class="webex-select"><option value="blank"></option>
+<option value="x">medium</option>
+<option value="x">large</option></select>. We therefore <select class="webex-select"><option value="blank"></option>
 <option value="answer">fail to reject the null hypothesis</option>
 <option value="x">reject the null hypothesis</option></select>.</p>
 </section></section><section id="test-your-knowledge" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="test-your-knowledge"><span style="color: #F39C12; text-transform: uppercase;">Test your knowledge</span></h2>
 <section id="question-1" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-1">Question 1</h4>
 <p><strong>What is the main purpose of an independent t-test?</strong></p>
-<div id="radio_BKYZTHXCZY" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_BKYZTHXCZY" value="answer"><span>To compare means between two independent groups</span></label><label><input type="radio" autocomplete="off" name="radio_BKYZTHXCZY" value="x"><span>To test for differences in variances between two independent groups</span></label><label><input type="radio" autocomplete="off" name="radio_BKYZTHXCZY" value="x"><span>To assess the correlation between two continuous variables</span></label><label><input type="radio" autocomplete="off" name="radio_BKYZTHXCZY" value="x"><span>To compare means between two related groups</span></label>
-</div>
-<div class="callout callout-style-default callout-caution no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Explain this answer
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-18" class="callout-18-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>The independent t-test is specifically designed to compare the means of two separate (independent) groups to determine whether the difference between their means is statistically significant. For example, it could be used to compare the test scores of students who received two different teaching methods (Group 1 vs.&nbsp;Group 2).</p>
-</div>
-</div>
-</div>
-</section><section id="question-2" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-2">Question 2</h4>
-<p><strong>Which of the following is a key assumption of the two-sample t-test that should be considered?</strong></p>
-<div id="radio_TIOGJBTQZU" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_TIOGJBTQZU" value="answer"><span>The observations are independent of each other</span></label><label><input type="radio" autocomplete="off" name="radio_TIOGJBTQZU" value="x"><span>The independent variable is normally distributed</span></label><label><input type="radio" autocomplete="off" name="radio_TIOGJBTQZU" value="x"><span>The sample sizes must be equal</span></label><label><input type="radio" autocomplete="off" name="radio_TIOGJBTQZU" value="x"><span>The dependent variable is categorical</span></label>
+<div id="radio_ZYFZYYRCTT" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_ZYFZYYRCTT" value="answer"><span>To compare means between two independent groups</span></label><label><input type="radio" autocomplete="off" name="radio_ZYFZYYRCTT" value="x"><span>To assess the correlation between two continuous variables</span></label><label><input type="radio" autocomplete="off" name="radio_ZYFZYYRCTT" value="x"><span>To test for differences in variances between two independent groups</span></label><label><input type="radio" autocomplete="off" name="radio_ZYFZYYRCTT" value="x"><span>To compare means between two related groups</span></label>
 </div>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
@@ -1377,14 +1378,14 @@ Explain this answer
 </div>
 <div id="callout-19" class="callout-19-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Independence of observations is a crucial assumption for the two-sample t-test. It means that the data collected from one participant should not influence the data from another participant.</p>
+<p>The independent t-test is specifically designed to compare the means of two separate (independent) groups to determine whether the difference between their means is statistically significant. For example, it could be used to compare the test scores of students who received two different teaching methods (Group 1 vs.&nbsp;Group 2).</p>
 </div>
 </div>
 </div>
-</section><section id="question-3" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-3">Question 3</h4>
-<p><strong>How can you recognise the difference between the output of a Student’s t-test and a Welch t-test?</strong></p>
-<div id="radio_ZCJQHTFDOC" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_ZCJQHTFDOC" value="x"><span>The Welch t-test includes a confidence interval, while the Student’s t-test does not.</span></label><label><input type="radio" autocomplete="off" name="radio_ZCJQHTFDOC" value="answer"><span>The Welch t-test reports non-integer degrees of freedom, while the Student’s t-test reports integer degrees of freedom.</span></label><label><input type="radio" autocomplete="off" name="radio_ZCJQHTFDOC" value="x"><span>The Welch t-test uses medians instead of means, unlike the Student’s t-test.</span></label><label><input type="radio" autocomplete="off" name="radio_ZCJQHTFDOC" value="x"><span>The Welch t-test reports an effect size directly, while the Student’s t-test does not.</span></label>
+</section><section id="question-2" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-2">Question 2</h4>
+<p><strong>Which of the following is a key assumption of the two-sample t-test that should be considered?</strong></p>
+<div id="radio_WLBFANVEJY" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_WLBFANVEJY" value="x"><span>The dependent variable is categorical</span></label><label><input type="radio" autocomplete="off" name="radio_WLBFANVEJY" value="x"><span>The sample sizes must be equal</span></label><label><input type="radio" autocomplete="off" name="radio_WLBFANVEJY" value="x"><span>The independent variable is normally distributed</span></label><label><input type="radio" autocomplete="off" name="radio_WLBFANVEJY" value="answer"><span>The observations are independent of each other</span></label>
 </div>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
@@ -1398,20 +1399,14 @@ Explain this answer
 </div>
 <div id="callout-20" class="callout-20-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>The Welch t-test adjusts for unequal variances and sample sizes, which leads to non-integer degrees of freedom. In contrast, the Student’s t-test assumes equal variances and reports integer degrees of freedom based on total sample size minus the number of groups.</p>
-<p>The other options are incorrect:</p>
-<ul>
-<li>Both tests report confidence intervals for the mean difference.</li>
-<li>Both tests compare means, not medians.</li>
-<li>Neither test reports effect size directly; it must be calculated separately (e.g., using Cohen’s d).</li>
-</ul>
+<p>Independence of observations is a crucial assumption for the two-sample t-test. It means that the data collected from one participant should not influence the data from another participant.</p>
 </div>
 </div>
 </div>
-</section><section id="question-4" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-4">Question 4</h4>
-<p><strong>You perform an independent t-test and find <span class="math inline">\(t(48)=2.10,p=.042,d=0.58\)</span>. How would you interpret these results?</strong></p>
-<div id="radio_XAKEGXIRHW" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_XAKEGXIRHW" value="x"><span>There is no significant difference between the two groups</span></label><label><input type="radio" autocomplete="off" name="radio_XAKEGXIRHW" value="x"><span>There is a significant difference between the two groups, with a small effect size.</span></label><label><input type="radio" autocomplete="off" name="radio_XAKEGXIRHW" value="answer"><span>There is a significant difference between the two groups, with a medium effect size.</span></label><label><input type="radio" autocomplete="off" name="radio_XAKEGXIRHW" value="x"><span>There is a significant difference between the two groups, with a large effect size.</span></label>
+</section><section id="question-3" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-3">Question 3</h4>
+<p><strong>How can you recognise the difference between the output of a Student’s t-test and a Welch t-test?</strong></p>
+<div id="radio_BPDGFHRJAP" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_BPDGFHRJAP" value="x"><span>The Welch t-test reports an effect size directly, while the Student’s t-test does not.</span></label><label><input type="radio" autocomplete="off" name="radio_BPDGFHRJAP" value="x"><span>The Welch t-test uses medians instead of means, unlike the Student’s t-test.</span></label><label><input type="radio" autocomplete="off" name="radio_BPDGFHRJAP" value="answer"><span>The Welch t-test reports non-integer degrees of freedom, while the Student’s t-test reports integer degrees of freedom.</span></label><label><input type="radio" autocomplete="off" name="radio_BPDGFHRJAP" value="x"><span>The Welch t-test includes a confidence interval, while the Student’s t-test does not.</span></label>
 </div>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-21-contents" aria-controls="callout-21" aria-expanded="false" aria-label="Toggle callout">
@@ -1424,6 +1419,33 @@ Explain this answer
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-21" class="callout-21-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The Welch t-test adjusts for unequal variances and sample sizes, which leads to non-integer degrees of freedom. In contrast, the Student’s t-test assumes equal variances and reports integer degrees of freedom based on total sample size minus the number of groups.</p>
+<p>The other options are incorrect:</p>
+<ul>
+<li>Both tests report confidence intervals for the mean difference.</li>
+<li>Both tests compare means, not medians.</li>
+<li>Neither test reports effect size directly; it must be calculated separately (e.g., using Cohen’s d).</li>
+</ul>
+</div>
+</div>
+</div>
+</section><section id="question-4" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-4">Question 4</h4>
+<p><strong>You perform an independent t-test and find <span class="math inline">\(t(48)=2.10,p=.042,d=0.58\)</span>. How would you interpret these results?</strong></p>
+<div id="radio_TCYJGQDNYV" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_TCYJGQDNYV" value="x"><span>There is no significant difference between the two groups</span></label><label><input type="radio" autocomplete="off" name="radio_TCYJGQDNYV" value="x"><span>There is a significant difference between the two groups, with a large effect size.</span></label><label><input type="radio" autocomplete="off" name="radio_TCYJGQDNYV" value="answer"><span>There is a significant difference between the two groups, with a medium effect size.</span></label><label><input type="radio" autocomplete="off" name="radio_TCYJGQDNYV" value="x"><span>There is a significant difference between the two groups, with a small effect size.</span></label>
+</div>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-22-contents" aria-controls="callout-22" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Explain this answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-22" class="callout-22-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>The p-value (<span class="math inline">\(p=.042\)</span>) is less than the common significance threshold of 0.05, indicating that the difference between the two groups is statistically significant. This means we reject the null hypothesis and conclude that there is evidence of a difference between the group means.</p>
 </div>
@@ -2016,8 +2038,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./appendix-a-installing-r.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Installing R</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./08-paired.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Paired t-test</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

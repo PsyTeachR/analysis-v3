@@ -46,7 +46,7 @@ The data and supplementary materials are available on OSF: [https://osf.io/ghv6m
 
 ## Activity 2: Library and data for today
 
-Today, we’ll be using the following packages: `rstatix`, `tidyverse`, `car`, `lsr`, and `pwr`. You may need to install the packages before using them Make sure that `rstatix` is loaded in before tidyverse to avoid masking certain functions that we will need later.
+Today, we’ll be using the following packages: `rstatix`, `tidyverse`, `car`, `lsr`, and `pwr`. You may need to install the packages before using them (see @sec-install_packages if you need some help). Make sure that `rstatix` is loaded in before tidyverse to avoid masking certain functions that we will need later.
 
 We will also read in the data from `MeansSimonTask.csv`  and the demographic information from `DemoSimonTask.csv`.
 
@@ -107,9 +107,9 @@ In this experiment, all participants completed two sessions of trials. However, 
 
 ### Potential research questions and hypotheses
 
-* Potential research question: “Is there a significant difference in the Simon effect between participants who received the same stimuli in both sessions compared to those who received different stimuli?”
-* Null Hypothesis (H~0~): "There is no significant difference in the Simon effect between participants who received the same stimuli in both sessions and those who received different stimuli."
-* Alternative Hypothesis (H~1~): "There is a significant difference in the Simon effect between participants who received the same stimuli in both sessions and those who received different stimuli."
+* **Potential research question**: “Is there a significant difference in the Simon effect between participants who received the same stimuli in both sessions compared to those who received different stimuli?”
+* **Null Hypothesis (H~0~)**: "There is no significant difference in the Simon effect between participants who received the same stimuli in both sessions and those who received different stimuli."
+* **Alternative Hypothesis (H~1~)**: "There is a significant difference in the Simon effect between participants who received the same stimuli in both sessions and those who received different stimuli."
 
 
 
@@ -483,6 +483,13 @@ A Mann-Whitney U-test was conducted to determine whether there was a significant
 ## [Pair-coding]{style="color: #F39C12; text-transform: uppercase;"} {.unnumbered}
 
 
+::: {.callout-important}
+
+Similar to last week, this week's pair coding task may be a bit long to fully complete in class. Try to progress as far as possible without compromising understanding, and treat the remaining section as a "Challenge Yourself" activity.
+
+:::
+
+
 ### Task 1: Open the R project for the lab {.unnumbered}
 
 ### Task 2: Create a new `.Rmd` file {.unnumbered}
@@ -505,7 +512,7 @@ library(lsr)
 dog_data_wide <- read_csv("data/dog_data_clean_wide.csv")
 dog_data_long <- read_csv("data/dog_data_clean_long.csv")
 
-## I need dog_two_sample
+## I need dog_independent
 dog_independent <- dog_data_wide %>% 
   # Step 1
   select(RID, GroupAssignment, Flourishing_post) %>% 
@@ -728,7 +735,7 @@ cohensD(Flourishing_post ~ GroupAssignment, data = dog_independent, method = "un
 ```
 
 
-The Welch two-sample t-test revealed that there is `r mcq(c(x = "a statistically significant difference", answer = "no statistically significant difference"))` in psychological well-being scores between direct (N = `r fitb("95")`, M = `r fitb("5.78")`, SD = `r fitb("0.86")`) and control group (N = `r fitb("94")`, M = `r fitb("5.72")`, SD = `r fitb("0.77")`), t(`r fitb("185.05")`) = `r fitb("0.49")`, p = `r fitb(".625")`, V = `r fitb("0.07")`. The strength of the association between the variables is considered `r mcq(c(answer = "small", x = "moderate", x = "strong"))`. We therefore `r mcq(c(answer = "fail to reject the null hypothesis", x = "reject the null hypothesis"))`.
+The Welch two-sample t-test revealed that there is `r mcq(c(x = "a statistically significant difference", answer = "no statistically significant difference"))` in psychological well-being scores between direct (N = `r fitb("95")`, M = `r fitb("5.78")`, SD = `r fitb("0.86")`) and control group (N = `r fitb("94")`, M = `r fitb("5.72")`, SD = `r fitb("0.77")`), t(`r fitb("185.05")`) = `r fitb("0.49")`, p = `r fitb(".625")`, d = `r fitb("0.07")`. The strength of the association between the variables is considered `r mcq(c(answer = "small", x = "medium", x = "large"))`. We therefore `r mcq(c(answer = "fail to reject the null hypothesis", x = "reject the null hypothesis"))`.
 
 
 

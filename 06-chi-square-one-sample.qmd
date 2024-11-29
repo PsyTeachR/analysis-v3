@@ -30,7 +30,7 @@ Each test is discussed in its respective chapter with guidance on when and how t
 * Cross-tabulation chi-Square test (this chapter, @sec-chi_square)
 * One-sample t-test (this chapter, @sec-onesample)
 * Two-sample or independent t-test (between-subjects design, @sec-independent) 
-* Paired t-test (within-subjects design, @sec-within)
+* Paired t-test (within-subjects design, @sec-paired)
 * Correlation (@sec-cor)
 * Simple regression (@sec-reg)
 * Multiple regression (@sec-reg_mult)
@@ -167,9 +167,9 @@ A Cross-Tabulation Chi-Square Test, also known as a Chi-Square Test of Associati
 
 We will be performing a Chi-Square test using the categorical variables **gender** and **eduLevel**:
 
-* Potential research question: "Is there an association between gender and level of education in the population?"
-* Null Hypothesis (H~0~): "Gender and level of education are independent; there is no association between gender and level of education."
-* Alternative Hypothesis (H~1~): "Gender and level of education are not independent; there is an association between gender and level of education."
+* **Potential research question**: "Is there an association between gender and level of education in the population?"
+* **Null Hypothesis (H~0~)**: "Gender and level of education are independent; there is no association between gender and level of education."
+* **Alternative Hypothesis (H~1~)**: "Gender and level of education are not independent; there is an association between gender and level of education."
 
 
 
@@ -306,9 +306,9 @@ The one-sample t-test is used to determine whether a sample comes from a populat
 
 We will perform a one-sample t-test using the continuous variable **wemwbs_sum**. The [official website for the Warwick-Edinburgh Mental Wellbeing Scales](https://warwick.ac.uk/fac/sci/med/research/platform/wemwbs/using/howto/){target="_blank"} states that the "WEMWBS has a mean score of 51.0 in general population samples in the UK with a standard deviation of 7 (Tennant et al., 2007)".
 
-* Potential research question: "Is the average mental well-being of gamers different from the general population's average well-being?"
-* Null Hypothesis (H~0~): "The summed-up WEMWBS score of gamers is not different to 51.0."
-* Alternative Hypothesis (H~1~): "The summed-up WEMWBS score of gamers is different from 51.0."
+* **Potential research question**: "Is the average mental well-being of gamers different from the general population's average well-being?"
+* **Null Hypothesis (H~0~)**: "The summed-up WEMWBS score of gamers is not different to 51.0."
+* **Alternative Hypothesis (H~1~)**: "The summed-up WEMWBS score of gamers is different from 51.0."
 
 
 ### Task 1: Preparing the dataframe
@@ -580,6 +580,16 @@ A One-sample Wilcoxon signed-rank test was used to compare Gamers’ mental-well
 
 
 ## [Pair-coding]{style="color: #F39C12; text-transform: uppercase;"} {.unnumbered}
+
+::: {.callout-important}
+
+This pair coding task is a bit long to fully complete in class. Try to progress as far as possible without compromising understanding, and treat the remaining section as a "Challenge Yourself" activity.
+
+**Intentions behind it?**
+
+The task is designed to walk you through conducting a full Chi-Square test on a dataset different from the one in the chapter. I did not want to cherry-pick specific steps from the Chi-Square test, as real-life data analysis requires computing descriptives and checking assumptions before conducting inferential statistics.
+
+:::
 
 ### Task 1: Open the R project for the lab {.unnumbered}
 
@@ -891,7 +901,7 @@ A one-sample t-test is appropriate when comparing the mean of a single sample (e
 
 Since the p-value (.15) is greater than the significance level (.05), we fail to reject the null hypothesis. This means there is no evidence to suggest that the sample mean is significantly different from the population mean.
 
-However, this does not mean we have evidence to suggest that the sample mean is exactly equal to the population mean. In statistics, 'not significantly different' is not the same as 'equal.' Therefore, the option 'The sample mean is equal to the population mean' is incorrect.
+However, this does not mean we have evidence to confirm that the sample mean is exactly equal to the population mean. In statistics, 'not significantly different' is not the same as 'equal.' Therefore, the option 'The sample mean is equal to the population mean' is incorrect.
 
 :::
 
