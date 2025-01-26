@@ -281,7 +281,18 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
   <li><a href="#activity-9-sensitivity-power-analysis" id="toc-activity-9-sensitivity-power-analysis" class="nav-link" data-scroll-target="#activity-9-sensitivity-power-analysis"><span class="header-section-number">9.9</span> Activity 9: Sensitivity power analysis</a></li>
   <li><a href="#activity-10-the-write-up" id="toc-activity-10-the-write-up" class="nav-link" data-scroll-target="#activity-10-the-write-up"><span class="header-section-number">9.10</span> Activity 10: The write-up</a></li>
   <li><a href="#activity-11-non-parametric-alternative" id="toc-activity-11-non-parametric-alternative" class="nav-link" data-scroll-target="#activity-11-non-parametric-alternative"><span class="header-section-number">9.11</span> Activity 11: Non-parametric alternative</a></li>
-  <li><a href="#pair-coding" id="toc-pair-coding" class="nav-link" data-scroll-target="#pair-coding"><span style="color: #F39C12; text-transform: uppercase;">Pair-coding</span></a></li>
+  <li>
+<a href="#pair-coding" id="toc-pair-coding" class="nav-link" data-scroll-target="#pair-coding"><span style="color: #F39C12; text-transform: uppercase;">Pair-coding</span></a>
+  <ul class="collapse">
+<li><a href="#task-1-open-the-r-project-for-the-lab" id="toc-task-1-open-the-r-project-for-the-lab" class="nav-link" data-scroll-target="#task-1-open-the-r-project-for-the-lab">Task 1: Open the R project for the lab</a></li>
+  <li><a href="#task-2-create-a-new-.rmd-file" id="toc-task-2-create-a-new-.rmd-file" class="nav-link" data-scroll-target="#task-2-create-a-new-.rmd-file">Task 2: Create a new <code>.Rmd</code> file</a></li>
+  <li><a href="#task-3-load-in-the-library-and-read-in-the-data" id="toc-task-3-load-in-the-library-and-read-in-the-data" class="nav-link" data-scroll-target="#task-3-load-in-the-library-and-read-in-the-data">Task 3: Load in the library and read in the data</a></li>
+  <li><a href="#task-4-tidy-data-selecting-variables-of-interest" id="toc-task-4-tidy-data-selecting-variables-of-interest" class="nav-link" data-scroll-target="#task-4-tidy-data-selecting-variables-of-interest">Task 4: Tidy data &amp; Selecting variables of interest</a></li>
+  <li><a href="#task-5-re-create-the-scatterplot-below" id="toc-task-5-re-create-the-scatterplot-below" class="nav-link" data-scroll-target="#task-5-re-create-the-scatterplot-below">Task 5: Re-create the scatterplot below</a></li>
+  <li><a href="#task-6-assumptions-check" id="toc-task-6-assumptions-check" class="nav-link" data-scroll-target="#task-6-assumptions-check">Task 6: Assumptions check</a></li>
+  <li><a href="#task-6-compute-a-pearson-correlation-interpret-the-output" id="toc-task-6-compute-a-pearson-correlation-interpret-the-output" class="nav-link" data-scroll-target="#task-6-compute-a-pearson-correlation-interpret-the-output">Task 6: Compute a Pearson correlation &amp; interpret the output</a></li>
+  </ul>
+</li>
   <li><a href="#test-your-knowledge" id="toc-test-your-knowledge" class="nav-link" data-scroll-target="#test-your-knowledge"><span style="color: #F39C12; text-transform: uppercase;">Test your knowledge</span></a></li>
   </ul></nav>
     </div>
@@ -498,10 +509,10 @@ Solution
 <p>As we can see now, our <code>lopez_reduced</code> data object could use some tidying.</p>
 <ol type="1">
 <li>
-<code>Sex</code> is a categorical variable, yet, it is currently displayed as numeric, which isn’t ideal. Recode these values according to the <code>Soupbowl_data_dictionary</code>. You could either recode the values as we did in <span class="quarto-unresolved-ref">?sec-wrangling2_act3</span>) or convert <code>Sex</code> into a factor if that’s easier (see <a href="04-dataviz.html"><span>Chapter&nbsp;4</span></a> for guidance).</li>
+<code>Sex</code> is a categorical variable, yet, it is currently displayed as numeric, which isn’t ideal. Recode these values according to the <code>Soupbowl_data_dictionary</code>. You could either recode the values as we did in <a href="03-wrangling2.html#sec-wrangling2_act3"><span>Section&nbsp;3.3</span></a>) or convert <code>Sex</code> into a factor if that’s easier (see <a href="04-dataviz.html"><span>Chapter&nbsp;4</span></a> for guidance).</li>
 <li>
 <code>ParticipantID</code> should also be converted into a factor (see <a href="04-dataviz.html"><span>Chapter&nbsp;4</span></a> for guidance).</li>
-<li>Create a new variable called <code>Condition</code> to indicate whether participants are in the Control or Experimental group. Use the <code>Soupbowl_data_dictionary</code> o determine which <code>SeatPosition</code> corresponds to normal bowls (Control) and self-refilling bowls (Experimental). If you’re unsure which function to use, refer to <span class="quarto-unresolved-ref">?sec-wrangling2_act4</span>.</li>
+<li>Create a new variable called <code>Condition</code> to indicate whether participants are in the Control or Experimental group. Use the <code>Soupbowl_data_dictionary</code> o determine which <code>SeatPosition</code> corresponds to normal bowls (Control) and self-refilling bowls (Experimental). If you’re unsure which function to use, refer to <a href="03-wrangling2.html#sec-wrangling2_act4"><span>Section&nbsp;3.4</span></a>.</li>
 <li>
 <code>CtrlSoupAte</code> and <code>ExpSoupAte</code> can remain separate if we want to focus on these two conditions individually, as we can remove missing values later. However, to calculate correlations across the whole sample, we need these “SoupAte” values in a single column instead of two. We will name this coalesced variable <code>M_postsoup</code> to align with the <code>Soupbowl_data_dictionary</code>.</li>
 </ol>
@@ -767,9 +778,9 @@ Solution for the plot
 </section><section id="activity-7-check-assumptions" class="level2" data-number="9.7"><h2 data-number="9.7" class="anchored" data-anchor-id="activity-7-check-assumptions">
 <span class="header-section-number">9.7</span> Activity 7: Check assumptions</h2>
 <section id="assumption-1-continuous-variables" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="assumption-1-continuous-variables">Assumption 1: Continuous variables</h4>
-<p>Both variables must be measured at the interval or ratio level (i.e., continuous data). We can confirm this by examining our two variables of interest, <code>CalEstimate</code> and <code>M_postsoup</code>. Plus, you would already know whether the variables are continuous based on your study design.</p>
+<p>Both variables must be measured at the <strong>interval or ratio</strong> level (i.e., continuous data). We can confirm this by examining our two variables of interest, <code>CalEstimate</code> and <code>M_postsoup</code>. Plus, you would already know whether the variables are continuous based on your study design.</p>
 </section><section id="assumption-2-related-pairs" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="assumption-2-related-pairs">Assumption 2: Related pairs</h4>
-<p>Each participant needs to have 2 data points, in our case one value for <code>CalEstimate</code> and one for <code>M_postsoup</code>. You can verify this directly in the dataset (e.g., <code>lopez_control</code>) or watch for warning messages when creating the scatterplot.</p>
+<p>Each participant needs to have <strong>2 data points</strong>, in our case one value for <code>CalEstimate</code> and one for <code>M_postsoup</code>. You can verify this directly in the dataset (e.g., <code>lopez_control</code>) or watch for warning messages when creating the scatterplot.</p>
 <p>In this dataset, there are no missing values in <code>M_postsoup</code> but <code>CalEstimate</code> has two missing values. hmmm. Interestingly, the Lopez paper mentions exclusion criteria in the Supplementary Materials but only in relation to participants, not statistical exclusions.</p>
 <p>Technically, incomplete pairs won’t appear in the scatterplot and will be automatically excluded during the correlation analysis (as we will observe later). However, in the interest of transparency, any data exclusions should be clearly stated in your reports.</p>
 <p>To address this, we can also exclude the missing values from <code>lopez_control</code>. Here, I’m using the <code>drop_na()</code> function to remove rows with missing data. I will save this as a new data object <code>lopez_control_no_na</code>.</p>
@@ -779,7 +790,7 @@ Solution for the plot
 </div>
 <p>Data from participants 1895 and 1908 has now been excluded, leaving us with complete pairs. The assumption holds.</p>
 </section><section id="assumption-3-independence-of-casesobservations" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="assumption-3-independence-of-casesobservations">Assumption 3: Independence of cases/observations</h4>
-<p>Similar to the paired t-test, we must assume that the two observations for each case are independent of the observations for any other case. This basically means that participants did not influence each other’s ratings. Once again, this assumption is related to the study design and is satisfied in this instance.</p>
+<p>Similar to the paired t-test, we must assume that the two <strong>observations for each case are independent</strong> of the observations for any other case. This basically means that participants did not influence each other’s ratings. Once again, this assumption is related to the study design and is satisfied in this instance.</p>
 </section><section id="assumption-4-linearity" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="assumption-4-linearity">Assumption 4: Linearity</h4>
 <p>To run a Pearson correlation, the relationship between the two variables must be linear.</p>
 <p>You can assess linearity visually using a <strong>Residuals vs Fitted plot</strong>, which can be generated by applying the <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> function to a linear model (<code>lm</code>) object. The function requires the following arguments:</p>
@@ -949,6 +960,13 @@ Alternatives
 <p><strong>Verdict:</strong> This is another assumption that feels borderline to me. There appears to be slight heteroscedasticity. In the Scale-Location plot, the red line should ideally be flat and horizontal, but ours has a slight slope and could be flatter. If you prefer looking at the scatterplot, you can observe the data points moving slightly further away from the line of best fit as the x and y values increase. this is kinda forming a slight funnel shape rather than the roughly random spread of data points shown in last week’s lecture slides. Nevertheless, the authors took a more lenient approach and considered the assumption to be met.</p>
 </section><section id="assumption-7-absence-of-outliers" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="assumption-7-absence-of-outliers">Assumption 7: Absence of outliers</h4>
 <p>Ideally, our data should not contain any outliers or influential points, as these can distort the relationship between the variables of interest. We can assess this assumption visually with a <strong>Residuals vs Leverage plot</strong> or by revisiting the scatterplot (as shown above).</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="layers">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">Option 1: Residuals vs Leverage plot</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Option 2: Scatterplot</a></li>
+</ul>
+<div class="tab-content" data-group="layers">
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
 <p>To identify those data points, we can look at plot 5 from the <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> function with the <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> object but setting the <code>which</code> argument to 5.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="fu">plot</span>(<span class="fu">lm</span>(CalEstimate<span class="sc">~</span>M_postsoup, <span class="at">data =</span> lopez_control_no_na), <span class="at">which =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -960,6 +978,12 @@ Alternatives
 </div>
 </div>
 <p>Here, case numbers 3, 183, and 205 are identified. In the data object <code>lopez_control_no_na</code>, these correspond to participant IDs 1007, 1716, and 1789, respectively. Two of these participants estimated they had consumed 800 calories, while the third data point has a y-value over 40 (the one with the lower x-value).</p>
+</div>
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
+<p>Looking at the scatterplot, I would have probably identified 4 outliers - anyone who estimated more than 600 cal and anyone who consumed more than 40 ounces of soup.</p>
+</div>
+</div>
+</div>
 <p><strong>Verdict:</strong> There are several ways to handle outliers, such as excluding them, replacing their extreme values with the group mean, or winsorising them. For now, I would likely exclude these three data points from the dataset before proceeding. However, Lopez et al.&nbsp;chose to retain all data points.</p>
 <p><strong>Remember: Any data exclusions in your reports must be clearly justified.</strong></p>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
@@ -972,14 +996,14 @@ Your Turn
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Filter out the 3 influential points/outliers and create the plot again. It’s best to save the data without outliers as a new data object. I’ve named mine <code>lopez_control_no_outliers</code>, but feel free to use a name that works for you.</p>
+<p>Filter out the 3 (or 4) influential points/outliers and create the plot again. It’s best to save the data without outliers as a new data object. I’ve named mine <code>lopez_control_no_outliers</code>, but feel free to use a name that works for you.</p>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Solution
+Solution for removing 3 outliers
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -1006,6 +1030,40 @@ Solution
 </div>
 </div>
 </div>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution for removing 4 outliers
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-16" class="callout-16-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>lopez_control_no_outliers4 <span class="ot">&lt;-</span> lopez_control_no_na <span class="sc">%&gt;%</span> </span>
+<span id="cb30-2"><a href="#cb30-2"></a>  <span class="fu">filter</span>(CalEstimate <span class="sc">&lt;</span> <span class="dv">600</span>,</span>
+<span id="cb30-3"><a href="#cb30-3"></a>         M_postsoup <span class="sc">&lt;</span> <span class="dv">40</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="fu">ggplot</span>(lopez_control_no_outliers4, <span class="fu">aes</span>(<span class="at">x =</span> CalEstimate, <span class="at">y =</span> M_postsoup)) <span class="sc">+</span></span>
+<span id="cb31-2"><a href="#cb31-2"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb31-3"><a href="#cb31-3"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="09-correlation_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 </section><section id="final-word-on-assumption-checks" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="final-word-on-assumption-checks">Final word on Assumption checks</h4>
@@ -1021,11 +1079,11 @@ Solution
 </ul>
 <p>For a two-tailed Pearson correlation using the <code>lopez_control</code> dataset, the code would look like this <em>(note the quotation marks around everything except the data object)</em>:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="fu">correlation</span>(<span class="at">data =</span> lopez_control,</span>
-<span id="cb30-2"><a href="#cb30-2"></a>            <span class="at">select =</span> <span class="st">"CalEstimate"</span>,</span>
-<span id="cb30-3"><a href="#cb30-3"></a>            <span class="at">select2 =</span> <span class="st">"M_postsoup"</span>,</span>
-<span id="cb30-4"><a href="#cb30-4"></a>            <span class="at">method =</span> <span class="st">"Pearson"</span>,</span>
-<span id="cb30-5"><a href="#cb30-5"></a>            <span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="fu">correlation</span>(<span class="at">data =</span> lopez_control,</span>
+<span id="cb33-2"><a href="#cb33-2"></a>            <span class="at">select =</span> <span class="st">"CalEstimate"</span>,</span>
+<span id="cb33-3"><a href="#cb33-3"></a>            <span class="at">select2 =</span> <span class="st">"M_postsoup"</span>,</span>
+<span id="cb33-4"><a href="#cb33-4"></a>            <span class="at">method =</span> <span class="st">"Pearson"</span>,</span>
+<span id="cb33-5"><a href="#cb33-5"></a>            <span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped small">
@@ -1084,7 +1142,7 @@ Tip
 <div class="callout-body-container callout-body">
 <p>Since <code>lopez_control</code> contains only three variables and we’ve already converted <code>ParticipantID</code> into a factor, we can pass the entire data object to the <code>correlation()</code> function. This will compute correlations between all numeric columns in the dataset. In this case, it would result in just one association, but see below for an example with more numeric variables.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="fu">correlation</span>(lopez_control)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="fu">correlation</span>(lopez_control)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped small">
@@ -1135,7 +1193,7 @@ Tip
 </div>
 <p>Here we obtained a Pearson correlation value of .405 which is close to the value of .41 reported by Lopez et al.&nbsp;(2024). Remember to report correlation values to three decimal places to adhere to APA style (though the journal in this case may have followed different guidelines).</p>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -1144,7 +1202,7 @@ Correlation Matrix - more than 1 comparison
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-19" class="callout-19-contents callout-collapse collapse">
+<div id="callout-20" class="callout-20-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>If you want to correlate multiple variables with one another, you can do that in a correlation matrix.</p>
 <p>Let’s try to replicate the correlations for full sample:</p>
@@ -1159,10 +1217,10 @@ Correlation Matrix - more than 1 comparison
 <p>To do this, first ensure that only the relevant variables are selected and that a variable like <code>ParticipantID</code> is converted into a factor. I have stored all four variables in an object called <code>lopez_overall</code>.</p>
 <p>You can also include an additional argument, <code>p_adjust</code>, to specify the type of correction you want to apply for multiple comparisons (e.g., “Bonferroni”). If you don’t include the <code>p_adjust</code> argument, the default method will be “Holm”. In either case, the correction method will be listed in the output.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>lopez_overall <span class="ot">&lt;-</span> lopez_reduced <span class="sc">%&gt;%</span> </span>
-<span id="cb32-2"><a href="#cb32-2"></a>  <span class="fu">select</span>(ParticipantID, OzEstimate, CalEstimate, M_postsoup)</span>
-<span id="cb32-3"><a href="#cb32-3"></a></span>
-<span id="cb32-4"><a href="#cb32-4"></a><span class="fu">correlation</span>(lopez_overall, <span class="at">p_adjust =</span> <span class="st">"bonferroni"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>lopez_overall <span class="ot">&lt;-</span> lopez_reduced <span class="sc">%&gt;%</span> </span>
+<span id="cb35-2"><a href="#cb35-2"></a>  <span class="fu">select</span>(ParticipantID, OzEstimate, CalEstimate, M_postsoup)</span>
+<span id="cb35-3"><a href="#cb35-3"></a></span>
+<span id="cb35-4"><a href="#cb35-4"></a><span class="fu">correlation</span>(lopez_overall, <span class="at">p_adjust =</span> <span class="st">"bonferroni"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped small">
@@ -1261,7 +1319,7 @@ Important
 <p>As with the t-test, we will conduct a sensitivity power analysis to determine the minimum effect size detectable with our sample of control participants (n = 244, accounting for the two missing values), an alpha level of 0.05, and a power of 0.8. This will help us assess whether our analysis was sufficiently powered.</p>
 <p>We will use the <code>pwr.r.test()</code> function from the <code>pwr</code> package for the correlation analysis. As usual, include <code>n</code>, <code>alpha</code>, and <code>power</code> as arguments in the function, and leave out the effect size <code>r</code>.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="fu">pwr.r.test</span>(<span class="at">n =</span> <span class="dv">244</span>, <span class="at">sig.level =</span> <span class="fl">0.05</span>, <span class="at">power =</span> <span class="fl">0.8</span>, <span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="fu">pwr.r.test</span>(<span class="at">n =</span> <span class="dv">244</span>, <span class="at">sig.level =</span> <span class="fl">0.05</span>, <span class="at">power =</span> <span class="fl">0.8</span>, <span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
      approximate correlation power calculation (arctangh transformation) 
@@ -1276,7 +1334,7 @@ Important
 <p>According to the output above, the smallest <code>r</code> detectable with 244 participants, a significance level of .05, and a power of .8 is .178. Since Lopez et al.&nbsp;reported an effect size of r = .41, the study was sufficiently powered.</p>
 </section><section id="activity-10-the-write-up" class="level2" data-number="9.10"><h2 data-number="9.10" class="anchored" data-anchor-id="activity-10-the-write-up">
 <span class="header-section-number">9.10</span> Activity 10: The write-up</h2>
-<p>Lopez et al.&nbsp;(2024) hypothesised a positive correlation between estimated calories of soup consumed <span class="math inline">\((M = 133.0 cal, SD = 121.3 cal)\)</span> and actual consumption volume <span class="math inline">\((M = 8.87 oz, SD = 6.24 oz)\)</span>. A Pearson correlation revealed a moderately strong, positive, and statistically significant relationship between these two variables, <span class="math inline">\(r(242) = .405, p &lt; .001, 95% CI = [.294, .504]\)</span>. The study was sufficiently powered. Lopez et al.&nbsp;rejected the null hypothesis in favour of H<sub>1</sub>.</p>
+<p>Lopez et al.&nbsp;(2024) hypothesised a positive correlation between estimated calories of soup consumed <span class="math inline">\((M = 133.0 cal, SD = 121.3 cal)\)</span> and actual consumption volume <span class="math inline">\((M = 8.87 oz, SD = 6.24 oz)\)</span>. A Pearson correlation revealed a moderately strong, positive, and statistically significant relationship between these two variables, <span class="math inline">\(r(242) = .405, p &lt; .001, 95\% CI = [.294, .504]\)</span>. The study was sufficiently powered. Lopez et al.&nbsp;rejected the null hypothesis in favour of H<sub>1</sub>.</p>
 </section><section id="activity-11-non-parametric-alternative" class="level2" data-number="9.11"><h2 data-number="9.11" class="anchored" data-anchor-id="activity-11-non-parametric-alternative">
 <span class="header-section-number">9.11</span> Activity 11: Non-parametric alternative</h2>
 <p>Running a Pearson correlation when its assumptions are violated can lead to unreliable and misleading results, meaning the calculated correlation coefficient may not accurately reflect the true relationship between the variables.</p>
@@ -1287,15 +1345,15 @@ Important
 </ul>
 <p>Let’s assess monotonicity with a scatterplot. Use the “loess” method to fit the curve, as we are not aiming to show a linear relationship this time.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="fu">ggplot</span>(lopez_control_no_outliers, <span class="fu">aes</span>(<span class="at">x =</span> CalEstimate, <span class="at">y =</span> M_postsoup)) <span class="sc">+</span></span>
-<span id="cb35-2"><a href="#cb35-2"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb35-3"><a href="#cb35-3"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a><span class="fu">ggplot</span>(lopez_control_no_outliers, <span class="fu">aes</span>(<span class="at">x =</span> CalEstimate, <span class="at">y =</span> M_postsoup)) <span class="sc">+</span></span>
+<span id="cb38-2"><a href="#cb38-2"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb38-3"><a href="#cb38-3"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
 </div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="09-correlation_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="09-correlation_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1303,16 +1361,16 @@ Important
 <p><strong>Verdict:</strong> Both assumptions hold. The line of best fit displays a clear monotonic relationship, especially with the outliers removed. Therefore, we will proceed with Spearman’s correlation.</p>
 <p>Before proceeding, we may want to recalculate the descriptives after removing the outliers:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a><span class="co"># descriptives for lopez_control_no_outliers</span></span>
-<span id="cb37-2"><a href="#cb37-2"></a>descriptives_control_no_outliers <span class="ot">&lt;-</span> lopez_control_no_outliers <span class="sc">%&gt;%</span> </span>
-<span id="cb37-3"><a href="#cb37-3"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(),</span>
-<span id="cb37-4"><a href="#cb37-4"></a>            <span class="at">mean_CalEstimate =</span> <span class="fu">mean</span>(CalEstimate, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb37-5"><a href="#cb37-5"></a>            <span class="at">sd_CalEstimate =</span> <span class="fu">sd</span>(CalEstimate, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb37-6"><a href="#cb37-6"></a>            <span class="at">mean_M_postsoup =</span> <span class="fu">mean</span>(M_postsoup),</span>
-<span id="cb37-7"><a href="#cb37-7"></a>            <span class="at">sd_M_postsoup =</span> <span class="fu">sd</span>(M_postsoup)) <span class="sc">%&gt;%</span> </span>
-<span id="cb37-8"><a href="#cb37-8"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb37-9"><a href="#cb37-9"></a></span>
-<span id="cb37-10"><a href="#cb37-10"></a>descriptives_control_no_outliers</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a><span class="co"># descriptives for lopez_control_no_outliers</span></span>
+<span id="cb40-2"><a href="#cb40-2"></a>descriptives_control_no_outliers <span class="ot">&lt;-</span> lopez_control_no_outliers <span class="sc">%&gt;%</span> </span>
+<span id="cb40-3"><a href="#cb40-3"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb40-4"><a href="#cb40-4"></a>            <span class="at">mean_CalEstimate =</span> <span class="fu">mean</span>(CalEstimate, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb40-5"><a href="#cb40-5"></a>            <span class="at">sd_CalEstimate =</span> <span class="fu">sd</span>(CalEstimate, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb40-6"><a href="#cb40-6"></a>            <span class="at">mean_M_postsoup =</span> <span class="fu">mean</span>(M_postsoup),</span>
+<span id="cb40-7"><a href="#cb40-7"></a>            <span class="at">sd_M_postsoup =</span> <span class="fu">sd</span>(M_postsoup)) <span class="sc">%&gt;%</span> </span>
+<span id="cb40-8"><a href="#cb40-8"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb40-9"><a href="#cb40-9"></a></span>
+<span id="cb40-10"><a href="#cb40-10"></a>descriptives_control_no_outliers</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped small">
@@ -1336,7 +1394,7 @@ Important
 </div>
 <p>Next we will move on to the <strong>inferential test</strong>. The code remains the same as above, but this time we will change the method to “Spearman” and use the data object <code>lopez_control_no_outliers</code>.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a><span class="fu">correlation</span>(lopez_control_no_outliers, <span class="at">method =</span> <span class="st">"Spearman"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a><span class="fu">correlation</span>(lopez_control_no_outliers, <span class="at">method =</span> <span class="st">"Spearman"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped small">
@@ -1382,14 +1440,324 @@ Important
 </div>
 <p><strong>Writing-up the results</strong> would be similar to the Pearson correlation above.</p>
 <p>It was hypothesised that there would be a positive correlation between estimated calories of soup consumed <span class="math inline">\((M = 128.0 cal, SD = 105.4 cal)\)</span> with actual consumption volume <span class="math inline">\((M = 8.68 oz, SD = 5.86 oz)\)</span>. The assumptions of linearity, normality, and homoscedasticity were assessed visually using a Residuals vs Fitted plot, a Q-Q plot, and a Scale-Location plot, respectively. These assumptions did not hold. Additionally, three outliers were removed from the dataset.</p>
-<p>Consequently, a Spearman’s rank correlation was conducted, revealing a strong, positive, and statistically significant relationship between estimated calories of soup consumed and actual consumption volume, <span class="math inline">\(rho(239) = .522, p &lt; .001, 95% CI = [.421, .611]\)</span>. The study was sufficiently powered. Therefore, the null hypothesis is rejected in favour of H<sub>1</sub>.</p>
+<p>Consequently, a Spearman’s rank correlation was conducted, revealing a strong, positive, and statistically significant relationship between estimated calories of soup consumed and actual consumption volume, <span class="math inline">\(rho(239) = .522, p &lt; .001, 95\% CI = [.421, .611]\)</span>. The study was sufficiently powered. Therefore, the null hypothesis is rejected in favour of H<sub>1</sub>.</p>
 </section><section id="pair-coding" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="pair-coding"><span style="color: #F39C12; text-transform: uppercase;">Pair-coding</span></h2>
-<p>to be added</p>
-</section><section id="test-your-knowledge" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="test-your-knowledge"><span style="color: #F39C12; text-transform: uppercase;">Test your knowledge</span></h2>
-<p>to be added</p>
+<section id="task-1-open-the-r-project-for-the-lab" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="task-1-open-the-r-project-for-the-lab">Task 1: Open the R project for the lab</h3>
+</section><section id="task-2-create-a-new-.rmd-file" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="task-2-create-a-new-.rmd-file">Task 2: Create a new <code>.Rmd</code> file</h3>
+<p>… and name it something useful. If you need help, have a look at <a href="01-basics.html#sec-rmd"><span>Section&nbsp;1.3</span></a>.</p>
+</section><section id="task-3-load-in-the-library-and-read-in-the-data" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="task-3-load-in-the-library-and-read-in-the-data">Task 3: Load in the library and read in the data</h3>
+<p>The data should already be in your project folder. If you want a fresh copy, you can download the data again here: <a href="data/data_pair_coding.zip" title="download">data_pair_coding</a>.</p>
+<p>We are using the packages <code>tidyverse</code> and <code>correlation</code> today. If you have already worked through this chapter, you will have all the packages installed. If you have yet to complete <a href="#sec-cor"><span>Chapter&nbsp;9</span></a>, you will need to install the package <code>correlation</code> (see <a href="01-basics.html#sec-install_packages"><span>Section&nbsp;1.5.1</span></a> for guidance if needed).</p>
+<p>We also need to read in <code>dog_data_clean_wide.csv</code>. Again, I’ve named my data object <code>dog_data_wide</code> to shorten the name but feel free to use whatever object name sounds intuitive to you.</p>
+</section><section id="task-4-tidy-data-selecting-variables-of-interest" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="task-4-tidy-data-selecting-variables-of-interest">Task 4: Tidy data &amp; Selecting variables of interest</h3>
+<p><strong>Step 1:</strong> Select the variables of interest. We need 2 continuous variables today, so any of the pre- vs post-test comparison will do. I would suggest happiness ratings (i.e., <code>SHS_pre</code>, <code>SHS_post</code>). Also keep the participant id <code>RID</code>. Store them in a new data object called <code>dog_happy</code>.</p>
+<p><strong>Step 2:</strong> Check for missing values and remove participants with missing in either pre- or post-ratings.</p>
+<p><strong>Step 3:</strong> Convert participant ID into a factor</p>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-21-contents" aria-controls="callout-21" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution for Tasks 3 and 4
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-21" class="callout-21-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a><span class="do">## Task 3</span></span>
+<span id="cb42-2"><a href="#cb42-2"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb42-3"><a href="#cb42-3"></a><span class="fu">library</span>(correlation)</span>
+<span id="cb42-4"><a href="#cb42-4"></a></span>
+<span id="cb42-5"><a href="#cb42-5"></a>dog_data_wide <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"dog_data_clean_wide.csv"</span>)</span>
+<span id="cb42-6"><a href="#cb42-6"></a></span>
+<span id="cb42-7"><a href="#cb42-7"></a></span>
+<span id="cb42-8"><a href="#cb42-8"></a><span class="do">## Task 4</span></span>
+<span id="cb42-9"><a href="#cb42-9"></a>dog_happy <span class="ot">&lt;-</span> dog_data_wide <span class="sc">%&gt;%</span></span>
+<span id="cb42-10"><a href="#cb42-10"></a>  <span class="co"># Step 1</span></span>
+<span id="cb42-11"><a href="#cb42-11"></a>  <span class="fu">select</span>(RID, SHS_pre, SHS_post) <span class="sc">%&gt;%</span> </span>
+<span id="cb42-12"><a href="#cb42-12"></a>  <span class="co"># Step 2</span></span>
+<span id="cb42-13"><a href="#cb42-13"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb42-14"><a href="#cb42-14"></a>  <span class="co"># Step 3</span></span>
+<span id="cb42-15"><a href="#cb42-15"></a>  <span class="fu">mutate</span>(<span class="at">RID =</span> <span class="fu">factor</span>(RID))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="task-5-re-create-the-scatterplot-below" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="task-5-re-create-the-scatterplot-below">Task 5: Re-create the scatterplot below</h3>
+<div class="cell" data-layout-align="center">
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="09-correlation_files/figure-html/unnamed-chunk-36-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-22-contents" aria-controls="callout-22" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-22" class="callout-22-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a><span class="fu">ggplot</span>(dog_happy, <span class="fu">aes</span>(<span class="at">x =</span> SHS_pre, <span class="at">y =</span> SHS_post)) <span class="sc">+</span></span>
+<span id="cb44-2"><a href="#cb44-2"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb44-3"><a href="#cb44-3"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="task-6-assumptions-check" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="task-6-assumptions-check">Task 6: Assumptions check</h3>
+<p>We can either do the assumption check by looking at the scatterplot above or we can run the code <code>plot(lm(SHS_pre~SHS_post, data = dog_happy))</code> and assess the assumptions there. Either way, it should give you similar responses.</p>
+<ul>
+<li>Linearity: a <select class="webex-select"><option value="blank"></option>
+<option value="answer">linear</option>
+<option value="x">non-linear</option></select> relationship</li>
+<li>Normality: residuals are <select class="webex-select"><option value="blank"></option>
+<option value="answer">approximately normally distributed</option>
+<option value="x">not normally distributed</option></select>
+</li>
+<li>Homoscedasticity: There is
+<div id="radio_VKTXFSZDBT" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_VKTXFSZDBT" value="answer"><span>homoscedasticity as there is no distinct pattern in the residuals</span></label><label><input type="radio" autocomplete="off" name="radio_VKTXFSZDBT" value="x"><span>heteroscedasticity as the residuals show a distinct pattern</span></label>
+</div>
+</li>
+<li>Outliers: <select class="webex-select"><option value="blank"></option>
+<option value="answer">the data does not have any clear outliers</option>
+<option value="x">the data has some outliers</option></select>
+</li>
+</ul>
+<p><strong>What is your conclusion from the assumptions check?</strong></p>
+<div id="radio_YJBPECGGBL" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_YJBPECGGBL" value="answer"><span>All assumptions hold. Therefore, we are conducting a parametric test, specifically Pearson’s correlation.</span></label><label><input type="radio" autocomplete="off" name="radio_YJBPECGGBL" value="x"><span>Some assumptions are violated. Therefore, we are conducting a non-parametric test, specifically Spearman’s correlation.</span></label><label><input type="radio" autocomplete="off" name="radio_YJBPECGGBL" value="x"><span>All assumptions are violated. Therefore, we are conducting a non-parametric test, specifically Spearman’s correlation.</span></label>
+</div>
+</section><section id="task-6-compute-a-pearson-correlation-interpret-the-output" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="task-6-compute-a-pearson-correlation-interpret-the-output">Task 6: Compute a Pearson correlation &amp; interpret the output</h3>
+<ul>
+<li>
+<strong>Step 1</strong>: Compute the Pearson correlation. The structure of the function is as follows:</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a><span class="fu">correlation</span>(<span class="at">data =</span> your_dataframe,</span>
+<span id="cb45-2"><a href="#cb45-2"></a>            <span class="at">select =</span> <span class="st">"variable1"</span>,</span>
+<span id="cb45-3"><a href="#cb45-3"></a>            <span class="at">select2 =</span> <span class="st">"variable2"</span>,</span>
+<span id="cb45-4"><a href="#cb45-4"></a>            <span class="at">method =</span> <span class="st">"Pearson"</span>,</span>
+<span id="cb45-5"><a href="#cb45-5"></a>            <span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The default method argument is Pearson, but if you thought any of the assumptions were violated and conduct a Spearman correlation instead, change the <code>method</code> argument to”Spearman”.</p>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-23-contents" aria-controls="callout-23" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-23" class="callout-23-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a><span class="fu">correlation</span>(<span class="at">data =</span> dog_happy,</span>
+<span id="cb46-2"><a href="#cb46-2"></a>            <span class="at">select =</span> <span class="st">"SHS_pre"</span>,</span>
+<span id="cb46-3"><a href="#cb46-3"></a>            <span class="at">select2 =</span> <span class="st">"SHS_post"</span>,</span>
+<span id="cb46-4"><a href="#cb46-4"></a>            <span class="at">method =</span> <span class="st">"Pearson"</span>,</span>
+<span id="cb46-5"><a href="#cb46-5"></a>            <span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 9%">
+<col style="width: 4%">
+<col style="width: 8%">
+<col style="width: 9%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 2%">
+<col style="width: 19%">
+<col style="width: 5%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">Parameter1</th>
+<th style="text-align: left;">Parameter2</th>
+<th style="text-align: right;">r</th>
+<th style="text-align: right;">CI</th>
+<th style="text-align: right;">CI_low</th>
+<th style="text-align: right;">CI_high</th>
+<th style="text-align: right;">t</th>
+<th style="text-align: right;">df_error</th>
+<th style="text-align: right;">p</th>
+<th style="text-align: left;">Method</th>
+<th style="text-align: right;">n_Obs</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td style="text-align: left;">SHS_pre</td>
+<td style="text-align: left;">SHS_post</td>
+<td style="text-align: right;">0.8842169</td>
+<td style="text-align: right;">0.95</td>
+<td style="text-align: right;">0.855856</td>
+<td style="text-align: right;">0.9072765</td>
+<td style="text-align: right;">31.73394</td>
+<td style="text-align: right;">281</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Pearson correlation</td>
+<td style="text-align: right;">283</td>
+</tr></tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a><span class="co"># alternative because there are only 2 numeric columns in `dog_happy`</span></span>
+<span id="cb47-2"><a href="#cb47-2"></a><span class="fu">correlation</span>(dog_happy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<ul>
+<li>
+<strong>Step 2</strong>: Interpret the output</li>
+</ul>
+<p>A Pearson correlation revealed a <select class="webex-select"><option value="blank"></option>
+<option value="answer">strong</option>
+<option value="x">moderately strong</option>
+<option value="x">weak</option></select>, <select class="webex-select"><option value="blank"></option>
+<option value="answer">positive</option>
+<option value="x">negative</option></select>, and statistically <select class="webex-select"><option value="blank"></option>
+<option value="answer">significant</option>
+<option value="x">non-significant</option></select> relationship between happiness before and after the dog intervention, <em>r</em>(<input class="webex-solveme nospaces" size="3" data-answer="[&quot;281&quot;]">) = <input class="webex-solveme nospaces" size="4" data-answer="[&quot;.88&quot;,&quot;.884&quot;]">, <em>p</em> <input class="webex-solveme nospaces" size="6" data-answer="[&quot;<.001&quot;,&quot;< .001&quot;]">, <em>95% CI</em> = [<input class="webex-solveme nospaces" size="4" data-answer="[&quot;.86&quot;,&quot;.856&quot;]">, <input class="webex-solveme nospaces" size="4" data-answer="[&quot;.91&quot;,&quot;.907&quot;]">]. We therefore <select class="webex-select"><option value="blank"></option>
+<option value="x">fail to reject the null hypothesis</option>
+<option value="answer">reject the null hypothesis in favour of H1</option></select>.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In the write-up paragraph above, the open fields accepted answers with 2 or 3 decimal places as correct. However, in your reports, ensure that correlation values are reported with 3 decimal places.</p>
+</div>
+</div>
+</section></section><section id="test-your-knowledge" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="test-your-knowledge"><span style="color: #F39C12; text-transform: uppercase;">Test your knowledge</span></h2>
+<section id="question-1" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-1">Question 1</h4>
+<p><strong>What is the main purpose of a Pearson correlation?</strong></p>
+<div id="radio_SXCKUOCUDS" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_SXCKUOCUDS" value="x"><span>To determine the monotonic relationship between two ordinal variables.</span></label><label><input type="radio" autocomplete="off" name="radio_SXCKUOCUDS" value="answer"><span>To assess the strength and direction of a linear relationship between two continuous variables.</span></label><label><input type="radio" autocomplete="off" name="radio_SXCKUOCUDS" value="x"><span>To compare the means of two independent groups.</span></label><label><input type="radio" autocomplete="off" name="radio_SXCKUOCUDS" value="x"><span>To test for differences in variances between two continuous variables.</span></label>
+</div>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-25-contents" aria-controls="callout-25" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Explain this answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-25" class="callout-25-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>“To assess the strength and direction of a linear relationship between two continuous variables.”</strong> is the correct answer.</p>
+<p><strong>The other options are incorrect:</strong></p>
+<ul>
+<li><p><strong>“To compare the means of two independent groups”</strong> is incorrect because that describes an independent t-test, not correlation.</p></li>
+<li><p><strong>“To determine the monotonic relationship between two ordinal variables”</strong> is incorrect because that describes Spearman’s correlation, not Pearson’s.</p></li>
+<li><p><strong>“To test for differences in variances between two continuous variables”</strong> is incorrect because that refers to Levene’s test or similar, not correlation.</p></li>
+</ul>
+</div>
+</div>
+</div>
+</section><section id="question-2" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-2">Question 2</h4>
+<p><strong>Which of the following is a key assumption of the Pearson correlation?</strong></p>
+<div id="radio_NRSFVTLTOY" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_NRSFVTLTOY" value="x"><span>The dependent variable is continuous.</span></label><label><input type="radio" autocomplete="off" name="radio_NRSFVTLTOY" value="x"><span>The two variables are measured on an ordinal, interval, or ratio scale</span></label><label><input type="radio" autocomplete="off" name="radio_NRSFVTLTOY" value="x"><span>The test is robust against outliers.</span></label><label><input type="radio" autocomplete="off" name="radio_NRSFVTLTOY" value="answer"><span>The relationship between the two variables is linear.</span></label>
+</div>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-26-contents" aria-controls="callout-26" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Explain this answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-26" class="callout-26-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Pearson correlation assumes linearity.</p>
+<p><strong>The other options are incorrect: </strong></p>
+<ul>
+<li><p><strong>“The two variables are measured on a ordinal scale”</strong> is incorrect because Pearson correlation requires interval or ratio data, but for ordinal data you would have to switch to the non-parametric equivalent (i.e.&nbsp;“Spearman”).</p></li>
+<li><p><strong>“The dependent variable is continuous”</strong> is incorrect because there are no dependent and independent variables in a correlation. The variables are called “measured variables” or just “variables”. And both of them need to be measured on a continuous scale.</p></li>
+<li><p><strong>“The test is robust against outliers”</strong> is incorrect because outliers can strongly influence the Pearson correlation coefficient, making it less robust in their presence.</p></li>
+</ul>
+</div>
+</div>
+</div>
+</section><section id="question-3" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-3">Question 3</h4>
+<p><strong>You perform a Pearson correlation and find <span class="math inline">\(r(244) = .415, p = .002\)</span>. How would you interpret these results??</strong></p>
+<div id="radio_ERSRQHJJBZ" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_ERSRQHJJBZ" value="x"><span>There is a moderate, negative, statistically non-significant correlation between the two variables.</span></label><label><input type="radio" autocomplete="off" name="radio_ERSRQHJJBZ" value="x"><span>There is a moderate, positive, statistically non-significant correlation between the two variables.</span></label><label><input type="radio" autocomplete="off" name="radio_ERSRQHJJBZ" value="x"><span>There is a moderate, negative, statistically significant correlation between the two variables.</span></label><label><input type="radio" autocomplete="off" name="radio_ERSRQHJJBZ" value="answer"><span>There is a moderate, positive, statistically significant correlation between the two variables.</span></label>
+</div>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-27-contents" aria-controls="callout-27" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Explain this answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-27" class="callout-27-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>“There is a moderate, positive, statistically significant correlation between the two variables.”</strong> is the correct answer. The correlation value (<span class="math inline">\(r=.415\)</span>) indicates a moderate, positive relationship, and the p-value (<span class="math inline">\(p=.002\)</span>) indicates statistical significance.</p>
+</div>
+</div>
+</div>
+</section><section id="question-4" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-4">Question 4</h4>
+<p><strong>What does a Spearman correlation coefficient of <span class="math inline">\(rho = -.729\)</span> indicate?</strong></p>
+<div id="radio_KKOBCETBFB" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_KKOBCETBFB" value="answer"><span>A strong, negative monotonic relationship.</span></label><label><input type="radio" autocomplete="off" name="radio_KKOBCETBFB" value="x"><span>A strong, positive monotonic relationship.</span></label><label><input type="radio" autocomplete="off" name="radio_KKOBCETBFB" value="x"><span>A non-significant relationship.</span></label><label><input type="radio" autocomplete="off" name="radio_KKOBCETBFB" value="x"><span>A strong, negative linear relationship.</span></label>
+</div>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-28-contents" aria-controls="callout-28" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Explain this answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-28" class="callout-28-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>“A strong, negative monotonic relationship.”</strong> is the correct answer. The value of .729 indicates a strong relationship and the minus indicates it is negative. For Spearman the relationship has to be monotonic.</p>
+<p><strong>The other options are incorrect:</strong></p>
+<ul>
+<li><p><strong>“A strong, positive monotonic relationship”</strong> is incorrect because the minus implies the relationship is negative, not positive.</p></li>
+<li><p><strong>“A strong, negative linear relationship”</strong> is incorrect because Spearman measures monotonic relationships, not linear ones.</p></li>
+<li><p><strong>“A non-significant relationship”</strong> is incorrect because the question does not state the p-value or provide sample size information. Hence, we cannot assume anything about significance. For example, small samples with large rho (or r) values may not be statistically significant. Contrastingly, in large samples, smaller rho (or r) values can be significant.</p></li>
+</ul>
+</div>
+</div>
+</div>
 
 
-</section></main><!-- /main --><script>
+</section></section></main><!-- /main --><script>
 
 /* update total correct if #webex-total_correct exists */
 update_total_correct = function() {

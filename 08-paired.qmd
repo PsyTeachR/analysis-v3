@@ -721,8 +721,9 @@ t.test(dog_lonely$Loneliness_pre, dog_lonely$Loneliness_post, paired = TRUE)
 
 cohensD(dog_lonely$Loneliness_pre, dog_lonely$Loneliness_post, method = "paired")
 ```
-We hypothesised that there would be a significant difference between Loneliness measured before (M = `r fitb("2.04")`, SD = `r fitb("0.53")`) and after (M = `r fitb("1.91")`, SD = `r fitb("0.53")`) the dog intervention. On average, participants felt less lonely after the intervention (M{diff} = `r fitb("0.13")`, SD{diff} = `r fitb("0.23")`). 
-Using a paired-samples t-test, the effect was found to be `r mcq(c(answer = "significant", x = "non-significant"))` and of a `r mcq(c(answer = "small", x = "medium", x = "large"))` magnitude, t(`r fitb("283")`) = `r fitb("9.26")`, p `r fitb("< .001")`, d = `r fitb("0.55")`. We therefore `r mcq(c(x = "fail to reject the null hypothesis", answer = "reject the null hypothesis in favour of H~1~"))`.
+
+We hypothesised that there would be a significant difference between Loneliness measured before (*M* = `r fitb("2.04")`, *SD* = `r fitb("0.53")`) and after (*M* = `r fitb("1.91")`, *SD* = `r fitb("0.53")`) the dog intervention. On average, participants felt less lonely after the intervention (*M~diff~* = `r fitb("0.13")`, *SD~diff~* = `r fitb("0.23")`). 
+Using a paired-samples t-test, the effect was found to be `r mcq(c(answer = "significant", x = "non-significant"))` and of a `r mcq(c(answer = "small", x = "medium", x = "large"))` magnitude, *t*(`r fitb("283")`) = `r fitb("9.26")`, *p* `r fitb("< .001")`, *d* = `r fitb("0.55")`. We therefore `r mcq(c(x = "fail to reject the null hypothesis", answer = "reject the null hypothesis in favour of H1"))`.
 
 
 ## [Test your knowledge]{style="color: #F39C12; text-transform: uppercase;"} {.unnumbered}
@@ -782,7 +783,7 @@ Why the other options are incorrect:
 
 #### Question 4 {.unnumbered}
 
-**A paired-samples t-test was conducted to compare sleep quality scores with (M = 7.5, SD = 1.8) and without (M = 6.0, SD = 1.9) white noise, t(29) = 4.55, p < .001, d = 0.82. Answer the questions below.**
+**A paired-samples t-test was conducted to compare sleep quality scores with (*M* = 7.5, *SD* = 1.8) and without (*M* = 6.0, *SD* = 1.9) white noise, *t*(29) = 4.55, *p* < .001, *d* = 0.82. Answer the questions below.**
 
 * How many participants were included in the study? `r fitb("30")`
 * What is the effect size, and how would you describe its magnitude?
@@ -797,10 +798,10 @@ Why the other options are incorrect:
 
 The degrees of freedom for a paired-samples t-test are calculated as N - 1 for the number of paired observations. With df = 29, the sample size is 30 participants.
 
-An effect size of d = 0.82 is considered large. This suggests a meaningful and substantial difference in sleep quality between the two conditions.
+An effect size of *d* = 0.82 is considered large. This suggests a meaningful and substantial difference in sleep quality between the two conditions.
 
-The result is statistically significant. The p-value (p < .001) indicates that the observed difference in the sample is very unlikely to occur if we assume there is no true difference in the population.
+The result is statistically significant. The p-value (*p* < .001) indicates that the observed difference in the sample is very unlikely to occur if we assume there is no true difference in the population.
 
-The mean sleep quality score with white noise (M = 7.5) is higher than without white noise (M = 6.0), indicating improved sleep quality with white noise.
+The mean sleep quality score with white noise (*M* = 7.5) is higher than without white noise (*M* = 6.0), indicating improved sleep quality with white noise.
 
 :::

@@ -61,7 +61,7 @@ And remember to have a quick `glimpse()` at your data.
 
 
 
-## Activity 3: Confidence in understanding Open Science practices
+## Activity 3: Confidence in understanding Open Science practices {#sec-wrangling2_act3}
 
 #### The main goal is to compute the mean Understanding score per participant. {.unnumbered}
 
@@ -242,7 +242,7 @@ understanding_t1 <- data_prp %>%
 
 :::
 
-## Activity 4: Survey of Attitudes Toward Statistics (SATS-28)
+## Activity 4: Survey of Attitudes Toward Statistics (SATS-28) {#sec-wrangling2_act4}
 
 #### The main goal is to compute the mean SATS-28 score for each of the 4 subscales per participant for time point 1. {.unnumbered}
 

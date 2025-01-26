@@ -376,12 +376,12 @@ ggplot(lopez_control, aes(x = CalEstimate, y = M_postsoup)) +
 
 #### Assumption 1: Continuous variables {.unnumbered}
 
-Both variables must be measured at the interval or ratio level (i.e., continuous data). We can confirm this by examining our two variables of interest, `CalEstimate` and `M_postsoup`. Plus, you would already know whether the variables are continuous based on your study design.
+Both variables must be measured at the **interval or ratio** level (i.e., continuous data). We can confirm this by examining our two variables of interest, `CalEstimate` and `M_postsoup`. Plus, you would already know whether the variables are continuous based on your study design.
 
 
 #### Assumption 2: Related pairs {.unnumbered}
 
-Each participant needs to have 2 data points, in our case one value for `CalEstimate` and one for `M_postsoup`. You can verify this directly in the dataset (e.g., `lopez_control`) or watch for warning messages when creating the scatterplot.
+Each participant needs to have **2 data points**, in our case one value for `CalEstimate` and one for `M_postsoup`. You can verify this directly in the dataset (e.g., `lopez_control`) or watch for warning messages when creating the scatterplot.
 
 In this dataset, there are no missing values in `M_postsoup` but `CalEstimate` has two missing values. hmmm. Interestingly, the Lopez paper mentions exclusion criteria in the Supplementary Materials but only in relation to participants, not statistical exclusions.
 
@@ -400,7 +400,7 @@ Data from participants 1895 and 1908 has now been excluded, leaving us with comp
 
 #### Assumption 3: Independence of cases/observations {.unnumbered}
 
-Similar to the paired t-test, we must assume that the two observations for each case are independent of the observations for any other case. This basically means that participants did not influence each other's ratings. Once again, this assumption is related to the study design and is satisfied in this instance.
+Similar to the paired t-test, we must assume that the two **observations for each case are independent** of the observations for any other case. This basically means that participants did not influence each other's ratings. Once again, this assumption is related to the study design and is satisfied in this instance.
 
 
 #### Assumption 4: Linearity {.unnumbered}
@@ -546,6 +546,9 @@ ggplot(lopez_control_no_na, aes(x = CalEstimate, y = M_postsoup)) +
 
 Ideally, our data should not contain any outliers or influential points, as these can distort the relationship between the variables of interest. We can assess this assumption visually with a **Residuals vs Leverage plot** or by revisiting the scatterplot (as shown above).
 
+::: {.panel-tabset group="layers"}
+
+## Option 1: Residuals vs Leverage plot
 
 To identify those data points, we can look at plot 5 from the `plot()` function with the `lm()` object but setting the `which` argument to 5.
 
@@ -553,6 +556,12 @@ To identify those data points, we can look at plot 5 from the `plot()` function 
 plot(lm(CalEstimate~M_postsoup, data = lopez_control_no_na), which = 5)
 ```
 Here, case numbers 3, 183, and 205 are identified. In the data object `lopez_control_no_na`, these correspond to participant IDs 1007, 1716, and 1789, respectively. Two of these participants estimated they had consumed 800 calories, while the third data point has a y-value over 40 (the one with the lower x-value).
+
+## Option 2: Scatterplot
+
+Looking at the scatterplot, I would have probably identified 4 outliers - anyone who estimated more than 600 cal and anyone who consumed more than 40 ounces of soup.
+
+:::
 
 **Verdict:** There are several ways to handle outliers, such as excluding them, replacing their extreme values with the group mean, or winsorising them. For now, I would likely exclude these three data points from the dataset before proceeding. However, Lopez et al. chose to retain all data points.
 
@@ -562,10 +571,10 @@ Here, case numbers 3, 183, and 205 are identified. In the data object `lopez_con
 
 ## Your Turn
 
-Filter out the 3 influential points/outliers and create the plot again. It’s best to save the data without outliers as a new data object. I’ve named mine `lopez_control_no_outliers`, but feel free to use a name that works for you.
+Filter out the 3 (or 4) influential points/outliers and create the plot again. It’s best to save the data without outliers as a new data object. I’ve named mine `lopez_control_no_outliers`, but feel free to use a name that works for you.
 
 ::: {.callout-caution collapse="true" icon="false"} 
-## Solution
+## Solution for removing 3 outliers 
 
 ```{r}
 lopez_control_no_outliers <- lopez_control_no_na %>% 
@@ -575,6 +584,25 @@ lopez_control_no_outliers <- lopez_control_no_na %>%
 
 ```{r}
 ggplot(lopez_control_no_outliers, aes(x = CalEstimate, y = M_postsoup)) +
+  geom_point() +
+  geom_smooth(method = "lm")
+```
+
+
+:::
+
+::: {.callout-caution collapse="true" icon="false"} 
+## Solution for removing 4 outliers 
+
+```{r}
+lopez_control_no_outliers4 <- lopez_control_no_na %>% 
+  filter(CalEstimate < 600,
+         M_postsoup < 40)
+```
+
+
+```{r}
+ggplot(lopez_control_no_outliers4, aes(x = CalEstimate, y = M_postsoup)) +
   geom_point() +
   geom_smooth(method = "lm")
 ```
@@ -673,7 +701,7 @@ According to the output above, the smallest `r` detectable with 244 participants
 
 ## Activity 10: The write-up
 
-Lopez et al. (2024) hypothesised a positive correlation between estimated calories of soup consumed $(M = 133.0 cal, SD = 121.3 cal)$ and actual consumption volume $(M = 8.87 oz, SD = 6.24 oz)$. A Pearson correlation revealed a moderately strong, positive, and statistically significant relationship between these two variables, $r(242) = .405, p < .001, 95% CI = [.294, .504]$. The study was sufficiently powered. Lopez et al. rejected the null hypothesis in favour of H~1~. 
+Lopez et al. (2024) hypothesised a positive correlation between estimated calories of soup consumed $(M = 133.0 cal, SD = 121.3 cal)$ and actual consumption volume $(M = 8.87 oz, SD = 6.24 oz)$. A Pearson correlation revealed a moderately strong, positive, and statistically significant relationship between these two variables, $r(242) = .405, p < .001, 95\% CI = [.294, .504]$. The study was sufficiently powered. Lopez et al. rejected the null hypothesis in favour of H~1~. 
 
 
 ## Activity 11: Non-parametric alternative
@@ -723,15 +751,235 @@ correlation(lopez_control_no_outliers, method = "Spearman")
 
 It was hypothesised that there would be a positive correlation between estimated calories of soup consumed $(M = 128.0 cal, SD = 105.4 cal)$ with actual consumption volume $(M = 8.68 oz, SD = 5.86 oz)$. The assumptions of linearity, normality, and homoscedasticity were assessed visually using a Residuals vs Fitted plot, a Q-Q plot, and a Scale-Location plot, respectively. These assumptions did not hold. Additionally, three outliers were removed from the dataset.
 
-Consequently, a Spearman’s rank correlation was conducted, revealing a strong, positive, and statistically significant relationship between estimated calories of soup consumed and actual consumption volume, $rho(239) = .522, p < .001, 95% CI = [.421, .611]$.
+Consequently, a Spearman’s rank correlation was conducted, revealing a strong, positive, and statistically significant relationship between estimated calories of soup consumed and actual consumption volume, $rho(239) = .522, p < .001, 95\% CI = [.421, .611]$.
 The study was sufficiently powered. Therefore, the null hypothesis is rejected in favour of H~1~.
 
 
 ## [Pair-coding]{style="color: #F39C12; text-transform: uppercase;"} {.unnumbered}
 
-to be added
+### Task 1: Open the R project for the lab {.unnumbered}
 
+### Task 2: Create a new `.Rmd` file {.unnumbered}
+
+... and name it something useful. If you need help, have a look at @sec-rmd.
+
+### Task 3: Load in the library and read in the data {.unnumbered}
+
+The data should already be in your project folder. If you want a fresh copy, you can download the data again here: [data_pair_coding](data/data_pair_coding.zip "download").
+
+We are using the packages `tidyverse` and `correlation` today.
+If you have already worked through this chapter, you will have all the packages installed. If you have yet to complete @sec-cor, you will need to install the package `correlation` (see @sec-install_packages for guidance if needed).
+
+We also need to read in `dog_data_clean_wide.csv`. Again, I've named my data object `dog_data_wide` to shorten the name but feel free to use whatever object name sounds intuitive to you. 
+
+
+```{r reading in data for me, echo=FALSE, message=FALSE}
+library(tidyverse)
+library(correlation)
+
+dog_data_wide <- read_csv("data/dog_data_clean_wide.csv")
+
+dog_happy <- dog_data_wide %>%
+  select(RID, SHS_pre, SHS_post) %>% 
+  drop_na() %>% 
+  mutate(RID = factor(RID))
+```
+
+
+### Task 4: Tidy data & Selecting variables of interest {.unnumbered}
+
+**Step 1:** Select the variables of interest. We need 2 continuous variables today, so any of the pre- vs post-test comparison will do. I would suggest happiness ratings (i.e., `SHS_pre`, `SHS_post`). Also keep the participant id `RID`. Store them in a new data object called `dog_happy`. 
+
+**Step 2:** Check for missing values and remove participants with missing in either pre- or post-ratings.
+
+**Step 3:** Convert participant ID into a factor
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Solution for Tasks 3 and 4
+
+```{r eval=FALSE}
+## Task 3
+library(tidyverse)
+library(correlation)
+
+dog_data_wide <- read_csv("dog_data_clean_wide.csv")
+
+
+## Task 4
+dog_happy <- dog_data_wide %>%
+  # Step 1
+  select(RID, SHS_pre, SHS_post) %>% 
+  # Step 2
+  drop_na() %>% 
+  # Step 3
+  mutate(RID = factor(RID))
+```
+
+:::
+
+### Task 5: Re-create the scatterplot below {.unnumbered}
+
+```{r echo=FALSE}
+ggplot(dog_happy, aes(x = SHS_pre, y = SHS_post)) +
+  geom_point() +
+  geom_smooth(method = "lm")
+
+```
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Solution
+
+```{r eval=FALSE, warning=FALSE, message=FALSE}
+ggplot(dog_happy, aes(x = SHS_pre, y = SHS_post)) +
+  geom_point() +
+  geom_smooth(method = "lm")
+```
+:::
+
+### Task 6: Assumptions check {.unnumbered}
+
+We can either do the assumption check by looking at the scatterplot above or we can run the code `plot(lm(SHS_pre~SHS_post, data = dog_happy))` and assess the assumptions there. Either way, it should give you similar responses.
+
+* Linearity: a `r mcq(sample(c(answer = "linear", x = "non-linear")))` relationship
+* Normality: residuals are `r mcq(sample(c(answer = "approximately normally distributed", x = "not normally distributed")))`
+* Homoscedasticity: There is `r longmcq(sample(c(answer = "homoscedasticity as there is no distinct pattern in the residuals", x = "heteroscedasticity as the residuals show a distinct pattern")))`
+* Outliers: `r mcq(sample(c(answer = "the data does not have any clear outliers", x = "the data has some outliers")))`
+
+
+
+**What is your conclusion from the assumptions check?**
+
+`r longmcq(c(answer = "All assumptions hold. Therefore, we are conducting a parametric test, specifically Pearson’s correlation.", x = "Some assumptions are violated. Therefore, we are conducting a non-parametric test, specifically Spearman’s correlation.", x = "All assumptions are violated. Therefore, we are conducting a non-parametric test, specifically Spearman’s correlation."))`
+
+
+
+### Task 6: Compute a Pearson correlation & interpret the output {.unnumbered}
+
+* **Step 1**: Compute the Pearson correlation. The structure of the function is as follows:
+
+```{r eval=FALSE}
+correlation(data = your_dataframe,
+            select = "variable1",
+            select2 = "variable2",
+            method = "Pearson",
+            alternative = "two.sided")
+```
+
+The default method argument is Pearson, but if you thought any of the assumptions were violated and conduct a Spearman correlation instead, change the `method` argument to"Spearman".
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Solution
+
+```{r}
+correlation(data = dog_happy,
+            select = "SHS_pre",
+            select2 = "SHS_post",
+            method = "Pearson",
+            alternative = "two.sided")
+```
+
+```{r eval=FALSE}
+# alternative because there are only 2 numeric columns in `dog_happy`
+correlation(dog_happy)
+```
+:::
+
+
+
+* **Step 2**: Interpret the output
+
+
+A Pearson correlation revealed a `r mcq(c(answer = "strong", x = "moderately strong", x = "weak"))`, `r mcq(c(answer = "positive", x = "negative"))`, and statistically `r mcq(c(answer = "significant", x = "non-significant"))` relationship between happiness before and after the dog intervention, *r*(`r fitb("281")`) = `r fitb(c(".88", ".884"))`, *p* `r fitb(c("<.001", "< .001"))`, *95% CI* = [`r fitb(c(".86", ".856"))`, `r fitb(c(".91", ".907"))`]. We therefore `r mcq(c(x = "fail to reject the null hypothesis", answer = "reject the null hypothesis in favour of H1"))`.
+
+::: {.callout-important}
+In the write-up paragraph above, the open fields accepted answers with 2 or 3 decimal places as correct. However, in your reports, ensure that correlation values are reported with 3 decimal places.
+:::
 
 ## [Test your knowledge]{style="color: #F39C12; text-transform: uppercase;"} {.unnumbered}
 
-to be added
+#### Question 1 {.unnumbered}
+
+**What is the main purpose of a Pearson correlation?**
+
+`r longmcq(sample(c(answer = "To assess the strength and direction of a linear relationship between two continuous variables.", x = "To compare the means of two independent groups.", x = "To determine the monotonic relationship between two ordinal variables.", x = "To test for differences in variances between two continuous variables.")))`
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Explain this answer
+
+**"To assess the strength and direction of a linear relationship between two continuous variables."** is the correct answer.
+
+**The other options are incorrect:**
+
+* **"To compare the means of two independent groups"** is incorrect because that describes an independent t-test, not correlation.
+
+* **"To determine the monotonic relationship between two ordinal variables"** is incorrect because that describes Spearman’s correlation, not Pearson’s.
+
+* **"To test for differences in variances between two continuous variables"** is incorrect because that refers to Levene’s test or similar, not correlation.
+
+:::
+
+#### Question 2 {.unnumbered}
+
+**Which of the following is a key assumption of the Pearson correlation?**
+
+`r longmcq(sample(c(answer = "The relationship between the two variables is linear.", x = "The two variables are measured on an ordinal, interval, or ratio scale", x = "The dependent variable is continuous.", x = "The test is robust against outliers.")))`
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Explain this answer
+
+Pearson correlation assumes linearity.
+
+**The other options are incorrect: **
+
+* **"The two variables are measured on a ordinal scale"** is incorrect because Pearson correlation requires interval or ratio data, but for ordinal data you would have to switch to the non-parametric equivalent (i.e. "Spearman").
+
+* **"The dependent variable is continuous"** is incorrect because there are no dependent and independent variables in a correlation. The variables are called "measured variables" or just "variables". And both of them need to be measured on a continuous scale.
+
+* **"The test is robust against outliers"** is incorrect because outliers can strongly influence the Pearson correlation coefficient, making it less robust in their presence.
+
+:::
+
+
+#### Question 3 {.unnumbered}
+
+**You perform a Pearson correlation and find $r(244) = .415, p = .002$. How would you interpret these results??**
+
+`r longmcq(sample(c(answer = "There is a moderate, positive, statistically significant correlation between the two variables.", x = "There is a moderate, negative, statistically significant correlation between the two variables.", x = "There is a moderate, positive, statistically non-significant correlation between the two variables.", x = "There is a moderate, negative, statistically non-significant correlation between the two variables.")))`
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Explain this answer
+
+**"There is a moderate, positive, statistically significant correlation between the two variables."** is the correct answer. The correlation value ($r=.415$) indicates a moderate, positive relationship, and the p-value ($p=.002$) indicates statistical significance.
+
+:::
+
+
+
+#### Question 4 {.unnumbered}
+
+**What does a Spearman correlation coefficient of $rho = -.729$ indicate?**
+
+`r longmcq(sample(c(answer = "A strong, negative monotonic relationship.", x = "A strong, positive monotonic relationship.", x = "A strong, negative linear relationship.", x = "A non-significant relationship.")))`
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Explain this answer
+
+**"A strong, negative monotonic relationship."** is the correct answer. The value of .729 indicates a strong relationship and the minus indicates it is negative. For Spearman the relationship has to be monotonic.
+
+**The other options are incorrect:**
+
+* **"A strong, positive monotonic relationship"** is incorrect because the minus implies the relationship is negative, not positive.
+
+* **"A strong, negative linear relationship"** is incorrect because Spearman measures monotonic relationships, not linear ones.
+
+* **"A non-significant relationship"** is incorrect because the question does not state the p-value or provide sample size information. Hence, we cannot assume anything about significance. For example, small samples with large rho (or r) values may not be statistically significant. Contrastingly, in large samples, smaller rho (or r) values can be significant.
+
+:::
+

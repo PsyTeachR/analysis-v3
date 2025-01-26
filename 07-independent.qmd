@@ -423,7 +423,7 @@ pwr.t2n.test(n1 = 80, n2= 80, sig.level = 0.05, power = 0.8, alternative = "two.
 
 ## Activity 10: The write-up
 
-We hypothesised that there would be a significant difference in the Simon effect between participants who received the same stimuli in both sessions $(N = 80, M = 35.99 msec, SD = 22.40 msec)$ and those who received different stimuli $(N = 80, M = 32.86 msec, SD = 20.79 msec)$. Using a Welch two-sample  t-test, the effect was found to be non-significant and of a small magnitude, $t(157.14) = 0.92, p = .360, d = 0.15$. The overall mean difference between groups was small $(M_{diff} = 3.14 msec)$. Therefore, we fail to reject the null hypothesis.
+We hypothesised that there would be a significant difference in the Simon effect between participants who received the same stimuli in both sessions $(N = 80, M = 35.99 \text{msec}, SD = 22.40 \text{msec})$ and those who received different stimuli $(N = 80, M = 32.86 \text{msec}, SD = 20.79 \text{msec})$. Using a Welch two-sample  t-test, the effect was found to be non-significant and of a small magnitude, $t(157.14) = 0.92, p = .360, d = 0.15$. The overall mean difference between groups was small $(M_{diff} = 3.14 \text{msec})$. Therefore, we fail to reject the null hypothesis.
 
 
 
@@ -735,7 +735,7 @@ cohensD(Flourishing_post ~ GroupAssignment, data = dog_independent, method = "un
 ```
 
 
-The Welch two-sample t-test revealed that there is `r mcq(c(x = "a statistically significant difference", answer = "no statistically significant difference"))` in psychological well-being scores between direct (N = `r fitb("95")`, M = `r fitb("5.78")`, SD = `r fitb("0.86")`) and control group (N = `r fitb("94")`, M = `r fitb("5.72")`, SD = `r fitb("0.77")`), t(`r fitb("185.05")`) = `r fitb("0.49")`, p = `r fitb(".625")`, d = `r fitb("0.07")`. The strength of the association between the variables is considered `r mcq(c(answer = "small", x = "medium", x = "large"))`. We therefore `r mcq(c(answer = "fail to reject the null hypothesis", x = "reject the null hypothesis"))`.
+The Welch two-sample t-test revealed that there is `r mcq(c(x = "a statistically significant difference", answer = "no statistically significant difference"))` in psychological well-being scores between direct (*N* = `r fitb("95")`, *M* = `r fitb("5.78")`, *SD* = `r fitb("0.86")`) and control group (*N* = `r fitb("94")`, *M* = `r fitb("5.72")`, *SD* = `r fitb("0.77")`), *t*(`r fitb("185.05")`) = `r fitb("0.49")`, *p* = `r fitb(".625")`, *d* = `r fitb("0.07")`. The strength of the association between the variables is considered `r mcq(c(answer = "small", x = "medium", x = "large"))`. We therefore `r mcq(c(answer = "fail to reject the null hypothesis", x = "reject the null hypothesis in favour of H1"))`.
 
 
 
