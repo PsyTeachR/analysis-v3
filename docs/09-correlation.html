@@ -485,7 +485,7 @@ Solution
 <li>
 <code>SeatPosition</code> - so we can determine whether participants were sorted into in the Experimental or the Control group</li>
 </ul>
-<p>Store the new data object as <code>lopez_control</code>.</p>
+<p>Store the new data object as <code>lopez_reduced</code>.</p>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -1524,22 +1524,22 @@ Solution
 <option value="answer">linear</option>
 <option value="x">non-linear</option></select> relationship</li>
 <li>Normality: residuals are <select class="webex-select"><option value="blank"></option>
-<option value="answer">approximately normally distributed</option>
-<option value="x">not normally distributed</option></select>
+<option value="x">not normally distributed</option>
+<option value="answer">approximately normally distributed</option></select>
 </li>
 <li>Homoscedasticity: There is
-<div id="radio_VKTXFSZDBT" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_VKTXFSZDBT" value="answer"><span>homoscedasticity as there is no distinct pattern in the residuals</span></label><label><input type="radio" autocomplete="off" name="radio_VKTXFSZDBT" value="x"><span>heteroscedasticity as the residuals show a distinct pattern</span></label>
+<div id="radio_NDEKIUHFFB" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_NDEKIUHFFB" value="x"><span>heteroscedasticity as the residuals show a distinct pattern</span></label><label><input type="radio" autocomplete="off" name="radio_NDEKIUHFFB" value="answer"><span>homoscedasticity as there is no distinct pattern in the residuals</span></label>
 </div>
 </li>
 <li>Outliers: <select class="webex-select"><option value="blank"></option>
-<option value="answer">the data does not have any clear outliers</option>
-<option value="x">the data has some outliers</option></select>
+<option value="x">the data has some outliers</option>
+<option value="answer">the data does not have any clear outliers</option></select>
 </li>
 </ul>
 <p><strong>What is your conclusion from the assumptions check?</strong></p>
-<div id="radio_YJBPECGGBL" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_YJBPECGGBL" value="answer"><span>All assumptions hold. Therefore, we are conducting a parametric test, specifically Pearson’s correlation.</span></label><label><input type="radio" autocomplete="off" name="radio_YJBPECGGBL" value="x"><span>Some assumptions are violated. Therefore, we are conducting a non-parametric test, specifically Spearman’s correlation.</span></label><label><input type="radio" autocomplete="off" name="radio_YJBPECGGBL" value="x"><span>All assumptions are violated. Therefore, we are conducting a non-parametric test, specifically Spearman’s correlation.</span></label>
+<div id="radio_BWIYTSPDJM" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_BWIYTSPDJM" value="answer"><span>All assumptions hold. Therefore, we are conducting a parametric test, specifically Pearson’s correlation.</span></label><label><input type="radio" autocomplete="off" name="radio_BWIYTSPDJM" value="x"><span>Some assumptions are violated. Therefore, we are conducting a non-parametric test, specifically Spearman’s correlation.</span></label><label><input type="radio" autocomplete="off" name="radio_BWIYTSPDJM" value="x"><span>All assumptions are violated. Therefore, we are conducting a non-parametric test, specifically Spearman’s correlation.</span></label>
 </div>
 </section><section id="task-6-compute-a-pearson-correlation-interpret-the-output" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="task-6-compute-a-pearson-correlation-interpret-the-output">Task 6: Compute a Pearson correlation &amp; interpret the output</h3>
 <ul>
@@ -1655,8 +1655,8 @@ Important
 </section></section><section id="test-your-knowledge" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="test-your-knowledge"><span style="color: #F39C12; text-transform: uppercase;">Test your knowledge</span></h2>
 <section id="question-1" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-1">Question 1</h4>
 <p><strong>What is the main purpose of a Pearson correlation?</strong></p>
-<div id="radio_SXCKUOCUDS" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_SXCKUOCUDS" value="x"><span>To determine the monotonic relationship between two ordinal variables.</span></label><label><input type="radio" autocomplete="off" name="radio_SXCKUOCUDS" value="answer"><span>To assess the strength and direction of a linear relationship between two continuous variables.</span></label><label><input type="radio" autocomplete="off" name="radio_SXCKUOCUDS" value="x"><span>To compare the means of two independent groups.</span></label><label><input type="radio" autocomplete="off" name="radio_SXCKUOCUDS" value="x"><span>To test for differences in variances between two continuous variables.</span></label>
+<div id="radio_GDRSTSNOHG" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_GDRSTSNOHG" value="answer"><span>To assess the strength and direction of a linear relationship between two continuous variables.</span></label><label><input type="radio" autocomplete="off" name="radio_GDRSTSNOHG" value="x"><span>To test for differences in variances between two continuous variables.</span></label><label><input type="radio" autocomplete="off" name="radio_GDRSTSNOHG" value="x"><span>To compare the means of two independent groups.</span></label><label><input type="radio" autocomplete="off" name="radio_GDRSTSNOHG" value="x"><span>To determine the monotonic relationship between two ordinal variables.</span></label>
 </div>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-25-contents" aria-controls="callout-25" aria-expanded="false" aria-label="Toggle callout">
@@ -1682,8 +1682,8 @@ Explain this answer
 </div>
 </section><section id="question-2" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-2">Question 2</h4>
 <p><strong>Which of the following is a key assumption of the Pearson correlation?</strong></p>
-<div id="radio_NRSFVTLTOY" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_NRSFVTLTOY" value="x"><span>The dependent variable is continuous.</span></label><label><input type="radio" autocomplete="off" name="radio_NRSFVTLTOY" value="x"><span>The two variables are measured on an ordinal, interval, or ratio scale</span></label><label><input type="radio" autocomplete="off" name="radio_NRSFVTLTOY" value="x"><span>The test is robust against outliers.</span></label><label><input type="radio" autocomplete="off" name="radio_NRSFVTLTOY" value="answer"><span>The relationship between the two variables is linear.</span></label>
+<div id="radio_VHIINSYQHH" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_VHIINSYQHH" value="x"><span>The two variables are measured on an ordinal, interval, or ratio scale</span></label><label><input type="radio" autocomplete="off" name="radio_VHIINSYQHH" value="answer"><span>The relationship between the two variables is linear.</span></label><label><input type="radio" autocomplete="off" name="radio_VHIINSYQHH" value="x"><span>The dependent variable is continuous.</span></label><label><input type="radio" autocomplete="off" name="radio_VHIINSYQHH" value="x"><span>The test is robust against outliers.</span></label>
 </div>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-26-contents" aria-controls="callout-26" aria-expanded="false" aria-label="Toggle callout">
@@ -1709,8 +1709,8 @@ Explain this answer
 </div>
 </section><section id="question-3" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-3">Question 3</h4>
 <p><strong>You perform a Pearson correlation and find <span class="math inline">\(r(244) = .415, p = .002\)</span>. How would you interpret these results??</strong></p>
-<div id="radio_ERSRQHJJBZ" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_ERSRQHJJBZ" value="x"><span>There is a moderate, negative, statistically non-significant correlation between the two variables.</span></label><label><input type="radio" autocomplete="off" name="radio_ERSRQHJJBZ" value="x"><span>There is a moderate, positive, statistically non-significant correlation between the two variables.</span></label><label><input type="radio" autocomplete="off" name="radio_ERSRQHJJBZ" value="x"><span>There is a moderate, negative, statistically significant correlation between the two variables.</span></label><label><input type="radio" autocomplete="off" name="radio_ERSRQHJJBZ" value="answer"><span>There is a moderate, positive, statistically significant correlation between the two variables.</span></label>
+<div id="radio_HHWYBXPFDR" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_HHWYBXPFDR" value="x"><span>There is a moderate, negative, statistically non-significant correlation between the two variables.</span></label><label><input type="radio" autocomplete="off" name="radio_HHWYBXPFDR" value="answer"><span>There is a moderate, positive, statistically significant correlation between the two variables.</span></label><label><input type="radio" autocomplete="off" name="radio_HHWYBXPFDR" value="x"><span>There is a moderate, negative, statistically significant correlation between the two variables.</span></label><label><input type="radio" autocomplete="off" name="radio_HHWYBXPFDR" value="x"><span>There is a moderate, positive, statistically non-significant correlation between the two variables.</span></label>
 </div>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-27-contents" aria-controls="callout-27" aria-expanded="false" aria-label="Toggle callout">
@@ -1730,8 +1730,8 @@ Explain this answer
 </div>
 </section><section id="question-4" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-4">Question 4</h4>
 <p><strong>What does a Spearman correlation coefficient of <span class="math inline">\(rho = -.729\)</span> indicate?</strong></p>
-<div id="radio_KKOBCETBFB" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_KKOBCETBFB" value="answer"><span>A strong, negative monotonic relationship.</span></label><label><input type="radio" autocomplete="off" name="radio_KKOBCETBFB" value="x"><span>A strong, positive monotonic relationship.</span></label><label><input type="radio" autocomplete="off" name="radio_KKOBCETBFB" value="x"><span>A non-significant relationship.</span></label><label><input type="radio" autocomplete="off" name="radio_KKOBCETBFB" value="x"><span>A strong, negative linear relationship.</span></label>
+<div id="radio_GHUPWLOPBU" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_GHUPWLOPBU" value="x"><span>A non-significant relationship.</span></label><label><input type="radio" autocomplete="off" name="radio_GHUPWLOPBU" value="answer"><span>A strong, negative monotonic relationship.</span></label><label><input type="radio" autocomplete="off" name="radio_GHUPWLOPBU" value="x"><span>A strong, negative linear relationship.</span></label><label><input type="radio" autocomplete="off" name="radio_GHUPWLOPBU" value="x"><span>A strong, positive monotonic relationship.</span></label>
 </div>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-28-contents" aria-controls="callout-28" aria-expanded="false" aria-label="Toggle callout">

@@ -172,7 +172,7 @@ Big datasets can be messy, so it is often helpful to focus only on the variables
 * Consumption volume - Control soup intake (`CtrlSoupAte`)
 * `SeatPosition` - so we can determine whether participants were sorted into in the Experimental or the Control group 
 
-Store the new data object as `lopez_control`.
+Store the new data object as `lopez_reduced`.
 
 
 ::: {.callout-caution collapse="true" icon="false"} 
