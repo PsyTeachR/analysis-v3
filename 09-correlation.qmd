@@ -123,7 +123,7 @@ Lopez et al. appear to have published data for both the participants included in
 Today, we will focus on a few correlation values and attempt to reproduce some of the results presented in Table 2 of Lopez et al. (2024).
 
 
-![Table 2 (Lopez et al., 2024)](data/lopez_table2.png)
+![Table 2 (Lopez et al., 2024)](images/lopez_table2.png)
 
 As shown in the table above, the original authors aimed to replicate the correlations reported by Wansink et al. (2005). Specifically, they examined the following relationships:
 
