@@ -307,7 +307,7 @@ lopez_reduced <- lopez_data %>%
 ## Activity 5: Compute descriptives
 
 
-Now that the data is ready, we can focus on reproducing the correlations. For the remainder of this chapter, we will focus on **correlating the estimated ounces of soup consumption with actual consumption volume** for the **control group**. Testing every correlation would require assessing assumptions for each relationship, making this chapter unnecessarily long. However, you are welcome to reproduce all other correlations in your own time if you wish.
+Now that the data is ready, we can focus on reproducing the correlations. For the remainder of this chapter, we will focus on **correlating the estimated calories of soup consumption with actual consumption volume** for the **control group**. Testing every correlation would require assessing assumptions for each relationship, making this chapter unnecessarily long. However, you are welcome to reproduce all other correlations in your own time if you wish.
 
 
 For the **descriptives**, we will compute the number of participants (**n**), **means** and **standard deviations** for the `Control` group of our variables of interest (i.e., `CalEstimate` and `M_postsoup`).
