@@ -60,7 +60,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./appendix-a-installing-r.html" rel="next">
+<link href="./10-regression.html" rel="next">
 <link href="./08-paired.html" rel="prev">
 <link href="./images/logos/logo_analysis.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
@@ -219,6 +219,12 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Correlations</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Simple regression</span></span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
@@ -290,7 +296,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
   <li><a href="#task-4-tidy-data-selecting-variables-of-interest" id="toc-task-4-tidy-data-selecting-variables-of-interest" class="nav-link" data-scroll-target="#task-4-tidy-data-selecting-variables-of-interest">Task 4: Tidy data &amp; Selecting variables of interest</a></li>
   <li><a href="#task-5-re-create-the-scatterplot-below" id="toc-task-5-re-create-the-scatterplot-below" class="nav-link" data-scroll-target="#task-5-re-create-the-scatterplot-below">Task 5: Re-create the scatterplot below</a></li>
   <li><a href="#task-6-assumptions-check" id="toc-task-6-assumptions-check" class="nav-link" data-scroll-target="#task-6-assumptions-check">Task 6: Assumptions check</a></li>
-  <li><a href="#task-6-compute-a-pearson-correlation-interpret-the-output" id="toc-task-6-compute-a-pearson-correlation-interpret-the-output" class="nav-link" data-scroll-target="#task-6-compute-a-pearson-correlation-interpret-the-output">Task 6: Compute a Pearson correlation &amp; interpret the output</a></li>
+  <li><a href="#task-7-compute-a-pearson-correlation-interpret-the-output" id="toc-task-7-compute-a-pearson-correlation-interpret-the-output" class="nav-link" data-scroll-target="#task-7-compute-a-pearson-correlation-interpret-the-output">Task 7: Compute a Pearson correlation &amp; interpret the output</a></li>
   </ul>
 </li>
   <li><a href="#test-your-knowledge" id="toc-test-your-knowledge" class="nav-link" data-scroll-target="#test-your-knowledge"><span style="color: #F39C12; text-transform: uppercase;">Test your knowledge</span></a></li>
@@ -1521,15 +1527,15 @@ Solution
 <p>We can either do the assumption check by looking at the scatterplot above or we can run the code <code>plot(lm(SHS_pre~SHS_post, data = dog_happy))</code> and assess the assumptions there. Either way, it should give you similar responses.</p>
 <ul>
 <li>Linearity: a <select class="webex-select"><option value="blank"></option>
-<option value="x">non-linear</option>
-<option value="answer">linear</option></select> relationship</li>
+<option value="answer">linear</option>
+<option value="x">non-linear</option></select> relationship</li>
 <li>Normality: residuals are <select class="webex-select"><option value="blank"></option>
-<option value="answer">approximately normally distributed</option>
-<option value="x">not normally distributed</option></select>
+<option value="x">not normally distributed</option>
+<option value="answer">approximately normally distributed</option></select>
 </li>
 <li>Homoscedasticity: There is
-<div id="radio_DPQCOLZOOQ" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_DPQCOLZOOQ" value="x"><span>heteroscedasticity as the residuals show a distinct pattern</span></label><label><input type="radio" autocomplete="off" name="radio_DPQCOLZOOQ" value="answer"><span>homoscedasticity as there is no distinct pattern in the residuals</span></label>
+<div id="radio_YNSPYMWGEJ" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_YNSPYMWGEJ" value="answer"><span>homoscedasticity as there is no distinct pattern in the residuals</span></label><label><input type="radio" autocomplete="off" name="radio_YNSPYMWGEJ" value="x"><span>heteroscedasticity as the residuals show a distinct pattern</span></label>
 </div>
 </li>
 <li>Outliers: <select class="webex-select"><option value="blank"></option>
@@ -1538,10 +1544,10 @@ Solution
 </li>
 </ul>
 <p><strong>What is your conclusion from the assumptions check?</strong></p>
-<div id="radio_WTAFHYWEMQ" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_WTAFHYWEMQ" value="answer"><span>All assumptions hold. Therefore, we are conducting a parametric test, specifically Pearson’s correlation.</span></label><label><input type="radio" autocomplete="off" name="radio_WTAFHYWEMQ" value="x"><span>Some assumptions are violated. Therefore, we are conducting a non-parametric test, specifically Spearman’s correlation.</span></label><label><input type="radio" autocomplete="off" name="radio_WTAFHYWEMQ" value="x"><span>All assumptions are violated. Therefore, we are conducting a non-parametric test, specifically Spearman’s correlation.</span></label>
+<div id="radio_LURZXTYNYL" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_LURZXTYNYL" value="answer"><span>All assumptions hold. Therefore, we are conducting a parametric test, specifically Pearson’s correlation.</span></label><label><input type="radio" autocomplete="off" name="radio_LURZXTYNYL" value="x"><span>Some assumptions are violated. Therefore, we are conducting a non-parametric test, specifically Spearman’s correlation.</span></label><label><input type="radio" autocomplete="off" name="radio_LURZXTYNYL" value="x"><span>All assumptions are violated. Therefore, we are conducting a non-parametric test, specifically Spearman’s correlation.</span></label>
 </div>
-</section><section id="task-6-compute-a-pearson-correlation-interpret-the-output" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="task-6-compute-a-pearson-correlation-interpret-the-output">Task 6: Compute a Pearson correlation &amp; interpret the output</h3>
+</section><section id="task-7-compute-a-pearson-correlation-interpret-the-output" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="task-7-compute-a-pearson-correlation-interpret-the-output">Task 7: Compute a Pearson correlation &amp; interpret the output</h3>
 <ul>
 <li>
 <strong>Step 1</strong>: Compute the Pearson correlation. The structure of the function is as follows:</li>
@@ -1655,8 +1661,8 @@ Important
 </section></section><section id="test-your-knowledge" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="test-your-knowledge"><span style="color: #F39C12; text-transform: uppercase;">Test your knowledge</span></h2>
 <section id="question-1" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-1">Question 1</h4>
 <p><strong>What is the main purpose of a Pearson correlation?</strong></p>
-<div id="radio_LAYSAWWXOC" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_LAYSAWWXOC" value="x"><span>To compare the means of two independent groups.</span></label><label><input type="radio" autocomplete="off" name="radio_LAYSAWWXOC" value="x"><span>To determine the monotonic relationship between two ordinal variables.</span></label><label><input type="radio" autocomplete="off" name="radio_LAYSAWWXOC" value="x"><span>To test for differences in variances between two continuous variables.</span></label><label><input type="radio" autocomplete="off" name="radio_LAYSAWWXOC" value="answer"><span>To assess the strength and direction of a linear relationship between two continuous variables.</span></label>
+<div id="radio_ITYBBGTMFT" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_ITYBBGTMFT" value="x"><span>To determine the monotonic relationship between two ordinal variables.</span></label><label><input type="radio" autocomplete="off" name="radio_ITYBBGTMFT" value="answer"><span>To assess the strength and direction of a linear relationship between two continuous variables.</span></label><label><input type="radio" autocomplete="off" name="radio_ITYBBGTMFT" value="x"><span>To test for differences in variances between two continuous variables.</span></label><label><input type="radio" autocomplete="off" name="radio_ITYBBGTMFT" value="x"><span>To compare the means of two independent groups.</span></label>
 </div>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-25-contents" aria-controls="callout-25" aria-expanded="false" aria-label="Toggle callout">
@@ -1682,8 +1688,8 @@ Explain this answer
 </div>
 </section><section id="question-2" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-2">Question 2</h4>
 <p><strong>Which of the following is a key assumption of the Pearson correlation?</strong></p>
-<div id="radio_YVDAXUSNWN" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_YVDAXUSNWN" value="x"><span>The test is robust against outliers.</span></label><label><input type="radio" autocomplete="off" name="radio_YVDAXUSNWN" value="answer"><span>The relationship between the two variables is linear.</span></label><label><input type="radio" autocomplete="off" name="radio_YVDAXUSNWN" value="x"><span>The dependent variable is continuous.</span></label><label><input type="radio" autocomplete="off" name="radio_YVDAXUSNWN" value="x"><span>The two variables are measured on an ordinal, interval, or ratio scale</span></label>
+<div id="radio_WHFJQCPQHF" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_WHFJQCPQHF" value="x"><span>The test is robust against outliers.</span></label><label><input type="radio" autocomplete="off" name="radio_WHFJQCPQHF" value="x"><span>The dependent variable is continuous.</span></label><label><input type="radio" autocomplete="off" name="radio_WHFJQCPQHF" value="answer"><span>The relationship between the two variables is linear.</span></label><label><input type="radio" autocomplete="off" name="radio_WHFJQCPQHF" value="x"><span>The two variables are measured on an ordinal, interval, or ratio scale</span></label>
 </div>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-26-contents" aria-controls="callout-26" aria-expanded="false" aria-label="Toggle callout">
@@ -1709,8 +1715,8 @@ Explain this answer
 </div>
 </section><section id="question-3" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-3">Question 3</h4>
 <p><strong>You perform a Pearson correlation and find <span class="math inline">\(r(244) = .415, p = .002\)</span>. How would you interpret these results??</strong></p>
-<div id="radio_LWOLANPSMK" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_LWOLANPSMK" value="x"><span>There is a moderate, negative, statistically significant correlation between the two variables.</span></label><label><input type="radio" autocomplete="off" name="radio_LWOLANPSMK" value="answer"><span>There is a moderate, positive, statistically significant correlation between the two variables.</span></label><label><input type="radio" autocomplete="off" name="radio_LWOLANPSMK" value="x"><span>There is a moderate, negative, statistically non-significant correlation between the two variables.</span></label><label><input type="radio" autocomplete="off" name="radio_LWOLANPSMK" value="x"><span>There is a moderate, positive, statistically non-significant correlation between the two variables.</span></label>
+<div id="radio_ARVUGGSILX" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_ARVUGGSILX" value="x"><span>There is a moderate, negative, statistically significant correlation between the two variables.</span></label><label><input type="radio" autocomplete="off" name="radio_ARVUGGSILX" value="x"><span>There is a moderate, positive, statistically non-significant correlation between the two variables.</span></label><label><input type="radio" autocomplete="off" name="radio_ARVUGGSILX" value="answer"><span>There is a moderate, positive, statistically significant correlation between the two variables.</span></label><label><input type="radio" autocomplete="off" name="radio_ARVUGGSILX" value="x"><span>There is a moderate, negative, statistically non-significant correlation between the two variables.</span></label>
 </div>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-27-contents" aria-controls="callout-27" aria-expanded="false" aria-label="Toggle callout">
@@ -1730,8 +1736,8 @@ Explain this answer
 </div>
 </section><section id="question-4" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-4">Question 4</h4>
 <p><strong>What does a Spearman correlation coefficient of <span class="math inline">\(rho = -.729\)</span> indicate?</strong></p>
-<div id="radio_IHQCHNVAGE" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_IHQCHNVAGE" value="x"><span>A strong, positive monotonic relationship.</span></label><label><input type="radio" autocomplete="off" name="radio_IHQCHNVAGE" value="answer"><span>A strong, negative monotonic relationship.</span></label><label><input type="radio" autocomplete="off" name="radio_IHQCHNVAGE" value="x"><span>A non-significant relationship.</span></label><label><input type="radio" autocomplete="off" name="radio_IHQCHNVAGE" value="x"><span>A strong, negative linear relationship.</span></label>
+<div id="radio_YTNZFNZIIH" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_YTNZFNZIIH" value="x"><span>A non-significant relationship.</span></label><label><input type="radio" autocomplete="off" name="radio_YTNZFNZIIH" value="answer"><span>A strong, negative monotonic relationship.</span></label><label><input type="radio" autocomplete="off" name="radio_YTNZFNZIIH" value="x"><span>A strong, positive monotonic relationship.</span></label><label><input type="radio" autocomplete="off" name="radio_YTNZFNZIIH" value="x"><span>A strong, negative linear relationship.</span></label>
 </div>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-28-contents" aria-controls="callout-28" aria-expanded="false" aria-label="Toggle callout">
@@ -2342,8 +2348,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./appendix-a-installing-r.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Installing R</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./10-regression.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Simple regression</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

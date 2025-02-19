@@ -4,39 +4,24 @@
 
 By the end of this chapter you should be able to:
 
+- Compute a Simple linear regression.
+- Read and interpret the output.
+- Report the results.
+
 
 ## [Individual Walkthrough]{style="color: #F39C12; text-transform: uppercase;"} {.unnumbered}
-
-## Activity 1: Setup
-
-* create a new project
-* create a new Rmd file and save it to your project folder
-* delete everything after the setup code chunk 
-
-
-
-## Activity 2: Download the data
-
-* Download the data: link
-* Talk about the files
-* insert citation and abstract of the data
-* Look at the codebook and the variables
-
-
-## Activity 3: Load in the library, read in the data and familiarise yourself with the data
-
-
-leave pretty much as is but change the data to one of the STARS datasets and keep that for today and next week
-
 
 
 ## Activity 1: Setup & download the data
 
-* create a new project and name it something meaningful (e.g., "2A_chapter5", or "05_chi_square_one_sample_t"). See @sec-project if you need some guidance.
-* create a new Rmd file and save it to your project folder. See @sec-rmd if you get stuck. 
-* delete everything after the setup code chunk (e.g., line 12 and below)
-* download the data here: [data_ch5.zip](data/data_ch5.zip "download").
-* Extract the data files from the zip folder and place them in your project folder. If you need help, see @sec-download_data_ch1.
+This week, we will be working with a new dataset. Follow the steps below to set up your project:
+
+* **Create a new project** and name it something meaningful (e.g., "2A_chapter10", or "10_regression"). See @sec-project if you need some guidance.
+* **Create a new `.Rmd` file** and save it to your project folder. See @sec-rmd if you need help. 
+* Delete everything after the setup code chunk (e.g., line 12 and below) 
+* **Download the new dataset** here: [data_ch10.zip](data/data_ch10.zip "download"). The zip folder includes the data file and the codebook.
+* Extract the data file from the zip folder and place it in your project folder. If you need help, see @sec-download_data_ch1.
+
 
 
 **Citation**
@@ -55,15 +40,15 @@ The data is available on OSF: [https://osf.io/bk7vw/](https://osf.io/bk7vw/){tar
 
 **Changes made to the dataset**
 
-* We turned the excel file into a csv 
-* We aggregated the main scales by reverse-scoring reverse-coded items (as listed in the codebook) and averaging.
-* However, the responses to the individual items of the questionnaires are the raw data, not the reverse-coded scores! If you want to practice your data wrangling skills, feel free to do so.
-* We have tidied up the columns RaceEthE, GradesE, and MajorE, but we've left Gender and Student Status for you to tidy.
+* We converted the Excel file into a CSV file.
+* We aggregated the main scales (columns 50-57) by reverse-scoring all reverse-coded items (as specified in the codebook), and then computed an average score for each scale.
+* However, responses to the individual questionnaire items (columns 1-49) remain as raw data and have not been reverse-coded. If you’d like to practice your data-wrangling skills, feel free to do so!
+* We tidied the columns `RaceEthE`, `GradesE`, and `MajorE`, but we’ve left Gender and Student Status for you to clean.
 
 
 ## Activity 2: Load in the library, read in the data, and familiarise yourself with the data
 
-Today, we'll need the following packages `tidyverse`, `lsr` *ETC* as well as the data `Alter_2024_data.csv`.
+Today, we will be using the packages `tidyverse`, `performance`, and `pwr`, along with the dataset `Alter_2024_data.csv`.
 
 
 ```{r eval=FALSE}
@@ -77,7 +62,8 @@ data_alter <- ???
 ```{r include=FALSE, message=TRUE}
 ## I basically have to have 2 code chunks since I tell them to put the data files next to the project, and mine are in a separate folder called data - unless I'll turn this into a fixed path
 library(tidyverse)
-library(lsr)
+library(performance)
+library(pwr)
 data_alter <- read_csv("data/Alter_2024_data.csv")
 ```
 
@@ -88,26 +74,84 @@ data_alter <- read_csv("data/Alter_2024_data.csv")
 
 ```{r eval=FALSE}
 library(tidyverse)
-library(lsr)
-data_alter <- read_csv("Alter_2024_data.csv") 
+library(performance)
+library(pwr)
+data_alter <- read_csv("Alter_2024_data.csv")
 ```
 
 :::
 
+As always, take a moment to familiarise yourself with the data before starting your analysis.
+
+::: {.callout-note icon="false"}
+
+## Your Turn
+
+Quick check: Have you familiarised yourself with the data? Answer the following questions:
+
+* How many observations? `r fitb("181")`
+* How many variables? `r fitb("67")`
+* How many columns are `col_character` or `chr` data type? `r fitb("7")`
+* How many columns are `col_double` or `dbl` data type? `r fitb("60")`
+
+* From the dropdown menu, select the variable type and the data type for each of the following variables.
+
+```{r, include = FALSE}
+# variable type
+con <- c(answer = "continuous", x = "nominal", x = "ordinal")
+nom <- c(x = "continuous", answer = "nominal", x = "ordinal")
+ord <- c(x = "continuous", x = "nominal", answer = "ordinal")
+
+# data type
+num <- c(answer = "numeric", x = "character", x = "logical", x = "factor")
+chr <- c(x = "numeric", answer = "character", x = "logical", x = "factor")
+log <- c(x = "numeric", x = "character", answer = "logical", x = "factor")
+fctr <- c(x = "numeric", x = "character", x = "logical", answer = "factor")
+
+```
+
+| Column               | Variable type | Data type     |
+|:---------------------|:--------------|:--------------|
+| `AgeE`               | `r mcq(con)`  | `r mcq(num)`  |
+| `GenderE`            | `r mcq(nom)`  | `r mcq(num)`  |
+| `GPAE`               | `r mcq(con)`  | `r mcq(chr)`  |
+| `StuStaE`            | `r mcq(ord)`  | `r mcq(chr)`  |
+| `MA1E`               | `r mcq(ord)`  | `r mcq(num)`  |
+| `Mean_MA`            | `r mcq(con)`  | `r mcq(num)`  |
+
+
+:::
+
+#### Potential Research Question & Hypthesis {.unnumbered}
+
+Let's assume that individuals who are confident in quantitative reasoning are more likely to feel comfortable using statistical software.
+
+* **Potential research question**: "Does quantitative self-efficacy predict attitudes toward SPSS, as measured by the VSSL Scale?"
+* **Null Hypothesis (H~0~)**: "Quantitative self-efficacy does not significantly predict attitudes toward SPSS (VSSL scores)."
+* **Alternative Hypothesis (H~1~)**: "Quantitative self-efficacy significantly predicts attitudes toward SPSS (VSSL scores), such that higher quantitative self-efficacy is associated with more positive attitudes toward SPSS."
+
+
+Thus, in this hypothetical scenario, the regression model would be:
+
+* Independent Variable (IV)/ Predictor: Quantitative self-efficacy
+* Dependent Variable (DV)/ Outcome: Attitudes toward SPSS (measured by the VSSL Scale)
 
 
 
-## Activity 3: Data Wrangling
+## Activity 3: Preparing the dataframe
 
-To have more informative categories within the demographic data, we would recommend relabeling the remaining two columns Gender and Student status according to the information in the codebook. Add `Gender_tidy` and `StuSta_tidy` to the `data_alter` object.
+The dataframe is already tidy for most variables, except for Gender and Student Status. This means we're all set for this week.
+
+However, working with a smaller subset of the data will be beneficial. Select the relevant variables of interest and store the results in a new data object called `data_alter_reduced`.
 
 
 ::: {.callout-note collapse="true" icon="false"} 
 
 ## Hints
 
-* Gender would be a case of recoding one value as another (we did that for the `Understanding_OS questionnaire` in @sec-wrangling)
-* Student Status would be slightly more intricate having multiple entries that would be recoded as the same category (we did that for the `SATs` questionnaire in @sec-wrangling)
+Of course, you have identified the variables Quantitative self-efficacy (`Mean_QSE`) and the VSSL Scale: Value of Software to Learning Statistics (`Mean_SPSS`). 
+
+But did you remember that we also need the participant ID (`StudentIDE`)?
 
 
 ::: {.callout-caution collapse="true" icon="false"} 
@@ -115,93 +159,428 @@ To have more informative categories within the demographic data, we would recomm
 ## Solution
 
 ```{r}
-data_alter <- data_alter %>% 
-  mutate(Gender_tidy = case_match(GenderE,
-                                  1 ~ "Female",
-                                  2 ~ "Male",
-                                  3 ~ "Non-Binary",
-                                  .default = NA),
-         StuSta_tidy = case_when(
-           StuStaE %in% c("1", "Freshman") ~ "Freshman",
-           StuStaE %in% c("2", "Sophomore") ~ "Sophomore",
-           StuStaE %in% c("3", "Junior") ~ "Junior",
-           StuStaE %in% c("4", "senior", "Senior", "post-bac") ~ "Senior or Higher",
-           .default = StuStaE))
+data_alter_reduced <- data_alter %>% 
+  select(StudentIDE, Mean_QSE, Mean_SPSS)
 ```
+
 
 :::
 
 :::
 
+## Activity 4: Compute descriptives
 
-```{r eval=FALSE}
-ggplot(data_alter, aes(sample = Mean_MA)) +
-  stat_qq() +
-  stat_qq_line()
+Now, we can calculate the **means** and **standard deviations** for our predictor and outcome variables.
+
+::: {.callout-caution collapse="true" icon="false"} 
+
+## Solution
+
+
+```{r}
+descriptives <- data_alter_reduced %>%
+  summarise(mean_QSE = mean(Mean_QSE, na.rm = TRUE),
+            sd_QSE = sd(Mean_QSE, na.rm = TRUE),
+            mean_SPSS = mean(Mean_SPSS, na.rm = TRUE),
+            sd_SPSS = sd(Mean_SPSS, na.rm = TRUE))
+```
+
+:::
+
+## Activity 5: Create an appropriate plot
+
+Now, let's ***re***create the following appropriate plot using `data_alter_reduced`:
+
+```{r echo=FALSE}
+ggplot(data_alter_reduced, aes(x = Mean_QSE, y = Mean_SPSS)) +
+  geom_point() +
+  geom_smooth(method = "lm")
+```
+
+::: {.callout-caution collapse="true" icon="false"} 
+
+## Solution
+
+```{r fig.keep = 'none', warning=FALSE, message=FALSE}
+ggplot(data_alter_reduced, aes(x = Mean_QSE, y = Mean_SPSS)) +
+  geom_point() +
+  geom_smooth(method = "lm")
+```
+
+:::
+
+
+## Activity 6: Check assumptions
+
+
+#### Assumption 1: Levels of measurement {.unnumbered}
+
+* The **outcome variable** must be interval/ratio (continuous)
+* The **predictor variable** must be either interval/ratio (continuous) or categorical (with two levels)
+
+In our case, both the predictor variable (Quantitative self-efficacy) and the outcome variable (Attitudes toward SPSS as measured by the VSSL Scale) are continuous. The assumption holds.
+
+
+
+#### Assumption 2: Independence of cases/observations {.unnumbered}
+
+We must assume that each **observation is independent of the others**, meaning that each score comes from a different participant. Like assumption 1, this assumption is determined by the study design and it holds.
+
+
+#### Assumption 3: Non-zero variance {.unnumbered}
+
+Simply put, we need to have some spread in the data. The **variance must be greater than zero**. 
+
+We can check this by looking at the scatterplot: both the x-axis (predictor) and y-axis (outcome) should show variability. Similarly, we computed standard deviations for both variables in Activity 4, and both of them had values different to 0. So this assumption holds as well.
+
+
+
+
+#### Assumption 4: Linearity {.unnumbered}
+
+Since we will need the linear model for the next few assumptions and later for inferential statistics, we should first save it to the `Global Environment` as an object called `mod`.
+
+The linear model function `lm()` requires the following arguments:
+
+* The outcome variable, followed by a tilde (`~`), followed by the the predictor variable
+* The dataset
+
+```{r}
+mod <- lm(Mean_SPSS~Mean_QSE, data = data_alter_reduced)
 ```
 
 
-```{r eval=FALSE}
-ggplot(data_alter, aes(sample = Mean_QANX)) +
-  stat_qq() +
-  stat_qq_line()
+
+Now we can continue with the assumption check of linearity. The relationship between the two variables must be linear.
+
+We can assess linearity visually, just as we did in the correlation chapter, by using a **Residuals vs Fitted plot**. We can use the `plot()` function on our linear model (`mod`) with the which argument set to 1. 
+
+```{r}
+plot(mod, which = 1)
 ```
 
 
-```{r eval=FALSE}
-ggplot(data_alter, aes(sample = Mean_QINFL)) +
-  stat_qq() +
-  stat_qq_line()
+**Verdict:** The red line is roughly horizontal and flat, indicating that the relationship between the predictor and outcome is linear. This assumption holds.
+
+
+#### Assumption 5: Normality {.unnumbered}
+
+Residuals for both variables should follow a **bivariate normal distribution** (i.e., both together normally distributed). 
+
+We can visually check this assumption using a **Q-Q plot**. To generate it, we use the `plot()` function on our linear model `mod`, setting the `which` argument to 2. Again, this is the same approach we used in the correlation chapter to check for normality.
+
+```{r}
+plot(mod, which = 2)
+```
+
+**Verdict:** Doesn't this look beautiful? ✨ The points closely follow the diagonal line, indicating that the assumption of normality holds.
+
+
+
+#### Assumption 6: Homoscedasticity {.unnumbered}
+
+Homoscedasticity assumes that the **spread of residuals is consistent** across all levels of the predictor variable, meaning that the data is evenly distributed around the line of best fit, with no visible pattern. We can assess this assumption visually using a **Scale-Location plot**.
+
+
+To generate it, we use the `plot()` function on our linear model `mod`, setting the `which` argument to 3:
+
+```{r}
+plot(mod, which = 3)
 ```
 
 
+**Verdict:** The variance of the residual is constant along the values of predictor variable as indicated by this roughly flat and horizontal red line. Hence, we consider this assumption met.
+
+
+
+
+#### Checking Assumptions Differently: Using `check_model()` from the `performance` package {.unnumbered}
+
+Assumptions 4-6 can also be tested using the `check_model()` function from the `performance` package. This function provides the same diagnostic checks as `plot()`, but with a cleaner presentation and useful reminders of what to look for.
+
+```{r}
+check_model(mod)
+```
+One key difference is that you get a posterior predictive check, which compares observed values to the model's predictions. Additionally, the Q-Q plot for normality of residuals is displayed different. Instead of a diagonal reference line, residuals are plotted as deviations from a horizontal line. This visualisation can sometimes exaggerate small deviations, so focus on identifying clear overall patterns rather than minor fluctuations.
+
+
+::: {.callout-tip}
+
+The diagnostic plots in the `performance` package are generated using `ggplot2`, so you can save them using `ggsave()` if needed.
+:::
+
+
+But again; all assumptions are met. Let's move on to inferential statistics!
+
+
+## Activity 7: Compute the regression, confidence intervals, and effect size
+
+The `lm()` function from Base R is the main function to estimate a ***L***inear ***M***odel (hence the function name `lm`). And if you’re experiencing a hint of déjà vu, you’re onto something! We have actually already used this function to store our linear model for assumption checks (remember the object called `mod`???).
+
+Just to recap, the `lm()` function uses formula syntax with the following arguments:
+
 ```{r eval=FALSE}
-ggplot(data_alter, aes(sample = Mean_QSF)) +
-  stat_qq() +
-  stat_qq_line()
+lm(OutcomeVariable ~ PredictorVariable, data)
+```
 
+For our example, the variables are:
 
-ggplot(data_alter, aes(x = Mean_QSF)) +
-  geom_histogram()
+* IV (Predictor): Quantitative self-efficacy, and
+* DV (Outcome): Attitudes toward SPSS (measured by the VSSL Scale)
+
+Thus, our regression model is:
+
+```{r}
+mod <- lm(Mean_SPSS~Mean_QSE, data = data_alter_reduced)
 ```
 
 
-```{r eval=FALSE}
-ggplot(data_alter, aes(sample = Mean_QHIND)) +
-  stat_qq() +
-  stat_qq_line()
+As you can see in the `Global Environment`, `mod` stores a list of 12 elements, containing quite a bit of information about the regression model.
 
-ggplot(data_alter, aes(x = Mean_QHIND)) +
-  geom_histogram(binwidth = 0.1)
+To view the results of our simple linear regression, use the `summary()` function on the `mod` object:
+
+```{r}
+summary(mod)
+```
+::: {.callout-note}
+## Does it matter if the slope is positive or negative?
+
+When working with a continuous predictor, the sign of the slope is important to consider:
+
+* A positive slope indicates that as the predictor increases, the outcome variable also tends to increase.
+* A negative slope means that as the predictor increases, the outcome variable tends to decrease.
+
+Understanding the direction of the relationship is crucial for correctly interpreting the regression coefficient.
+
+:::
+
+Sooo. We already have several key values, but we still need confidence intervals and effect sizes to fully report our results.
+
+R has a built-in function called `confint()` to calculate **confidence intervals** using our linear model object `mod`.
+
+
+```{r}
+confint(mod)
+```
+The **effect size** for a simple linear regression is Cohen's $f^2$. We can calculate it manually. As you may recall from the lectures, the formula for Cohen's $f^2$ is:
+
+$$
+f^2 = \frac{R^2_{Adjusted}}{1-R^2_{Adjusted}}
+$$
+
+In our case, we can extract $R^2_{Adjusted}$ from the `summary(mod)` output.
+
+```{r}
+r_sq_adj <- summary(mod)$adj.r.squared
 ```
 
+And then, we just use `r_sq_adj` in the formula above:
 
-```{r eval=FALSE}
-ggplot(data_alter, aes(sample = Mean_QSC)) +
-  stat_qq() +
-  stat_qq_line()
+```{r}
+f_2 <- r_sq_adj/(1-r_sq_adj)
+
+f_2
 ```
 
-
-```{r eval=FALSE}
-ggplot(data_alter, aes(sample = Mean_QSE)) +
-  stat_qq() +
-  stat_qq_line()
+Now, we have all the necessary values to write up the results!
 
 
-ggplot(data_alter, aes(x = Mean_QSE)) +
-  geom_histogram(binwidth = 0.1)
+## Activity 8: The write-up
+
+A simple linear regression was performed with Attitudes toward SPSS $(M = 3.50, SD = 0.73)$ as the outcome variable and Quantitative self-efficacy $(M = 3.39, SD = 0.78)$ as the predictor variable. 
+
+The results of the regression indicated that the model significantly predicted Attitudes toward SPSS $(F(1, 179) = 15.47 p < .001, R^2_{Adjusted} = .074, f^2 = .080)$, accounting for 7.4% of the variance. The effect of Quantitative self-efficacy was statistically significant, positive, and of small magnitude $(b = .26, 95\% CI = [.13, .40], p <.001 )$.
+
+
+## Activity 9: Sensitivity power analysis
+
+As usual, we can calculate the smallest effect size that our study was able to detect, given our design and sample size.
+
+To do this, we use the `pwr.f2.test()` function from the pwr package. This function requires the following arguments:
+
+
+* `u` = Numerator degrees of freedom. This the number of coefficients you have in your model (minus the intercept)
+* `v` = Denominator degrees of freedom. This is calculated as $v=n-u-1$, where $n$ is the number of participants.
+* `f2` = The effect size. Here we are solving the effect size, so this parameter is left as out
+* `sig.level` = The significance level of your study
+* `power` = The power level of your study
+
+
+```{r}
+pwr.f2.test(u = 1, v = 179, sig.level = 0.05, power = 0.8)
 ```
-
-
-```{r eval=FALSE}
-ggplot(data_alter, aes(sample = Mean_SPSS)) +
-  stat_qq() +
-  stat_qq_line()
-```
-
+With the design and sample size we have, we could have detected an effect as small as $f^2 = .044$. Since the observed effect size from our inferential statistics was larger ($f^2 = .080$), this means our test was sufficiently powered to detect the observed effect. 
 
 ## [Pair-coding]{style="color: #F39C12; text-transform: uppercase;"} {.unnumbered}
+
+### Task 1: Open the R project for the lab {.unnumbered}
+
+### Task 2: Create a new `.Rmd` file {.unnumbered}
+
+... and name it something useful. If you need help, have a look at @sec-rmd.
+
+### Task 3: Load in the library and read in the data {.unnumbered}
+
+The data should already be in your project folder. If you want a fresh copy, you can download the data again here: [data_pair_coding](data/data_pair_coding.zip "download").
+
+We are using the packages `tidyverse` and `performance` today.
+If you have already worked through this chapter, you will have all the packages installed. If you have yet to complete @sec-reg, you will need to install the package `performance` (see @sec-install_packages for guidance if needed).
+
+We also need to read in `dog_data_clean_wide.csv`. Again, I've named my data object `dog_data_wide` to shorten the name but feel free to use whatever object name sounds intuitive to you. 
+
+
+```{r reading in data for me, echo=FALSE, message=FALSE}
+library(tidyverse)
+library(performance)
+
+dog_data_wide <- read_csv("data/dog_data_clean_wide.csv")
+
+dog_reg <- dog_data_wide %>%
+  select(RID, Loneliness_post, SCS_pre) %>% 
+  drop_na()
+
+mod <- lm(Loneliness_post~SCS_pre, data = dog_reg)
+```
+
+
+### Task 4: Tidy data & Selecting variables of interest {.unnumbered}
+
+Let's try to answer the question whether pre-intervention social connectedness (`SCS_pre`) predicts post-intervention loneliness (`Loneliness_post`)?
+
+Not much tidying to do today.
+
+**Step 1:** Select the variables of interest. Store them in a new data object called `dog_reg`. 
+
+**Step 2:** Check for missing values and remove participants with missing in either variable.
+
+
+::: {.callout-note collapse="true" icon="false"} 
+
+## Hints
+
+**Step 1:** Variables of interest are pre-intervention social connectedness (`SCS_pre`), post-intervention loneliness (`Loneliness_post`), and of course the participant ID (`RID`).
+
+**Step 2:** The function `drop_na()` is your friend.
+
+
+::: {.callout-caution collapse="true" icon="false"} 
+
+## Solution
+
+```{r}
+dog_reg <- dog_data_wide %>%
+  # Step 1
+  select(RID, Loneliness_post, SCS_pre) %>% 
+  # Step 2
+  drop_na()
+```
+
+
+:::
+
+:::
+
+
+### Task 5: Visualise the relationship {.unnumbered}
+
+I've used the following code to create a scatterplot to explore the relationship between social connectedness (pre-test) and loneliness (post-test). Can you check I did it correctly?
+
+
+```{r}
+ggplot(dog_reg, aes(x = Loneliness_post, y = SCS_pre)) +
+  geom_point() +
+  geom_smooth(method = "lm")
+```
+
+Did I do it right? `r mcq(c(x = "yes", answer = "no"))`
+
+
+::: {.callout-caution collapse="true" icon="false"} 
+
+## Solution
+
+The scatterplot is incorrect. Since we are predicting loneliness from social connectedness, the axes should be reversed.
+
+In a correlation, the order of x and y does not matter, but in a regression, the predictor variable must be on the x-axis, and the outcome variable must be on the y-axis.
+
+Here is the corrected scatterplot:
+
+```{r}
+ggplot(dog_reg, aes(x = SCS_pre, y = Loneliness_post)) +
+  geom_point() +
+  geom_smooth(method = "lm")
+```
+:::
+
+
+### Task 6: Model creating & Assumption checks {.unnumbered}
+
+Let's store our linear model as `mod` and then use the `check_model()` function from the `performance` package to check assumptions.
+
+Remember, the structure of the linear model is:
+
+```{r eval=FALSE}
+mod <- lm(Outcome~Predictor, data)
+```
+
+
+Once the model is stored as `mod`, we can check its assumptions using `check_model(mod)`.
+
+::: {.callout-caution collapse="true" icon="false"} 
+
+## Solution
+
+```{r}
+## creating the linear model
+mod <- lm(Loneliness_post~SCS_pre, data = dog_reg)
+
+## checking model assumptions
+check_model(mod)
+```
+
+:::
+
+
+Assumptions 1-3 hold due to the study design, but let’s take a closer look at the following output:
+
+```{r echo=FALSE}
+check_model(mod)
+```
+
+
+* Linearity: The relationship appears to be `r mcq(sample(c(answer = "linear", x = "non-linear")))`.
+* Normality: The residuals are `r mcq(sample(c(answer = "approximately normally distributed", x = "not normally distributed")))`.
+* Homoscedasticity: There is `r mcq(sample(c(answer = "homoscedasticity as there is no distinct pattern in the residuals", x = "heteroscedasticity as the residuals show a distinct pattern")))`.
+
+
+::: {.callout-caution collapse="true" icon="false"} 
+
+## I don't understand - can you explain more?
+
+* Linearity: The reference line is mostly flat and horizontal. There’s a slight curve at the end, but when checking the scatterplot, it’s not a major concern.
+* Normality: Looking pretty good. The dots fall onto the line, indicating the residuals are approximately normally distributed. A Q-Q plot would show the same outcome, but with the reference line diagonal instead of horizontal.
+* Homoscedasticity (or Homogeneity of Variance): Yeah, the reference line could be a bit more horizontal, but there’s no clear funnel shape. The points appear to have a fairly random pattern, so we can consider the assumption met.
+
+:::
+
+### Task 7: Computing a Simple Regression & interpret the output {.unnumbered}
+
+To compute the simple regression, we need to use the `summary()` on our linear model `mod`.
+
+```{r eval=FALSE}
+summary(mod)
+```
+
+How do you interpret the output?
+
+* The estimate of the y-intercept for the model, rounded to two decimal places, is `r fitb("4.40")`
+
+* The relationship is `r mcq(c(x = "positive", answer = "negative"))`
+
+* The model indicated that `r mcq(c(answer = "Social Connectedness significantly predicts Loneliness post intervention.", x = "Social Connectedness does not significantly predicts Loneliness post intervention."))`
+
+* How much the variance is explained by the model (rounded to two decimal places)? `r fitb("74.95")`%.
+
 
 
 
@@ -209,4 +588,82 @@ ggplot(data_alter, aes(sample = Mean_SPSS)) +
 ## [Test your knowledge]{style="color: #F39C12; text-transform: uppercase;"} {.unnumbered}
 
 
+#### Question 1 {.unnumbered}
+
+**What is the main purpose of a simple regression analysis?**
+
+`r longmcq(sample(c(answer = "To predict or explain changes in an outcome variable based on changes in a predictor variable.", x = "To determine whether there is an association between two variables, without assuming causality.", x = "To compare means between two groups and determine if they are significantly different.", x = "To assess whether multiple independent variables jointly predict an outcome variable.")))`
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Explain this answer
+
+Simple regression is used to model the relationship between one predictor and one outcome variable and to determine how well the predictor explains variations in the outcome. While correlation measures association and t-tests compare means, regression specifically focuses on prediction or explanation. Multiple regression involves more than one predictor.
+
+:::
+
+#### Question 2 {.unnumbered}
+
+**A sports scientist wants to examine whether an athlete’s reaction time (in milliseconds) can predict their sprint speed (in seconds) in a 100m race.**
+
+**Which of the following correctly specifies the simple regression model in R?**
+
+`r longmcq(sample(c(answer = "lm(Sprint_Speed ~ Reaction_Time, data = data)", x = "lm(Reaction_Time ~ Sprint_Speed, data = data)", x = "lm(Sprint_Speed ~ Reaction_Time + Training_Hours, data = data)", x = "lm(Reaction_Time ~ Sprint_Speed + Age, data = data)")))`
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Explain this answer
+
+In a simple regression model, the outcome variable (dependent variable, DV) should be placed first, followed by the tilde (~), and then the predictor variable (independent variable, IV). That's why the correct solution is `Sprint_Speed ~ Reaction_Time`.
+
+In one of the options, the variables were reversed,  treating sprint speed as the predictor and reaction time as the outcome variable.
+
+The other 2 options incorrectly include multiple predictors, which would make this a multiple regression model.
+
+:::
+
+
+#### Question 3 {.unnumbered}
+
+**In a simple regression model where reaction time (milliseconds) predicts sprint speed (seconds), the regression output shows:**
+
+$$
+Sprint Speed = 10.2 + 0.08 × Reaction Time
+$$
+
+**How should the slope be interpreted?**
+
+`r longmcq(sample(c(answer = "A 1-millisecond increase in reaction time is associated with a 0.08-second increase in sprint speed.", x = "A 1-millisecond increase in reaction time is associated with a 0.08-second decrease in sprint speed.", x = "A 1-millisecond increase in reaction time is associated with a 10.2-second increase in sprint speed.", x = "A 1-millisecond increase in reaction time is associated with a 10.2-second decrease in sprint speed.")))`
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Explain this answer
+
+The slope (0.08), not the intercept (10.2), tells us the expected change in the outcome variable (sprint speed) for a one-unit increase in the predictor (reaction time). Since the coefficient is positive, it indicates that slower reaction times (higher values) are associated with slower sprint speeds (higher times).
+
+:::
+
+
+
+#### Question 4 {.unnumbered}
+
+**A simple regression analysis finds an $R^2_{Adjusted} = 0.62$ when predicting sprint speed from reaction time. What does this mean?**
+
+`r longmcq(sample(c(answer = "62% of the variance in sprint speed is explained by reaction time.", x = "62% of the variance in reaction time is explained by sprint speed.", x = "The predictor fully explains the outcome.", x = "The model does not fit well because the adjusted $R^2$ is too high.")))`
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Explain this answer
+
+Adjusted $R^2$ represents the proportion of variance in the dependent variable (sprint speed) that is explained by the independent variable (reaction time). A value of 0.62 means that 62% of the differences in sprint speed can be accounted for by reaction time, indicating a strong predictive relationship.
+
+The other options are incorrect:
+
+* One of the options reverses the outcome variable and the predictor. Since the DV is sprint speed, we cannot say that 62% of reaction time is explained by sprint speed.
+
+* A high $R^2$ adjusted does not mean the predictor fully explains the outcome. Some variability ($1 - R^2_{Adjusted} = 38\%$) remains unexplained, meaning other factors beyond reaction time contribute to sprint speed. A perfect model would have ($R^2 = 1.00$), which is almost never the case in real data.
+
+* A high $R^2$ adjusted does not mean the model is bad. In fact, 0.62 is quite strong, meaning the model fits the data well. A high can sometimes be concerning if it’s unexpectedly large (e.g., above 0.90 in social sciences), but here it may simply indicate a strong relationship.
+
+:::
 

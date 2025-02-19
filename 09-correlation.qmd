@@ -855,7 +855,7 @@ We can either do the assumption check by looking at the scatterplot above or we 
 
 
 
-### Task 6: Compute a Pearson correlation & interpret the output {.unnumbered}
+### Task 7: Compute a Pearson correlation & interpret the output {.unnumbered}
 
 * **Step 1**: Compute the Pearson correlation. The structure of the function is as follows:
 
