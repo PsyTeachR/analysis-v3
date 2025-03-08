@@ -16,7 +16,7 @@ By the end of this chapter you should be able to:
 
 This week, we will be working with a new dataset. Follow the steps below to set up your project:
 
-* **Create a new project** and name it something meaningful (e.g., "2A_chapter10", or "10_regression"). See @sec-project if you need some guidance.
+* **Create a new project** and name it something meaningful (e.g., "2B_chapter10", or "10_regression"). See @sec-project if you need some guidance.
 * **Create a new `.Rmd` file** and save it to your project folder. See @sec-rmd if you need help. 
 * Delete everything after the setup code chunk (e.g., line 12 and below) 
 * **Download the new dataset** here: [data_ch10.zip](data/data_ch10.zip "download"). The zip folder includes the data file and the codebook.
@@ -163,6 +163,107 @@ data_alter_reduced <- data_alter %>%
   select(StudentIDE, Mean_QSE, Mean_SPSS)
 ```
 
+
+:::
+
+:::
+
+
+::: {.callout-important collapse="true" icon="false"}
+## Extra Activity - recoding Gender and Student Status
+
+::: {.callout-tip collapse="true" icon="false"}
+
+## Challenge yourself: Easy (recoding Gender)
+
+Recode column `GenderE` so the values read "Female", "Male", and "Non-Binary" instead of 1, 2, and 3. Use the codebook to guide you. We have done this quite a few times now, but if you need a hint, recoding values was covered in @sec-wrangling2_act3.
+
+Might as well turn `Gender` into a factor while we are at it.
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Solution for Gender
+
+```{r eval=FALSE}
+data_alter <- data_alter %>% 
+  mutate(Gender = case_match(GenderE,
+                             1 ~ "Female",
+                             2 ~ "Male",
+                             3 ~ "Non-Binary"),
+         Gender = factor(Gender))
+  
+```
+:::
+
+:::
+
+
+
+::: {.callout-warning collapse="true" icon="false"}
+
+## Challenge yourself: A bit harder (recoding Student Status)
+
+However, recoding Student Status is a bit more tricky. There appear to be numbers and different ways of spelling.
+
+To capture all of them, we will need to know the distinct categories fist. We have used the `distinct()` function briefly in previous chapters. Time to use it once more.
+
+::: {.callout-caution collapse="true" icon="false"} 
+
+## Solution to identify distinct categories
+
+```{r}
+data_alter %>% 
+  distinct(StuStaE)
+```
+
+:::
+
+Now that we have identified the distinct values of column `StuStaE`, we can use a conditional statement to recode those distinct categories to obtain the categorical labels in the codebook. 
+
+Do you remember how conditional recoding is done? If not, get some inspiration from @sec-wrangling2_act4.
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Solution for Student Status: Option 1
+
+You could only recode the values that are "incorrect", i.e., converting the numbers into labels and grouping together everyone who falls into the category "Senior or Higher".
+
+As `Student_Status` is an ordinal variable, we should turn it into a factor to order the categories accordingly.
+
+```{r eval=FALSE}
+data_alter <- data_alter %>% 
+  mutate(Student_Status = case_when(
+    StuStaE == "2" ~ "Sophomore",
+    StuStaE == "3" ~ "Junior",
+    StuStaE %in% c("4", "Senior", "senior", "post-bac") ~ "Senior or Higher",
+    .default = StuStaE
+  )) %>% 
+  mutate(Student_Status = factor(Student_Status,
+                                 levels = c("Freshman", "Sophomore", "Junior", "Senior or Higher")))
+```
+
+:::
+
+
+::: {.callout-caution collapse="true" icon="false"}
+## Solution for Student Status: Option 2
+
+You could also recode all the labels whether they are already correctly spelled or not, if that seems more intuitive to you. You could leave out the `.default` argument this way. Yet, you'd still have to group everyone who falls into the category "Senior or Higher". Perhaps, a bit more writing overall, but the same outcome.
+
+I will label the newly recoded columns differently, so you'll see that both ways get you the same outcome.
+
+```{r eval=FALSE}
+data_alter <- data_alter %>% 
+  mutate(StuSta_tidy = case_when(
+           StuStaE %in% c("1", "Freshman") ~ "Freshman",
+           StuStaE %in% c("2", "Sophomore") ~ "Sophomore",
+           StuStaE %in% c("3", "Junior") ~ "Junior",
+           StuStaE %in% c("4", "Senior", "senior", "post-bac") ~ "Senior or Higher"),
+         StuSta_tidy = factor(StuSta_tidy,
+                              levels = c("Freshman", "Sophomore", "Junior", "Senior or Higher")))
+```
+
+:::
 
 :::
 
@@ -385,23 +486,16 @@ f_2
 Now, we have all the necessary values to write up the results!
 
 
-## Activity 8: The write-up
-
-A simple linear regression was performed with Attitudes toward SPSS $(M = 3.50, SD = 0.73)$ as the outcome variable and Quantitative self-efficacy $(M = 3.39, SD = 0.78)$ as the predictor variable. 
-
-The results of the regression indicated that the model significantly predicted Attitudes toward SPSS $(F(1, 179) = 15.47 p < .001, R^2_{Adjusted} = .074, f^2 = .080)$, accounting for 7.4% of the variance. The effect of Quantitative self-efficacy was statistically significant, positive, and of small magnitude $(b = .26, 95\% CI = [.13, .40], p <.001 )$.
-
-
-## Activity 9: Sensitivity power analysis
+## Activity 8: Sensitivity power analysis
 
 As usual, we can calculate the smallest effect size that our study was able to detect, given our design and sample size.
 
-To do this, we use the `pwr.f2.test()` function from the pwr package. This function requires the following arguments:
+To do this, we use the `pwr.f2.test()` function from the `pwr` package. This function requires the following arguments:
 
 
 * `u` = Numerator degrees of freedom. This the number of coefficients you have in your model (minus the intercept)
 * `v` = Denominator degrees of freedom. This is calculated as $v=n-u-1$, where $n$ is the number of participants.
-* `f2` = The effect size. Here we are solving the effect size, so this parameter is left as out
+* `f2` = The effect size. Here we are solving the effect size, so this parameter is left out
 * `sig.level` = The significance level of your study
 * `power` = The power level of your study
 
@@ -409,7 +503,16 @@ To do this, we use the `pwr.f2.test()` function from the pwr package. This funct
 ```{r}
 pwr.f2.test(u = 1, v = 179, sig.level = 0.05, power = 0.8)
 ```
-With the design and sample size we have, we could have detected an effect as small as $f^2 = .044$. Since the observed effect size from our inferential statistics was larger ($f^2 = .080$), this means our test was sufficiently powered to detect the observed effect. 
+
+With the design and sample size we have, we could have detected an effect as small as $f^2 = .044$. Since the observed effect size from our inferential statistics was larger ($f^2 = .074$), this means our test was sufficiently powered to detect the observed effect. 
+
+
+## Activity 9: The write-up
+
+A simple linear regression was performed with Attitudes toward SPSS $(M = 3.50, SD = 0.73)$ as the outcome variable and Quantitative self-efficacy $(M = 3.39, SD = 0.78)$ as the predictor variable. 
+
+The results of the regression indicated that the model significantly predicted Attitudes toward SPSS $(F(1, 179) = 15.47 p < .001, R^2_{Adjusted} = .074, f^2 = .074)$, accounting for 7.4% of the variance. The effect of Quantitative self-efficacy was statistically significant, positive, and of small magnitude $(b = 0.26, 95\% CI = [.13, .40], p <.001 )$.
+
 
 ## [Pair-coding]{style="color: #F39C12; text-transform: uppercase;"} {.unnumbered}
 
@@ -666,4 +769,6 @@ The other options are incorrect:
 * A high $R^2$ adjusted does not mean the model is bad. In fact, 0.62 is quite strong, meaning the model fits the data well. A high can sometimes be concerning if it’s unexpectedly large (e.g., above 0.90 in social sciences), but here it may simply indicate a strong relationship.
 
 :::
+
+
 

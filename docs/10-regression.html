@@ -60,7 +60,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./appendix-a-installing-r.html" rel="next">
+<link href="./11-multiple-regression.html" rel="next">
 <link href="./09-correlation.html" rel="prev">
 <link href="./images/logos/logo_analysis.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
@@ -225,6 +225,12 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
  <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Simple regression</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11-multiple-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Multiple regression</span></span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
@@ -283,8 +289,8 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
   <li><a href="#activity-5-create-an-appropriate-plot" id="toc-activity-5-create-an-appropriate-plot" class="nav-link" data-scroll-target="#activity-5-create-an-appropriate-plot"><span class="header-section-number">10.5</span> Activity 5: Create an appropriate plot</a></li>
   <li><a href="#activity-6-check-assumptions" id="toc-activity-6-check-assumptions" class="nav-link" data-scroll-target="#activity-6-check-assumptions"><span class="header-section-number">10.6</span> Activity 6: Check assumptions</a></li>
   <li><a href="#activity-7-compute-the-regression-confidence-intervals-and-effect-size" id="toc-activity-7-compute-the-regression-confidence-intervals-and-effect-size" class="nav-link" data-scroll-target="#activity-7-compute-the-regression-confidence-intervals-and-effect-size"><span class="header-section-number">10.7</span> Activity 7: Compute the regression, confidence intervals, and effect size</a></li>
-  <li><a href="#activity-8-the-write-up" id="toc-activity-8-the-write-up" class="nav-link" data-scroll-target="#activity-8-the-write-up"><span class="header-section-number">10.8</span> Activity 8: The write-up</a></li>
-  <li><a href="#activity-9-sensitivity-power-analysis" id="toc-activity-9-sensitivity-power-analysis" class="nav-link" data-scroll-target="#activity-9-sensitivity-power-analysis"><span class="header-section-number">10.9</span> Activity 9: Sensitivity power analysis</a></li>
+  <li><a href="#activity-8-sensitivity-power-analysis" id="toc-activity-8-sensitivity-power-analysis" class="nav-link" data-scroll-target="#activity-8-sensitivity-power-analysis"><span class="header-section-number">10.8</span> Activity 8: Sensitivity power analysis</a></li>
+  <li><a href="#activity-9-the-write-up" id="toc-activity-9-the-write-up" class="nav-link" data-scroll-target="#activity-9-the-write-up"><span class="header-section-number">10.9</span> Activity 9: The write-up</a></li>
   <li>
 <a href="#pair-coding" id="toc-pair-coding" class="nav-link" data-scroll-target="#pair-coding"><span style="color: #F39C12; text-transform: uppercase;">Pair-coding</span></a>
   <ul class="collapse">
@@ -327,7 +333,7 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <p>This week, we will be working with a new dataset. Follow the steps below to set up your project:</p>
 <ul>
 <li>
-<strong>Create a new project</strong> and name it something meaningful (e.g., “2A_chapter10”, or “10_regression”). See <a href="01-basics.html#sec-project"><span>Section&nbsp;1.2</span></a> if you need some guidance.</li>
+<strong>Create a new project</strong> and name it something meaningful (e.g., “2B_chapter10”, or “10_regression”). See <a href="01-basics.html#sec-project"><span>Section&nbsp;1.2</span></a> if you need some guidance.</li>
 <li>
 <strong>Create a new <code>.Rmd</code> file</strong> and save it to your project folder. See <a href="01-basics.html#sec-rmd"><span>Section&nbsp;1.3</span></a> if you need help.</li>
 <li>Delete everything after the setup code chunk (e.g., line 12 and below)</li>
@@ -540,11 +546,200 @@ Solution
 </div>
 </div>
 </div>
+<div class="callout callout-style-default callout-important no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Extra Activity - recoding Gender and Student Status
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Challenge yourself: Easy (recoding Gender)
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Recode column <code>GenderE</code> so the values read “Female”, “Male”, and “Non-Binary” instead of 1, 2, and 3. Use the codebook to guide you. We have done this quite a few times now, but if you need a hint, recoding values was covered in <a href="03-wrangling2.html#sec-wrangling2_act3"><span>Section&nbsp;3.3</span></a>.</p>
+<p>Might as well turn <code>Gender</code> into a factor while we are at it.</p>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution for Gender
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>data_alter <span class="ot">&lt;-</span> data_alter <span class="sc">%&gt;%</span> </span>
+<span id="cb4-2"><a href="#cb4-2"></a>  <span class="fu">mutate</span>(<span class="at">Gender =</span> <span class="fu">case_match</span>(GenderE,</span>
+<span id="cb4-3"><a href="#cb4-3"></a>                             <span class="dv">1</span> <span class="sc">~</span> <span class="st">"Female"</span>,</span>
+<span id="cb4-4"><a href="#cb4-4"></a>                             <span class="dv">2</span> <span class="sc">~</span> <span class="st">"Male"</span>,</span>
+<span id="cb4-5"><a href="#cb4-5"></a>                             <span class="dv">3</span> <span class="sc">~</span> <span class="st">"Non-Binary"</span>),</span>
+<span id="cb4-6"><a href="#cb4-6"></a>         <span class="at">Gender =</span> <span class="fu">factor</span>(Gender))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Challenge yourself: A bit harder (recoding Student Status)
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>However, recoding Student Status is a bit more tricky. There appear to be numbers and different ways of spelling.</p>
+<p>To capture all of them, we will need to know the distinct categories fist. We have used the <code>distinct()</code> function briefly in previous chapters. Time to use it once more.</p>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution to identify distinct categories
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>data_alter <span class="sc">%&gt;%</span> </span>
+<span id="cb5-2"><a href="#cb5-2"></a>  <span class="fu">distinct</span>(StuStaE)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: left;">StuStaE</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Junior</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Senior</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">senior</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Sophomore</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Freshman</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">post-bac</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Now that we have identified the distinct values of column <code>StuStaE</code>, we can use a conditional statement to recode those distinct categories to obtain the categorical labels in the codebook.</p>
+<p>Do you remember how conditional recoding is done? If not, get some inspiration from <a href="03-wrangling2.html#sec-wrangling2_act4"><span>Section&nbsp;3.4</span></a>.</p>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution for Student Status: Option 1
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>You could only recode the values that are “incorrect”, i.e., converting the numbers into labels and grouping together everyone who falls into the category “Senior or Higher”.</p>
+<p>As <code>Student_Status</code> is an ordinal variable, we should turn it into a factor to order the categories accordingly.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>data_alter <span class="ot">&lt;-</span> data_alter <span class="sc">%&gt;%</span> </span>
+<span id="cb6-2"><a href="#cb6-2"></a>  <span class="fu">mutate</span>(<span class="at">Student_Status =</span> <span class="fu">case_when</span>(</span>
+<span id="cb6-3"><a href="#cb6-3"></a>    StuStaE <span class="sc">==</span> <span class="st">"2"</span> <span class="sc">~</span> <span class="st">"Sophomore"</span>,</span>
+<span id="cb6-4"><a href="#cb6-4"></a>    StuStaE <span class="sc">==</span> <span class="st">"3"</span> <span class="sc">~</span> <span class="st">"Junior"</span>,</span>
+<span id="cb6-5"><a href="#cb6-5"></a>    StuStaE <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"4"</span>, <span class="st">"Senior"</span>, <span class="st">"senior"</span>, <span class="st">"post-bac"</span>) <span class="sc">~</span> <span class="st">"Senior or Higher"</span>,</span>
+<span id="cb6-6"><a href="#cb6-6"></a>    <span class="at">.default =</span> StuStaE</span>
+<span id="cb6-7"><a href="#cb6-7"></a>  )) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-8"><a href="#cb6-8"></a>  <span class="fu">mutate</span>(<span class="at">Student_Status =</span> <span class="fu">factor</span>(Student_Status,</span>
+<span id="cb6-9"><a href="#cb6-9"></a>                                 <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Freshman"</span>, <span class="st">"Sophomore"</span>, <span class="st">"Junior"</span>, <span class="st">"Senior or Higher"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution for Student Status: Option 2
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>You could also recode all the labels whether they are already correctly spelled or not, if that seems more intuitive to you. You could leave out the <code>.default</code> argument this way. Yet, you’d still have to group everyone who falls into the category “Senior or Higher”. Perhaps, a bit more writing overall, but the same outcome.</p>
+<p>I will label the newly recoded columns differently, so you’ll see that both ways get you the same outcome.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>data_alter <span class="ot">&lt;-</span> data_alter <span class="sc">%&gt;%</span> </span>
+<span id="cb7-2"><a href="#cb7-2"></a>  <span class="fu">mutate</span>(<span class="at">StuSta_tidy =</span> <span class="fu">case_when</span>(</span>
+<span id="cb7-3"><a href="#cb7-3"></a>           StuStaE <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"1"</span>, <span class="st">"Freshman"</span>) <span class="sc">~</span> <span class="st">"Freshman"</span>,</span>
+<span id="cb7-4"><a href="#cb7-4"></a>           StuStaE <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"2"</span>, <span class="st">"Sophomore"</span>) <span class="sc">~</span> <span class="st">"Sophomore"</span>,</span>
+<span id="cb7-5"><a href="#cb7-5"></a>           StuStaE <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"3"</span>, <span class="st">"Junior"</span>) <span class="sc">~</span> <span class="st">"Junior"</span>,</span>
+<span id="cb7-6"><a href="#cb7-6"></a>           StuStaE <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"4"</span>, <span class="st">"Senior"</span>, <span class="st">"senior"</span>, <span class="st">"post-bac"</span>) <span class="sc">~</span> <span class="st">"Senior or Higher"</span>),</span>
+<span id="cb7-7"><a href="#cb7-7"></a>         <span class="at">StuSta_tidy =</span> <span class="fu">factor</span>(StuSta_tidy,</span>
+<span id="cb7-8"><a href="#cb7-8"></a>                              <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Freshman"</span>, <span class="st">"Sophomore"</span>, <span class="st">"Junior"</span>, <span class="st">"Senior or Higher"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </section><section id="activity-4-compute-descriptives" class="level2" data-number="10.4"><h2 data-number="10.4" class="anchored" data-anchor-id="activity-4-compute-descriptives">
 <span class="header-section-number">10.4</span> Activity 4: Compute descriptives</h2>
 <p>Now, we can calculate the <strong>means</strong> and <strong>standard deviations</strong> for our predictor and outcome variables.</p>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -553,14 +748,14 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div id="callout-12" class="callout-12-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>descriptives <span class="ot">&lt;-</span> data_alter_reduced <span class="sc">%&gt;%</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a>  <span class="fu">summarise</span>(<span class="at">mean_QSE =</span> <span class="fu">mean</span>(Mean_QSE, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb4-3"><a href="#cb4-3"></a>            <span class="at">sd_QSE =</span> <span class="fu">sd</span>(Mean_QSE, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb4-4"><a href="#cb4-4"></a>            <span class="at">mean_SPSS =</span> <span class="fu">mean</span>(Mean_SPSS, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb4-5"><a href="#cb4-5"></a>            <span class="at">sd_SPSS =</span> <span class="fu">sd</span>(Mean_SPSS, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>descriptives <span class="ot">&lt;-</span> data_alter_reduced <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>  <span class="fu">summarise</span>(<span class="at">mean_QSE =</span> <span class="fu">mean</span>(Mean_QSE, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb8-3"><a href="#cb8-3"></a>            <span class="at">sd_QSE =</span> <span class="fu">sd</span>(Mean_QSE, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb8-4"><a href="#cb8-4"></a>            <span class="at">mean_SPSS =</span> <span class="fu">mean</span>(Mean_SPSS, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb8-5"><a href="#cb8-5"></a>            <span class="at">sd_SPSS =</span> <span class="fu">sd</span>(Mean_SPSS, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -574,13 +769,13 @@ Solution
 </div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="10-regression_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="10-regression_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
 </div>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -589,12 +784,12 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div id="callout-13" class="callout-13-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">ggplot</span>(data_alter_reduced, <span class="fu">aes</span>(<span class="at">x =</span> Mean_QSE, <span class="at">y =</span> Mean_SPSS)) <span class="sc">+</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">ggplot</span>(data_alter_reduced, <span class="fu">aes</span>(<span class="at">x =</span> Mean_QSE, <span class="at">y =</span> Mean_SPSS)) <span class="sc">+</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -620,15 +815,15 @@ Solution
 <li>The dataset</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(Mean_SPSS<span class="sc">~</span>Mean_QSE, <span class="at">data =</span> data_alter_reduced)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(Mean_SPSS<span class="sc">~</span>Mean_QSE, <span class="at">data =</span> data_alter_reduced)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now we can continue with the assumption check of linearity. The relationship between the two variables must be linear.</p>
 <p>We can assess linearity visually, just as we did in the correlation chapter, by using a <strong>Residuals vs Fitted plot</strong>. We can use the <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> function on our linear model (<code>mod</code>) with the which argument set to 1.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">plot</span>(mod, <span class="at">which =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">plot</span>(mod, <span class="at">which =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="10-regression_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="10-regression_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -638,10 +833,10 @@ Solution
 <p>Residuals for both variables should follow a <strong>bivariate normal distribution</strong> (i.e., both together normally distributed).</p>
 <p>We can visually check this assumption using a <strong>Q-Q plot</strong>. To generate it, we use the <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> function on our linear model <code>mod</code>, setting the <code>which</code> argument to 2. Again, this is the same approach we used in the correlation chapter to check for normality.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">plot</span>(mod, <span class="at">which =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">plot</span>(mod, <span class="at">which =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="10-regression_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="10-regression_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -651,10 +846,10 @@ Solution
 <p>Homoscedasticity assumes that the <strong>spread of residuals is consistent</strong> across all levels of the predictor variable, meaning that the data is evenly distributed around the line of best fit, with no visible pattern. We can assess this assumption visually using a <strong>Scale-Location plot</strong>.</p>
 <p>To generate it, we use the <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> function on our linear model <code>mod</code>, setting the <code>which</code> argument to 3:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">plot</span>(mod, <span class="at">which =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">plot</span>(mod, <span class="at">which =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="10-regression_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="10-regression_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -663,10 +858,10 @@ Solution
 </section><section id="checking-assumptions-differently-using-check_model-from-the-performance-package" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="checking-assumptions-differently-using-check_model-from-the-performance-package">Checking Assumptions Differently: Using <code>check_model()</code> from the <code>performance</code> package</h4>
 <p>Assumptions 4-6 can also be tested using the <code>check_model()</code> function from the <code>performance</code> package. This function provides the same diagnostic checks as <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code>, but with a cleaner presentation and useful reminders of what to look for.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">check_model</span>(mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">check_model</span>(mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="10-regression_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="10-regression_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -691,7 +886,7 @@ Tip
 <p>The <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> function from Base R is the main function to estimate a <strong><em>L</em></strong>inear <strong><em>M</em></strong>odel (hence the function name <code>lm</code>). And if you’re experiencing a hint of déjà vu, you’re onto something! We have actually already used this function to store our linear model for assumption checks (remember the object called <code>mod</code>???).</p>
 <p>Just to recap, the <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> function uses formula syntax with the following arguments:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">lm</span>(OutcomeVariable <span class="sc">~</span> PredictorVariable, data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">lm</span>(OutcomeVariable <span class="sc">~</span> PredictorVariable, data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>For our example, the variables are:</p>
 <ul>
@@ -700,12 +895,12 @@ Tip
 </ul>
 <p>Thus, our regression model is:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(Mean_SPSS<span class="sc">~</span>Mean_QSE, <span class="at">data =</span> data_alter_reduced)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(Mean_SPSS<span class="sc">~</span>Mean_QSE, <span class="at">data =</span> data_alter_reduced)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>As you can see in the <code>Global Environment</code>, <code>mod</code> stores a list of 12 elements, containing quite a bit of information about the regression model.</p>
 <p>To view the results of our simple linear regression, use the <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> function on the <code>mod</code> object:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">summary</span>(mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">summary</span>(mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -748,7 +943,7 @@ Does it matter if the slope is positive or negative?
 <p>Sooo. We already have several key values, but we still need confidence intervals and effect sizes to fully report our results.</p>
 <p>R has a built-in function called <code><a href="https://rdrr.io/r/stats/confint.html">confint()</a></code> to calculate <strong>confidence intervals</strong> using our linear model object <code>mod</code>.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">confint</span>(mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="fu">confint</span>(mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                2.5 %    97.5 %
 (Intercept) 2.1421954 3.0658579
@@ -761,40 +956,36 @@ f^2 = \frac{R^2_{Adjusted}}{1-R^2_{Adjusted}}
 \]</span></p>
 <p>In our case, we can extract <span class="math inline">\(R^2_{Adjusted}\)</span> from the <code>summary(mod)</code> output.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>r_sq_adj <span class="ot">&lt;-</span> <span class="fu">summary</span>(mod)<span class="sc">$</span>adj.r.squared</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>r_sq_adj <span class="ot">&lt;-</span> <span class="fu">summary</span>(mod)<span class="sc">$</span>adj.r.squared</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>And then, we just use <code>r_sq_adj</code> in the formula above:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>f_2 <span class="ot">&lt;-</span> r_sq_adj<span class="sc">/</span>(<span class="dv">1</span><span class="sc">-</span>r_sq_adj)</span>
-<span id="cb19-2"><a href="#cb19-2"></a></span>
-<span id="cb19-3"><a href="#cb19-3"></a>f_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>f_2 <span class="ot">&lt;-</span> r_sq_adj<span class="sc">/</span>(<span class="dv">1</span><span class="sc">-</span>r_sq_adj)</span>
+<span id="cb23-2"><a href="#cb23-2"></a></span>
+<span id="cb23-3"><a href="#cb23-3"></a>f_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.08039889</code></pre>
 </div>
 </div>
 <p>Now, we have all the necessary values to write up the results!</p>
-</section><section id="activity-8-the-write-up" class="level2" data-number="10.8"><h2 data-number="10.8" class="anchored" data-anchor-id="activity-8-the-write-up">
-<span class="header-section-number">10.8</span> Activity 8: The write-up</h2>
-<p>A simple linear regression was performed with Attitudes toward SPSS <span class="math inline">\((M = 3.50, SD = 0.73)\)</span> as the outcome variable and Quantitative self-efficacy <span class="math inline">\((M = 3.39, SD = 0.78)\)</span> as the predictor variable.</p>
-<p>The results of the regression indicated that the model significantly predicted Attitudes toward SPSS <span class="math inline">\((F(1, 179) = 15.47 p &lt; .001, R^2_{Adjusted} = .074, f^2 = .080)\)</span>, accounting for 7.4% of the variance. The effect of Quantitative self-efficacy was statistically significant, positive, and of small magnitude <span class="math inline">\((b = .26, 95\% CI = [.13, .40], p &lt;.001 )\)</span>.</p>
-</section><section id="activity-9-sensitivity-power-analysis" class="level2" data-number="10.9"><h2 data-number="10.9" class="anchored" data-anchor-id="activity-9-sensitivity-power-analysis">
-<span class="header-section-number">10.9</span> Activity 9: Sensitivity power analysis</h2>
+</section><section id="activity-8-sensitivity-power-analysis" class="level2" data-number="10.8"><h2 data-number="10.8" class="anchored" data-anchor-id="activity-8-sensitivity-power-analysis">
+<span class="header-section-number">10.8</span> Activity 8: Sensitivity power analysis</h2>
 <p>As usual, we can calculate the smallest effect size that our study was able to detect, given our design and sample size.</p>
-<p>To do this, we use the <code>pwr.f2.test()</code> function from the pwr package. This function requires the following arguments:</p>
+<p>To do this, we use the <code>pwr.f2.test()</code> function from the <code>pwr</code> package. This function requires the following arguments:</p>
 <ul>
 <li>
 <code>u</code> = Numerator degrees of freedom. This the number of coefficients you have in your model (minus the intercept)</li>
 <li>
 <code>v</code> = Denominator degrees of freedom. This is calculated as <span class="math inline">\(v=n-u-1\)</span>, where <span class="math inline">\(n\)</span> is the number of participants.</li>
 <li>
-<code>f2</code> = The effect size. Here we are solving the effect size, so this parameter is left as out</li>
+<code>f2</code> = The effect size. Here we are solving the effect size, so this parameter is left out</li>
 <li>
 <code>sig.level</code> = The significance level of your study</li>
 <li>
 <code>power</code> = The power level of your study</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="fu">pwr.f2.test</span>(<span class="at">u =</span> <span class="dv">1</span>, <span class="at">v =</span> <span class="dv">179</span>, <span class="at">sig.level =</span> <span class="fl">0.05</span>, <span class="at">power =</span> <span class="fl">0.8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="fu">pwr.f2.test</span>(<span class="at">u =</span> <span class="dv">1</span>, <span class="at">v =</span> <span class="dv">179</span>, <span class="at">sig.level =</span> <span class="fl">0.05</span>, <span class="at">power =</span> <span class="fl">0.8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
      Multiple regression power calculation 
@@ -806,7 +997,11 @@ f^2 = \frac{R^2_{Adjusted}}{1-R^2_{Adjusted}}
           power = 0.8</code></pre>
 </div>
 </div>
-<p>With the design and sample size we have, we could have detected an effect as small as <span class="math inline">\(f^2 = .044\)</span>. Since the observed effect size from our inferential statistics was larger (<span class="math inline">\(f^2 = .080\)</span>), this means our test was sufficiently powered to detect the observed effect.</p>
+<p>With the design and sample size we have, we could have detected an effect as small as <span class="math inline">\(f^2 = .044\)</span>. Since the observed effect size from our inferential statistics was larger (<span class="math inline">\(f^2 = .074\)</span>), this means our test was sufficiently powered to detect the observed effect.</p>
+</section><section id="activity-9-the-write-up" class="level2" data-number="10.9"><h2 data-number="10.9" class="anchored" data-anchor-id="activity-9-the-write-up">
+<span class="header-section-number">10.9</span> Activity 9: The write-up</h2>
+<p>A simple linear regression was performed with Attitudes toward SPSS <span class="math inline">\((M = 3.50, SD = 0.73)\)</span> as the outcome variable and Quantitative self-efficacy <span class="math inline">\((M = 3.39, SD = 0.78)\)</span> as the predictor variable.</p>
+<p>The results of the regression indicated that the model significantly predicted Attitudes toward SPSS <span class="math inline">\((F(1, 179) = 15.47 p &lt; .001, R^2_{Adjusted} = .074, f^2 = .074)\)</span>, accounting for 7.4% of the variance. The effect of Quantitative self-efficacy was statistically significant, positive, and of small magnitude <span class="math inline">\((b = 0.26, 95\% CI = [.13, .40], p &lt;.001 )\)</span>.</p>
 </section><section id="pair-coding" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="pair-coding"><span style="color: #F39C12; text-transform: uppercase;">Pair-coding</span></h2>
 <section id="task-1-open-the-r-project-for-the-lab" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="task-1-open-the-r-project-for-the-lab">Task 1: Open the R project for the lab</h3>
 </section><section id="task-2-create-a-new-.rmd-file" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="task-2-create-a-new-.rmd-file">Task 2: Create a new <code>.Rmd</code> file</h3>
@@ -821,7 +1016,7 @@ f^2 = \frac{R^2_{Adjusted}}{1-R^2_{Adjusted}}
 <p><strong>Step 1:</strong> Select the variables of interest. Store them in a new data object called <code>dog_reg</code>.</p>
 <p><strong>Step 2:</strong> Check for missing values and remove participants with missing in either variable.</p>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -830,12 +1025,12 @@ Hints
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div id="callout-17" class="callout-17-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><strong>Step 1:</strong> Variables of interest are pre-intervention social connectedness (<code>SCS_pre</code>), post-intervention loneliness (<code>Loneliness_post</code>), and of course the participant ID (<code>RID</code>).</p>
 <p><strong>Step 2:</strong> The function <code>drop_na()</code> is your friend.</p>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -844,14 +1039,14 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div id="callout-16" class="callout-16-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>dog_reg <span class="ot">&lt;-</span> dog_data_wide <span class="sc">%&gt;%</span></span>
-<span id="cb23-2"><a href="#cb23-2"></a>  <span class="co"># Step 1</span></span>
-<span id="cb23-3"><a href="#cb23-3"></a>  <span class="fu">select</span>(RID, Loneliness_post, SCS_pre) <span class="sc">%&gt;%</span> </span>
-<span id="cb23-4"><a href="#cb23-4"></a>  <span class="co"># Step 2</span></span>
-<span id="cb23-5"><a href="#cb23-5"></a>  <span class="fu">drop_na</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>dog_reg <span class="ot">&lt;-</span> dog_data_wide <span class="sc">%&gt;%</span></span>
+<span id="cb27-2"><a href="#cb27-2"></a>  <span class="co"># Step 1</span></span>
+<span id="cb27-3"><a href="#cb27-3"></a>  <span class="fu">select</span>(RID, Loneliness_post, SCS_pre) <span class="sc">%&gt;%</span> </span>
+<span id="cb27-4"><a href="#cb27-4"></a>  <span class="co"># Step 2</span></span>
+<span id="cb27-5"><a href="#cb27-5"></a>  <span class="fu">drop_na</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -862,15 +1057,15 @@ Solution
 </section><section id="task-5-visualise-the-relationship" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="task-5-visualise-the-relationship">Task 5: Visualise the relationship</h3>
 <p>I’ve used the following code to create a scatterplot to explore the relationship between social connectedness (pre-test) and loneliness (post-test). Can you check I did it correctly?</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="fu">ggplot</span>(dog_reg, <span class="fu">aes</span>(<span class="at">x =</span> Loneliness_post, <span class="at">y =</span> SCS_pre)) <span class="sc">+</span></span>
-<span id="cb24-2"><a href="#cb24-2"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb24-3"><a href="#cb24-3"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="fu">ggplot</span>(dog_reg, <span class="fu">aes</span>(<span class="at">x =</span> Loneliness_post, <span class="at">y =</span> SCS_pre)) <span class="sc">+</span></span>
+<span id="cb28-2"><a href="#cb28-2"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb28-3"><a href="#cb28-3"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
 </div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="10-regression_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="10-regression_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -879,7 +1074,7 @@ Solution
 <option value="x">yes</option>
 <option value="answer">no</option></select></p>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -888,21 +1083,21 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div id="callout-18" class="callout-18-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>The scatterplot is incorrect. Since we are predicting loneliness from social connectedness, the axes should be reversed.</p>
 <p>In a correlation, the order of x and y does not matter, but in a regression, the predictor variable must be on the x-axis, and the outcome variable must be on the y-axis.</p>
 <p>Here is the corrected scatterplot:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="fu">ggplot</span>(dog_reg, <span class="fu">aes</span>(<span class="at">x =</span> SCS_pre, <span class="at">y =</span> Loneliness_post)) <span class="sc">+</span></span>
-<span id="cb26-2"><a href="#cb26-2"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb26-3"><a href="#cb26-3"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="fu">ggplot</span>(dog_reg, <span class="fu">aes</span>(<span class="at">x =</span> SCS_pre, <span class="at">y =</span> Loneliness_post)) <span class="sc">+</span></span>
+<span id="cb30-2"><a href="#cb30-2"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb30-3"><a href="#cb30-3"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
 </div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="10-regression_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="10-regression_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -914,11 +1109,11 @@ Solution
 <p>Let’s store our linear model as <code>mod</code> and then use the <code>check_model()</code> function from the <code>performance</code> package to check assumptions.</p>
 <p>Remember, the structure of the linear model is:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(Outcome<span class="sc">~</span>Predictor, data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(Outcome<span class="sc">~</span>Predictor, data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Once the model is stored as <code>mod</code>, we can check its assumptions using <code>check_model(mod)</code>.</p>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -927,17 +1122,17 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-12" class="callout-12-contents callout-collapse collapse">
+<div id="callout-19" class="callout-19-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="do">## creating the linear model</span></span>
-<span id="cb29-2"><a href="#cb29-2"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(Loneliness_post<span class="sc">~</span>SCS_pre, <span class="at">data =</span> dog_reg)</span>
-<span id="cb29-3"><a href="#cb29-3"></a></span>
-<span id="cb29-4"><a href="#cb29-4"></a><span class="do">## checking model assumptions</span></span>
-<span id="cb29-5"><a href="#cb29-5"></a><span class="fu">check_model</span>(mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="do">## creating the linear model</span></span>
+<span id="cb33-2"><a href="#cb33-2"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(Loneliness_post<span class="sc">~</span>SCS_pre, <span class="at">data =</span> dog_reg)</span>
+<span id="cb33-3"><a href="#cb33-3"></a></span>
+<span id="cb33-4"><a href="#cb33-4"></a><span class="do">## checking model assumptions</span></span>
+<span id="cb33-5"><a href="#cb33-5"></a><span class="fu">check_model</span>(mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="10-regression_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="10-regression_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -949,24 +1144,24 @@ Solution
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="10-regression_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="10-regression_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
 </div>
 <ul>
 <li>Linearity: The relationship appears to be <select class="webex-select"><option value="blank"></option>
-<option value="answer">linear</option>
-<option value="x">non-linear</option></select>.</li>
+<option value="x">non-linear</option>
+<option value="answer">linear</option></select>.</li>
 <li>Normality: The residuals are <select class="webex-select"><option value="blank"></option>
 <option value="answer">approximately normally distributed</option>
 <option value="x">not normally distributed</option></select>.</li>
 <li>Homoscedasticity: There is <select class="webex-select"><option value="blank"></option>
-<option value="answer">homoscedasticity as there is no distinct pattern in the residuals</option>
-<option value="x">heteroscedasticity as the residuals show a distinct pattern</option></select>.</li>
+<option value="x">heteroscedasticity as the residuals show a distinct pattern</option>
+<option value="answer">homoscedasticity as there is no distinct pattern in the residuals</option></select>.</li>
 </ul>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -975,7 +1170,7 @@ I don’t understand - can you explain more?
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-13" class="callout-13-contents callout-collapse collapse">
+<div id="callout-20" class="callout-20-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ul>
 <li>Linearity: The reference line is mostly flat and horizontal. There’s a slight curve at the end, but when checking the scatterplot, it’s not a major concern.</li>
@@ -988,7 +1183,7 @@ I don’t understand - can you explain more?
 </section><section id="task-7-computing-a-simple-regression-interpret-the-output" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="task-7-computing-a-simple-regression-interpret-the-output">Task 7: Computing a Simple Regression &amp; interpret the output</h3>
 <p>To compute the simple regression, we need to use the <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> on our linear model <code>mod</code>.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="fu">summary</span>(mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="fu">summary</span>(mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>How do you interpret the output?</p>
 <ul>
@@ -1003,11 +1198,11 @@ I don’t understand - can you explain more?
 </ul></section></section><section id="test-your-knowledge" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="test-your-knowledge"><span style="color: #F39C12; text-transform: uppercase;">Test your knowledge</span></h2>
 <section id="question-1" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-1">Question 1</h4>
 <p><strong>What is the main purpose of a simple regression analysis?</strong></p>
-<div id="radio_JVUOLCDBWZ" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_JVUOLCDBWZ" value="x"><span>To compare means between two groups and determine if they are significantly different.</span></label><label><input type="radio" autocomplete="off" name="radio_JVUOLCDBWZ" value="answer"><span>To predict or explain changes in an outcome variable based on changes in a predictor variable.</span></label><label><input type="radio" autocomplete="off" name="radio_JVUOLCDBWZ" value="x"><span>To assess whether multiple independent variables jointly predict an outcome variable.</span></label><label><input type="radio" autocomplete="off" name="radio_JVUOLCDBWZ" value="x"><span>To determine whether there is an association between two variables, without assuming causality.</span></label>
+<div id="radio_VOIPMVXYBM" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_VOIPMVXYBM" value="answer"><span>To predict or explain changes in an outcome variable based on changes in a predictor variable.</span></label><label><input type="radio" autocomplete="off" name="radio_VOIPMVXYBM" value="x"><span>To determine whether there is an association between two variables, without assuming causality.</span></label><label><input type="radio" autocomplete="off" name="radio_VOIPMVXYBM" value="x"><span>To compare means between two groups and determine if they are significantly different.</span></label><label><input type="radio" autocomplete="off" name="radio_VOIPMVXYBM" value="x"><span>To assess whether multiple independent variables jointly predict an outcome variable.</span></label>
 </div>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-21-contents" aria-controls="callout-21" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -1016,7 +1211,7 @@ Explain this answer
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-14" class="callout-14-contents callout-collapse collapse">
+<div id="callout-21" class="callout-21-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Simple regression is used to model the relationship between one predictor and one outcome variable and to determine how well the predictor explains variations in the outcome. While correlation measures association and t-tests compare means, regression specifically focuses on prediction or explanation. Multiple regression involves more than one predictor.</p>
 </div>
@@ -1025,11 +1220,11 @@ Explain this answer
 </section><section id="question-2" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-2">Question 2</h4>
 <p><strong>A sports scientist wants to examine whether an athlete’s reaction time (in milliseconds) can predict their sprint speed (in seconds) in a 100m race.</strong></p>
 <p><strong>Which of the following correctly specifies the simple regression model in R?</strong></p>
-<div id="radio_OFEPNCTMOP" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_OFEPNCTMOP" value="x"><span>lm(Reaction_Time ~ Sprint_Speed, data = data)</span></label><label><input type="radio" autocomplete="off" name="radio_OFEPNCTMOP" value="x"><span>lm(Reaction_Time ~ Sprint_Speed + Age, data = data)</span></label><label><input type="radio" autocomplete="off" name="radio_OFEPNCTMOP" value="x"><span>lm(Sprint_Speed ~ Reaction_Time + Training_Hours, data = data)</span></label><label><input type="radio" autocomplete="off" name="radio_OFEPNCTMOP" value="answer"><span>lm(Sprint_Speed ~ Reaction_Time, data = data)</span></label>
+<div id="radio_VWAVEWDNKL" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_VWAVEWDNKL" value="x"><span>lm(Reaction_Time ~ Sprint_Speed + Age, data = data)</span></label><label><input type="radio" autocomplete="off" name="radio_VWAVEWDNKL" value="x"><span>lm(Sprint_Speed ~ Reaction_Time + Training_Hours, data = data)</span></label><label><input type="radio" autocomplete="off" name="radio_VWAVEWDNKL" value="answer"><span>lm(Sprint_Speed ~ Reaction_Time, data = data)</span></label><label><input type="radio" autocomplete="off" name="radio_VWAVEWDNKL" value="x"><span>lm(Reaction_Time ~ Sprint_Speed, data = data)</span></label>
 </div>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-22-contents" aria-controls="callout-22" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -1038,7 +1233,7 @@ Explain this answer
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-15" class="callout-15-contents callout-collapse collapse">
+<div id="callout-22" class="callout-22-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>In a simple regression model, the outcome variable (dependent variable, DV) should be placed first, followed by the tilde (~), and then the predictor variable (independent variable, IV). That’s why the correct solution is <code>Sprint_Speed ~ Reaction_Time</code>.</p>
 <p>In one of the options, the variables were reversed, treating sprint speed as the predictor and reaction time as the outcome variable.</p>
@@ -1052,11 +1247,11 @@ Explain this answer
 Sprint Speed = 10.2 + 0.08 × Reaction Time
 \]</span></p>
 <p><strong>How should the slope be interpreted?</strong></p>
-<div id="radio_KSVCTVKODG" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_KSVCTVKODG" value="x"><span>A 1-millisecond increase in reaction time is associated with a 0.08-second decrease in sprint speed.</span></label><label><input type="radio" autocomplete="off" name="radio_KSVCTVKODG" value="x"><span>A 1-millisecond increase in reaction time is associated with a 10.2-second increase in sprint speed.</span></label><label><input type="radio" autocomplete="off" name="radio_KSVCTVKODG" value="x"><span>A 1-millisecond increase in reaction time is associated with a 10.2-second decrease in sprint speed.</span></label><label><input type="radio" autocomplete="off" name="radio_KSVCTVKODG" value="answer"><span>A 1-millisecond increase in reaction time is associated with a 0.08-second increase in sprint speed.</span></label>
+<div id="radio_AEZYVYPIHK" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_AEZYVYPIHK" value="answer"><span>A 1-millisecond increase in reaction time is associated with a 0.08-second increase in sprint speed.</span></label><label><input type="radio" autocomplete="off" name="radio_AEZYVYPIHK" value="x"><span>A 1-millisecond increase in reaction time is associated with a 10.2-second decrease in sprint speed.</span></label><label><input type="radio" autocomplete="off" name="radio_AEZYVYPIHK" value="x"><span>A 1-millisecond increase in reaction time is associated with a 10.2-second increase in sprint speed.</span></label><label><input type="radio" autocomplete="off" name="radio_AEZYVYPIHK" value="x"><span>A 1-millisecond increase in reaction time is associated with a 0.08-second decrease in sprint speed.</span></label>
 </div>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-23-contents" aria-controls="callout-23" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -1065,7 +1260,7 @@ Explain this answer
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-16" class="callout-16-contents callout-collapse collapse">
+<div id="callout-23" class="callout-23-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>The slope (0.08), not the intercept (10.2), tells us the expected change in the outcome variable (sprint speed) for a one-unit increase in the predictor (reaction time). Since the coefficient is positive, it indicates that slower reaction times (higher values) are associated with slower sprint speeds (higher times).</p>
 </div>
@@ -1073,11 +1268,11 @@ Explain this answer
 </div>
 </section><section id="question-4" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-4">Question 4</h4>
 <p><strong>A simple regression analysis finds an <span class="math inline">\(R^2_{Adjusted} = 0.62\)</span> when predicting sprint speed from reaction time. What does this mean?</strong></p>
-<div id="radio_VYETFZGQRY" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_VYETFZGQRY" value="x"><span>The model does not fit well because the adjusted <span class="math inline">\(R^2\)</span> is too high.</span></label><label><input type="radio" autocomplete="off" name="radio_VYETFZGQRY" value="x"><span>62% of the variance in reaction time is explained by sprint speed.</span></label><label><input type="radio" autocomplete="off" name="radio_VYETFZGQRY" value="answer"><span>62% of the variance in sprint speed is explained by reaction time.</span></label><label><input type="radio" autocomplete="off" name="radio_VYETFZGQRY" value="x"><span>The predictor fully explains the outcome.</span></label>
+<div id="radio_ISGQVEEEKE" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_ISGQVEEEKE" value="x"><span>62% of the variance in reaction time is explained by sprint speed.</span></label><label><input type="radio" autocomplete="off" name="radio_ISGQVEEEKE" value="x"><span>The model does not fit well because the adjusted <span class="math inline">\(R^2\)</span> is too high.</span></label><label><input type="radio" autocomplete="off" name="radio_ISGQVEEEKE" value="answer"><span>62% of the variance in sprint speed is explained by reaction time.</span></label><label><input type="radio" autocomplete="off" name="radio_ISGQVEEEKE" value="x"><span>The predictor fully explains the outcome.</span></label>
 </div>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-24-contents" aria-controls="callout-24" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -1086,7 +1281,7 @@ Explain this answer
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-17" class="callout-17-contents callout-collapse collapse">
+<div id="callout-24" class="callout-24-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Adjusted <span class="math inline">\(R^2\)</span> represents the proportion of variance in the dependent variable (sprint speed) that is explained by the independent variable (reaction time). A value of 0.62 means that 62% of the differences in sprint speed can be accounted for by reaction time, indicating a strong predictive relationship.</p>
 <p>The other options are incorrect:</p>
@@ -1685,8 +1880,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./appendix-a-installing-r.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Installing R</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./11-multiple-regression.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Multiple regression</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
