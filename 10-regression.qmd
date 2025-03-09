@@ -623,7 +623,7 @@ Let's store our linear model as `mod` and then use the `check_model()` function 
 Remember, the structure of the linear model is:
 
 ```{r eval=FALSE}
-mod <- lm(Outcome~Predictor, data)
+lm(Outcome~Predictor, data)
 ```
 
 

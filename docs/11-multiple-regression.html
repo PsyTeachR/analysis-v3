@@ -300,11 +300,20 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
   </ul>
 </li>
   <li><a href="#activity-6-compute-the-regression-confidence-intervals-and-effect-size" id="toc-activity-6-compute-the-regression-confidence-intervals-and-effect-size" class="nav-link" data-scroll-target="#activity-6-compute-the-regression-confidence-intervals-and-effect-size"><span class="header-section-number">11.6</span> Activity 6: Compute the regression, confidence intervals, and effect size</a></li>
-  <li><a href="#activity-7-visualising-interactions" id="toc-activity-7-visualising-interactions" class="nav-link" data-scroll-target="#activity-7-visualising-interactions"><span class="header-section-number">11.7</span> Activity 7: Visualising interactions</a></li>
+  <li><a href="#ch11_act_7" id="toc-ch11_act_7" class="nav-link" data-scroll-target="#ch11_act_7"><span class="header-section-number">11.7</span> Activity 7: Visualising interactions</a></li>
   <li><a href="#activity-8-check-assumptions" id="toc-activity-8-check-assumptions" class="nav-link" data-scroll-target="#activity-8-check-assumptions"><span class="header-section-number">11.8</span> Activity 8: Check assumptions</a></li>
   <li><a href="#activity-9-sensitivity-power-analysis" id="toc-activity-9-sensitivity-power-analysis" class="nav-link" data-scroll-target="#activity-9-sensitivity-power-analysis"><span class="header-section-number">11.9</span> Activity 9: Sensitivity power analysis</a></li>
   <li><a href="#activity-10-the-write-up" id="toc-activity-10-the-write-up" class="nav-link" data-scroll-target="#activity-10-the-write-up"><span class="header-section-number">11.10</span> Activity 10: The write-up</a></li>
-  <li><a href="#pair-coding" id="toc-pair-coding" class="nav-link" data-scroll-target="#pair-coding"><span style="color: #F39C12; text-transform: uppercase;">Pair-coding</span></a></li>
+  <li>
+<a href="#pair-coding" id="toc-pair-coding" class="nav-link" data-scroll-target="#pair-coding"><span style="color: #F39C12; text-transform: uppercase;">Pair-coding</span></a>
+  <ul class="collapse">
+<li><a href="#task-1-open-the-r-project-for-the-lab" id="toc-task-1-open-the-r-project-for-the-lab" class="nav-link" data-scroll-target="#task-1-open-the-r-project-for-the-lab">Task 1: Open the R project for the lab</a></li>
+  <li><a href="#task-2-create-a-new-.rmd-file" id="toc-task-2-create-a-new-.rmd-file" class="nav-link" data-scroll-target="#task-2-create-a-new-.rmd-file">Task 2: Create a new <code>.Rmd</code> file</a></li>
+  <li><a href="#task-3-load-in-the-library-and-read-in-the-data" id="toc-task-3-load-in-the-library-and-read-in-the-data" class="nav-link" data-scroll-target="#task-3-load-in-the-library-and-read-in-the-data">Task 3: Load in the library and read in the data</a></li>
+  <li><a href="#task-4-tidy-data-selecting-variables-of-interest" id="toc-task-4-tidy-data-selecting-variables-of-interest" class="nav-link" data-scroll-target="#task-4-tidy-data-selecting-variables-of-interest">Task 4: Tidy data &amp; Selecting variables of interest</a></li>
+  <li><a href="#task-5-model-creating-assumption-checks" id="toc-task-5-model-creating-assumption-checks" class="nav-link" data-scroll-target="#task-5-model-creating-assumption-checks">Task 5: Model creating &amp; Assumption checks</a></li>
+  </ul>
+</li>
   <li><a href="#test-your-knowledge" id="toc-test-your-knowledge" class="nav-link" data-scroll-target="#test-your-knowledge"><span style="color: #F39C12; text-transform: uppercase;">Test your knowledge</span></a></li>
   </ul></nav>
     </div>
@@ -364,15 +373,15 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 <p>The data is available on OSF: <a href="https://osf.io/bk7vw/" target="_blank">https://osf.io/bk7vw/</a></p>
 <p><strong>Changes made to the dataset</strong></p>
 <ul>
-<li>We converted the SPSS file into a CSV file. There is a CSV file in their OSF folder, however, it does have any labels or values explained. Therefore, we started from the SPSS file that has a bit more information.</li>
+<li>The original SPSS file was converted into a CSV format. Although a CSV file was available in the OSF folder, it lacked labels and value explanations, so we opted to work from the SPSS file, which contained more information.</li>
 <li>We reduced the dataset by selecting some of the variables relating to demographics, screentime and wellbeing.</li>
-<li>Data was separated into 3 files: demographics, screentime, and wellbeing.</li>
-<li>Screentime values were recoded and display hours according to the codebook.</li>
-<li>Rows with missing values were excluded in <code>screentime.csv</code> and <code>wellbeing.csv</code>.</li>
-<li>We also created a codebook for the variables we selected.</li>
+<li>The data was split into three separate files: demographics, screentime, and wellbeing.</li>
+<li>Screen time values were recoded to reflect hours according to the codebook.</li>
+<li>Rows with missing values were removed from <code>screentime.csv</code> and <code>wellbeing.csv</code>.</li>
+<li>A codebook was created for the selected variables.</li>
 </ul></section><section id="activity-2-load-in-the-library-read-in-the-data-and-familiarise-yourself-with-the-data" class="level2" data-number="11.2"><h2 data-number="11.2" class="anchored" data-anchor-id="activity-2-load-in-the-library-read-in-the-data-and-familiarise-yourself-with-the-data">
 <span class="header-section-number">11.2</span> Activity 2: Load in the library, read in the data, and familiarise yourself with the data</h2>
-<p>Today, we will be using the packages <code>tidyverse</code>, <code>sjPlot</code>, <code>performance</code>, and <code>pwr</code>, along with the datasets <code>Alter_2024_data.csv</code>.</p>
+<p>Today, we will use the following packages <code>tidyverse</code>, <code>sjPlot</code>, <code>performance</code>, and <code>pwr</code>, along with the three data files from the Przybylski and Weinstein (2017) study.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>???</span>
 <span id="cb1-2"><a href="#cb1-2"></a></span>
@@ -408,22 +417,22 @@ Solution
 <p>As always, take a moment to familiarise yourself with the data before starting your analysis.</p>
 <p>Once you have explored the data objects and the codebook, try and answer the following questions:</p>
 <ul>
-<li>The variable Gender is located in the object named <select class="webex-select"><option value="blank"></option>
+<li>The variable <strong>Gender</strong> is located in the object named <select class="webex-select"><option value="blank"></option>
 <option value="answer">demo</option>
 <option value="x">wellbeing</option>
 <option value="x">screentime</option></select>.</li>
-<li>The wellbeing data is in <select class="webex-select"><option value="blank"></option>
+<li>The <strong>wellbeing data</strong> is in <select class="webex-select"><option value="blank"></option>
 <option value="x">long</option>
-<option value="answer">wide</option></select> format and contains observations from <input class="webex-solveme nospaces" size="10" data-answer="[&quot;102580&quot;,&quot;102,580&quot;]"> participants.</li>
-<li>The wellbeing questionnaire has <input class="webex-solveme nospaces" size="2" data-answer="[&quot;14&quot;]"> items.</li>
-<li>Individual participants in this data set are identified by the variable called <input class="webex-solveme nospaces ignorecase" size="9" data-answer="[&quot;Serial&quot;]">. This variable will allow us to link information across the three tables.</li>
+<option value="answer">wide</option></select> format and contains observations from <input class="webex-solveme nospaces" size="7" data-answer="[&quot;102580&quot;,&quot;102,580&quot;]"> participants.</li>
+<li>The <strong>wellbeing questionnaire</strong> has <input class="webex-solveme nospaces" size="2" data-answer="[&quot;14&quot;]"> items.</li>
+<li>Individual participants in this dataset are identified by the variable <input class="webex-solveme nospaces" size="6" data-answer="[&quot;Serial&quot;]">, which allows us to link information across the three tables.</li>
 <li>Are there any missing data points? <select class="webex-select"><option value="blank"></option>
 <option value="x">Yes</option>
 <option value="answer">No</option></select>
 </li>
 </ul>
 <section id="potential-research-question-hypthesis" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="potential-research-question-hypthesis">Potential Research Question &amp; Hypthesis</h4>
-<p>There is ongoing debate about the impact of smartphones on well-being, particularly among children and teenagers. Hence, we will examine whether smartphone use predicts mental well-being and whether this relationship differs between male and female adolescents.</p>
+<p>There is ongoing debate about how smartphones affect well-being, particularly among children and teenagers. Therefore, we will examine whether smartphone use predicts mental well-being and whether this relationship varies by gender among adolescents.</p>
 <ul>
 <li>
 <strong>Potential research question</strong>: “Does smartphone use predict mental well-being, and does this relationship differ between male and female adolescents?”</li>
@@ -434,17 +443,18 @@ Solution
 </ul>
 <p>Note that in this analysis, we have:</p>
 <ul>
-<li>a continuous* DV, well-being;</li>
-<li>a continuous* predictor, screen time;</li>
-<li>a categorical predictor, gender.</li>
+<li>A continuous dependent variable (DV)/Outcome: well-being</li>
+<li>A continuous independent variable (IV)/Predictor: screen time</li>
+<li>A categorical independent variable (IV)/Predictor: gender</li>
 </ul>
 <p><em>* these variables are only quasi-continuous, inasmuch as only discrete values are possible. However, there are a sufficient number of discrete categories that we can treat them as effectively continuous.</em></p>
 </section></section><section id="activity-3-compute-descriptives" class="level2" data-number="11.3"><h2 data-number="11.3" class="anchored" data-anchor-id="activity-3-compute-descriptives">
 <span class="header-section-number">11.3</span> Activity 3: Compute descriptives</h2>
-<p>Today, we will be dealing with the majority of data wrangling in the following activities. So let’s bring Computing descriptives forward</p>
+<p>Today, most of the data wrangling will be done in the upcoming activities. To streamline the process, we will move “Computing descriptives” forward.</p>
 <section id="well-being" class="level3" data-number="11.3.1"><h3 data-number="11.3.1" class="anchored" data-anchor-id="well-being">
 <span class="header-section-number">11.3.1</span> Well-being</h3>
-<p>We need to do some initial data wrangling on <code>wellbeing</code>. For each participant, compute the total score for the mental health questionnaire. Store the output in a new data object called <code>wemwbs</code>.</p>
+<p>We need to do some initial data wrangling on <code>wellbeing</code>.</p>
+<p>For each participant, compute the total score for the mental health questionnaire. Store the output in a new data object called <code>wemwbs</code>.</p>
 <p>The new dataset should have two variables:</p>
 <ul>
 <li>
@@ -490,7 +500,7 @@ Hint
 <div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Means and standard deviations should not be an issue at this stage, but how would you calculate the minimum and the maximum?</p>
-<p>We addressed it briefly in <a href="02-wrangling.html"><span>Chapter&nbsp;2</span></a> and it’s more intuitive than you think…</p>
+<p>We briefly covered this in <a href="02-wrangling.html"><span>Chapter&nbsp;2</span></a>, and the solution is more intuitive than you might think…</p>
 </div>
 </div>
 </div>
@@ -506,7 +516,7 @@ Solution
 </div>
 <div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Yes, you are correct. The functions <code><a href="https://rdrr.io/r/base/Extremes.html">min()</a></code> and <code><a href="https://rdrr.io/r/base/Extremes.html">max()</a></code> calculate minimum and maximum values respectively.</p>
+<p>Yes, that’s right! The functions <code><a href="https://rdrr.io/r/base/Extremes.html">min()</a></code> and <code><a href="https://rdrr.io/r/base/Extremes.html">max()</a></code> are used to calculate the minimum and maximum values, respectively.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>wemwbs <span class="sc">%&gt;%</span> </span>
 <span id="cb4-2"><a href="#cb4-2"></a>  <span class="fu">summarise</span>(<span class="at">mean =</span> <span class="fu">mean</span>(WEMWBS_sum),</span>
@@ -537,7 +547,7 @@ Solution
 </div>
 </section><section id="screentime" class="level3" data-number="11.3.2"><h3 data-number="11.3.2" class="anchored" data-anchor-id="screentime">
 <span class="header-section-number">11.3.2</span> Screentime</h3>
-<p>We want to calculate means and standard deviations of the hours of smartphone use during the week and on the weekend.</p>
+<p>We need to calculate the means and standard deviations for smartphone use (in hours) during the week and on the weekend.</p>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -550,7 +560,7 @@ Solution
 </div>
 <div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>We are just computing the information rather than storing it. If you want to save the output as an object to your <code>Global Environment</code>, feel free to do so.</p>
+<p>At this stage, we are simply computing the values rather than storing them. However, if you’d like to save the output as an object in your <code>Global Environment</code>, feel free to do so.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>screentime <span class="sc">%&gt;%</span> </span>
 <span id="cb5-2"><a href="#cb5-2"></a>  <span class="fu">summarise</span>(<span class="at">smart_weekday_mean =</span> <span class="fu">mean</span>(Smart_wk),</span>
@@ -587,14 +597,14 @@ Solution
 </div>
 </section></section><section id="activity-4-recreating-the-plot-from-the-paper" class="level2" data-number="11.4"><h2 data-number="11.4" class="anchored" data-anchor-id="activity-4-recreating-the-plot-from-the-paper">
 <span class="header-section-number">11.4</span> Activity 4: Recreating the plot from the paper</h2>
-<p>If there was a bit of a challenge, this is it. We can wrangle the data to plot the data like the original article (shown below).</p>
+<p>If there’s a challenge in this session, this is it! Our task is to wrangle the data and recreate the plot from the original article (shown below).</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="images/figure_Przybylski.jpeg" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">Fig. 1. Mental well-being as a function of daily digital-screen time on weekdays and weekends. Results are shown separately for time spent (a) watching TV and movies, (b) playing video games, (c) using computers, and (d) using smartphones. Error bars denote the 95% confidence intervals for the observed means. (Przybylski &amp; Weinstein, 2017)</figcaption></figure>
 </div>
 <p>The graph shows that smartphone use of more than 1 hour per day is associated with increasingly negative well-being.</p>
 <p>We can plot the relationship between well-being and hours of technology use, split into four categories of technology (video games, computers, smartphones, TV).</p>
-<p>There is some faceting going on and you will not have been introduced to all the functions we need.</p>
+<p>This plot involves faceting, and some of the required functions may be new to you. Don’t worry—we’ll guide you through the process!</p>
 <div class="callout callout-style-default callout-tip no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -607,30 +617,31 @@ Observations
 <div class="callout-body-container callout-body">
 <p>Let’s start with some observations:</p>
 <ol type="A">
-<li><p>We need information on hours of screentime (x-axis) and mental well-being (y-axis), that is currently stored in <code>screentime</code> and in <code>wellbeing</code>, respectively. That means we have to join the two datasets at some point.</p></li>
-<li><p>Our dataframe needs to be restructured into longformat so that we can use the function <code>facet_wrap()</code>.</p></li>
-<li><p>We need to process weekend and weekday data separately. At the moment, it is hidden in the column labels, so we need to think about how we can access the information.</p></li>
-<li><p>The plot shows us average hours and wellbeing scores per weekday/weekend. So we need to compute them.</p></li>
-<li><p>We have to use a lineplot (e.g., <code>geom_line</code>) and a scatterplot because we need a line with dots.</p></li>
-<li><p>And it would be nice if the different categories are clearly labelled in the plot rather than having to mention them below the figure</p></li>
+<li><p>We need data on screen time (x-axis) and mental well-being (y-axis), which are currently stored in <code>screentime</code> and <code>wellbeing</code>, respectively. This means we will need to join the two datasets at some point.</p></li>
+<li><p>The data needs to be restructured into long format so we can use the function <code>facet_wrap()</code>.</p></li>
+<li><p>Since the plot includes separate lines for weekday and weekend screen time, we need to create a variable with two levels (weekday, weekend) rather than storing this information in separate columns.</p></li>
+<li><p>We also need to compute the average well-being scores for each screen time level, separately for weekdays and weekends.</p></li>
+<li><p>The visualization requires both a line plot (<code>geom_line()</code>) and a scatterplot (<code>geom_point()</code>) to create a “line with dots”.</p></li>
+<li><p>For clarity, it would be best to label the different technology categories directly in the plot rather than listing them in the figure caption.</p></li>
 </ol>
 </div>
 </div>
 <p>Now it’s just figuring out which sequence we need them to be in. There are steps to do (or that easier to do) in the dataframe and then there is plotting.</p>
 <p>Sooo, let’s start with any changes we can apply to the dataframe <code>screentime</code>. We should store the new output in an object called <code>screen_long</code>.</p>
 <p><strong>Step 1</strong>: Pivot <code>screentime</code> into long format.</p>
-<p><strong>Step 2</strong>: To be able to access information on weekday/weekend and on the four categories of technology, we need to separate information in the current column levels. Anything before the separator <code>_</code> is category of technology; anything after is related to weekday/weekend (e.g., <code>Watch_we</code>, <code>Smart_wk</code>). That is easier done when the data is in long format.</p>
-<p><strong>Step 3</strong>: The values <code>Watch</code>, <code>Smart</code>, <code>we</code> or <code>wk</code> are not really informative and these will be the labels that are displayed on the facets and legends in the final plot. Tidying a legend label can still be done in the plots, but for facets it’s a nightmare, so better do that here. So here we want to relabel values as follows:</p>
+<p><strong>Step 2</strong>: Extracting technology type and time period To access information on weekday/weekend and the four categories of technology, we need to separate information currently stored in column names. Anything <strong>before</strong> the separator <code>_</code> represents the <strong>technology type</strong>. Anything <strong>after</strong> the separator <code>_</code> indicates whether the data is from <strong>weekdays (<code>wk</code>) or weekends (<code>we</code>)</strong>. (e.g., <code>Watch_we</code>, <code>Smart_wk</code>). Restructuring is easier when the data is in long format.</p>
+<p><strong>Step 3</strong>: The current labels <code>Watch</code>, <code>Smart</code>, <code>we</code> or <code>wk</code> are not really informative. Since these labels will be displayed in the facets and legends of the final plot, we should rename them here to improve readability. Although legend labels can be adjusted later in the plot, facet labels are more difficult to modify, so it’s better to clean them now.</p>
 <ul>
-<li>“Watch” should become “Watching TV”,</li>
-<li>“Comp” -&gt; “Playing Video Games”,</li>
-<li>“Comph” -&gt; “Using Computers”,</li>
-<li>“Smart” -&gt; “Using Smartphone”,</li>
-<li>“wk” -&gt; “Weekdays”, and</li>
-<li>“we” ~ “Weekends”.</li>
+<li>“Watch” <span class="math inline">\(\rightarrow\)</span> “Watching TV”,</li>
+<li>“Comp” <span class="math inline">\(\rightarrow\)</span> “Playing Video Games”,</li>
+<li>“Comph” <span class="math inline">\(\rightarrow\)</span> “Using Computers”,</li>
+<li>“Smart” <span class="math inline">\(\rightarrow\)</span> “Using Smartphone”,</li>
+<li>“wk” <span class="math inline">\(\rightarrow\)</span> “Weekdays”, and</li>
+<li>“we” <span class="math inline">\(\rightarrow\)</span> “Weekends”.</li>
 </ul>
-<p><strong>Step 4</strong>: We have all information for the plot in one place. Join <code>screen_long</code> and <code>wemwbs</code> together so that participants have values in both dataframes.</p>
-<p><strong>Step 5</strong>: For each technology type and screentime hours, compute averages of well-being for Weekdays and Weekends. Maybe steps 4 and 5 are better stored in a separate data object called <code>dat_means</code>.</p>
+<p><strong>Step 4</strong>: To ensure all necessary information is in one place, join <code>screen_long</code> and <code>wemwbs</code> so that each participant has corresponding values from both dataframes.</p>
+<p><strong>Step 5</strong>: For each technology type and screen time level, compute the average well-being scores separately for weekdays and weekends.</p>
+<p>Since steps 4 and 5 contribute to creating a summary dataset rather than modifying individual records, it might be best to store the output in a new object called <code>dat_means</code>.</p>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -697,7 +708,7 @@ using the `.groups` argument.</code></pre>
 </div>
 </div>
 </div>
-<p>Now we can plot. There are a few new features in relation to line plots and point shapes. Check them out.</p>
+<p>Now we are ready to create the plot! This visualization includes a few new features related to line plots and point shapes. Take a moment to explore them.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">ggplot</span>(dat_means, <span class="fu">aes</span>(<span class="at">x =</span> hours, <span class="at">y =</span> mean_wellbeing, <span class="at">linetype =</span> day, <span class="at">shape =</span> day)) <span class="sc">+</span></span>
 <span id="cb8-2"><a href="#cb8-2"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
@@ -727,42 +738,52 @@ More info on plot parameters
 <div id="callout-9" class="callout-9-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ul>
-<li>aes <code>linetype</code> changes the type of line, e.g., solid or dotty, and here we specified it to be different for each type of day. More on line types can be found here: <a href="https://sape.inf.usi.ch/quick-reference/ggplot2/linetype.html" target="_blank">https://sape.inf.usi.ch/quick-reference/ggplot2/linetype.html</a>
+<li>The <code>aes(linetype = …)</code> argument controls the type of line (e.g., solid or dotted). Here, we used it to differentiate between weekdays and weekends. More on line types can be found here: <a href="https://sape.inf.usi.ch/quick-reference/ggplot2/linetype.html" target="_blank">https://sape.inf.usi.ch/quick-reference/ggplot2/linetype.html</a>
 </li>
-<li>to change the shape of the points, we specified <code>shape</code> in the aes, and we defined that it should depend on line of day. However, the point shapes turned into round dots and triangles. Since the original plot suggests dots and squares, we fixed that by adding the <code>scale_shape_manual()</code> function. More on point shapes can be found here: <a href="https://www.sthda.com/english/wiki/ggplot2-point-shapes" target="_blank">https://www.sthda.com/english/wiki/ggplot2-point-shapes</a>
+<li>To change the shape of the points, we set <code>shape</code> inside <code>aes()</code>, linking it to the day type. However, by default, the shapes appeared as dots and triangles, whereas the original plot suggests dots and squares. We corrected this using <code>scale_shape_manual()</code>. More on point shapes can be found here: <a href="https://www.sthda.com/english/wiki/ggplot2-point-shapes" target="_blank">https://www.sthda.com/english/wiki/ggplot2-point-shapes</a>
 </li>
 </ul>
-<p>If you are looking really closely, you will notice that the boxes are in a different order and that the x- and y-axes span a bit further. Feel free to fix that yourself.</p>
-<p>Also, using facets rather than individual plots means that we have axes labels that span all plots, rather than individual plots we patch together. Plus, the legend is on the side and not within each square. Ah well. Let’s call it a conceptual replication, then, shall we?</p>
+<p>If you are looking really closely, you will notice that the order of the categories is slightly different, and that the x- and y-axis ranges extend a bit further. Feel free to fix that yourself.</p>
+<p>Hmm. Actually, it seems the original authors created four separate plots and then combined them using a package like <code>patchwork</code>. Here, we used facets rather than creating those individual plots. That also means that the axis labels span across all plots rather than being repeated for each. Plus, the legend appears on the side instead of within each plot.</p>
+<p>Ah well! Let’s call it a conceptual replication, then, shall we?</p>
 </div>
 </div>
 </div>
 </section><section id="activity-5-dataframe-for-the-regression-model" class="level2" data-number="11.5"><h2 data-number="11.5" class="anchored" data-anchor-id="activity-5-dataframe-for-the-regression-model">
 <span class="header-section-number">11.5</span> Activity 5: Dataframe for the regression model</h2>
+<p>Now, we shift our focus to our hypothetical research question:</p>
+<blockquote class="blockquote">
+<p>“Does smartphone use predict mental well-being, and does this relationship differ between male and female adolescents?”</p>
+</blockquote>
 <section id="final-data-wrangling-steps" class="level3" data-number="11.5.1"><h3 data-number="11.5.1" class="anchored" data-anchor-id="final-data-wrangling-steps">
 <span class="header-section-number">11.5.1</span> Final data wrangling steps</h3>
-<p>Create a new data object that has the mean number of hours per day of smartphone use for each participant, averaged over weekends/weekdays. Because Przybylski and Weinstein’s graph showed that smartphone use of more than 1 hour per day is associated with increasingly negative well-being, we want to filter the data to only include those who use a smart phone for more than one hour per day.</p>
-<p>We have done the legwork above when we created <code>screen_long</code>, so we could start from there, or we can go back to our original <code>screentime</code> object. Pick the option that makes most sense to you.</p>
-<p>We want to join the wrangled data with well-being, as we did above, but also join with the rest of the participant information, since we need the Gender variable.</p>
-<p>Store that output in an object called <code>data_smartphone</code>.</p>
+<p>Create a new data object that contains the average daily smartphone use per participant, averaged across weekdays and weekends.</p>
+<p>Since Przybylski and Weinstein’s findings suggest that smartphone use exceeding one hour per day is associated with increasingly negative well-being, we will filter the data to include only participants who use a smartphone for more than one hour per day.</p>
+<p>We have already structured much of the data when creating <code>screen_long</code>, so we have two options:</p>
+<ul>
+<li>Start from <code>screen_long</code> to simplify the process, or</li>
+<li>Return to the original <code>screentime</code> dataset, where smartphone use was recorded separately for weekdays and weekends.</li>
+</ul>
+<p>Next, we need to merge the wrangled data with well-being scores (as we did earlier) and also join it with the participant information, since we need the Gender variable for our analysis.</p>
+<p>Finally, store the cleaned dataset in an object called <code>data_smartphone</code>.</p>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Hints Option 1 (using <code>screen_long</code>)
+Hints: Option 1 (using <code>screen_long</code>)
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-10" class="callout-10-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ul>
-<li>Step 1: Only include smartphone use and not other technologies.</li>
-<li>Step 2: Using <code>screen_long</code>, calculate a mean score of screentime hours for each participant.</li>
+<li>Step 1: Only include smartphone use and exclude other technologies.</li>
+<li>Step 2: Calculate the average smartphone use for each participant.</li>
 <li>Step 3: Only include participants who use a smartphone for more than 1 hour per day.</li>
-<li>Step 4: Join the above output with <code>wemwbs</code>, and <code>demo</code>, so that only participants data is shown that have values in all 3 data frames.</li>
-<li>Step 5: Select all variables of interest (i.e., <code>Serial</code>, <code>WEMWBS_sum</code>, <code>average_hours</code>, and <code>Gender</code>)</li>
+<li>Step 4: Join the filtered output with <code>wemwbs</code>, and <code>demo</code>, ensuring only participants with values in all three datasets are retained.</li>
+<li>Step 5: Select all variables of interest (i.e., Participant ID, the well-being score, the average smartphone use, and gender information)</li>
 </ul>
 </div>
 </div>
@@ -814,11 +835,11 @@ Hints Option 2 (using <code>screentime</code>)
 <div id="callout-12" class="callout-12-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ul>
-<li>Step 1: Select all variables from <code>screentime</code> that you need.</li>
-<li>Step 2: Calculate a mean score of screentime hours for each participant. You can either do that by pivoting, grouping and summarising (as we usually do), or calculating <code>(col1 +col2)/2</code> to get than average score.</li>
+<li>Step 1: Select all relevant variables from <code>screentime</code>.</li>
+<li>Step 2: Calculate the average smartphone use for each participant. This can be done by pivoting, grouping, and summarising (as we typically do), or simply by computing the mean as <code>(col1 + col2) / 2</code>.</li>
 <li>Step 3: Only include participants who use a smartphone for more than 1 hour per day.</li>
-<li>Step 4: Join the above output with <code>wemwbs</code>, and <code>demo</code>, so that only participants data is shown that have values in all 3 data frames.</li>
-<li>Step 5: Select all variables of interest (i.e., <code>Serial</code>, <code>WEMWBS_sum</code>, <code>average_hours</code>, and <code>Gender</code>)</li>
+<li>Step 4: Join the filtered output with <code>wemwbs</code>, and <code>demo</code>, ensuring only participants with values in all three datasets are retained.</li>
+<li>Step 5: Select all variables of interest (i.e., Participant ID, the well-being score, the average smartphone use, and gender information)</li>
 </ul>
 </div>
 </div>
@@ -906,18 +927,18 @@ Solution
 </div>
 </section></section><section id="activity-6-compute-the-regression-confidence-intervals-and-effect-size" class="level2" data-number="11.6"><h2 data-number="11.6" class="anchored" data-anchor-id="activity-6-compute-the-regression-confidence-intervals-and-effect-size">
 <span class="header-section-number">11.6</span> Activity 6: Compute the regression, confidence intervals, and effect size</h2>
-<p>For the data in <code>smart_wb</code>, use the <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> function to calculate the multiple regression model:</p>
+<p>For the data in <code>data_smartphone</code>, use the <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> function to calculate the multiple regression model:</p>
 <p><span class="math inline">\(Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \beta_3 X_{3i} + e_i\)</span></p>
 <p>where</p>
 <ul>
 <li><p><span class="math inline">\(Y_i\)</span> is the well-being score for participant <span class="math inline">\(i\)</span>;</p></li>
-<li><p><span class="math inline">\(X_{1i}\)</span> is the mean-centered smartphone use variable for participant <span class="math inline">\(i\)</span>;</p></li>
-<li><p><span class="math inline">\(X_{2i}\)</span> is gender (-.5 = female, .5 = male);</p></li>
+<li><p><span class="math inline">\(X_{1i}\)</span> is the mean-centered smartphone use for participant <span class="math inline">\(i\)</span>;</p></li>
+<li><p><span class="math inline">\(X_{2i}\)</span> is gender (coded as -0.5 = female, 0.5 = male);</p></li>
 <li><p><span class="math inline">\(X_{3i}\)</span> is the interaction between smartphone use and gender (<span class="math inline">\(= X_{1i} \times X_{2i}\)</span>)</p></li>
 </ul>
-<p>In R terms, this translate to the following format:</p>
+<p>In R, this model is specified as:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">lm</span>(OutcomeVariable <span class="sc">~</span> PredictorVariable1 <span class="sc">+</span> PredictorVariable2 <span class="sc">+</span> Interaction, data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">lm</span>(Outcome <span class="sc">~</span> Predictor1 <span class="sc">+</span> Predictor2 <span class="sc">+</span> Interaction, data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -929,13 +950,13 @@ Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The code <code>lm(OutcomeVariable ~ PredictorVariable1 + PredictorVariable2, data)</code> will add predictors 1 and 2. This will provide you with the contributions of each predictor to explain the outcome variable, i.e.&nbsp;main effects only.</p>
-<p>However, if you are also interested in the interaction between the two predictors, then you would:</p>
+<p>The formula <code>lm(Outcome ~ Predictor1 + Predictor2, data)</code> includes both predictors in the model, allowing you to examine their individual contributions (i.e., main effects) in explaining the outcome variable.</p>
+<p>However, if you are also interested in their interaction, you have two options:</p>
 <ul>
-<li>use a <code>*</code> instead of a <code>+</code>: <code>lm(OutcomeVariable ~ PredictorVariable1 * PredictorVariable2, data)</code> for the model to include 2 main effects and the interaction. OR</li>
-<li>use the longer format and add the interaction term manually <code>lm(OutcomeVariable ~ PredictorVariable1 + PredictorVariable2 + PredictorVariable1:PredictorVariable2, data)</code>. Notice the colon <code>:</code>
-</li>
+<li>Using the shorthand <code>*</code> operator: <code>lm(Outcome ~ Predictor1 * Predictor2, data)</code> automatically includes both main effects and their interaction. OR</li>
+<li>Manually specifying the interaction term by using the <code>:</code> operator: <code>lm(Outcome ~ Predictor1 + Predictor2 + Predictor1:Predictor2, data)</code>. <strong>Note:</strong> The colon (<code>:</code>) specifies an interaction term without including the main effects, so both predictors must also be listed separately to ensure a full model.</li>
 </ul>
+<p>Both approaches yield the same results, but the <code>*</code> shorthand is often preferred for readability.</p>
 </div>
 </div>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
@@ -949,13 +970,12 @@ Your Turn
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li>Save your model to the object <code>mod</code>.</li>
-<li>Run the <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> of your model to see the output of the regression.</li>
-<li>Compute confidence intervals</li>
-<li>Compute the effect size <span class="math inline">\(f^2\)</span>
-</li>
+<li>Save your model in an object <code>mod</code>.</li>
+<li>Run <code>summary(mod)</code> to see the output of the regression.</li>
+<li>Compute confidence intervals for the model coefficients.</li>
+<li>Calculate the effect size (<span class="math inline">\(f^2\)</span>).</li>
 </ul>
-<p>These are the exact same functions as last time, except for the model including more variables.</p>
+<p>The functions you’ll use are the same as last time, except that this model includes multiple predictors and an interaction term.</p>
 <p>Answer the following questions:</p>
 <ul>
 <li><p>The interaction between smartphone use and gender is shown by the variable <select class="webex-select"><option value="blank"></option>
@@ -1038,7 +1058,7 @@ average_hours_centered:gender_recoded0.5  0.3796615  0.5244376
 </div>
 </div>
 </div>
-</section><section id="activity-7-visualising-interactions" class="level2" data-number="11.7"><h2 data-number="11.7" class="anchored" data-anchor-id="activity-7-visualising-interactions">
+</section><section id="ch11_act_7" class="level2" data-number="11.7"><h2 data-number="11.7" class="anchored" data-anchor-id="ch11_act_7">
 <span class="header-section-number">11.7</span> Activity 7: Visualising interactions</h2>
 <p>It is very difficult to understand an interaction from the coefficient alone, so your best bet is visualising the interaction to help you understand the results and communicate your results to your readers.</p>
 <p>There is a great package called <code>sjPlot</code> which takes regression models and helps you plot them in different ways. We will demonstrate plotting interactions, but for further information and options, see the <a href="https://strengejacke.github.io/sjPlot/articles/plot_interactions.html" target="_blank">online documentation</a>.</p>
@@ -1055,16 +1075,16 @@ average_hours_centered:gender_recoded0.5  0.3796615  0.5244376
 </div>
 </div>
 <p>What is the most reasonable interpretation of the interaction?</p>
-<div id="radio_ATEWCIBUQA" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_ATEWCIBUQA" value="x"><span>smartphone use harms girls more than boys</span></label><label><input type="radio" autocomplete="off" name="radio_ATEWCIBUQA" value="x"><span>there is no evidence for gender differences in the relationship between smartphone use and well-being</span></label><label><input type="radio" autocomplete="off" name="radio_ATEWCIBUQA" value="x"><span>smartphone use harms boys more than girls</span></label><label><input type="radio" autocomplete="off" name="radio_ATEWCIBUQA" value="answer"><span>smartphone use was more negatively associated with wellbeing for girls than for boys</span></label>
+<div id="radio_LNZKIVPUNT" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_LNZKIVPUNT" value="x"><span>there is no evidence for gender differences in the relationship between smartphone use and well-being</span></label><label><input type="radio" autocomplete="off" name="radio_LNZKIVPUNT" value="x"><span>smartphone use harms boys more than girls</span></label><label><input type="radio" autocomplete="off" name="radio_LNZKIVPUNT" value="answer"><span>smartphone use was more negatively associated with wellbeing for girls than for boys</span></label><label><input type="radio" autocomplete="off" name="radio_LNZKIVPUNT" value="x"><span>smartphone use harms girls more than boys</span></label>
 </div>
-<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Caution
+Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -1245,7 +1265,7 @@ Important
 </ul>
 <p>Run the sensitivity power analysis and then answer the following questions:</p>
 <ul>
-<li>To 3 decimal places, what is the smallest effect size that this study could reliably detect? <input class="webex-solveme nospaces" data-tol="0.01" size="0.000" data-answer="[&quot;.000&quot;]">
+<li>To 4 decimal places, what is the smallest effect size that this study could reliably detect? <input class="webex-solveme nospaces" size="0.0004" data-answer="[&quot;.0004&quot;]">
 </li>
 </ul>
 <p>Since the observed effect size from our inferential statistics was <select class="webex-select"><option value="blank"></option>
@@ -1286,12 +1306,233 @@ Solution
 <span class="header-section-number">11.10</span> Activity 10: The write-up</h2>
 <p>All continuous predictors were mean-centered and deviation coding was used for categorical predictors. The results of the regression indicated that the model significantly predicted wellbeing <span class="math inline">\((F(3, 71029) = 2451, p &lt; .001, R^2_{Adjusted} = .094, f^2 = .103)\)</span>, accounting for 9.4% of the variance. Total screen time was a significant negative predictor of wellbeing scores <span class="math inline">\((\beta = -0.77, 95\% CI = [-0.82, -0.73], p &lt; .001\)</span>), as was gender <span class="math inline">\((\beta = 5.14, p &lt; .001\)</span>), with girls having lower wellbeing scores than boys. Importantly, there was a significant interaction between screen time and gender <span class="math inline">\((\beta = 0.45, 95\% CI = [0.38, 0.52], p &lt; .001\)</span>), meaning that smartphone use was more negatively associated with well-being for girls than for boys.</p>
 </section><section id="pair-coding" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="pair-coding"><span style="color: #F39C12; text-transform: uppercase;">Pair-coding</span></h2>
-<p><em>to be added</em></p>
-</section><section id="test-your-knowledge" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="test-your-knowledge"><span style="color: #F39C12; text-transform: uppercase;">Test your knowledge</span></h2>
-<p><em>to be added</em></p>
+<section id="task-1-open-the-r-project-for-the-lab" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="task-1-open-the-r-project-for-the-lab">Task 1: Open the R project for the lab</h3>
+</section><section id="task-2-create-a-new-.rmd-file" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="task-2-create-a-new-.rmd-file">Task 2: Create a new <code>.Rmd</code> file</h3>
+</section><section id="task-3-load-in-the-library-and-read-in-the-data" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="task-3-load-in-the-library-and-read-in-the-data">Task 3: Load in the library and read in the data</h3>
+<p>The data should already be in your project folder. If you want a fresh copy, you can download the data again here: <a href="data/data_pair_coding.zip" title="download">data_pair_coding</a>.</p>
+<p>We are using the packages <code>tidyverse</code>, <code>sjPlot</code>, and <code>performance</code> today.</p>
+<p>Just like last week, we also need to read in <code>dog_data_clean_wide.csv</code>.</p>
+</section><section id="task-4-tidy-data-selecting-variables-of-interest" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="task-4-tidy-data-selecting-variables-of-interest">Task 4: Tidy data &amp; Selecting variables of interest</h3>
+<p>Let’s define a potential research question:</p>
+<p><strong>To what extent do pre-intervention loneliness and pre-intervention flourishing predict post-intervention loneliness, and is there an interaction between these predictors?</strong></p>
+<p>To get the data into shape, we should <strong>select our variables of interest</strong> from <code>dog_data_wide</code> and <strong>remove any missing values</strong> .</p>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-22-contents" aria-controls="callout-22" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-22" class="callout-22-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb24-2"><a href="#cb24-2"></a><span class="fu">library</span>(sjPlot)</span>
+<span id="cb24-3"><a href="#cb24-3"></a><span class="fu">library</span>(performance)</span>
+<span id="cb24-4"><a href="#cb24-4"></a></span>
+<span id="cb24-5"><a href="#cb24-5"></a>dog_data_wide <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"dog_data_clean_wide.csv"</span>)</span>
+<span id="cb24-6"><a href="#cb24-6"></a></span>
+<span id="cb24-7"><a href="#cb24-7"></a>dog_mult_reg <span class="ot">&lt;-</span> dog_data_wide <span class="sc">%&gt;%</span></span>
+<span id="cb24-8"><a href="#cb24-8"></a>  <span class="fu">select</span>(RID, Loneliness_post, Loneliness_pre, Flourishing_pre) <span class="sc">%&gt;%</span> </span>
+<span id="cb24-9"><a href="#cb24-9"></a>  <span class="fu">drop_na</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<p>Furthermore, we need to mean-center our two continuous predictors. Since this is a new concept, simply run the code below.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>dog_mult_reg <span class="ot">&lt;-</span> dog_mult_reg <span class="sc">%&gt;%</span> </span>
+<span id="cb25-2"><a href="#cb25-2"></a>  <span class="fu">mutate</span>(<span class="at">Flourishing_pre_centered =</span> Flourishing_pre <span class="sc">-</span> <span class="fu">mean</span>(Flourishing_pre),</span>
+<span id="cb25-3"><a href="#cb25-3"></a>         <span class="at">Loneliness_pre_centered =</span> Loneliness_pre <span class="sc">-</span> <span class="fu">mean</span>(Loneliness_pre))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="task-5-model-creating-assumption-checks" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="task-5-model-creating-assumption-checks">Task 5: Model creating &amp; Assumption checks</h3>
+<p>Now, let’s create our regression model. This follows the same approach as <a href="10-regression.html"><span>Chapter&nbsp;10</span></a>, but with additional predictors.</p>
+<p>According to our research question, we have the following model variables:</p>
+<ul>
+<li>Dependent Variable (DV)/Outcome: Loneliness post intervention</li>
+<li>Independent Variable (IV1)/Predictor1: Flouring before the intervention</li>
+<li>Independent Variable (IV2)/Predictor2: Loneliness before the intervention</li>
+<li>Does our model require an interaction term? <select class="webex-select"><option value="blank"></option>
+<option value="answer">Yes</option>
+<option value="x">No</option></select>
+</li>
+</ul>
+<p>As a reminder, the multiple linear regression model has the following structure:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="fu">lm</span>(Outcome <span class="sc">~</span> Predictor1 <span class="sc">*</span> Predictor2, data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The asterisk (<code>*</code>) means that the model includes main effects for both predictors (i.e., Pre-intervention flourishing &amp; Pre-intervention loneliness) as well as their interaction term (which tests whether the effect of one predictor depends on the other).</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Your Turn
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Step 1: Create the model</strong></p>
+<p>Compute the linear regression model using the formula above. Store the model in an object called <code>mod</code>, ensuring that you use the mean-centered predictors rather than the unstandardised values.</p>
+<p><strong>Step 2: Run the regression</strong></p>
+<p>Just like last week, use the <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> function on <code>mod</code> to display the regression output.</p>
+<p><strong>Step 3: Check assumption</strong></p>
+<p>Use the <code>check_model()</code> function from the <code>performance</code> package to test whether the model meets its assumptions.</p>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-23-contents" aria-controls="callout-23" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-23" class="callout-23-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="co"># Step 1</span></span>
+<span id="cb27-2"><a href="#cb27-2"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(Loneliness_post<span class="sc">~</span>Loneliness_pre_centered<span class="sc">*</span>Flourishing_pre_centered, <span class="at">data =</span> dog_mult_reg)</span>
+<span id="cb27-3"><a href="#cb27-3"></a></span>
+<span id="cb27-4"><a href="#cb27-4"></a><span class="co"># Step 2</span></span>
+<span id="cb27-5"><a href="#cb27-5"></a><span class="fu">summary</span>(mod)</span>
+<span id="cb27-6"><a href="#cb27-6"></a></span>
+<span id="cb27-7"><a href="#cb27-7"></a><span class="co"># Step 3</span></span>
+<span id="cb27-8"><a href="#cb27-8"></a><span class="fu">check_model</span>(mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<p>Now, answer the following questions:</p>
+<ol type="1">
+<li><p>Are all of the assumptions met? <select class="webex-select"><option value="blank"></option>
+<option value="answer">Yes</option>
+<option value="x">No</option></select></p></li>
+<li><p>How much of the variance is explained by the model? Enter the percentage value with 2 decimal places. <input class="webex-solveme nospaces" size="5" data-answer="[&quot;82.93&quot;]">%</p></li>
+<li><p>Is the interaction term statistically significant? <select class="webex-select"><option value="blank"></option>
+<option value="answer">Yes</option>
+<option value="">No</option></select></p></li>
+<li><p>What is the p-value for the interaction term? Enter the value with 3 decimal places. <input class="webex-solveme nospaces" size="5" data-answer="[&quot;0.023&quot;,&quot;.023&quot;]"></p></li>
+<li><p>What is <span class="math inline">\(\beta\)</span> coefficient for pre-intervention loneliness? Enter the value rounded to two decimal places. <input class="webex-solveme nospaces" size="4" data-answer="[&quot;0.87&quot;]"></p></li>
+</ol>
+</div>
+</div>
+</section></section><section id="test-your-knowledge" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="test-your-knowledge"><span style="color: #F39C12; text-transform: uppercase;">Test your knowledge</span></h2>
+<section id="question-1" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-1">Question 1</h4>
+<p><strong>What is the main purpose of a multiple regression analysis?</strong></p>
+<div id="radio_NYCAVOMNKH" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_NYCAVOMNKH" value="x"><span>To test whether one predictor variable explains the outcome variable while ignoring other potential influences.</span></label><label><input type="radio" autocomplete="off" name="radio_NYCAVOMNKH" value="x"><span>To determine whether there is an association between two variables, without assuming causality.</span></label><label><input type="radio" autocomplete="off" name="radio_NYCAVOMNKH" value="answer"><span>To predict or explain changes in an outcome variable based on multiple predictor variables.</span></label><label><input type="radio" autocomplete="off" name="radio_NYCAVOMNKH" value="x"><span>To compare means between two groups and determine if they are significantly different.</span></label>
+</div>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-25-contents" aria-controls="callout-25" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Explain this answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-25" class="callout-25-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Multiple regression extends simple regression by including multiple predictors to explain variance in the outcome variable. This allows researchers to assess the unique contribution of each predictor while controlling for others.</p>
+<ul>
+<li>One incorrect option describes correlation rather than regression.</li>
+<li>Another option describes a t-test, which compares means rather than predicting an outcome.</li>
+<li>The final incorrect option incorrectly implies that multiple regression ignores other predictors, when in fact it accounts for them.</li>
+</ul>
+</div>
+</div>
+</div>
+</section><section id="question-2" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-2">Question 2</h4>
+<p><strong>A researcher investigates whether a student’s exam performance can be predicted by their hours of study and test anxiety levels.</strong></p>
+<p><strong>Which of the following correctly specifies the multiple regression model in R?</strong></p>
+<div id="radio_LPCFLQXJJW" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_LPCFLQXJJW" value="x"><span>lm(Study_Hours ~ Exam_Score + Test_Anxiety, data = student_data)</span></label><label><input type="radio" autocomplete="off" name="radio_LPCFLQXJJW" value="answer"><span>lm(Exam_Score ~ Study_Hours + Test_Anxiety, data = student_data)</span></label><label><input type="radio" autocomplete="off" name="radio_LPCFLQXJJW" value="x"><span>lm(Test_Anxiety ~ Study_Hours + Exam_Score, data = student_data)</span></label><label><input type="radio" autocomplete="off" name="radio_LPCFLQXJJW" value="x"><span>lm(Exam_Score ~ Study_Hours * Test_Anxiety, data = student_data)</span></label>
+</div>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-26-contents" aria-controls="callout-26" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Explain this answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-26" class="callout-26-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>In multiple regression, the <strong>dependent variable (outcome)</strong> is placed first, followed by the predictor variables (independent variables) after the tilde (~). Since we are predicting exam scores, this must be the first variable in the formula.</p>
+<ul>
+<li>One incorrect option includes an interaction term (<code>*</code>), which was not specified in the task. A basic multiple regression only includes main effects (<code>+</code>).</li>
+<li>Another incorrect option swaps the predictor and outcome, which would lead to an incorrect model specification.</li>
+<li>The last incorrect option incorrectly treats test anxiety as the outcome, when it is actually a predictor in the model.</li>
+</ul>
+</div>
+</div>
+</div>
+</section><section id="question-3" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-3">Question 3</h4>
+<p><strong>A multiple regression model is used to predict life satisfaction based on sleep quality and daily screen time. The output includes the following regression equation:</strong></p>
+<p><span class="math inline">\(Life Satisfaction = 50.2 + 1.8 * Sleep Quality − 0.9 * ScreenTime\)</span></p>
+<p><strong>How should the coefficient for Sleep Quality (1.8) be interpreted??</strong></p>
+<div id="radio_YPDJZZMADH" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_YPDJZZMADH" value="answer"><span>For each one-unit increase in sleep quality, life satisfaction is expected to increase by 1.8, holding screen time constant.</span></label><label><input type="radio" autocomplete="off" name="radio_YPDJZZMADH" value="x"><span>A one-unit increase in sleep quality always leads to a 1.8-point increase in life satisfaction.</span></label><label><input type="radio" autocomplete="off" name="radio_YPDJZZMADH" value="x"><span>A one-unit increase in sleep quality may lead to a decrease in life satisfaction, depending on screen time.</span></label><label><input type="radio" autocomplete="off" name="radio_YPDJZZMADH" value="x"><span>For each one-unit increase in sleep quality, life satisfaction is expected to increase by 1.8, regardless of screen time.</span></label>
+</div>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-27-contents" aria-controls="callout-27" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Explain this answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-27" class="callout-27-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>In multiple regression, the coefficient represents the expected change in the outcome variable (life satisfaction) for a one-unit increase in the predictor (sleep quality), holding all other predictors constant.</p>
+<p>Why are the other options incorrect?</p>
+<ul>
+<li>One option ignores the need to hold other predictors constant, which is a key feature of multiple regression.</li>
+<li>Another option implies a deterministic relationship, incorrectly stating that the increase always occurs.</li>
+<li>The final incorrect option incorrectly suggests that sleep quality could have a negative effect on life satisfaction, when the model shows a clear positive relationship.</li>
+</ul>
+</div>
+</div>
+</div>
+</section><section id="question-4" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-4">Question 4</h4>
+<p><strong>A multiple regression model predicts self-esteem based on social support and stress levels. The output includes an interaction term for social support and stress with a p-value of .007. What does this suggest?</strong></p>
+<div id="radio_NUGUPKYITM" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_NUGUPKYITM" value="answer"><span>The relationship between stress and self-esteem depends on social support.</span></label><label><input type="radio" autocomplete="off" name="radio_NUGUPKYITM" value="x"><span>The interaction term suggests that social support and stress are highly correlated and should be removed from the model.</span></label><label><input type="radio" autocomplete="off" name="radio_NUGUPKYITM" value="x"><span>Social support directly improves self-esteem, so the interaction term is unnecessary.</span></label><label><input type="radio" autocomplete="off" name="radio_NUGUPKYITM" value="x"><span>Social support and stress both influence self-esteem, but they do not interact.</span></label>
+</div>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-28-contents" aria-controls="callout-28" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Explain this answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-28" class="callout-28-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>A significant interaction term <span class="math inline">\((p = .007)\)</span> means that the effect of stress on self-esteem is different at different levels of social support.</p>
+<p>Why are the other options incorrect?</p>
+<ul>
+<li>One option ignores the interaction effect, treating the predictors as independent influences.</li>
+<li>Another incorrectly assumes that social support’s direct effect makes the interaction term unnecessary, when in reality, interactions test whether one predictor alters another’s effect.</li>
+<li>The last incorrect option confuses interaction effects with multicollinearity. High correlation between predictors does not automatically mean an interaction term should be removed.</li>
+</ul>
+</div>
+</div>
+</div>
 
 
-</section></main><!-- /main --><script>
+</section></section></main><!-- /main --><script>
 
 /* update total correct if #webex-total_correct exists */
 update_total_correct = function() {
