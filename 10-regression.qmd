@@ -402,6 +402,7 @@ Assumptions 4-6 can also be tested using the `check_model()` function from the `
 ```{r}
 check_model(mod)
 ```
+
 One key difference is that you get a posterior predictive check, which compares observed values to the model's predictions. Additionally, the Q-Q plot for normality of residuals is displayed different. Instead of a diagonal reference line, residuals are plotted as deviations from a horizontal line. This visualisation can sometimes exaggerate small deviations, so focus on identifying clear overall patterns rather than minor fluctuations.
 
 
@@ -504,14 +505,14 @@ To do this, we use the `pwr.f2.test()` function from the `pwr` package. This fun
 pwr.f2.test(u = 1, v = 179, sig.level = 0.05, power = 0.8)
 ```
 
-With the design and sample size we have, we could have detected an effect as small as $f^2 = .044$. Since the observed effect size from our inferential statistics was larger ($f^2 = .074$), this means our test was sufficiently powered to detect the observed effect. 
+With the design and sample size we have, we could have detected an effect as small as $f^2 = 0.044$. Since the observed effect size from our inferential statistics was larger ($f^2 = 0.080$), this means our test was sufficiently powered to detect the observed effect. 
 
 
 ## Activity 9: The write-up
 
 A simple linear regression was performed with Attitudes toward SPSS $(M = 3.50, SD = 0.73)$ as the outcome variable and Quantitative self-efficacy $(M = 3.39, SD = 0.78)$ as the predictor variable. 
 
-The results of the regression indicated that the model significantly predicted Attitudes toward SPSS $(F(1, 179) = 15.47 p < .001, R^2_{Adjusted} = .074, f^2 = .074)$, accounting for 7.4% of the variance. The effect of Quantitative self-efficacy was statistically significant, positive, and of small magnitude $(b = 0.26, 95\% CI = [.13, .40], p <.001 )$.
+The results of the regression indicated that the model significantly predicted Attitudes toward SPSS $(F(1, 179) = 15.47 p < .001, R^2_{Adjusted} = .074, f^2 = 0.080)$, accounting for 7.4% of the variance. The effect of Quantitative self-efficacy was statistically significant, positive, and of small magnitude $(b = 0.26, 95\% CI = [.13, .40], p <.001)$.
 
 
 ## [Pair-coding]{style="color: #F39C12; text-transform: uppercase;"} {.unnumbered}

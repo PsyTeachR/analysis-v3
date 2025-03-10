@@ -1008,15 +1008,7 @@ Solution
 <span id="cb15-3"><a href="#cb15-3"></a>               <span class="at">data =</span> data_smartphone)</span>
 <span id="cb15-4"><a href="#cb15-4"></a></span>
 <span id="cb15-5"><a href="#cb15-5"></a><span class="do">## regression output</span></span>
-<span id="cb15-6"><a href="#cb15-6"></a><span class="fu">summary</span>(mod)</span>
-<span id="cb15-7"><a href="#cb15-7"></a></span>
-<span id="cb15-8"><a href="#cb15-8"></a><span class="do">## confidence intervals</span></span>
-<span id="cb15-9"><a href="#cb15-9"></a><span class="fu">confint</span>(mod)</span>
-<span id="cb15-10"><a href="#cb15-10"></a></span>
-<span id="cb15-11"><a href="#cb15-11"></a><span class="do">## effect size</span></span>
-<span id="cb15-12"><a href="#cb15-12"></a>r_sq_adj <span class="ot">&lt;-</span> <span class="fu">summary</span>(mod)<span class="sc">$</span>adj.r.squared</span>
-<span id="cb15-13"><a href="#cb15-13"></a>f_2 <span class="ot">&lt;-</span> r_sq_adj<span class="sc">/</span>(<span class="dv">1</span><span class="sc">-</span>r_sq_adj)</span>
-<span id="cb15-14"><a href="#cb15-14"></a>f_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-6"><a href="#cb15-6"></a><span class="fu">summary</span>(mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1043,14 +1035,27 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Residual standard error: 9.135 on 71029 degrees of freedom
 Multiple R-squared:  0.09381,   Adjusted R-squared:  0.09377 
-F-statistic:  2451 on 3 and 71029 DF,  p-value: &lt; 2.2e-16
-
-                                              2.5 %     97.5 %
+F-statistic:  2451 on 3 and 71029 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="do">## confidence intervals</span></span>
+<span id="cb17-2"><a href="#cb17-2"></a><span class="fu">confint</span>(mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                              2.5 %     97.5 %
 (Intercept)                              44.7796275 44.9551788
 average_hours_centered                   -0.8170719 -0.7253385
 gender_recoded0.5                         5.0002576  5.2791028
-average_hours_centered:gender_recoded0.5  0.3796615  0.5244376
-[1] 0.1034697</code></pre>
+average_hours_centered:gender_recoded0.5  0.3796615  0.5244376</code></pre>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="do">## effect size</span></span>
+<span id="cb19-2"><a href="#cb19-2"></a>r_sq_adj <span class="ot">&lt;-</span> <span class="fu">summary</span>(mod)<span class="sc">$</span>adj.r.squared</span>
+<span id="cb19-3"><a href="#cb19-3"></a>f_2 <span class="ot">&lt;-</span> r_sq_adj<span class="sc">/</span>(<span class="dv">1</span><span class="sc">-</span>r_sq_adj)</span>
+<span id="cb19-4"><a href="#cb19-4"></a>f_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1034697</code></pre>
 </div>
 </div>
 </div>
@@ -1064,19 +1069,19 @@ average_hours_centered:gender_recoded0.5  0.3796615  0.5244376
 <p>There is a great package called <code>sjPlot</code> which takes regression models and helps you plot them in different ways. We will demonstrate plotting interactions, but for further information and options, see the <a href="https://strengejacke.github.io/sjPlot/articles/plot_interactions.html" target="_blank">online documentation</a>.</p>
 <p>To plot the interaction, you need the model object (not the summary), specify “pred” as the <code>type</code> as we want to plot predictions, and add the <code>terms</code> you want to plot.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">plot_model</span>(mod, </span>
-<span id="cb17-2"><a href="#cb17-2"></a>           <span class="at">type =</span> <span class="st">"pred"</span>, </span>
-<span id="cb17-3"><a href="#cb17-3"></a>           <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"average_hours_centered"</span>, <span class="st">"gender_recoded"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="fu">plot_model</span>(mod, </span>
+<span id="cb21-2"><a href="#cb21-2"></a>           <span class="at">type =</span> <span class="st">"pred"</span>, </span>
+<span id="cb21-3"><a href="#cb21-3"></a>           <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"average_hours_centered"</span>, <span class="st">"gender_recoded"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="11-multiple-regression_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="11-multiple-regression_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>What is the most reasonable interpretation of the interaction?</p>
-<div id="radio_LNZKIVPUNT" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_LNZKIVPUNT" value="x"><span>there is no evidence for gender differences in the relationship between smartphone use and well-being</span></label><label><input type="radio" autocomplete="off" name="radio_LNZKIVPUNT" value="x"><span>smartphone use harms boys more than girls</span></label><label><input type="radio" autocomplete="off" name="radio_LNZKIVPUNT" value="answer"><span>smartphone use was more negatively associated with wellbeing for girls than for boys</span></label><label><input type="radio" autocomplete="off" name="radio_LNZKIVPUNT" value="x"><span>smartphone use harms girls more than boys</span></label>
+<div id="radio_SPWPHCGXUA" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_SPWPHCGXUA" value="answer"><span>smartphone use was more negatively associated with wellbeing for girls than for boys</span></label><label><input type="radio" autocomplete="off" name="radio_SPWPHCGXUA" value="x"><span>there is no evidence for gender differences in the relationship between smartphone use and well-being</span></label><label><input type="radio" autocomplete="off" name="radio_SPWPHCGXUA" value="x"><span>smartphone use harms boys more than girls</span></label><label><input type="radio" autocomplete="off" name="radio_SPWPHCGXUA" value="x"><span>smartphone use harms girls more than boys</span></label>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -1103,16 +1108,16 @@ Example of a more tidy plot
 <div class="callout-body-container callout-body">
 <p>For example, we can tidy up the axis labels and remove the title, and set a theme.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">plot_model</span>(mod, </span>
-<span id="cb18-2"><a href="#cb18-2"></a>           <span class="at">type =</span> <span class="st">"pred"</span>, </span>
-<span id="cb18-3"><a href="#cb18-3"></a>           <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"average_hours_centered"</span>, <span class="st">"gender_recoded"</span>)) <span class="sc">+</span> </span>
-<span id="cb18-4"><a href="#cb18-4"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Total Hours Smartphone Use"</span>,</span>
-<span id="cb18-5"><a href="#cb18-5"></a>       <span class="at">y =</span> <span class="st">"Total Well-Being Score"</span>,</span>
-<span id="cb18-6"><a href="#cb18-6"></a>       <span class="at">title =</span> <span class="st">""</span>) <span class="sc">+</span> </span>
-<span id="cb18-7"><a href="#cb18-7"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="fu">plot_model</span>(mod, </span>
+<span id="cb22-2"><a href="#cb22-2"></a>           <span class="at">type =</span> <span class="st">"pred"</span>, </span>
+<span id="cb22-3"><a href="#cb22-3"></a>           <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"average_hours_centered"</span>, <span class="st">"gender_recoded"</span>)) <span class="sc">+</span> </span>
+<span id="cb22-4"><a href="#cb22-4"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Total Hours Smartphone Use"</span>,</span>
+<span id="cb22-5"><a href="#cb22-5"></a>       <span class="at">y =</span> <span class="st">"Total Well-Being Score"</span>,</span>
+<span id="cb22-6"><a href="#cb22-6"></a>       <span class="at">title =</span> <span class="st">""</span>) <span class="sc">+</span> </span>
+<span id="cb22-7"><a href="#cb22-7"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="11-multiple-regression_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="11-multiple-regression_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1151,15 +1156,15 @@ Important
 </div>
 </div>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="fu">check_model</span>(mod, </span>
-<span id="cb19-2"><a href="#cb19-2"></a>            <span class="at">check =</span> <span class="fu">c</span>(<span class="st">"vif"</span>, </span>
-<span id="cb19-3"><a href="#cb19-3"></a>                      <span class="st">"qq"</span>, </span>
-<span id="cb19-4"><a href="#cb19-4"></a>                      <span class="st">"normality"</span>, </span>
-<span id="cb19-5"><a href="#cb19-5"></a>                      <span class="st">"linearity"</span>, </span>
-<span id="cb19-6"><a href="#cb19-6"></a>                      <span class="st">"homogeneity"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="fu">check_model</span>(mod, </span>
+<span id="cb23-2"><a href="#cb23-2"></a>            <span class="at">check =</span> <span class="fu">c</span>(<span class="st">"vif"</span>, </span>
+<span id="cb23-3"><a href="#cb23-3"></a>                      <span class="st">"qq"</span>, </span>
+<span id="cb23-4"><a href="#cb23-4"></a>                      <span class="st">"normality"</span>, </span>
+<span id="cb23-5"><a href="#cb23-5"></a>                      <span class="st">"linearity"</span>, </span>
+<span id="cb23-6"><a href="#cb23-6"></a>                      <span class="st">"homogeneity"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="11-multiple-regression_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="11-multiple-regression_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1173,10 +1178,10 @@ Important
 </section><section id="assumption-6-homoscedasticity" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="assumption-6-homoscedasticity">Assumption 6: Homoscedasticity</h4>
 <p>The plot is missing the reference line. Fun fact, this took us several days of our lives and asking for help on social media to figure out. The reason the line is not there is because the data set is so large that is creates a memory issue. However, if you use the <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> version, it does show the reference line.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="fu">plot</span>(mod, <span class="at">which =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="fu">plot</span>(mod, <span class="at">which =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="11-multiple-regression_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="11-multiple-regression_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1187,7 +1192,7 @@ Important
 <p>Essentially, this function estimates how much the variance of a coefficient is “inflated” because of linear dependence with other predictors, i.e., that a predictor is not actually adding any unique variance to the model, it’s just really strongly related to other predictors. <a href="https://statisticalhorizons.com/multicollinearity" target="_blank">You can read more about this online</a>. Thankfully, VIF is not affected by large samples like other statistical diagnostic tests.</p>
 <p>There are various rules of thumb, but most converge on a <strong>VIF of above 2 - 2.5</strong> for any one predictor to be problematic. Here we are well under 2 for all 3 terms of the model.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="fu">check_collinearity</span>(mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="fu">check_collinearity</span>(mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="table table-sm table-striped small">
@@ -1286,7 +1291,7 @@ Solution
 <div id="callout-21" class="callout-21-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="fu">pwr.f2.test</span>(<span class="at">u =</span> <span class="dv">3</span>, <span class="at">v =</span> <span class="dv">71029</span>, <span class="at">sig.level =</span> <span class="fl">0.05</span>, <span class="at">power =</span> <span class="fl">0.99</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="fu">pwr.f2.test</span>(<span class="at">u =</span> <span class="dv">3</span>, <span class="at">v =</span> <span class="dv">71029</span>, <span class="at">sig.level =</span> <span class="fl">0.05</span>, <span class="at">power =</span> <span class="fl">0.99</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
      Multiple regression power calculation 
@@ -1304,7 +1309,7 @@ Solution
 </div>
 </section><section id="activity-10-the-write-up" class="level2" data-number="11.10"><h2 data-number="11.10" class="anchored" data-anchor-id="activity-10-the-write-up">
 <span class="header-section-number">11.10</span> Activity 10: The write-up</h2>
-<p>All continuous predictors were mean-centered and deviation coding was used for categorical predictors. The results of the regression indicated that the model significantly predicted wellbeing <span class="math inline">\((F(3, 71029) = 2451, p &lt; .001, R^2_{Adjusted} = .094, f^2 = .103)\)</span>, accounting for 9.4% of the variance. Total screen time was a significant negative predictor of wellbeing scores <span class="math inline">\((\beta = -0.77, 95\% CI = [-0.82, -0.73], p &lt; .001\)</span>), as was gender <span class="math inline">\((\beta = 5.14, p &lt; .001\)</span>), with girls having lower wellbeing scores than boys. Importantly, there was a significant interaction between screen time and gender <span class="math inline">\((\beta = 0.45, 95\% CI = [0.38, 0.52], p &lt; .001\)</span>), meaning that smartphone use was more negatively associated with well-being for girls than for boys.</p>
+<p>All continuous predictors were mean-centered and deviation coding was used for categorical predictors. The results of the regression indicated that the model significantly predicted wellbeing <span class="math inline">\((F(3, 71029) = 2451, p &lt; .001, R^2_{Adjusted} = .094, f^2 = 0.103)\)</span>, accounting for 9.4% of the variance. Total screen time was a significant negative predictor of wellbeing scores <span class="math inline">\((\beta = -0.77, 95\% CI = [-0.82, -0.73], p &lt; .001\)</span>), as was gender <span class="math inline">\((\beta = 5.14, p &lt; .001\)</span>), with girls having lower wellbeing scores than boys. Importantly, there was a significant interaction between screen time and gender <span class="math inline">\((\beta = 0.45, 95\% CI = [0.38, 0.52], p &lt; .001\)</span>), meaning that smartphone use was more negatively associated with well-being for girls than for boys.</p>
 </section><section id="pair-coding" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="pair-coding"><span style="color: #F39C12; text-transform: uppercase;">Pair-coding</span></h2>
 <section id="task-1-open-the-r-project-for-the-lab" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="task-1-open-the-r-project-for-the-lab">Task 1: Open the R project for the lab</h3>
 </section><section id="task-2-create-a-new-.rmd-file" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="task-2-create-a-new-.rmd-file">Task 2: Create a new <code>.Rmd</code> file</h3>
@@ -1329,24 +1334,24 @@ Solution
 <div id="callout-22" class="callout-22-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb24-2"><a href="#cb24-2"></a><span class="fu">library</span>(sjPlot)</span>
-<span id="cb24-3"><a href="#cb24-3"></a><span class="fu">library</span>(performance)</span>
-<span id="cb24-4"><a href="#cb24-4"></a></span>
-<span id="cb24-5"><a href="#cb24-5"></a>dog_data_wide <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"dog_data_clean_wide.csv"</span>)</span>
-<span id="cb24-6"><a href="#cb24-6"></a></span>
-<span id="cb24-7"><a href="#cb24-7"></a>dog_mult_reg <span class="ot">&lt;-</span> dog_data_wide <span class="sc">%&gt;%</span></span>
-<span id="cb24-8"><a href="#cb24-8"></a>  <span class="fu">select</span>(RID, Loneliness_post, Loneliness_pre, Flourishing_pre) <span class="sc">%&gt;%</span> </span>
-<span id="cb24-9"><a href="#cb24-9"></a>  <span class="fu">drop_na</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb28-2"><a href="#cb28-2"></a><span class="fu">library</span>(sjPlot)</span>
+<span id="cb28-3"><a href="#cb28-3"></a><span class="fu">library</span>(performance)</span>
+<span id="cb28-4"><a href="#cb28-4"></a></span>
+<span id="cb28-5"><a href="#cb28-5"></a>dog_data_wide <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"dog_data_clean_wide.csv"</span>)</span>
+<span id="cb28-6"><a href="#cb28-6"></a></span>
+<span id="cb28-7"><a href="#cb28-7"></a>dog_mult_reg <span class="ot">&lt;-</span> dog_data_wide <span class="sc">%&gt;%</span></span>
+<span id="cb28-8"><a href="#cb28-8"></a>  <span class="fu">select</span>(RID, Loneliness_post, Loneliness_pre, Flourishing_pre) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-9"><a href="#cb28-9"></a>  <span class="fu">drop_na</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
 </div>
 <p>Furthermore, we need to mean-center our two continuous predictors. Since this is a new concept, simply run the code below.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>dog_mult_reg <span class="ot">&lt;-</span> dog_mult_reg <span class="sc">%&gt;%</span> </span>
-<span id="cb25-2"><a href="#cb25-2"></a>  <span class="fu">mutate</span>(<span class="at">Flourishing_pre_centered =</span> Flourishing_pre <span class="sc">-</span> <span class="fu">mean</span>(Flourishing_pre),</span>
-<span id="cb25-3"><a href="#cb25-3"></a>         <span class="at">Loneliness_pre_centered =</span> Loneliness_pre <span class="sc">-</span> <span class="fu">mean</span>(Loneliness_pre))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>dog_mult_reg <span class="ot">&lt;-</span> dog_mult_reg <span class="sc">%&gt;%</span> </span>
+<span id="cb29-2"><a href="#cb29-2"></a>  <span class="fu">mutate</span>(<span class="at">Flourishing_pre_centered =</span> Flourishing_pre <span class="sc">-</span> <span class="fu">mean</span>(Flourishing_pre),</span>
+<span id="cb29-3"><a href="#cb29-3"></a>         <span class="at">Loneliness_pre_centered =</span> Loneliness_pre <span class="sc">-</span> <span class="fu">mean</span>(Loneliness_pre))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="task-5-model-creating-assumption-checks" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="task-5-model-creating-assumption-checks">Task 5: Model creating &amp; Assumption checks</h3>
 <p>Now, let’s create our regression model. This follows the same approach as <a href="10-regression.html"><span>Chapter&nbsp;10</span></a>, but with additional predictors.</p>
@@ -1362,7 +1367,7 @@ Solution
 </ul>
 <p>As a reminder, the multiple linear regression model has the following structure:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="fu">lm</span>(Outcome <span class="sc">~</span> Predictor1 <span class="sc">*</span> Predictor2, data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="fu">lm</span>(Outcome <span class="sc">~</span> Predictor1 <span class="sc">*</span> Predictor2, data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The asterisk (<code>*</code>) means that the model includes main effects for both predictors (i.e., Pre-intervention flourishing &amp; Pre-intervention loneliness) as well as their interaction term (which tests whether the effect of one predictor depends on the other).</p>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
@@ -1394,14 +1399,14 @@ Solution
 <div id="callout-23" class="callout-23-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="co"># Step 1</span></span>
-<span id="cb27-2"><a href="#cb27-2"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(Loneliness_post<span class="sc">~</span>Loneliness_pre_centered<span class="sc">*</span>Flourishing_pre_centered, <span class="at">data =</span> dog_mult_reg)</span>
-<span id="cb27-3"><a href="#cb27-3"></a></span>
-<span id="cb27-4"><a href="#cb27-4"></a><span class="co"># Step 2</span></span>
-<span id="cb27-5"><a href="#cb27-5"></a><span class="fu">summary</span>(mod)</span>
-<span id="cb27-6"><a href="#cb27-6"></a></span>
-<span id="cb27-7"><a href="#cb27-7"></a><span class="co"># Step 3</span></span>
-<span id="cb27-8"><a href="#cb27-8"></a><span class="fu">check_model</span>(mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="co"># Step 1</span></span>
+<span id="cb31-2"><a href="#cb31-2"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(Loneliness_post<span class="sc">~</span>Loneliness_pre_centered<span class="sc">*</span>Flourishing_pre_centered, <span class="at">data =</span> dog_mult_reg)</span>
+<span id="cb31-3"><a href="#cb31-3"></a></span>
+<span id="cb31-4"><a href="#cb31-4"></a><span class="co"># Step 2</span></span>
+<span id="cb31-5"><a href="#cb31-5"></a><span class="fu">summary</span>(mod)</span>
+<span id="cb31-6"><a href="#cb31-6"></a></span>
+<span id="cb31-7"><a href="#cb31-7"></a><span class="co"># Step 3</span></span>
+<span id="cb31-8"><a href="#cb31-8"></a><span class="fu">check_model</span>(mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -1423,8 +1428,8 @@ Solution
 </section></section><section id="test-your-knowledge" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="test-your-knowledge"><span style="color: #F39C12; text-transform: uppercase;">Test your knowledge</span></h2>
 <section id="question-1" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-1">Question 1</h4>
 <p><strong>What is the main purpose of a multiple regression analysis?</strong></p>
-<div id="radio_NYCAVOMNKH" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_NYCAVOMNKH" value="x"><span>To test whether one predictor variable explains the outcome variable while ignoring other potential influences.</span></label><label><input type="radio" autocomplete="off" name="radio_NYCAVOMNKH" value="x"><span>To determine whether there is an association between two variables, without assuming causality.</span></label><label><input type="radio" autocomplete="off" name="radio_NYCAVOMNKH" value="answer"><span>To predict or explain changes in an outcome variable based on multiple predictor variables.</span></label><label><input type="radio" autocomplete="off" name="radio_NYCAVOMNKH" value="x"><span>To compare means between two groups and determine if they are significantly different.</span></label>
+<div id="radio_UYNXTNYHCX" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_UYNXTNYHCX" value="x"><span>To determine whether there is an association between two variables, without assuming causality.</span></label><label><input type="radio" autocomplete="off" name="radio_UYNXTNYHCX" value="x"><span>To compare means between two groups and determine if they are significantly different.</span></label><label><input type="radio" autocomplete="off" name="radio_UYNXTNYHCX" value="x"><span>To test whether one predictor variable explains the outcome variable while ignoring other potential influences.</span></label><label><input type="radio" autocomplete="off" name="radio_UYNXTNYHCX" value="answer"><span>To predict or explain changes in an outcome variable based on multiple predictor variables.</span></label>
 </div>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-25-contents" aria-controls="callout-25" aria-expanded="false" aria-label="Toggle callout">
@@ -1450,8 +1455,8 @@ Explain this answer
 </section><section id="question-2" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-2">Question 2</h4>
 <p><strong>A researcher investigates whether a student’s exam performance can be predicted by their hours of study and test anxiety levels.</strong></p>
 <p><strong>Which of the following correctly specifies the multiple regression model in R?</strong></p>
-<div id="radio_LPCFLQXJJW" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_LPCFLQXJJW" value="x"><span>lm(Study_Hours ~ Exam_Score + Test_Anxiety, data = student_data)</span></label><label><input type="radio" autocomplete="off" name="radio_LPCFLQXJJW" value="answer"><span>lm(Exam_Score ~ Study_Hours + Test_Anxiety, data = student_data)</span></label><label><input type="radio" autocomplete="off" name="radio_LPCFLQXJJW" value="x"><span>lm(Test_Anxiety ~ Study_Hours + Exam_Score, data = student_data)</span></label><label><input type="radio" autocomplete="off" name="radio_LPCFLQXJJW" value="x"><span>lm(Exam_Score ~ Study_Hours * Test_Anxiety, data = student_data)</span></label>
+<div id="radio_VWAUSMCIHW" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_VWAUSMCIHW" value="x"><span>lm(Exam_Score ~ Study_Hours * Test_Anxiety, data = student_data)</span></label><label><input type="radio" autocomplete="off" name="radio_VWAUSMCIHW" value="x"><span>lm(Test_Anxiety ~ Study_Hours + Exam_Score, data = student_data)</span></label><label><input type="radio" autocomplete="off" name="radio_VWAUSMCIHW" value="x"><span>lm(Study_Hours ~ Exam_Score + Test_Anxiety, data = student_data)</span></label><label><input type="radio" autocomplete="off" name="radio_VWAUSMCIHW" value="answer"><span>lm(Exam_Score ~ Study_Hours + Test_Anxiety, data = student_data)</span></label>
 </div>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-26-contents" aria-controls="callout-26" aria-expanded="false" aria-label="Toggle callout">
@@ -1478,8 +1483,8 @@ Explain this answer
 <p><strong>A multiple regression model is used to predict life satisfaction based on sleep quality and daily screen time. The output includes the following regression equation:</strong></p>
 <p><span class="math inline">\(Life Satisfaction = 50.2 + 1.8 * Sleep Quality − 0.9 * ScreenTime\)</span></p>
 <p><strong>How should the coefficient for Sleep Quality (1.8) be interpreted??</strong></p>
-<div id="radio_YPDJZZMADH" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_YPDJZZMADH" value="answer"><span>For each one-unit increase in sleep quality, life satisfaction is expected to increase by 1.8, holding screen time constant.</span></label><label><input type="radio" autocomplete="off" name="radio_YPDJZZMADH" value="x"><span>A one-unit increase in sleep quality always leads to a 1.8-point increase in life satisfaction.</span></label><label><input type="radio" autocomplete="off" name="radio_YPDJZZMADH" value="x"><span>A one-unit increase in sleep quality may lead to a decrease in life satisfaction, depending on screen time.</span></label><label><input type="radio" autocomplete="off" name="radio_YPDJZZMADH" value="x"><span>For each one-unit increase in sleep quality, life satisfaction is expected to increase by 1.8, regardless of screen time.</span></label>
+<div id="radio_LRBBNZACHX" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_LRBBNZACHX" value="x"><span>For each one-unit increase in sleep quality, life satisfaction is expected to increase by 1.8, regardless of screen time.</span></label><label><input type="radio" autocomplete="off" name="radio_LRBBNZACHX" value="answer"><span>For each one-unit increase in sleep quality, life satisfaction is expected to increase by 1.8, holding screen time constant.</span></label><label><input type="radio" autocomplete="off" name="radio_LRBBNZACHX" value="x"><span>A one-unit increase in sleep quality always leads to a 1.8-point increase in life satisfaction.</span></label><label><input type="radio" autocomplete="off" name="radio_LRBBNZACHX" value="x"><span>A one-unit increase in sleep quality may lead to a decrease in life satisfaction, depending on screen time.</span></label>
 </div>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-27-contents" aria-controls="callout-27" aria-expanded="false" aria-label="Toggle callout">
@@ -1505,8 +1510,8 @@ Explain this answer
 </div>
 </section><section id="question-4" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-4">Question 4</h4>
 <p><strong>A multiple regression model predicts self-esteem based on social support and stress levels. The output includes an interaction term for social support and stress with a p-value of .007. What does this suggest?</strong></p>
-<div id="radio_NUGUPKYITM" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_NUGUPKYITM" value="answer"><span>The relationship between stress and self-esteem depends on social support.</span></label><label><input type="radio" autocomplete="off" name="radio_NUGUPKYITM" value="x"><span>The interaction term suggests that social support and stress are highly correlated and should be removed from the model.</span></label><label><input type="radio" autocomplete="off" name="radio_NUGUPKYITM" value="x"><span>Social support directly improves self-esteem, so the interaction term is unnecessary.</span></label><label><input type="radio" autocomplete="off" name="radio_NUGUPKYITM" value="x"><span>Social support and stress both influence self-esteem, but they do not interact.</span></label>
+<div id="radio_GFSSWBNJRW" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_GFSSWBNJRW" value="answer"><span>The relationship between stress and self-esteem depends on social support.</span></label><label><input type="radio" autocomplete="off" name="radio_GFSSWBNJRW" value="x"><span>Social support and stress both influence self-esteem, but they do not interact.</span></label><label><input type="radio" autocomplete="off" name="radio_GFSSWBNJRW" value="x"><span>Social support directly improves self-esteem, so the interaction term is unnecessary.</span></label><label><input type="radio" autocomplete="off" name="radio_GFSSWBNJRW" value="x"><span>The interaction term suggests that social support and stress are highly correlated and should be removed from the model.</span></label>
 </div>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-28-contents" aria-controls="callout-28" aria-expanded="false" aria-label="Toggle callout">

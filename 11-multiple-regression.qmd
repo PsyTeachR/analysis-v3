@@ -542,10 +542,16 @@ mod <- lm(formula = WEMWBS_sum ~ average_hours_centered * gender_recoded,
 
 ## regression output
 summary(mod)
+```
 
+
+```{r}
 ## confidence intervals
 confint(mod)
+```
 
+
+```{r}
 ## effect size
 r_sq_adj <- summary(mod)$adj.r.squared
 f_2 <- r_sq_adj/(1-r_sq_adj)
@@ -703,7 +709,7 @@ $f^2 = .0004$ with 99% power. Needless to say, this study was sufficiently power
 
 ## Activity 10: The write-up
 
-All continuous predictors were mean-centered and deviation coding was used for categorical predictors. The results of the regression indicated that the model significantly predicted wellbeing $(F(3, 71029) = 2451, p < .001, R^2_{Adjusted} = .094, f^2 = .103)$, accounting for 9.4% of the variance. Total screen time was a significant negative predictor of wellbeing scores $(\beta = -0.77, 95\% CI = [-0.82, -0.73], p < .001$), as was gender $(\beta = 5.14, p < .001$), with girls having lower wellbeing scores than boys. Importantly, there was a significant interaction between screen time and gender $(\beta = 0.45, 95\% CI = [0.38, 0.52], p < .001$), meaning that smartphone use was more negatively associated with well-being for girls than for boys. 
+All continuous predictors were mean-centered and deviation coding was used for categorical predictors. The results of the regression indicated that the model significantly predicted wellbeing $(F(3, 71029) = 2451, p < .001, R^2_{Adjusted} = .094, f^2 = 0.103)$, accounting for 9.4% of the variance. Total screen time was a significant negative predictor of wellbeing scores $(\beta = -0.77, 95\% CI = [-0.82, -0.73], p < .001$), as was gender $(\beta = 5.14, p < .001$), with girls having lower wellbeing scores than boys. Importantly, there was a significant interaction between screen time and gender $(\beta = 0.45, 95\% CI = [0.38, 0.52], p < .001$), meaning that smartphone use was more negatively associated with well-being for girls than for boys. 
 
 
 ## [Pair-coding]{style="color: #F39C12; text-transform: uppercase;"} {.unnumbered}

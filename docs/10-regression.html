@@ -997,11 +997,11 @@ f^2 = \frac{R^2_{Adjusted}}{1-R^2_{Adjusted}}
           power = 0.8</code></pre>
 </div>
 </div>
-<p>With the design and sample size we have, we could have detected an effect as small as <span class="math inline">\(f^2 = .044\)</span>. Since the observed effect size from our inferential statistics was larger (<span class="math inline">\(f^2 = .074\)</span>), this means our test was sufficiently powered to detect the observed effect.</p>
+<p>With the design and sample size we have, we could have detected an effect as small as <span class="math inline">\(f^2 = 0.044\)</span>. Since the observed effect size from our inferential statistics was larger (<span class="math inline">\(f^2 = 0.080\)</span>), this means our test was sufficiently powered to detect the observed effect.</p>
 </section><section id="activity-9-the-write-up" class="level2" data-number="10.9"><h2 data-number="10.9" class="anchored" data-anchor-id="activity-9-the-write-up">
 <span class="header-section-number">10.9</span> Activity 9: The write-up</h2>
 <p>A simple linear regression was performed with Attitudes toward SPSS <span class="math inline">\((M = 3.50, SD = 0.73)\)</span> as the outcome variable and Quantitative self-efficacy <span class="math inline">\((M = 3.39, SD = 0.78)\)</span> as the predictor variable.</p>
-<p>The results of the regression indicated that the model significantly predicted Attitudes toward SPSS <span class="math inline">\((F(1, 179) = 15.47 p &lt; .001, R^2_{Adjusted} = .074, f^2 = .074)\)</span>, accounting for 7.4% of the variance. The effect of Quantitative self-efficacy was statistically significant, positive, and of small magnitude <span class="math inline">\((b = 0.26, 95\% CI = [.13, .40], p &lt;.001 )\)</span>.</p>
+<p>The results of the regression indicated that the model significantly predicted Attitudes toward SPSS <span class="math inline">\((F(1, 179) = 15.47 p &lt; .001, R^2_{Adjusted} = .074, f^2 = 0.080)\)</span>, accounting for 7.4% of the variance. The effect of Quantitative self-efficacy was statistically significant, positive, and of small magnitude <span class="math inline">\((b = 0.26, 95\% CI = [.13, .40], p &lt;.001)\)</span>.</p>
 </section><section id="pair-coding" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="pair-coding"><span style="color: #F39C12; text-transform: uppercase;">Pair-coding</span></h2>
 <section id="task-1-open-the-r-project-for-the-lab" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="task-1-open-the-r-project-for-the-lab">Task 1: Open the R project for the lab</h3>
 </section><section id="task-2-create-a-new-.rmd-file" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="task-2-create-a-new-.rmd-file">Task 2: Create a new <code>.Rmd</code> file</h3>
@@ -1154,8 +1154,8 @@ Solution
 <option value="x">non-linear</option>
 <option value="answer">linear</option></select>.</li>
 <li>Normality: The residuals are <select class="webex-select"><option value="blank"></option>
-<option value="answer">approximately normally distributed</option>
-<option value="x">not normally distributed</option></select>.</li>
+<option value="x">not normally distributed</option>
+<option value="answer">approximately normally distributed</option></select>.</li>
 <li>Homoscedasticity: There is <select class="webex-select"><option value="blank"></option>
 <option value="answer">homoscedasticity as there is no distinct pattern in the residuals</option>
 <option value="x">heteroscedasticity as the residuals show a distinct pattern</option></select>.</li>
@@ -1198,8 +1198,8 @@ I don’t understand - can you explain more?
 </ul></section></section><section id="test-your-knowledge" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="test-your-knowledge"><span style="color: #F39C12; text-transform: uppercase;">Test your knowledge</span></h2>
 <section id="question-1" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-1">Question 1</h4>
 <p><strong>What is the main purpose of a simple regression analysis?</strong></p>
-<div id="radio_DOMYINGLAF" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_DOMYINGLAF" value="x"><span>To determine whether there is an association between two variables, without assuming causality.</span></label><label><input type="radio" autocomplete="off" name="radio_DOMYINGLAF" value="answer"><span>To predict or explain changes in an outcome variable based on changes in a predictor variable.</span></label><label><input type="radio" autocomplete="off" name="radio_DOMYINGLAF" value="x"><span>To compare means between two groups and determine if they are significantly different.</span></label><label><input type="radio" autocomplete="off" name="radio_DOMYINGLAF" value="x"><span>To assess whether multiple independent variables jointly predict an outcome variable.</span></label>
+<div id="radio_RWITYOOFJG" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_RWITYOOFJG" value="x"><span>To determine whether there is an association between two variables, without assuming causality.</span></label><label><input type="radio" autocomplete="off" name="radio_RWITYOOFJG" value="answer"><span>To predict or explain changes in an outcome variable based on changes in a predictor variable.</span></label><label><input type="radio" autocomplete="off" name="radio_RWITYOOFJG" value="x"><span>To compare means between two groups and determine if they are significantly different.</span></label><label><input type="radio" autocomplete="off" name="radio_RWITYOOFJG" value="x"><span>To assess whether multiple independent variables jointly predict an outcome variable.</span></label>
 </div>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-21-contents" aria-controls="callout-21" aria-expanded="false" aria-label="Toggle callout">
@@ -1220,8 +1220,8 @@ Explain this answer
 </section><section id="question-2" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-2">Question 2</h4>
 <p><strong>A sports scientist wants to examine whether an athlete’s reaction time (in milliseconds) can predict their sprint speed (in seconds) in a 100m race.</strong></p>
 <p><strong>Which of the following correctly specifies the simple regression model in R?</strong></p>
-<div id="radio_WJZCKDSGYX" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_WJZCKDSGYX" value="answer"><span>lm(Sprint_Speed ~ Reaction_Time, data = data)</span></label><label><input type="radio" autocomplete="off" name="radio_WJZCKDSGYX" value="x"><span>lm(Sprint_Speed ~ Reaction_Time + Training_Hours, data = data)</span></label><label><input type="radio" autocomplete="off" name="radio_WJZCKDSGYX" value="x"><span>lm(Reaction_Time ~ Sprint_Speed, data = data)</span></label><label><input type="radio" autocomplete="off" name="radio_WJZCKDSGYX" value="x"><span>lm(Reaction_Time ~ Sprint_Speed + Age, data = data)</span></label>
+<div id="radio_IGOZIKHTWM" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_IGOZIKHTWM" value="x"><span>lm(Sprint_Speed ~ Reaction_Time + Training_Hours, data = data)</span></label><label><input type="radio" autocomplete="off" name="radio_IGOZIKHTWM" value="answer"><span>lm(Sprint_Speed ~ Reaction_Time, data = data)</span></label><label><input type="radio" autocomplete="off" name="radio_IGOZIKHTWM" value="x"><span>lm(Reaction_Time ~ Sprint_Speed + Age, data = data)</span></label><label><input type="radio" autocomplete="off" name="radio_IGOZIKHTWM" value="x"><span>lm(Reaction_Time ~ Sprint_Speed, data = data)</span></label>
 </div>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-22-contents" aria-controls="callout-22" aria-expanded="false" aria-label="Toggle callout">
@@ -1247,8 +1247,8 @@ Explain this answer
 Sprint Speed = 10.2 + 0.08 × Reaction Time
 \]</span></p>
 <p><strong>How should the slope be interpreted?</strong></p>
-<div id="radio_RIISRXQWRA" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_RIISRXQWRA" value="x"><span>A 1-millisecond increase in reaction time is associated with a 10.2-second increase in sprint speed.</span></label><label><input type="radio" autocomplete="off" name="radio_RIISRXQWRA" value="x"><span>A 1-millisecond increase in reaction time is associated with a 10.2-second decrease in sprint speed.</span></label><label><input type="radio" autocomplete="off" name="radio_RIISRXQWRA" value="answer"><span>A 1-millisecond increase in reaction time is associated with a 0.08-second increase in sprint speed.</span></label><label><input type="radio" autocomplete="off" name="radio_RIISRXQWRA" value="x"><span>A 1-millisecond increase in reaction time is associated with a 0.08-second decrease in sprint speed.</span></label>
+<div id="radio_VMEHTMZTYY" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_VMEHTMZTYY" value="x"><span>A 1-millisecond increase in reaction time is associated with a 10.2-second increase in sprint speed.</span></label><label><input type="radio" autocomplete="off" name="radio_VMEHTMZTYY" value="x"><span>A 1-millisecond increase in reaction time is associated with a 10.2-second decrease in sprint speed.</span></label><label><input type="radio" autocomplete="off" name="radio_VMEHTMZTYY" value="x"><span>A 1-millisecond increase in reaction time is associated with a 0.08-second decrease in sprint speed.</span></label><label><input type="radio" autocomplete="off" name="radio_VMEHTMZTYY" value="answer"><span>A 1-millisecond increase in reaction time is associated with a 0.08-second increase in sprint speed.</span></label>
 </div>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-23-contents" aria-controls="callout-23" aria-expanded="false" aria-label="Toggle callout">
@@ -1268,8 +1268,8 @@ Explain this answer
 </div>
 </section><section id="question-4" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-4">Question 4</h4>
 <p><strong>A simple regression analysis finds an <span class="math inline">\(R^2_{Adjusted} = 0.62\)</span> when predicting sprint speed from reaction time. What does this mean?</strong></p>
-<div id="radio_VRMWWCKPQR" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_VRMWWCKPQR" value="answer"><span>62% of the variance in sprint speed is explained by reaction time.</span></label><label><input type="radio" autocomplete="off" name="radio_VRMWWCKPQR" value="x"><span>The predictor fully explains the outcome.</span></label><label><input type="radio" autocomplete="off" name="radio_VRMWWCKPQR" value="x"><span>62% of the variance in reaction time is explained by sprint speed.</span></label><label><input type="radio" autocomplete="off" name="radio_VRMWWCKPQR" value="x"><span>The model does not fit well because the adjusted <span class="math inline">\(R^2\)</span> is too high.</span></label>
+<div id="radio_PEFZHNNDKM" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_PEFZHNNDKM" value="x"><span>62% of the variance in reaction time is explained by sprint speed.</span></label><label><input type="radio" autocomplete="off" name="radio_PEFZHNNDKM" value="x"><span>The predictor fully explains the outcome.</span></label><label><input type="radio" autocomplete="off" name="radio_PEFZHNNDKM" value="answer"><span>62% of the variance in sprint speed is explained by reaction time.</span></label><label><input type="radio" autocomplete="off" name="radio_PEFZHNNDKM" value="x"><span>The model does not fit well because the adjusted <span class="math inline">\(R^2\)</span> is too high.</span></label>
 </div>
 <div class="callout callout-style-default callout-caution no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-24-contents" aria-controls="callout-24" aria-expanded="false" aria-label="Toggle callout">
