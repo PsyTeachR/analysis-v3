@@ -4,35 +4,460 @@
 
 By the end of this chapter you should be able to:
 
+- Apply and interpret a one-way ANOVA.
+- Break down the results of a one-way ANOVA using post-hocs tests and apply a correction for multiple comparisons.
+- Conduct a power analysis for a one-way ANOVA.
 
 ## [Individual Walkthrough]{style="color: #F39C12; text-transform: uppercase;"} {.unnumbered}
 
-## Activity 1: Setup
+## Activity 1: Setup & download the data
 
-* create a new project
-* create a new Rmd file and save it to your project folder
-* delete everything after the setup code chunk 
+This week, we will be working with a new dataset. Follow the steps below to set up your project:
 
-
-
-## Activity 2: Download the data
-
-* Download the data: link
-* Talk about the files
-* insert citation and abstract of the data
-* Look at the codebook and the variables
+* **Create a new project** and name it something meaningful (e.g., "2B_chapter12", or "12_anova"). See @sec-project if you need some guidance.
+* **Create a new `.Rmd` file** and save it to your project folder. See @sec-rmd if you need help. 
+* Delete everything after the setup code chunk (e.g., line 12 and below) 
+* **Download the new dataset** here: [data_ch12.zip](data/data_ch12.zip "download"). The zip folder includes:
+  * the data file for Experiment 2 (`James_2015_Expt_2.csv`), and the
+  * the codebook for Experiment 2 (`James Holmes Experiment 2 Data Code Book.doc`).
+* Extract the data file from the zip folder and place it in your project folder. If you need help, see @sec-download_data_ch1.
 
 
+**Citation**
 
-Kruskal-Wallis test: This is equivalent to the global significance test in a one-way ANOVA—it tests for differences between the central tendency of several samples.
+> James, E. L., Bonsall, M. B., Hoppitt, L., Tunbridge, E. M., Geddes, J. R., Milton, A. L., & Holmes, E. A. (2015). Computer Game Play Reduces Intrusive Memories of Experimental Trauma via Reconsolidation-Update Mechanisms. *Psychological Science, 26*(8), 1201-1215. [https://doi.org/10.1177/0956797615583071](https://doi.org/10.1177/0956797615583071){target="_blank"}
+
+
+
+
+**Abstract**
+
+> Memory of a traumatic event becomes consolidated within hours. Intrusive memories can then flash back repeatedly into the mind’s eye and cause distress. We investigated whether reconsolidation—the process during which memories become malleable when recalled—can be blocked using a cognitive task and whether such an approach can reduce these unbidden intrusions. We predicted that reconsolidation of a reactivated visual memory of experimental trauma could be disrupted by engaging in a visuospatial task that would compete for visual working memory resources. We showed that intrusive memories were virtually abolished by playing the computer game *Tetris* following a memory-reactivation task 24 hr after initial exposure to experimental trauma. Furthermore, both memory reactivation and playing *Tetris* were required to reduce subsequent intrusions (Experiment 2), consistent with reconsolidation-update mechanisms. A simple, noninvasive cognitive-task procedure administered after emotional memory has already consolidated (i.e., > 24 hours after exposure to experimental trauma) may prevent the recurrence of intrusive memories of those emotional events.
+
+The data is available on OSF: [https://osf.io/ij7ea/](https://osf.io/ij7ea/){target="_blank"}
+
+
+
+**Changes made to the dataset**
+
+* The original SPSS file was converted to CSV format. This time, we downloaded the numeric version of the data, allowing you to practice recoding values.
+* Missing values were coded as 9999.000 in the original data file; however, we replaced them with `NA`.
+
+
+
+## Activity 2: Load in the library, read in the data, and familiarise yourself with the data
+
+Today, we will use several packages: `effectsize`, `rstatix`, `tidyverse`, `qqplotr`, `car`, `emmeans`, and `pwr`, and, of course, the dataset `James_2015_Expt_2.csv`. The order in which the packages are loaded matters today. I believe we have used all of these packages before, but if you need help installing them, see @sec-install_packages for more details.
+
+
+```{r eval=FALSE}
+???
+
+data_james <- ???
+```
+
+
+```{r include=FALSE, message=TRUE}
+## I basically have to have 2 code chunks since I tell them to put the data files next to the project, and mine are in a separate folder called data - unless I'll turn this into a fixed path
+library(effectsize)
+library(rstatix)
+library(tidyverse)
+library(qqplotr)
+library(car)
+library(emmeans)
+library(pwr)
+
+data_james <- read_csv("data/James_2015_Expt_2.csv")
+
+```
+
+
+::: {.callout-caution collapse="true" icon="false"} 
+
+## Solution 
+
+```{r eval=FALSE}
+library(effectsize)
+library(rstatix)
+library(tidyverse)
+library(qqplotr)
+library(car)
+library(emmeans)
+library(pwr)
+
+data_james <- read_csv("James_2015_Expt_2.csv")
+```
+
+:::
+
+As always, take a moment to familiarise yourself with the data before starting your analysis.
+
+Once you have explored the data objects and the codebook, try answering the following questions: 
+
+* How many conditions were included in the experiment? `r fitb("4")`
+* How many participants were allocated to each condition? `r fitb("18")`
+* How many of participants were allowed to play *Tetris* during the experiment? `r fitb("36")`
+* How many visual analogue mood scales did participants complete before the experiment? `r fitb("6")`
+* Name one of them: `r fitb(c("pre_film_VAS_Sad", "pre_film_VAS_Hopeless", "pre_film_VAS_Depressed", "pre_film_VAS_Fear", "pre_film_VAS_Horror", "pre_film_VAS_Anxious"))` *(Hint: Match the spelling exactly.)*
+* Name the column that stores the main outcome variable: `r fitb("Days_One_to_Seven_Image_Based_Intrusions_in_Intrusion_Diary")` *(Hint: You can find the information in the codebook.)*
+
+
+
+## Activity 3: Preparing the dataframe
+
+Let's start by wrangling the data we need for today's analysis:
+
+* Convert the `Condition` column into a factor and replace its values with descriptive labels.
+* Add a column called `Participant_ID`. *This requires using a new function `row_number()` within `mutate()`.*
+* Rename `Days_One_to_Seven_Image_Based_Intrusions_in_Intrusion_Diary` to `Intrusions`.
+* Select only the columns `Participant_ID`, `Condition`, and `Intrusions`
+* Store the cleaned dataset as `james_data`.
+
+::: {.callout-caution collapse="true" icon="false"} 
+
+## Solution
+
+```{r}
+james_data <- data_james %>% 
+  mutate(Participant_ID = row_number(),
+         Condition = factor(Condition,
+                            labels = c("No-Task Control", "Reactivation+Tetris", "Tetris Only", "Reactivation Only"))) %>% 
+  select(Participant_ID, Condition, Intrusions = Days_One_to_Seven_Image_Based_Intrusions_in_Intrusion_Diary)
+```
+
+:::
+
+
+## Activity 4: Compute descriptives
+
+Now, we can calculate the means and standard deviations for each experimental group.
+
+::: {.callout-note collapse="true" icon="false"}
+## Hints
+
+* Summarise the data to display the mean and standard deviation of intrusive memories, grouped by `Condition`.
+* Your table should contain three columns: `Condition`, `mean`, and `sd`.
+
+:::
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Solution
+
+We are simply computing the values again rather than storing them. However, if you prefer, you can save the output as an object in your `Global Environment`.
+
+```{r}
+james_data %>%
+  group_by(Condition) %>%
+  summarise(mean = mean(Intrusions), 
+            sd = sd(Intrusions))
+```
+:::
+
+
+
+## Activity 5: Create an appropriate plot
+
+
+Now, let's visualise the data. The original paper uses a bar plot, but we’ll create a more informative plot instead.
+
+* Generate a violin-boxplot with the number of intrusive memories on the y-axis and experimental group on the x-axis.
+* Rename the y-axis title to *Number of Intrusions*.
+* Feel free to add any additional layers in your own time.
+
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Solution
+
+Here is one possible solution. The axis title could also have been modified using the `scale_y_continuous()` function.
+
+```{r}
+ggplot(james_data, aes(x = Condition, y = Intrusions))+
+  geom_violin()+
+  geom_boxplot(width = 0.2) +
+  labs(y = "Number of Intrusions")
+```
+
+This plot reveals a few potential outliers in each group. This information would be missing in a bar plot. This is why bar plots are not ideal for visualising this type of data.
+
+:::
+
+
+## Activity 6: Store the ANOVA model and check assumptions
+
+### The ANOVA model
+
+Before testing assumptions, we first need to store the ANOVA model.
+
+For designs with equal group sizes, we could use the `aov()` function from the `stats` package, which is part of `Base R`. The formula for `aov()` is:
+
+```{r eval=FALSE}
+aov(DV ~ IV, data)
+```
+
+However, there is a catch. `aov` only supports between-subjects designs. Additionally, it assumes balanced designs (i.e., equal sample sizes in each group; Type I sum of squares). It should not be used for unbalanced designs where group sizes differ.
+
+In our current design, this is not a concern since we have equal sample sizes and no within-subject variable. However, you may encounter different designs in the future, so we recommend a more flexible approach.
+
+Last week, we saw that the `lm()` function can handle categorical variables. We can apply it here.
+
+The structure of `lm()` is identical to `aov()`:
+
+```{r eval=FALSE}
+lm(DV ~ IV, data)
+```
+
+
+Let's use this approach with our variables and store the model in a separate object called `mod`:
+
+```{r}
+mod <- lm(Intrusions ~ Condition, data = james_data)
+```
+
+
+
+### Assumption checks
+
+Now that we have stored the model, we can proceed with the assumption checks. For a one-way independent ANOVA, the assumptions are the same as those for an independent t-test.
+
+
+#### Assumption 1: Continuous DV {.unnumbered}
+
+The dependent variable must be measured at interval or ratio level. We can confirm that by looking at `Intrusions`. 
+
+
+#### Assumption 2: Data are independent {.unnumbered}
+
+There should be no relationship between the observations. Scores in one condition or observation should not influence scores in another. We assume this assumption holds for our data.
+
+
+#### Assumption 3: The residuals of the DV should be normally distributed {.unnumbered}
+
+Again, this assumption applies to **each group**.
+
+There are several ways to test normality, and here we will use QQ plots from the `qqplotr` package.
+
+```{r}
+ggplot(james_data, aes(sample = Intrusions, fill = Condition)) +
+  stat_qq_band(alpha = 0.5) +
+  stat_qq_line() +
+  stat_qq_point() +
+  facet_wrap(~Condition) +
+  theme_bw() +
+  scale_fill_viridis_d()
+```
+
+Overall, the assumption of normality appears to hold.
+
+
+
+#### Assumption 4: Homoscedasticity (homogeneity of variance) {.unnumbered}
+
+This assumption requires the variances across the four groups to be similar (i.e., homoscedasticity). If the variances differ significantly between groups, this is known as heteroscedasticity.
+
+We can test this using **Levene’s Test for Equality of Variance**, available in the `car` package. The `leveneTest()` function takes the formula `DV ~ IV` and the data object as arguments. Here’s how to apply it:
+
+
+```{r}
+leveneTest(Intrusions ~ Condition, data = james_data)
+```
+
+The test output shows a p-value greater than .05, indicating that we do not have enough evidence to reject the null hypothesis. Therefore, we can assume that the variances across the four groups are equal.
+
+If reporting Levene’s Test in a report, you would need to follow APA style: 
+A Levene’s test of homogeneity of variances was conducted to compare the variances across the groups. The test indicated that the variances were homogeneous, $F(3,67) = 1.69, p = .177$.
+
+
+
+## Activity 7: Compute a one-way ANOVA
+
+We can compute the ANOVA output using the `anova_test()` function from the `rstatix` package. This function supports both model and formula input and allows additional arguments, such as specifying the type of ANOVA, calculating effect sizes, or manually defining within- or between-subject factors.
+
+More information can be found on the [rdocumentation support page](https://www.rdocumentation.org/packages/rstatix/versions/0.7.2/topics/anova_test){target="_blank"}
+
+
+In this example, we will use `anova_test()` on the model `mod`. Since `mod` already contains the data and formula, we only need to specify a few additional arguments:
+
+* `type` specifies the type of sums of squares for ANOVA. The default is `type = 2`, which produces identical results to `type = 1` when data are balanced, but `type = 2` will additionally yield various assumption tests where appropriate.
+* `effect.size` specifies the effect size. Here, we set it to "pes" (partial eta squared). Note that for one-way between-subjects designs, partial eta squared is equivalent to eta squared.
+
+
+```{r}
+anova_test(mod, type = 2, effect.size = "pes")
+```
+::: {.callout-tip} 
+
+Let's explore alternative ways to use the `anova_test()` function. As you will see, these approaches produce exactly the same output as the one above.
+
+::: {.panel-tabset group="layers"}
+## Option 1: Formula approach without a pre-defined model
+
+If you prefer not to store the model separately, you can directly specify the formula and data within the `anova_test()` function:
+
+```{r}
+anova_test(data = james_data, 
+           formula = Intrusions ~ Condition, 
+           type = 2, 
+           effect.size = "pes")
+```
+
+## Option 2: Specifying arguments individually
+
+If the formula approach isn't for you, you can specify the arguments individually.
+
+```{r eval=FALSE}
+anova_test(data, dv, wid, between, type, effect.size)
+```
+
+* data = The data object.
+* dv = The dependent variable (DV; numeric).
+* wid = The column name of the participant identifier (factor).
+* between = The optional between-subjects factor variables.
+* type = The type of sums of squares for ANOVA.
+* effect.size = The effect size to compute and to show in the ANOVA results.
+
+
+```{r}
+anova_test(data = james_data, 
+           dv = Intrusions,
+           wid = Participant_ID, 
+           between = Condition, 
+           type = 2, 
+           effect.size = "pes")
+```
+
+
+
+:::
+
+:::
+
+
+The output may be displayed slightly differently from what you saw in the lecture, but all the necessary numbers are there.
+
+::: {.callout-note icon="false"} 
+
+## Your Turn
+
+Answer the following questions:
+
+* Is the overall effect of Condition significant? `r mcq(c(answer = "Yes", "No"))`
+
+* What is the F-statistic rounded to 2 decimal places? `r fitb("3.79")`
+
+* According to the rules of thumb, the effect size is `r mcq(c("Small", "Medium", answer = "Large"))`
+
+:::
+
+
+
+::: {.callout-important}
+## What do I do if my One-way ANOVA uses a within-subject design???
+
+You can still use the `anova_test()` function as shown in Option 2. However, instead of the between argument, you would use the **within argument** to specify the within-subjects factor. The rest of the arguments remain the same as in Option 2.
+
+```{r eval=FALSE}
+anova_test(data, dv, wid, within, type, effect.size)
+```
+
+Obviously, we cannot run this for a within-subjects design, as today's dataset follows a between-subjects design.
+
+:::
+
+
+
+## Activity 8: Compute post-hoc tests and effect sizes
+
+### Post-hoc comparisons
+
+So far, we know that the model is significant, meaning there are differences between groups. However, we do not yet know which groups differ from one another.
+
+One approach would be to run independent Welch t-tests for each pairwise comparison between the four groups  (1 vs 2, 1 vs 3, 1 vs 4, etc.). This would involve some data wrangling (e.g., filtering and dropping factor levels) which is quite time-consuming. Furthermore, we would need to apply corrections for multiple comparisons manually. (Even though, note that the original authors did not mention whether or not they corrected for multiple comparisons.) 
+
+
+**A quicker and more efficient way** to perform these comparisons is by using the `emmeans()` function from the `emmeans` package. This function computes all possible pairwise t-tests and automatically applies a correction for multiple comparisons to the p-values.
+
+In this case, we will use the **Bonferroni adjustment** method.
+
+```{r}
+emmeans(mod, 
+        pairwise ~ Condition, 
+        adjust = "bonferroni")
+```
+
+The output consists of two tables:
+
+1. The first one (**$emmeans**) displays the means, standard errors, degrees of freedom, and confidence intervals (referred to as *Confidence Limits* here).
+
+2. The second (**$Contrasts**) contains the pairwise comparisons between all groups. The `estimate` represents the difference between groups, `t.ratio` is the t-value, and `p.value` provides the Bonferroni-corrected p-value. Note that there are no asterisks indicating significance - you will need to compare the p-values against the .05 cutoff manually.
+
+### Effect sizes for each comparison
+
+To compute effect sizes, we can use the `cohens_d` function from the `rstatix` package.
+
+```{r}
+cohens_d(data = james_data, 
+         formula = Intrusions ~ Condition)
+```
+
+
+
+## Activity 9: Sensitivity power analysis
+
+As always, we want to determine the smallest effect size that this study could detect, given its design and sample size.
+
+To do this, we use the pwr.anova.test() function from the pwr package. The key arguments for this function are:
+
+* `k` = The number of groups.
+* `n` = The number of participants in each group.
+* `sig.level` = The significance level of the study (usually set to 0.05). 
+* `power` = The power level of the study (usually set to 0.8).
+
+
+::: {.callout-caution collapse="true" icon="false"} 
+
+## Solution 
+
+```{r}
+pwr.anova.test(k = 4, n = 18, sig.level = .05, power = 0.8)
+```
+:::
+
+
+Since the power analysis computes Cohen’s f, but the model output provides partial eta squared, we need to convert the eta squared value into f to be able to compare the two. We can achieve this using the `eta2_to_f()` function from the `effectsize` package. The partial eta squared value from the model was 0.143.
+
+
+```{r}
+eta2_to_f(0.143)
+```
+
+The smallest effect size (Cohen's $f$) that can be detected with four groups, 18 participants in each group, a significance level of 0.05, and 80% power was $f = .40$. This was smaller than the effect size determined by the ANOVA ($\eta_p^2 = 0.143; f = 0.41)$. Therefore, the study was sufficiently powered.
+
+
+
+## Activity 10: The write-up
+
+A one-way between-subjects ANOVA was conducted on the 7-day diary post-intervention to examine the effect of cognitive task on overall intrusion scores. The analysis revealed a statistically significant effect,  $F(3, 68) = 3.79, p = .014, \eta_p^2 = 0.143$.
+
+Since the ANOVA result was significant, post-hoc pairwise comparisons were conducted with Bonferroni corrections for multiple comparisons to identify which groups differed significantly.
+
+Comparisons demonstrated that the reactivation-plus-Tetris group $(M = 1.89, SD = 1.75)$ experienced significantly fewer intrusive memories compared to
+the no-task control group $(M = 5.11, SD = 4.23)$, $t(68) = 3.04, p_{adj} = .020, d = 1.00$. This effect is considered large.
+
+Furthermore, the reactivation-plus-Tetris group $(M = 1.89, SD = 1.75)$ experienced significantly fewer intrusive memories compared to
+the reactivation-only group $(M = 4.83, SD = 3.33)$, $t(68) = 2.78, p_{adj} = .042, d = 1.11$. This effect is also considered large.
+
+There were no significant differences between the no-task control group and the Tetris-only group $(t(68) = 1.15, p_{adj} = 1, d = 0.34)$, the no-task control group and the reactivation-only group $(t(68) = 0.26, p_{adj} = 1, d = 0.07)$, the reactivation-plus-Tetris group and the Tetris-only group $(t(68) = 1.89, p_{adj} = .379, d = 0.84)$, or the Tetris-only group and the reactivation-only group $(t(68) = 0.89, p_{adj} = 1, d = 0.30)$.
+
 
 
 
 ## [Pair-coding]{style="color: #F39C12; text-transform: uppercase;"} {.unnumbered}
 
-
+*To be added*
 
 
 ## [Test your knowledge]{style="color: #F39C12; text-transform: uppercase;"} {.unnumbered}
 
-
+*To be added*

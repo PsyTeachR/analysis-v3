@@ -19,7 +19,7 @@ In the previous chapter, we have looked at simple regressions - predicting an ou
 
 This week, we will be working with a new dataset. Follow the steps below to set up your project:
 
-* **Create a new project** and name it something meaningful (e.g., "2B_chapter11", or "11_multople_regression"). See @sec-project if you need some guidance.
+* **Create a new project** and name it something meaningful (e.g., "2B_chapter11", or "11_multiple_regression"). See @sec-project if you need some guidance.
 * **Create a new `.Rmd` file** and save it to your project folder. See @sec-rmd if you need help. 
 * Delete everything after the setup code chunk (e.g., line 12 and below) 
 * **Download the new dataset** here: [data_ch11.zip](data/data_ch11.zip "download"). The zip folder includes:
