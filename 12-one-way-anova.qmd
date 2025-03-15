@@ -390,7 +390,7 @@ The output consists of two tables:
 
 1. The first one (**$emmeans**) displays the means, standard errors, degrees of freedom, and confidence intervals (referred to as *Confidence Limits* here).
 
-2. The second (**$Contrasts**) contains the pairwise comparisons between all groups. The `estimate` represents the difference between groups, `t.ratio` is the t-value, and `p.value` provides the Bonferroni-corrected p-value. Note that there are no asterisks indicating significance - you will need to compare the p-values against the .05 cutoff manually.
+2. The second (**$contrasts**) contains the pairwise comparisons between all groups. The `estimate` represents the difference between groups, `t.ratio` is the t-value, and `p.value` provides the Bonferroni-corrected p-value. Note that there are no asterisks indicating significance - you will need to compare the p-values against the .05 cutoff manually.
 
 ### Effect sizes for each comparison
 
@@ -407,7 +407,7 @@ cohens_d(data = james_data,
 
 As always, we want to determine the smallest effect size that this study could detect, given its design and sample size.
 
-To do this, we use the pwr.anova.test() function from the pwr package. The key arguments for this function are:
+To do this, we use the `pwr.anova.test()` function from the `pwr` package. The key arguments for this function are:
 
 * `k` = The number of groups.
 * `n` = The number of participants in each group.
