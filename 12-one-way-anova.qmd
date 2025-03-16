@@ -455,9 +455,215 @@ There were no significant differences between the no-task control group and the 
 
 ## [Pair-coding]{style="color: #F39C12; text-transform: uppercase;"} {.unnumbered}
 
-*To be added*
+### Task 1: Open the R project for the lab {.unnumbered}
 
+### Task 2: Create a new `.Rmd` file {.unnumbered}
+
+### Task 3: Load in the library and read in the data {.unnumbered}
+
+The data should already be in your project folder. If you want a fresh copy, you can download the data again here: [data_pair_coding](data/data_pair_coding.zip "download").
+
+We are using the packages `rstatix`, `tidyverse`, `qqplotr`, and `car` today.
+
+Just like last week, we also need to read in `dog_data_clean_wide.csv`. 
+
+```{r reading in data for me, echo=FALSE, message=FALSE}
+library(rstatix)
+library(tidyverse)
+library(qqplotr)
+library(car)
+
+dog_data_wide <- read_csv("data/dog_data_clean_wide.csv")
+
+dog_anova <- dog_data_wide %>%
+  select(RID, GroupAssignment, PANAS_PA_post) %>% 
+  mutate(GroupAssignment = factor(GroupAssignment))
+
+```
+
+
+### Task 4: Tidy data & Selecting variables of interest {.unnumbered}
+
+Let's define a potential research question:
+
+**How does the type of interaction with dogs (control, indirect contact, direct contact) affect Positive Affect (PA) scores on the PANAS?**
+
+
+To get the data into shape, we should **select our variables of interest** from `dog_data_wide` and **convert the intervention group into a factor** . Store this reduced dataset in an object called `dog_anova`.
+
+
+
+::: {.callout-caution collapse="true" icon="false"} 
+
+## Solution 
+
+```{r eval=FALSE}
+library(rstatix)
+library(tidyverse)
+library(qqplotr)
+library(car)
+
+dog_data_wide <- read_csv("dog_data_clean_wide.csv")
+
+dog_anova <- dog_data_wide %>%
+  select(RID, GroupAssignment, PANAS_PA_post) %>% 
+  mutate(GroupAssignment = factor(GroupAssignment))
+  
+```
+:::
+
+### Task 5: Model creating & Assumption checks {.unnumbered}
+
+Now, let's create our ANOVA model.
+
+According to our research question, we have the following model variables: 
+
+* Dependent Variable (DV): levels of positive emotions, as assessed by the PANAS, at post intervention
+* Independent Variable (IV): Intervention Group (control, indirect contact, direct contact)
+
+
+As a reminder, the ANOVA model has the following structure:
+
+```{r eval=FALSE}
+lm(DV ~ IV, data)
+```
+
+
+Let’s use this approach with our variables and store the model in a separate object called mod:
+
+
+```{r}
+mod <- lm(PANAS_PA_post ~ GroupAssignment, data = dog_anova)
+```
+
+Lets check some assumptions:
+
+You see the following output.
+
+```{r}
+ggplot(dog_anova, aes(sample = PANAS_PA_post, fill = GroupAssignment)) +
+  stat_qq_band(alpha = 0.5) +
+  stat_qq_line() +
+  stat_qq_point() +
+  facet_wrap(~GroupAssignment) +
+  theme_bw() +
+  scale_fill_viridis_d()
+```
+
+* Which assumption was checked in the plot above? `r fitb(c("Normality", "normality"))`
+* Does the assumption hold? `r mcq(c(answer = "Yes", "No"))`
+
+
+
+```{r eval=FALSE}
+leveneTest(PANAS_PA_post ~ GroupAssignment, data = dog_anova)
+```
+You run the line of code above and the outcome of the Levene's test is reported as $F(2,277) = 0.68, p = .507$. What does that mean?
+
+`r longmcq(sample(c(answer = "The p-value is non-significant, and the assumption of homogeneity of variance is met.", x = "The p-value is non-significant, and the assumption of homogeneity of variance is violated.", x = "The p-value is significant, and the assumption of homogeneity of variance is met.", x = "The p-value is significant, and the assumption of homogeneity of variance is violated.")))`
+
+
+### Task 6: Interpreting the output {.unnumbered}
+
+
+```{r}
+anova_test(mod, type = 2, effect.size = "pes")
+```
+
+How do you interpret the results?
+
+`r longmcq(sample(c(answer = "The effect of GroupAssignment is not significant, indicating no meaningful difference between groups.", x = "The effect of GroupAssignment is significant, meaning at least one group differs from the others.", x = "The effect size (ηₚ² = 0.504) suggests a large effect of GroupAssignment on the outcome variable.", x = "The F-value (F = 0.687) suggests a moderate effect, but more comparisons are needed." )))`
 
 ## [Test your knowledge]{style="color: #F39C12; text-transform: uppercase;"} {.unnumbered}
 
-*To be added*
+#### Question 1 {.unnumbered}
+
+**Why do we use a one-way ANOVA instead of multiple independent t-tests when comparing three or more groups?**
+
+`r longmcq(sample(c( answer = "ANOVA reduces the risk of Type I errors caused by multiple comparisons.", x = "ANOVA is the only test that works when sample sizes are unequal.", x = "ANOVA can test for interactions between independent variables.", x = "ANOVA does not require the dependent variable to be normally distributed." )))`
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Explain this answer
+
+Correct Answer:
+
+**ANOVA reduces the risk of Type I errors caused by multiple comparisons** is correct because performing multiple comparisons increases the risk of Type I errors (false positives). 
+
+
+Incorrect Answers:
+
+* "ANOVA can test for interactions between independent variables" is incorrect because testing for interactions requires a factorial ANOVA, not a one-way ANOVA.
+* "ANOVA is the only test that works when sample sizes are unequal" is incorrect because unequal sample sizes can be handled in both ANOVA and t-tests.
+* "ANOVA does not require the dependent variable to be normally distributed" is incorrect because normality of the dependent variable is still an assumption for ANOVA.
+
+:::
+
+#### Question 2 {.unnumbered}
+
+**Which assumption must be met for an ANOVA to be valid?**
+
+`r longmcq(sample(c(answer = "The residuals of the dependent variable should be normally distributed in each group.", x = "The independent variable must be measured on an interval scale.", x = "The groups must have different sample sizes.", x = "Each group must have an equal mean before running ANOVA.")))`
+
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Explain this answer
+
+The correct answer: ANOVA assumes that the residuals of the dependent variable are normally distributed within each group to ensure valid results.
+
+The other options are incorrect:
+
+* The independent variable in ANOVA is categorical, not interval or ratio.
+* While equal sample sizes can be beneficial, ANOVA does not require them to be different (or equal for that matter).
+* The groups are not required to have equal means before running the ANOVA. ANOVA is used to test for mean differences.
+
+* One incorrect option includes an interaction term (`*`), which was not specified in the task. A basic multiple regression only includes main effects (`+`).
+* Another incorrect option swaps the predictor and outcome, which would lead to an incorrect model specification.
+* The last incorrect option incorrectly treats test anxiety as the outcome, when it is actually a predictor in the model.
+:::
+
+
+#### Question 3 {.unnumbered}
+
+**After finding a significant ANOVA result, which of the following statements about post-hoc tests is true?**
+
+
+`r longmcq(sample(c(answer = "Post-hoc tests help identify which specific groups differ after a significant ANOVA result.", x = "Post-hoc tests should only be conducted if Levene’s test is significant.", x = "A significant ANOVA result automatically tells us which groups are different without further tests.", x = "Post-hoc tests are unnecessary unless more than five groups are being compared.")))`
+
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Explain this answer
+
+Correct Answer:
+
+ANOVA tells us that at least one group differs significantly from another, but post-hoc tests (e.g., Tukey, Bonferroni) are needed to determine which specific groups are different.
+
+Why are the other options incorrect?
+
+* Post-hoc tests are used after a significant ANOVA result, regardless of Levene’s test outcome.
+* ANOVA does not automatically tell us which groups differ. It only detects an overall effect. That's why we have to run a post-hoc test.
+* Post-hoc tests are necessary whenever there are more than two groups, not just when there are more than five.
+
+:::
+
+
+
+#### Question 4 {.unnumbered}
+
+**A researcher reports an effect size of ηₚ² = 0.02 after conducting a one-way ANOVA. How should this effect size be interpreted?**
+
+`r longmcq(sample(c(answer = "Small effect", x = "Moderate effect", x = "Large effect", x = "Cannot determine without the F-ratio" )))`
+
+::: {.callout-caution collapse="true" icon="false"}
+
+## Explain this answer
+
+According to Cohen’s guidelines, ηₚ² = 0.01 is small, ηₚ² = 0.06 is medium, and ηₚ² = 0.14 is large. Since 0.02 is closer to 0.01, it represents a small effect.
+
+The effect size is independent of the F-ratio. You do not need the F-ratio to interpret ηₚ².
+
+:::
+
+

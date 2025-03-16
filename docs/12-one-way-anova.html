@@ -310,7 +310,17 @@ gtag('config', 'G-6NP3MF25W3', { 'anonymize_ip': true});
 </li>
   <li><a href="#activity-9-sensitivity-power-analysis" id="toc-activity-9-sensitivity-power-analysis" class="nav-link" data-scroll-target="#activity-9-sensitivity-power-analysis"><span class="header-section-number">12.9</span> Activity 9: Sensitivity power analysis</a></li>
   <li><a href="#activity-10-the-write-up" id="toc-activity-10-the-write-up" class="nav-link" data-scroll-target="#activity-10-the-write-up"><span class="header-section-number">12.10</span> Activity 10: The write-up</a></li>
-  <li><a href="#pair-coding" id="toc-pair-coding" class="nav-link" data-scroll-target="#pair-coding"><span style="color: #F39C12; text-transform: uppercase;">Pair-coding</span></a></li>
+  <li>
+<a href="#pair-coding" id="toc-pair-coding" class="nav-link" data-scroll-target="#pair-coding"><span style="color: #F39C12; text-transform: uppercase;">Pair-coding</span></a>
+  <ul class="collapse">
+<li><a href="#task-1-open-the-r-project-for-the-lab" id="toc-task-1-open-the-r-project-for-the-lab" class="nav-link" data-scroll-target="#task-1-open-the-r-project-for-the-lab">Task 1: Open the R project for the lab</a></li>
+  <li><a href="#task-2-create-a-new-.rmd-file" id="toc-task-2-create-a-new-.rmd-file" class="nav-link" data-scroll-target="#task-2-create-a-new-.rmd-file">Task 2: Create a new <code>.Rmd</code> file</a></li>
+  <li><a href="#task-3-load-in-the-library-and-read-in-the-data" id="toc-task-3-load-in-the-library-and-read-in-the-data" class="nav-link" data-scroll-target="#task-3-load-in-the-library-and-read-in-the-data">Task 3: Load in the library and read in the data</a></li>
+  <li><a href="#task-4-tidy-data-selecting-variables-of-interest" id="toc-task-4-tidy-data-selecting-variables-of-interest" class="nav-link" data-scroll-target="#task-4-tidy-data-selecting-variables-of-interest">Task 4: Tidy data &amp; Selecting variables of interest</a></li>
+  <li><a href="#task-5-model-creating-assumption-checks" id="toc-task-5-model-creating-assumption-checks" class="nav-link" data-scroll-target="#task-5-model-creating-assumption-checks">Task 5: Model creating &amp; Assumption checks</a></li>
+  <li><a href="#task-6-interpreting-the-output" id="toc-task-6-interpreting-the-output" class="nav-link" data-scroll-target="#task-6-interpreting-the-output">Task 6: Interpreting the output</a></li>
+  </ul>
+</li>
   <li><a href="#test-your-knowledge" id="toc-test-your-knowledge" class="nav-link" data-scroll-target="#test-your-knowledge"><span style="color: #F39C12; text-transform: uppercase;">Test your knowledge</span></a></li>
   </ul></nav>
     </div>
@@ -1013,12 +1023,234 @@ NOTE: n is number in each group</code></pre>
 <p>Furthermore, the reactivation-plus-Tetris group <span class="math inline">\((M = 1.89, SD = 1.75)\)</span> experienced significantly fewer intrusive memories compared to the reactivation-only group <span class="math inline">\((M = 4.83, SD = 3.33)\)</span>, <span class="math inline">\(t(68) = 2.78, p_{adj} = .042, d = 1.11\)</span>. This effect is also considered large.</p>
 <p>There were no significant differences between the no-task control group and the Tetris-only group <span class="math inline">\((t(68) = 1.15, p_{adj} = 1, d = 0.34)\)</span>, the no-task control group and the reactivation-only group <span class="math inline">\((t(68) = 0.26, p_{adj} = 1, d = 0.07)\)</span>, the reactivation-plus-Tetris group and the Tetris-only group <span class="math inline">\((t(68) = 1.89, p_{adj} = .379, d = 0.84)\)</span>, or the Tetris-only group and the reactivation-only group <span class="math inline">\((t(68) = 0.89, p_{adj} = 1, d = 0.30)\)</span>.</p>
 </section><section id="pair-coding" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="pair-coding"><span style="color: #F39C12; text-transform: uppercase;">Pair-coding</span></h2>
-<p><em>To be added</em></p>
-</section><section id="test-your-knowledge" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="test-your-knowledge"><span style="color: #F39C12; text-transform: uppercase;">Test your knowledge</span></h2>
-<p><em>To be added</em></p>
+<section id="task-1-open-the-r-project-for-the-lab" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="task-1-open-the-r-project-for-the-lab">Task 1: Open the R project for the lab</h3>
+</section><section id="task-2-create-a-new-.rmd-file" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="task-2-create-a-new-.rmd-file">Task 2: Create a new <code>.Rmd</code> file</h3>
+</section><section id="task-3-load-in-the-library-and-read-in-the-data" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="task-3-load-in-the-library-and-read-in-the-data">Task 3: Load in the library and read in the data</h3>
+<p>The data should already be in your project folder. If you want a fresh copy, you can download the data again here: <a href="data/data_pair_coding.zip" title="download">data_pair_coding</a>.</p>
+<p>We are using the packages <code>rstatix</code>, <code>tidyverse</code>, <code>qqplotr</code>, and <code>car</code> today.</p>
+<p>Just like last week, we also need to read in <code>dog_data_clean_wide.csv</code>.</p>
+</section><section id="task-4-tidy-data-selecting-variables-of-interest" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="task-4-tidy-data-selecting-variables-of-interest">Task 4: Tidy data &amp; Selecting variables of interest</h3>
+<p>Let’s define a potential research question:</p>
+<p><strong>How does the type of interaction with dogs (control, indirect contact, direct contact) affect Positive Affect (PA) scores on the PANAS?</strong></p>
+<p>To get the data into shape, we should <strong>select our variables of interest</strong> from <code>dog_data_wide</code> and <strong>convert the intervention group into a factor</strong> . Store this reduced dataset in an object called <code>dog_anova</code>.</p>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="fu">library</span>(rstatix)</span>
+<span id="cb24-2"><a href="#cb24-2"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb24-3"><a href="#cb24-3"></a><span class="fu">library</span>(qqplotr)</span>
+<span id="cb24-4"><a href="#cb24-4"></a><span class="fu">library</span>(car)</span>
+<span id="cb24-5"><a href="#cb24-5"></a></span>
+<span id="cb24-6"><a href="#cb24-6"></a>dog_data_wide <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"dog_data_clean_wide.csv"</span>)</span>
+<span id="cb24-7"><a href="#cb24-7"></a></span>
+<span id="cb24-8"><a href="#cb24-8"></a>dog_anova <span class="ot">&lt;-</span> dog_data_wide <span class="sc">%&gt;%</span></span>
+<span id="cb24-9"><a href="#cb24-9"></a>  <span class="fu">select</span>(RID, GroupAssignment, PANAS_PA_post) <span class="sc">%&gt;%</span> </span>
+<span id="cb24-10"><a href="#cb24-10"></a>  <span class="fu">mutate</span>(<span class="at">GroupAssignment =</span> <span class="fu">factor</span>(GroupAssignment))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="task-5-model-creating-assumption-checks" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="task-5-model-creating-assumption-checks">Task 5: Model creating &amp; Assumption checks</h3>
+<p>Now, let’s create our ANOVA model.</p>
+<p>According to our research question, we have the following model variables:</p>
+<ul>
+<li>Dependent Variable (DV): levels of positive emotions, as assessed by the PANAS, at post intervention</li>
+<li>Independent Variable (IV): Intervention Group (control, indirect contact, direct contact)</li>
+</ul>
+<p>As a reminder, the ANOVA model has the following structure:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="fu">lm</span>(DV <span class="sc">~</span> IV, data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let’s use this approach with our variables and store the model in a separate object called mod:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(PANAS_PA_post <span class="sc">~</span> GroupAssignment, <span class="at">data =</span> dog_anova)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Lets check some assumptions:</p>
+<p>You see the following output.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="fu">ggplot</span>(dog_anova, <span class="fu">aes</span>(<span class="at">sample =</span> PANAS_PA_post, <span class="at">fill =</span> GroupAssignment)) <span class="sc">+</span></span>
+<span id="cb27-2"><a href="#cb27-2"></a>  <span class="fu">stat_qq_band</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb27-3"><a href="#cb27-3"></a>  <span class="fu">stat_qq_line</span>() <span class="sc">+</span></span>
+<span id="cb27-4"><a href="#cb27-4"></a>  <span class="fu">stat_qq_point</span>() <span class="sc">+</span></span>
+<span id="cb27-5"><a href="#cb27-5"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>GroupAssignment) <span class="sc">+</span></span>
+<span id="cb27-6"><a href="#cb27-6"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb27-7"><a href="#cb27-7"></a>  <span class="fu">scale_fill_viridis_d</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="12-one-way-anova_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>Which assumption was checked in the plot above? <input class="webex-solveme nospaces" size="9" data-answer="[&quot;Normality&quot;,&quot;normality&quot;]">
+</li>
+<li>Does the assumption hold? <select class="webex-select"><option value="blank"></option>
+<option value="answer">Yes</option>
+<option value="">No</option></select>
+</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="fu">leveneTest</span>(PANAS_PA_post <span class="sc">~</span> GroupAssignment, <span class="at">data =</span> dog_anova)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You run the line of code above and the outcome of the Levene’s test is reported as <span class="math inline">\(F(2,277) = 0.68, p = .507\)</span>. What does that mean?</p>
+<div id="radio_LXHTJAMCYC" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_LXHTJAMCYC" value="x"><span>The p-value is non-significant, and the assumption of homogeneity of variance is violated.</span></label><label><input type="radio" autocomplete="off" name="radio_LXHTJAMCYC" value="answer"><span>The p-value is non-significant, and the assumption of homogeneity of variance is met.</span></label><label><input type="radio" autocomplete="off" name="radio_LXHTJAMCYC" value="x"><span>The p-value is significant, and the assumption of homogeneity of variance is violated.</span></label><label><input type="radio" autocomplete="off" name="radio_LXHTJAMCYC" value="x"><span>The p-value is significant, and the assumption of homogeneity of variance is met.</span></label>
+</div>
+</section><section id="task-6-interpreting-the-output" class="level3 unnumbered"><h3 class="unnumbered anchored" data-anchor-id="task-6-interpreting-the-output">Task 6: Interpreting the output</h3>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="fu">anova_test</span>(mod, <span class="at">type =</span> <span class="dv">2</span>, <span class="at">effect.size =</span> <span class="st">"pes"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: left;">Effect</th>
+<th style="text-align: right;">DFn</th>
+<th style="text-align: right;">DFd</th>
+<th style="text-align: right;">F</th>
+<th style="text-align: right;">p</th>
+<th style="text-align: left;">p&lt;.05</th>
+<th style="text-align: right;">pes</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td style="text-align: left;">GroupAssignment</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">277</td>
+<td style="text-align: right;">0.687</td>
+<td style="text-align: right;">0.504</td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;">0.005</td>
+</tr></tbody>
+</table>
+</div>
+</div>
+</div>
+<p>How do you interpret the results?</p>
+<div id="radio_ZOQBTZXLMH" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_ZOQBTZXLMH" value="x"><span>The effect of GroupAssignment is significant, meaning at least one group differs from the others.</span></label><label><input type="radio" autocomplete="off" name="radio_ZOQBTZXLMH" value="x"><span>The effect size (ηₚ² = 0.504) suggests a large effect of GroupAssignment on the outcome variable.</span></label><label><input type="radio" autocomplete="off" name="radio_ZOQBTZXLMH" value="x"><span>The F-value (F = 0.687) suggests a moderate effect, but more comparisons are needed.</span></label><label><input type="radio" autocomplete="off" name="radio_ZOQBTZXLMH" value="answer"><span>The effect of GroupAssignment is not significant, indicating no meaningful difference between groups.</span></label>
+</div>
+</section></section><section id="test-your-knowledge" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="test-your-knowledge"><span style="color: #F39C12; text-transform: uppercase;">Test your knowledge</span></h2>
+<section id="question-1" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-1">Question 1</h4>
+<p><strong>Why do we use a one-way ANOVA instead of multiple independent t-tests when comparing three or more groups?</strong></p>
+<div id="radio_QWAIWCBTBK" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_QWAIWCBTBK" value="x"><span>ANOVA is the only test that works when sample sizes are unequal.</span></label><label><input type="radio" autocomplete="off" name="radio_QWAIWCBTBK" value="answer"><span>ANOVA reduces the risk of Type I errors caused by multiple comparisons.</span></label><label><input type="radio" autocomplete="off" name="radio_QWAIWCBTBK" value="x"><span>ANOVA does not require the dependent variable to be normally distributed.</span></label><label><input type="radio" autocomplete="off" name="radio_QWAIWCBTBK" value="x"><span>ANOVA can test for interactions between independent variables.</span></label>
+</div>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Explain this answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Correct Answer:</p>
+<p><strong>ANOVA reduces the risk of Type I errors caused by multiple comparisons</strong> is correct because performing multiple comparisons increases the risk of Type I errors (false positives).</p>
+<p>Incorrect Answers:</p>
+<ul>
+<li>“ANOVA can test for interactions between independent variables” is incorrect because testing for interactions requires a factorial ANOVA, not a one-way ANOVA.</li>
+<li>“ANOVA is the only test that works when sample sizes are unequal” is incorrect because unequal sample sizes can be handled in both ANOVA and t-tests.</li>
+<li>“ANOVA does not require the dependent variable to be normally distributed” is incorrect because normality of the dependent variable is still an assumption for ANOVA.</li>
+</ul>
+</div>
+</div>
+</div>
+</section><section id="question-2" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-2">Question 2</h4>
+<p><strong>Which assumption must be met for an ANOVA to be valid?</strong></p>
+<div id="radio_VDNJXJCOBE" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_VDNJXJCOBE" value="answer"><span>The residuals of the dependent variable should be normally distributed in each group.</span></label><label><input type="radio" autocomplete="off" name="radio_VDNJXJCOBE" value="x"><span>Each group must have an equal mean before running ANOVA.</span></label><label><input type="radio" autocomplete="off" name="radio_VDNJXJCOBE" value="x"><span>The independent variable must be measured on an interval scale.</span></label><label><input type="radio" autocomplete="off" name="radio_VDNJXJCOBE" value="x"><span>The groups must have different sample sizes.</span></label>
+</div>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Explain this answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-12" class="callout-12-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The correct answer: ANOVA assumes that the residuals of the dependent variable are normally distributed within each group to ensure valid results.</p>
+<p>The other options are incorrect:</p>
+<ul>
+<li><p>The independent variable in ANOVA is categorical, not interval or ratio.</p></li>
+<li><p>While equal sample sizes can be beneficial, ANOVA does not require them to be different (or equal for that matter).</p></li>
+<li><p>The groups are not required to have equal means before running the ANOVA. ANOVA is used to test for mean differences.</p></li>
+<li><p>One incorrect option includes an interaction term (<code>*</code>), which was not specified in the task. A basic multiple regression only includes main effects (<code>+</code>).</p></li>
+<li><p>Another incorrect option swaps the predictor and outcome, which would lead to an incorrect model specification.</p></li>
+<li><p>The last incorrect option incorrectly treats test anxiety as the outcome, when it is actually a predictor in the model.</p></li>
+</ul>
+</div>
+</div>
+</div>
+</section><section id="question-3" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-3">Question 3</h4>
+<p><strong>After finding a significant ANOVA result, which of the following statements about post-hoc tests is true?</strong></p>
+<div id="radio_MBVHPTEGUU" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_MBVHPTEGUU" value="x"><span>Post-hoc tests are unnecessary unless more than five groups are being compared.</span></label><label><input type="radio" autocomplete="off" name="radio_MBVHPTEGUU" value="answer"><span>Post-hoc tests help identify which specific groups differ after a significant ANOVA result.</span></label><label><input type="radio" autocomplete="off" name="radio_MBVHPTEGUU" value="x"><span>Post-hoc tests should only be conducted if Levene’s test is significant.</span></label><label><input type="radio" autocomplete="off" name="radio_MBVHPTEGUU" value="x"><span>A significant ANOVA result automatically tells us which groups are different without further tests.</span></label>
+</div>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Explain this answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-13" class="callout-13-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Correct Answer:</p>
+<p>ANOVA tells us that at least one group differs significantly from another, but post-hoc tests (e.g., Tukey, Bonferroni) are needed to determine which specific groups are different.</p>
+<p>Why are the other options incorrect?</p>
+<ul>
+<li>Post-hoc tests are used after a significant ANOVA result, regardless of Levene’s test outcome.</li>
+<li>ANOVA does not automatically tell us which groups differ. It only detects an overall effect. That’s why we have to run a post-hoc test.</li>
+<li>Post-hoc tests are necessary whenever there are more than two groups, not just when there are more than five.</li>
+</ul>
+</div>
+</div>
+</div>
+</section><section id="question-4" class="level4 unnumbered"><h4 class="unnumbered anchored" data-anchor-id="question-4">Question 4</h4>
+<p><strong>A researcher reports an effect size of ηₚ² = 0.02 after conducting a one-way ANOVA. How should this effect size be interpreted?</strong></p>
+<div id="radio_MLOWNROELM" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_MLOWNROELM" value="x"><span>Large effect</span></label><label><input type="radio" autocomplete="off" name="radio_MLOWNROELM" value="x"><span>Moderate effect</span></label><label><input type="radio" autocomplete="off" name="radio_MLOWNROELM" value="answer"><span>Small effect</span></label><label><input type="radio" autocomplete="off" name="radio_MLOWNROELM" value="x"><span>Cannot determine without the F-ratio</span></label>
+</div>
+<div class="callout callout-style-default callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Explain this answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-14" class="callout-14-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>According to Cohen’s guidelines, ηₚ² = 0.01 is small, ηₚ² = 0.06 is medium, and ηₚ² = 0.14 is large. Since 0.02 is closer to 0.01, it represents a small effect.</p>
+<p>The effect size is independent of the F-ratio. You do not need the F-ratio to interpret ηₚ².</p>
+</div>
+</div>
+</div>
 
 
-</section></main><!-- /main --><script>
+</section></section></main><!-- /main --><script>
 
 /* update total correct if #webex-total_correct exists */
 update_total_correct = function() {
