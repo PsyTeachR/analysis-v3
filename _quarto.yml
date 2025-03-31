@@ -62,6 +62,7 @@ book:
   - 10-regression.qmd
   - 11-multiple-regression.qmd
   - 12-one-way-anova.qmd
+  - 13-factorial-anova.qmd
   appendices:
   - appendix-a-installing-r.qmd
   - appendix-b-updating-packages.qmd
